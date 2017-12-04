@@ -1,0 +1,40 @@
+package nl.erends.advent.year2015;
+
+import nl.erends.advent.util.FileIO;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class Day12 {
+    public static void main(String[] args) throws Exception {
+        int sum = 0;
+        char[] line = FileIO.getFileAsList("C:\\Users\\marke\\IdeaProjects\\Adventofcode\\resource\\2015day12.txt").get(0).toCharArray();
+        Set<Character> allowed = new HashSet<>();
+        allowed.add('0');
+        allowed.add('1');
+        allowed.add('2');
+        allowed.add('3');
+        allowed.add('4');
+        allowed.add('5');
+        allowed.add('6');
+        allowed.add('7');
+        allowed.add('8');
+        allowed.add('9');
+        allowed.add('-');
+        for (int i = 0; i < line.length; i++) {
+            if (!allowed.contains(line[i])) {
+                line[i] = ' ';
+            }
+        }
+        String lineString = new String(line);
+        String[] words = lineString.split(" ");
+        for (String word : words) {
+            if (!word.equals("")) {
+                sum += Integer.parseInt(word);
+            }
+        }
+        System.out.println(sum);
+
+    }
+}
