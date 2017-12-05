@@ -9,7 +9,7 @@ public class Day2 {
 
     public static void main(String[] args) {
         int lint = 0;
-        List<String> regels = FileIO.getFileAsList("C:\\Users\\marke\\IdeaProjects\\Adventofcode\\resource\\2015day2.txt");
+        List<String> regels = FileIO.getFileAsList("2015day2.txt");
         for (String regel : regels) {
             lint += omtrek(regel);
             lint += inhoud(regel);

@@ -3,6 +3,7 @@ package nl.erends.advent.util;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -23,14 +24,7 @@ public class FileIO {
      * @return String
      */
     public static String getFileAsString(String filename) {
-        String test = "";
-        try  {
-            test = new String(Files.readAllBytes(Paths.get(filename)));
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-        return test;
-
+        return FileIO.getFileAsList(filename).get(0);
     }
 
     /**
@@ -61,11 +55,12 @@ public class FileIO {
      */
     public static List<String> getFileAsList(String filename) {
         List<String> list = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-            String input;
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(FileIO.class.getResourceAsStream("/"+ filename)));
+                String input;
             while ((input = br.readLine()) != null) {
-                list.add(input);
-            }
+                    list.add(input);
+                }
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
