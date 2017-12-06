@@ -55,7 +55,7 @@ public class Day6 {
 
 	static void reallocate(int[] memory) {
 		int highestIndex = 0;
-		int highestValue = Integer.MIN_VALUE;
+		int highestValue = memory[highestIndex];
 		for (int index = 0; index < memory.length; index++) {
 			if (memory[index] > highestValue) {
 				highestIndex = index;
