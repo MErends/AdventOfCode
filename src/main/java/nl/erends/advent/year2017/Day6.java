@@ -16,29 +16,33 @@ public class Day6 {
 		for (int i = 0; i < input.length; i++) {
 			memory[i] = Integer.parseInt(input[i]);
 		}
-		//memory = new int[]{0,2,7,0};
 		System.out.println(solve1(memory));
-
-
 		for (int i = 0; i < input.length; i++) {
 			memory[i] = Integer.parseInt(input[i]);
 		}
-		memory = new int[]{0,2,7,0};
 		System.out.println(solve2(memory));
 	}
 
 	static int solve1(int[] memory) {
-		List<Integer> appaerances = new ArrayList<>();
-		appaerances.add(Arrays.hashCode(memory));
+		List<Integer> appearances = new ArrayList<>();
+		appearances.add(Arrays.hashCode(memory));
 		int steps = 0;
+		boolean secondLoop = false;
 		while (true) {
 			reallocate(memory);
 			steps++;
 			int hash = Arrays.hashCode(memory);
-			if (appaerances.contains(hash)) {
-				break;
+			if (appearances.contains(hash)) {
+				if (Day6.PART_2 && !secondLoop) {
+					appearances.clear();
+					appearances.add(hash);
+					steps = 0;
+					secondLoop = true;
+				} else {
+					break;
+				}
 			} else {
-				appaerances.add(hash);
+				appearances.add(hash);
 			}
 		}
 		return steps;
