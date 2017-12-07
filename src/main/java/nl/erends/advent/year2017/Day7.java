@@ -16,7 +16,7 @@ public class Day7 {
 		    String[] nodeInfo = words[0].split(" ");
 		    String name = nodeInfo[0];
 		    int weight = Integer.parseInt(nodeInfo[1].substring(1, nodeInfo[1].length() - 1));
-		    List<String> supports = new ArrayList<String>();
+		    List<String> supports = new ArrayList<>();
 		    if (words.length > 1) {
 		        String[] supportedNodes = words[1].split(",");
 		        for (String supportedNode : supportedNodes) {
@@ -27,12 +27,18 @@ public class Day7 {
         }
 
         System.out.println(Day7.solve1());
+
+		for (Node node : nodes.values()) {
+			if (!node.isBalanced()) {
+				System.out.println(node.getBalanceEquation());
+			}
+		}
 	}
 
 	static String solve1() {
         for (Node node : nodes.values()) {
-            if (node.supportedBy == null) {
-                return node.getSupportedBy();
+            if (node.getSupportedBy() == null) {
+                return node.getName();
             }
         }
         return "-1";
@@ -44,7 +50,8 @@ class Node {
     int weight;
     List<String> supports;
     String supportedBy;
-    int supportedWeight;
+    int totalWeight;
+    int level;
 
     public Node(String name, int weight, List<String> supports) {
         this.name = name;
@@ -76,7 +83,48 @@ class Node {
         return supportedBy;
     }
 
-    public int getSupportedWeight() {
-        return supportedWeight;
+    public int getTotalWeight() {
+    	if (totalWeight == 0) {
+    		for (String upperNode : supports) {
+    			totalWeight += Day7.nodes.get(upperNode).getTotalWeight();
+			}
+			totalWeight += weight;
+		}
+        return totalWeight;
     }
+
+	public int getLevel() {
+    	if (level == 0) {
+    		if (getSupportedBy() == null) {
+    			level = 1;
+			} else {
+    			level = Day7.nodes.get(getSupportedBy()).getLevel() + 1;
+			}
+		}
+		return level;
+	}
+
+	public boolean isBalanced() {
+    	if (supports.isEmpty()) {
+    		return true;
+		} else {
+    		int supportEachWeight = Day7.nodes.get(supports.get(0)).getTotalWeight();
+    		for (String supportsName : supports) {
+    			if (Day7.nodes.get(supportsName).getTotalWeight() != supportEachWeight) {
+    				return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	public String getBalanceEquation() {
+    	String output = "";
+    	for (String supportsName : supports) {
+			Node supportNode = Day7.nodes.get(supportsName);
+			output += supportNode.getWeight() + " -> " + supportNode.getTotalWeight() + "\n";
+
+		}
+		return output;
+	}
 }
