@@ -6,10 +6,10 @@ public class Day15 {
         Generator genA = new Generator(699, 16807);
         Generator genB = new Generator(124, 48271);
         int equals = 0;
-        for (int i = 0; i< 40_000_000; i++) {
+        for (int i = 0; i < 40_000_000; i++) {
             long a = genA.getNextNumber();
             long b = genB.getNextNumber();
-            if (judgeEquals(a, b)) {
+            if ((a & 0xffff) == (b & 0xffff)) {
                 equals++;
             }
 
@@ -19,25 +19,15 @@ public class Day15 {
         genA = new Generator(699, 16807);
         genB = new Generator(124, 48271);
         equals = 0;
-        for (int i = 0; i< 5_000_000; i++) {
+        for (int i = 0; i < 5_000_000; i++) {
             long a = genA.getNextMultiple(4);
             long b = genB.getNextMultiple(8);
-            if (judgeEquals(a, b)) {
+            if ((a & 0xffff) == (b & 0xffff)) {
                 equals++;
             }
 
         }
         System.out.println(equals);
-	}
-
-	private static boolean judgeEquals(long a, long b) {
-        StringBuilder sbA = new StringBuilder(Long.toBinaryString(a));
-        while (sbA.length() < 32) sbA.insert(0, '0');
-        String aString = sbA.substring(16);
-        StringBuilder sbB = new StringBuilder(Long.toBinaryString(b));
-        while (sbB.length() < 32) sbB.insert(0, '0');
-        String bString = sbB.substring(16);
-        return (aString.equals(bString));
     }
 }
 
