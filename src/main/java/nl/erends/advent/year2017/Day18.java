@@ -57,7 +57,7 @@ public class Day18 {
                 case "jgz": {
                     long memory = getMemory(words[1]);
                     long offset = getMemory(words[2]);
-                    if (memory != 0) {
+                    if (memory > 0) {
                         pointer += offset;
                         continue;
                     }
@@ -77,12 +77,13 @@ public class Day18 {
 
         synchronized (Day18.part2Lock) {
             try {
-                Day18.part2Lock.wait();
+                Day18.part2Lock.wait(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        //Should be more than 410 and less than 13214
+        System.out.println(machine1.sendCommands);
+        System.exit(0);
     }
 
 
@@ -109,6 +110,7 @@ class Machine implements Runnable {
 
     private Map<String, Long> memoryMap = new HashMap<>();
     private int id;
+    public int sendCommands = 0;
 
     Machine(int id) {
         this.id = id;
@@ -116,21 +118,19 @@ class Machine implements Runnable {
 
     @Override
     public void run() {
-        List<String> commands = FileIO.getFileAsList("2017day18_test_2.txt");
+        List<String> commands = FileIO.getFileAsList("2017day18.txt");
         memoryMap.put("p", (long) id);
         int pointer = 0;
-        int sendCommands = 0;
         while (pointer >=0 && pointer < commands.size()) {
             String[] words = commands.get(pointer).split(" ");
             switch (words[0]) {
                 case "snd": {
                     long toSend = getMemory(words[1]);
                     if (id == 0) {
-//                            System.out.println("Sending " + toSend + " on queue to 1");
                         Day18.queueFor1.add(toSend);
                     } else {
 //                            System.out.println("Sending " + toSend + " on queue to 0");
-                        System.out.println("Commands sent: " + ++sendCommands);
+                        ++sendCommands;
                         Day18.queueFor0.add(toSend);
                     }
                     break;
@@ -183,7 +183,7 @@ class Machine implements Runnable {
                 case "jgz": {
                     long memory = getMemory(words[1]);
                     long offset = getMemory(words[2]);
-                    if (memory != 0) {
+                    if (memory > 0) {
                         pointer += offset;
                         continue;
                     }
