@@ -19,13 +19,13 @@ public class Day24 {
         List<Connector> connectors = input.stream()
                 .map(line -> new Connector(Integer.parseInt(line.split("/")[0]), Integer.parseInt(line.split("/")[1])))
                 .collect(Collectors.toList());
-        buildBridge(new ArrayList<Connector>(), connectors, 0);
+        buildBridge(new ArrayList<>(), connectors, 0);
         System.out.println(maxStrength);
         System.out.println(strengthOfLongest);
     }
     
     
-    public static void buildBridge(List<Connector> currentBridge, List<Connector> freeConnectors, int endGate) {
+    private static void buildBridge(List<Connector> currentBridge, List<Connector> freeConnectors, int endGate) {
         boolean done = true;
         for (Connector connector : freeConnectors) {
             if (connector.getPort1() == endGate) {
@@ -50,10 +50,7 @@ public class Day24 {
 //                stringBuilder.append("--" + currentBridge.get(index).toString());
 //            }
 //            System.out.println(stringBuilder);
-            int strength = 0;
-            for (Connector connector : currentBridge) {
-                strength += connector.getStrength();
-            }
+            int strength = currentBridge.stream().mapToInt(Connector::getStrength).sum();
             maxStrength = Math.max(strength, maxStrength);
             if (currentBridge.size() > longestBridge || (currentBridge.size() == longestBridge && strength > strengthOfLongest)) {
                 longestBridge = currentBridge.size();
@@ -78,24 +75,12 @@ class Connector {
         return port1;
     }
 
-    public void setPort1(int port1) {
-        this.port1 = port1;
-    }
-
     public int getPort2() {
         return port2;
     }
 
-    public void setPort2(int port2) {
-        this.port2 = port2;
-    }
-
     public int getStrength() {
         return strength;
-    }
-
-    public void setStrength(int strength) {
-        this.strength = strength;
     }
 
     @Override
