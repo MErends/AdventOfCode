@@ -80,12 +80,10 @@ public class Day23 {
         }
         for ( ; b <= c; b += 17) {
             f = false;
-            outer:
             for (d = 2; d < b; d++) {
                 for (e = 2; e < b; e++) {
                     if (d * e == b) {
                         f = true;
-                        break outer;
                     }
                 }
             }
