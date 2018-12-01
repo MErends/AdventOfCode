@@ -17,12 +17,10 @@ public class Day01 {
         long mid = System.currentTimeMillis();
         Set<Integer> freqsSeen = new HashSet<>();
         int freq = 0;
-        freqsSeen.add(freq);
         int index = 0;
-        do {
-            freq += integerInput.get(index % integerInput.size());
-            index++;
-        } while (freqsSeen.add(freq));
+        while (freqsSeen.add(freq)) {
+            freq += integerInput.get(index++ % integerInput.size());
+        }
         System.out.println(freq);
         long end = System.currentTimeMillis();
         System.out.println("Part 1: " + (mid - start) + " millis.\nPart 2: " + (end - mid) + " millis.");
