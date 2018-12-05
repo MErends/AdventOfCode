@@ -15,8 +15,7 @@ public class Day04 {
         List<String> input = FileIO.getFileAsList("2018day04.txt");
         long start = System.currentTimeMillis();
         List<Event> eventList = new ArrayList<>();
-        input.stream().map(Day04::getEventFromString).forEach(eventList::add);
-        Collections.sort(eventList);
+        input.stream().map(Day04::getEventFromString).sorted().forEach(eventList::add);
         Map<Integer, Long> guardSleepMap = new HashMap<>();
         LocalDateTime fellAsleep = LocalDateTime.now();
         int guardId = 0;
