@@ -1,0 +1,15 @@
+b = 900
+if (a == 1) {
+	b = 10551300
+	a = 0
+}
+f = 1
+do {
+	e = 1
+	do {
+		c = e * f
+		if (b == c) a += f
+		e++
+	} while (e <= a)
+	f++
+} while (f <= b)
