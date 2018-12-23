@@ -1,0 +1,47 @@
+00: d = 123
+01: d = 456 & d
+02: d == 72 ? d = 1 : d = 0
+03: POINTER += d
+04: GOTO 1
+
+
+
+
+
+
+
+
+d = 0
+outer:
+do {
+	c = d | 65536
+	d = 832312
+	while(true) {
+		b = 255 & c
+		d += b
+		d = d & 16777215
+		d *= 65899
+		d = d & 16777215
+		if (256 > c) continue outer;
+		b = 0
+		while (true) {
+			e = b + 1
+			e *= 256
+			if (e > c) break;
+			b++
+		}
+		c = b
+	}
+} while (a != d)
+
+
+
+
+
+
+0 -> a
+1 -> b
+2 -> c
+3 -> d
+4 -> e
+5 -> POINTER
