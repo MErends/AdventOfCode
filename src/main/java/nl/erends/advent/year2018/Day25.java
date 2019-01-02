@@ -2,7 +2,6 @@ package nl.erends.advent.year2018;
 
 import nl.erends.advent.util.FileIO;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,10 +9,23 @@ import java.util.stream.Collectors;
 public class Day25 {
    
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2018day25_test.txt");
+        List<String> input = FileIO.getFileAsList("2018day25.txt");
         long start = System.currentTimeMillis();
         int constellations = 0;
         List<Star> stars = input.stream().map(Star::new).collect(Collectors.toList());
+        while (!stars.isEmpty()) {
+            Collections.sort(stars);
+            Star currentStar = stars.remove(0);
+            if (currentStar.constellation == -1) {
+                currentStar.constellation = ++constellations;
+            }
+            for (Star otherStar : stars) {
+                if (currentStar.distanceTo(otherStar) <= 3) {
+                    otherStar.constellation = currentStar.constellation;
+                }
+            }
+        }
+        System.out.println(constellations);
         long mid = System.currentTimeMillis();
         long end = System.currentTimeMillis();
         
@@ -21,7 +33,7 @@ public class Day25 {
     }
     
     
-    private static class Star {
+    private static class Star implements Comparable<Star> {
         int x;
         int y;
         int z;
@@ -42,6 +54,11 @@ public class Day25 {
                     + Math.abs(y - other.y)
                     + Math.abs(z - other.z)
                     + Math.abs(t - other.t);
+        }
+        
+        @Override
+        public int compareTo(Star other) {
+            return other.constellation - constellation;
         }
     }
 }
