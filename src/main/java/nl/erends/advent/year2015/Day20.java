@@ -1,11 +1,14 @@
 package nl.erends.advent.year2015;
 
 import nl.erends.advent.util.Timer;
+import org.apache.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class Day20 {
+    
+    private static final Logger LOG = Logger.getLogger(Day20.class);
 
     public static void main(String[] args) {
         Timer.start1();
@@ -15,7 +18,7 @@ public class Day20 {
             int presents = delers.stream().mapToInt(i -> i).sum() * 10;
             if (presents >= maxPresent) {
                 Timer.end1();
-                System.out.println(house);
+                LOG.info(house);
                 break;
             }
         }

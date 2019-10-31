@@ -1,11 +1,6 @@
 package nl.erends.advent.year2016;
 
-
-import nl.erends.advent.util.FileIO;
-import sun.swing.SwingUtilities2;
-
-import java.security.MessageDigest;
-import java.util.List;
+import nl.erends.advent.util.MD5;
 
 public class Day5 {
 
@@ -20,7 +15,7 @@ public class Day5 {
         StringBuilder password = new StringBuilder();
         int nonce = 0;
         while (password.length() < 8) {
-            String hash = md5(input + nonce);
+            String hash = MD5.getHash(input + nonce);
             if (hash.startsWith("00000")) {
                 password.append(hash.charAt(5));
                 System.out.println(password);
@@ -35,7 +30,7 @@ public class Day5 {
         int charsFound = 0;
         int nonce = 0;
         while (charsFound < 8) {
-            String hash = md5(input + nonce);
+            String hash = MD5.getHash(input + nonce);
             if (hash.startsWith("00000")) {
                 char positionChar = hash.charAt(5);
                 if (positionChar >= '0' && positionChar <= '7') {
@@ -50,18 +45,5 @@ public class Day5 {
             nonce++;
         }
         return new String(output);
-    }
-
-    public static String md5(String message) {
-        try {
-            StringBuilder sb = new StringBuilder();
-            byte[] digest = MessageDigest.getInstance("MD5").digest(message.getBytes("UTF-8"));
-            for (byte b : digest) {
-                sb.append(String.format("%02x", b & 0xff));
-            }
-        return sb.toString();
-        } catch (Exception e) {
-        }
-        return "";
     }
 }

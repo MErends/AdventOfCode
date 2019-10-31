@@ -1,6 +1,10 @@
 package nl.erends.advent.util;
 
+import org.apache.log4j.Logger;
+
 public class Timer {
+    
+    private static final Logger LOG = Logger.getLogger(Timer.class);
 
     private static long start1;
     private static long end1;
@@ -24,6 +28,8 @@ public class Timer {
     }
 
     public static void printStats() {
-        System.out.printf("Part 1:\t%d millis.\nPart 2:\t%d millis.\nTotal:\t%d millis", end1 - start1, end2 - start2, end2 - start1);
+        LOG.info("Part 1:\t" + (end1 - start1) + " millis.\n" +
+                "Part 2:\t" + (end2 - start2) + " millis.\n" +
+                "Total:\t" + (end2 - start1) + " millis");
     }
 }

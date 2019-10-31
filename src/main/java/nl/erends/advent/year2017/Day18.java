@@ -14,7 +14,7 @@ public class Day18 {
 
     private static Map<String, Long> memoryMap = new HashMap<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         List<String> commands = FileIO.getFileAsList("2017day18.txt");
         int pointer = 0;
         long lastPlayed = 0;
@@ -44,6 +44,9 @@ public class Day18 {
                 case "mod": {
                     long memory = getMemory(words[1]);
                     long modulo = getMemory(words[2]);
+                    if (modulo == 0) {
+                        throw new IllegalArgumentException("Modulo argument is zero!");
+                    }
                     setMemory(words[1], memory % modulo);
                     break;
                 }
@@ -76,11 +79,7 @@ public class Day18 {
         machine1Thread.start();
 
         synchronized (Day18.part2Lock) {
-            try {
-                Day18.part2Lock.wait(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Day18.part2Lock.wait(1000);
         }
         System.out.println(machine1.sendCommands);
         System.exit(0);
@@ -154,6 +153,9 @@ class Machine implements Runnable {
                 case "mod": {
                     long memory = getMemory(words[1]);
                     long modulo = getMemory(words[2]);
+                    if (modulo == 0) {
+                        throw new IllegalArgumentException("Modulo argument is zero!");
+                    }
                     setMemory(words[1], memory % modulo);
                     break;
                 }

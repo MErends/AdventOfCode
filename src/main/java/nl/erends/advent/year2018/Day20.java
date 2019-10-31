@@ -68,7 +68,7 @@ public class Day20 {
                         throw new IllegalStateException("" + c);
                 }
                 if (grid[y][x] != 'X') grid[y][x] = '.';
-//                printMaze();
+                // printMaze();
                 path = path.substring(1);
             }
         }
@@ -136,29 +136,29 @@ public class Day20 {
         int endsplit = -1;
         int depth = 0;
         for (int index = 0; index < input.length(); index++) {
-//            System.out.print(index + ": ");
+            // System.out.print(index + ": ");
             char c = input.charAt(index);
             if (c == '(') {
                 depth++;
-//                System.out.println("Found " + c + ". Going to depth " + depth);
+                // System.out.println("Found " + c + ". Going to depth " + depth);
             } else if (c == '|') {
-//                System.out.print("Found " + c + "at depth " + depth);
+                // System.out.print("Found " + c + "at depth " + depth);
                 if (depth == 1) {
-//                    System.out.print(". Adding index " + index + " to list");
+                    // System.out.print(". Adding index " + index + " to list");
                     splitOnIndex.add(index);
                 }
-//                System.out.println();
+                // System.out.println();
             } else if (c == ')') {
                 depth--;
-//                System.out.println("Found " + c + ". Going to depth " + depth);
+                // System.out.println("Found " + c + ". Going to depth " + depth);
                 if (depth == 0) {
                     endsplit = index;
                     break;
                 }
             } 
-//            else {
-//                System.out.println("Found " + c);
-//            }
+            // else {
+            //     System.out.println("Found " + c);
+            // }
         }
         List<String> subPaths = new ArrayList<>();
         String endPath = input.substring(endsplit + 1);
@@ -255,19 +255,19 @@ public class Day20 {
                     }
                 }
             }
-//            maze.printMaze();
-//            System.out.println();
-//            for (int[] row : intGrid) {
-//                for (int i : row) {
-//                    if (i == -1) {
-//                        System.out.printf("%3s", "#");
-//                    } else {
-//                        System.out.printf("%3d", i);
-//                    }
-//                }
-//                System.out.println("");
-//            }
-//            System.out.println();
+            // maze.printMaze();
+            // System.out.println();
+            // for (int[] row : intGrid) {
+            //     for (int i : row) {
+            //         if (i == -1) {
+            //             System.out.printf("%3s", "#");
+            //         } else {
+            //             System.out.printf("%3d", i);
+            //         }
+            //     }
+            //     System.out.println("");
+            // }
+            // System.out.println();
             
             if (!updated) {
                 System.out.println(lookFor);
@@ -281,6 +281,6 @@ public class Day20 {
             }
         }
         System.out.println(over1K);
-//        8363 too low
+        // 8363 too low
     }
 }
