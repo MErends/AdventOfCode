@@ -1,16 +1,12 @@
 package nl.erends.advent.year2017;
 
-import nl.erends.advent.util.FileIO;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import nl.erends.advent.util.Util;
 
 public class Day11 {
 
 
 	public static void main(String[] args) {
-		String line = FileIO.getFileAsString("2017day11.txt");
+		String line = Util.getFileAsString("2017day11.txt");
 		String[] words = line.split(",");
 		int n = 0;
 		int ne = 0;

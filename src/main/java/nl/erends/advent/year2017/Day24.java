@@ -1,6 +1,6 @@
 package nl.erends.advent.year2017;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class Day24 {
     private static int strengthOfLongest;
 
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2017day24.txt");
+        List<String> input = Util.getFileAsList("2017day24.txt");
         List<Connector> connectors = input.stream()
                 .map(line -> new Connector(Integer.parseInt(line.split("/")[0]), Integer.parseInt(line.split("/")[1])))
                 .collect(Collectors.toList());

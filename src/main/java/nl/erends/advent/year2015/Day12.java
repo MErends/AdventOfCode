@@ -1,15 +1,14 @@
 package nl.erends.advent.year2015;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Day12 {
     public static void main(String[] args) throws Exception {
         int sum = 0;
-        char[] line = FileIO.getFileAsList("C:\\Users\\marke\\IdeaProjects\\Adventofcode\\resource\\2015day12.txt").get(0).toCharArray();
+        char[] line = Util.getFileAsList("C:\\Users\\marke\\IdeaProjects\\Adventofcode\\resource\\2015day12.txt").get(0).toCharArray();
         Set<Character> allowed = new HashSet<>();
         allowed.add('0');
         allowed.add('1');

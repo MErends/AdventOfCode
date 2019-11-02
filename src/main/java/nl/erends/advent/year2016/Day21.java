@@ -1,6 +1,6 @@
 package nl.erends.advent.year2016;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,7 +10,7 @@ public class Day21 {
     private static StringBuilder password = new StringBuilder("abcdefgh");
     
     public static void main(String[] args) {
-        List<String> commands = FileIO.getFileAsList("2016day21.txt");
+        List<String> commands = Util.getFileAsList("2016day21.txt");
         for (String command : commands) {
             String[] words = command.split(" ");
             switch (words[0]) {

@@ -1,6 +1,6 @@
 package nl.erends.advent.year2017;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -15,7 +15,7 @@ public class Day18 {
     private static Map<String, Long> memoryMap = new HashMap<>();
 
     public static void main(String[] args) throws InterruptedException {
-        List<String> commands = FileIO.getFileAsList("2017day18.txt");
+        List<String> commands = Util.getFileAsList("2017day18.txt");
         int pointer = 0;
         long lastPlayed = 0;
         while (pointer >=0 && pointer < commands.size()) {
@@ -117,7 +117,7 @@ class Machine implements Runnable {
 
     @Override
     public void run() {
-        List<String> commands = FileIO.getFileAsList("2017day18.txt");
+        List<String> commands = Util.getFileAsList("2017day18.txt");
         memoryMap.put("p", (long) id);
         int pointer = 0;
         while (pointer >=0 && pointer < commands.size()) {

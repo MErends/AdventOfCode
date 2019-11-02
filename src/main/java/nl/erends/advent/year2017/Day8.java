@@ -1,6 +1,6 @@
 package nl.erends.advent.year2017;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.*;
 
@@ -8,7 +8,7 @@ public class Day8 {
 
 
 	public static void main(String[] args) {
-		List<String> lines = FileIO.getFileAsList("2017day8.txt");
+		List<String> lines = Util.getFileAsList("2017day8.txt");
 		Map<String, Integer> memory = new HashMap<>();
 		int maxValue = Integer.MIN_VALUE;
 		for (String line : lines) {

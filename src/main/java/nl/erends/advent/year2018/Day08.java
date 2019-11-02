@@ -1,6 +1,6 @@
 package nl.erends.advent.year2018;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class Day08 {
 
     public static void main(String[] args) {
-        List<String> input = Arrays.asList(FileIO.getFileAsList("2018day08.txt").get(0).split(" "));
+        List<String> input = Arrays.asList(Util.getFileAsList("2018day08.txt").get(0).split(" "));
         long start = System.currentTimeMillis();
         List<Integer> rootSource = input.stream().map(Integer::parseInt).collect(Collectors.toList());
         Node rootNode = new Node(rootSource);

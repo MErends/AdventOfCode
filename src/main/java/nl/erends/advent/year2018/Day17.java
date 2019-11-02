@@ -1,6 +1,6 @@
 package nl.erends.advent.year2018;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.*;
 
@@ -13,7 +13,7 @@ public class Day17 {
     private static int yMax = Integer.MIN_VALUE;
 
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2018day17.txt");
+        List<String> input = Util.getFileAsList("2018day17.txt");
         long start = System.currentTimeMillis();
         for (String line : input) {
             if (line.startsWith("x")) {

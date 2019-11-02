@@ -1,6 +1,6 @@
 package nl.erends.advent.year2017;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class Day16 {
 //            x3/4, swapping the last two programs: eabdc.
 //            pe/b, swapping programs e and b: baedc.
 
-    static String[] commands = FileIO.getFileAsString("2017day16.txt").split(",");
+    static String[] commands = Util.getFileAsString("2017day16.txt").split(",");
 
     public static void main(String[] args) {
         List<String> history = new ArrayList<>();

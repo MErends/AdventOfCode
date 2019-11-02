@@ -1,6 +1,6 @@
 package nl.erends.advent.year2016;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +14,7 @@ public class Day1 {
         int x = 0;
         int y = 0;
         Direction orientation = Direction.PLUSY;
-        String line = FileIO.getFileAsList("C:/Users/marke/IdeaProjects/Adventofcode/resource/2016day1.txt").get(0);
+        String line = Util.getFileAsList("C:/Users/marke/IdeaProjects/Adventofcode/resource/2016day1.txt").get(0);
         List<String> directions = Arrays.asList(line.split(", "));
         for (String direction : directions) {
             orientation = updateDirection(orientation, direction.substring(0, 1));

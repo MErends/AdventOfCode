@@ -1,11 +1,11 @@
 package nl.erends.advent.year2018;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 public class Day05 {
     
     public static void main(String[] args) {
-        String input = FileIO.getFileAsList("2018day05.txt").get(0);
+        String input = Util.getFileAsList("2018day05.txt").get(0);
         String part1Input = input;
         long start = System.currentTimeMillis();
         int lengthBefore = part1Input.length();

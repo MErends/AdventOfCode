@@ -1,13 +1,13 @@
 package nl.erends.advent.year2018;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.*;
 
 public class Day06 {
 
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2018day06.txt");
+        List<String> input = Util.getFileAsList("2018day06.txt");
         long start = System.currentTimeMillis();
         Map<Point, Integer> sources = new HashMap<>();
         List<Point> edges = new ArrayList<>();

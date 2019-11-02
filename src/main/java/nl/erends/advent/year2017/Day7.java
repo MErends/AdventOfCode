@@ -1,6 +1,6 @@
 package nl.erends.advent.year2017;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.*;
 
@@ -10,7 +10,7 @@ public class Day7 {
 
 
 	public static void main(String[] args) {
-		List<String> lines = FileIO.getFileAsList("2017day7.txt");
+		List<String> lines = Util.getFileAsList("2017day7.txt");
 		for (String line : lines) {
 		    String[] words = line.split("->");
 		    String[] nodeInfo = words[0].split(" ");

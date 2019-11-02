@@ -10,6 +10,20 @@ public class Timer {
     private static long end1;
     private static long start2;
     private static long end2;
+    
+    private Timer() {
+        throw new IllegalStateException("Don't instantiate");
+    }
+    
+    public static void start() {
+        start1();
+        start2();
+    }
+    
+    public static void end() {
+        end1();
+        end2();
+    }
 
     public static void start1() {
         start1 = System.currentTimeMillis();
@@ -28,8 +42,9 @@ public class Timer {
     }
 
     public static void printStats() {
+        long end = Math.max(end1, end2);
         LOG.info("Part 1:\t" + (end1 - start1) + " millis.\n" +
                 "Part 2:\t" + (end2 - start2) + " millis.\n" +
-                "Total:\t" + (end2 - start1) + " millis");
+                "Total:\t" + (end - start1) + " millis");
     }
 }

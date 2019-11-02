@@ -1,14 +1,14 @@
 package nl.erends.advent.year2016;
 
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.List;
 
 public class Day2 {
 
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2016day2.txt");
+        List<String> input = Util.getFileAsList("2016day2.txt");
         System.out.println(solve1(input));
         System.out.println(solve2(input));
     }

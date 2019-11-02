@@ -1,11 +1,11 @@
 package nl.erends.advent.year2017;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 public class Day9 {
 
     public static void main(String[] args) {
-        char[] tokens = FileIO.getFileAsString("2017day9.txt").toCharArray();
+        char[] tokens = Util.getFileAsString("2017day9.txt").toCharArray();
         int depth = 0;
         int score = 0;
         int cancelled = 0;

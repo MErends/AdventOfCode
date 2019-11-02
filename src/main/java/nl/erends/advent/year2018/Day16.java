@@ -1,6 +1,6 @@
 package nl.erends.advent.year2018;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -9,7 +9,7 @@ public class Day16 {
 
 
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2018day16.txt");
+        List<String> input = Util.getFileAsList("2018day16.txt");
         long start = System.currentTimeMillis();
         int ops3OrMore = 0;
         Map<String, Set<Integer>> possibleOpMap = new HashMap<>();

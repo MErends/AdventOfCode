@@ -1,6 +1,6 @@
 package nl.erends.advent.year2018;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +10,7 @@ public class Day20 {
 
 
     public static void main(String... args) {
-        String input = FileIO.getFileAsList("2018day20.txt").get(0);
+        String input = Util.getFileAsList("2018day20.txt").get(0);
         long start = System.currentTimeMillis();
         input = input.substring(0, input.length() - 1).substring(1);
         Maze maze = new Maze();

@@ -1,7 +1,7 @@
 package nl.erends.advent.year2017;
 
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.*;
 
@@ -11,7 +11,7 @@ public class Day12 {
     public static Map<Integer, Program> programs = new HashMap<>();
 
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2017day12.txt");
+        List<String> input = Util.getFileAsList("2017day12.txt");
         for (String nodeLine : input) {
             Program program = new Program(nodeLine);
             programs.put(program.getId(), program);

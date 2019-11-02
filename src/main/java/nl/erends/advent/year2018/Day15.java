@@ -1,6 +1,6 @@
 package nl.erends.advent.year2018;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,7 +14,7 @@ public class Day15 {
     private static Cave cave;
 
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2018day15.txt");
+        List<String> input = Util.getFileAsList("2018day15.txt");
         long start = System.currentTimeMillis();
         cave = new Cave(input);
         int rounds = 0;

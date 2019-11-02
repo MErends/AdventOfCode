@@ -1,17 +1,16 @@
 package nl.erends.advent.year2016;
 
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class Day6 {
 
     public static void main(String[] args) {
-        List<String> lines = FileIO.getFileAsList("2016day6.txt");
+        List<String> lines = Util.getFileAsList("2016day6.txt");
         StringBuilder mostOften = new StringBuilder();
         StringBuilder leastOften = new StringBuilder();
         for (int index = 0; index < lines.get(0).length(); index++) {

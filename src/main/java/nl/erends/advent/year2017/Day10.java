@@ -1,7 +1,7 @@
 package nl.erends.advent.year2017;
 
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 public class Day10 {
 
     public static void main(String[] args) {
-        String inputLine = FileIO.getFileAsList("2017day10.txt").get(0);
+        String inputLine = Util.getFileAsList("2017day10.txt").get(0);
         int chainlength = 256;
         List<Integer> inputs = new ArrayList<>();
         for (String number : inputLine.split(",")) {
@@ -34,7 +34,7 @@ public class Day10 {
 
 
 
-        List<String> lines =  FileIO.getFileAsList("2017day10.txt");
+        List<String> lines =  Util.getFileAsList("2017day10.txt");
         for (String line : lines) {
             chain = new ArrayList<>();
             for (int i = 0; i < chainlength; i++) {

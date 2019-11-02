@@ -1,6 +1,6 @@
 package nl.erends.advent.year2018;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class Day02 {
 
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2018day02.txt");
+        List<String> input = Util.getFileAsList("2018day02.txt");
         long start = System.currentTimeMillis();
         int hasDoubleChar = 0;
         int hasTripleChar = 0;

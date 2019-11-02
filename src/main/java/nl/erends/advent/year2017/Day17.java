@@ -1,9 +1,6 @@
 package nl.erends.advent.year2017;
 
-import nl.erends.advent.util.FileIO;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Day17 {

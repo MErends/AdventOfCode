@@ -1,6 +1,6 @@
 package nl.erends.advent.year2018;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ public class Day18 {
 
 
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2018day18.txt");
+        List<String> input = Util.getFileAsList("2018day18.txt");
         long end;
         long mid = System.currentTimeMillis();
         long start = System.currentTimeMillis();

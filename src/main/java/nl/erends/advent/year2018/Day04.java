@@ -1,6 +1,6 @@
 package nl.erends.advent.year2018;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -12,7 +12,7 @@ public class Day04 {
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2018day04.txt");
+        List<String> input = Util.getFileAsList("2018day04.txt");
         long start = System.currentTimeMillis();
         List<Event> eventList = new ArrayList<>();
         input.stream().map(Day04::getEventFromString).sorted().forEach(eventList::add);

@@ -1,11 +1,10 @@
 package nl.erends.advent.year2017;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Day23 {
 
@@ -13,7 +12,7 @@ public class Day23 {
 
     public static void main(String[] args) {
         int timesMultiplied = 0;
-        List<String> commands = FileIO.getFileAsList("2017day23.txt");
+        List<String> commands = Util.getFileAsList("2017day23.txt");
         memoryMap.put("a", 0L);
         int pointer = 0;
         while (pointer >=0 && pointer < commands.size()) {

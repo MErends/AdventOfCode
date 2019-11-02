@@ -1,12 +1,6 @@
 package nl.erends.advent.year2016;
 
 
-import nl.erends.advent.util.FileIO;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class Day13 {
 
     public static void main(String[] args) {

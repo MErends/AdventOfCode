@@ -1,6 +1,6 @@
 package nl.erends.advent.year2018;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class Day03 {
     private static List<String> ids = new ArrayList<>();
 
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2018day03.txt");
+        List<String> input = Util.getFileAsList("2018day03.txt");
         long start = System.currentTimeMillis();
         
         cloth = new String[SIZE][SIZE];

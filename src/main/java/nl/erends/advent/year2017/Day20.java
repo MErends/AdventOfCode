@@ -3,16 +3,15 @@ package nl.erends.advent.year2017;
 //  p=<1609,-863,-779>, v=<-15,54,-69>, a=<-10,0,14>
 //  p=<-391,1353,-387>, v=<-94,-42,0>, a=<14,-5,3>
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Day20 {
     
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2017day20.txt");
+        List<String> input = Util.getFileAsList("2017day20.txt");
         List<Particle> particles = new ArrayList<>();
         for (int index = 0; index < input.size(); index++) {
             particles.add(new Particle(index, input.get(index)));

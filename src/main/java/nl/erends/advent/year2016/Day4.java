@@ -1,7 +1,7 @@
 package nl.erends.advent.year2016;
 
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.*;
 
@@ -9,7 +9,7 @@ public class Day4 {
 
     public static void main(String[] args) {
         int totalID = 0;
-        List<String> input = FileIO.getFileAsList("2016day4.txt");
+        List<String> input = Util.getFileAsList("2016day4.txt");
         for (String line : input) {
             Room room = new Room(line);
             if (Objects.equals(room.getChecksum(), room.calculateChecksum())) {

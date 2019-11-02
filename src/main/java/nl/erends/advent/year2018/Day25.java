@@ -1,6 +1,6 @@
 package nl.erends.advent.year2018;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.Collections;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class Day25 {
    
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2018day25.txt");
+        List<String> input = Util.getFileAsList("2018day25.txt");
         long start = System.currentTimeMillis();
         int constellations = 0;
         List<Star> stars = input.stream().map(Star::new).collect(Collectors.toList());

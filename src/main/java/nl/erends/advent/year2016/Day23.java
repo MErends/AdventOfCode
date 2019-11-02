@@ -1,7 +1,7 @@
 package nl.erends.advent.year2016;
 
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.Map;
 public class Day23 {
 
     public static void main(String[] args) {
-        List<String> lines = FileIO.getFileAsList("2016day23_test.txt");
+        List<String> lines = Util.getFileAsList("2016day23_test.txt");
         Map<String, Integer> memoryBank = new HashMap<>();
         memoryBank.put("a", 7);
         memoryBank.put("b", 0);

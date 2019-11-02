@@ -5,7 +5,7 @@ package nl.erends.advent.year2017;
 //     #..
 //     ...
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import static nl.erends.advent.year2017.Day19.Direction.*;
 public class Day22 {
     
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2017day22.txt");
+        List<String> input = Util.getFileAsList("2017day22.txt");
         boolean[][]grid = new boolean[input.size()][input.get(0).length()];
         for (int y = 0; y < input.size(); y++) {
             for (int x = 0; x < input.get(y).length(); x++) {

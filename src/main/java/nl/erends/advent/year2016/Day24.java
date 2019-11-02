@@ -1,6 +1,6 @@
 package nl.erends.advent.year2016;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.*;
 
@@ -10,7 +10,7 @@ public class Day24 {
     private static int roundTrip = Integer.MAX_VALUE;
 
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2016day24.txt");
+        List<String> input = Util.getFileAsList("2016day24.txt");
         long start = System.currentTimeMillis();
         char[][] maze = new char[input.size()][input.get(0).length()];
         List<Character> nodes = new ArrayList<>();

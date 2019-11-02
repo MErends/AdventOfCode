@@ -1,11 +1,11 @@
 package nl.erends.advent.year2017;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 public class Day1 {
 
 	public static void main(String[] args) {
-		String input = FileIO.getFileAsString("2017day1.txt");
+		String input = Util.getFileAsString("2017day1.txt");
 		System.out.println(solve1(input));
 		System.out.println(solve2(input));
 	}

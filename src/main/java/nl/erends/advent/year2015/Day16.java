@@ -1,15 +1,14 @@
 package nl.erends.advent.year2015;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Day16 {
     public static void main(String[] args) throws Exception {
         int sum = 0;
 
-        List<String> lines = FileIO.getFileAsList("C:\\Users\\marke\\IdeaProjects\\Adventofcode\\resource\\2015day16.txt");
+        List<String> lines = Util.getFileAsList("C:\\Users\\marke\\IdeaProjects\\Adventofcode\\resource\\2015day16.txt");
         List<Sue> sues = new ArrayList<>();
         for (String line : lines) {
             sues.add(new Sue(line));

@@ -1,8 +1,7 @@
 package nl.erends.advent.year2016;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
-import java.util.Collections;
 import java.util.List;
 
 public class Day22 {
@@ -15,7 +14,7 @@ public class Day22 {
     static Gridnode[][] grid;
     
     public static void main(String[] args) {
-        List<String> gridnodes = FileIO.getFileAsList("2016day22.txt");
+        List<String> gridnodes = Util.getFileAsList("2016day22.txt");
         gridnodes.remove(0);
         gridnodes.remove(0);
         Gridnode maxGridnode = new Gridnode(gridnodes.get(gridnodes.size() - 1));

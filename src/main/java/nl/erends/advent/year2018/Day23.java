@@ -1,6 +1,6 @@
 package nl.erends.advent.year2018;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.*;
 
@@ -9,7 +9,7 @@ public class Day23 {
     static List<Drone> droneList = new ArrayList<>();
    
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2018day23.txt");
+        List<String> input = Util.getFileAsList("2018day23.txt");
         long start = System.currentTimeMillis();
         input.forEach(s -> droneList.add(new Drone(s)));
         Drone largestDrone = null;

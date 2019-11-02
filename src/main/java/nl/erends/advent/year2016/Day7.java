@@ -1,17 +1,15 @@
 package nl.erends.advent.year2016;
 
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Day7 {
 
     public static void main(String[] args) {
-        List<String> lines = FileIO.getFileAsList("2016day7.txt");
+        List<String> lines = Util.getFileAsList("2016day7.txt");
         int tlsLines = 0;
         int sslLines = 0;
         for (String line : lines) {

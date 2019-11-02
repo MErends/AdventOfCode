@@ -5,7 +5,7 @@ package nl.erends.advent.year2017;
 //     4 5 6   8 5 2
 //     7 8 9   9 6 3
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +16,7 @@ public class Day21 {
     private static Map<String, String> mapping = new HashMap<>();
     
     public static void main(String[] args) {
-        List<String> input = FileIO.getFileAsList("2017day21.txt");
+        List<String> input = Util.getFileAsList("2017day21.txt");
         for (String line : input) {
             String[] mappingArray = line.split("=>");
             mapping.put(mappingArray[0].trim(), mappingArray[1].trim());

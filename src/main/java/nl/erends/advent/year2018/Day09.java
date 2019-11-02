@@ -1,6 +1,6 @@
 package nl.erends.advent.year2018;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -10,7 +10,7 @@ public class Day09 {
 
     public static void main(String... args) {
         String part = args.length == 0 ? "1" : args[0]; 
-        List<String> input = Arrays.asList(FileIO.getFileAsList("2018day09.txt").get(0).split(" "));
+        List<String> input = Arrays.asList(Util.getFileAsList("2018day09.txt").get(0).split(" "));
         long start = System.currentTimeMillis();
         int playerCount = Integer.parseInt(input.get(0));
         int maxMarble = Integer.parseInt(input.get(6));

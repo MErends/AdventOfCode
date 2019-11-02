@@ -1,6 +1,6 @@
 package nl.erends.advent.year2017;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public class Day5 {
 	private static boolean PART_2 = false;
 
 	public static void main(String[] args) {
-		List<String> input = FileIO.getFileAsList("2017day5.txt");
+		List<String> input = Util.getFileAsList("2017day5.txt");
 		int[] memory = new int[input.size()];
 		for (int i = 0; i < input.size(); i++) {
 			memory[i] = Integer.parseInt(input.get(i));

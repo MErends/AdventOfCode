@@ -1,15 +1,14 @@
 package nl.erends.advent.year2016;
 
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Day8 {
 
     public static void main(String[] args) {
-        List<String> lines = FileIO.getFileAsList("2016day8.txt");
+        List<String> lines = Util.getFileAsList("2016day8.txt");
         Display display = new Display(50, 6);
         for (String line : lines) {
             display.processCommand(line);

@@ -1,6 +1,6 @@
 package nl.erends.advent.year2017;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.Util;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class Day13 {
 	private static boolean[] scannerMovingDown;
 
 	public static void main(String[] args) {
-		List<String> lines = FileIO.getFileAsList("2017day13.txt");
+		List<String> lines = Util.getFileAsList("2017day13.txt");
 		depthAtLevel = new int[Integer.parseInt(lines.get(lines.size() - 1).split(":")[0].trim()) + 1];
 		scannerposition = new int[Integer.parseInt(lines.get(lines.size() - 1).split(":")[0].trim()) + 1];
 		scannerMovingDown = new boolean[Integer.parseInt(lines.get(lines.size() - 1).split(":")[0].trim()) + 1];
