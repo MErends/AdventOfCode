@@ -1,34 +1,78 @@
 package nl.erends.advent.year2015;
 
-public class Day10 {
+import nl.erends.advent.util.Problem;
+import nl.erends.advent.util.Timer;
+import nl.erends.advent.util.Util;
+import org.apache.log4j.Logger;
+
+public class Day10 implements Problem<String, Integer> {
+    
+    private static final Logger LOG = Logger.getLogger(Day10.class);
+    
+    private String input = "";
+    private String sequence;
+    private int timesIterated;
+    private int target1 = 40;
+    private int target2 = 50;
 
     public static void main(String[] args) {
-        String input = "1113122113";
-        for (int i = 0; i < 50; i++) {
-            System.out.println(i + "/50");
-            input = nextSequence(input);
-        }
-        System.out.println(input.length());
+        String input = Util.readLine(2015, 10);
+        Day10 problem = new Day10();
+        LOG.info(problem.solve1(input));
+        LOG.info(problem.solve2(input));
+        Timer.printStats();
     }
 
-    private static String nextSequence(String inputString) {
-        StringBuilder input = new StringBuilder(inputString);
+    public Integer solve1(String input) {
+        Timer.start1();
+        this.input = input;
+        sequence = input;
+        for (timesIterated = 0; timesIterated < target1; timesIterated++) {
+            sequence = nextSequence(sequence);
+        }
+        Timer.end1();
+        return sequence.length();
+    }
+    
+    public Integer solve2(String input) {
+        Timer.start();
+        if (!this.input.equals(input)) {
+            solve1(input);
+        }
+        for ( ; timesIterated < target2; timesIterated++) {
+            sequence = nextSequence(sequence);
+        }
+        Timer.end2();
+        return sequence.length();
+    }
+
+    private String nextSequence(String inputString) {
+        StringBuilder inputSb = new StringBuilder(inputString);
         StringBuilder output = new StringBuilder();
-        while (input.length() != 0) {
-            for (int i = 0; i < input.length(); i++) {
-                char c = input.charAt(0);
-                if (input.charAt(i) != c) {
-                    output.append(i).append(c);
-                    input.delete(0, i);
-                    break;
-                } else if (i == input.length() - 1) {
-                    output.append(i + 1).append(c);
-                    input.delete(0, input.length());
+        while (inputSb.length() != 0) {
+            for (int i = 0; i < inputSb.length(); i++) {
+                char c = inputSb.charAt(0);
+                if (inputSb.charAt(i) != c || i == inputSb.length() - 1) {
+                    if (inputSb.charAt(i) != c) {
+                        output.append(i).append(c);
+                        inputSb.delete(0, i);
+                    } else {
+                        output.append(i + 1).append(c);
+                        inputSb.delete(0, inputSb.length());
+                    }
                     break;
                 }
             }
         }
         return output.toString();
+    }
+
+    public void setTarget1(int target1) {
+        this.target1 = target1;
+    }
+
+    public void setTarget2(int target2) {
+        this.target2 = target2;
     }
 }
 

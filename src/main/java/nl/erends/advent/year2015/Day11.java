@@ -1,16 +1,37 @@
 package nl.erends.advent.year2015;
 
-public class Day11 {
+import nl.erends.advent.util.Problem;
+import nl.erends.advent.util.Util;
+import org.apache.log4j.Logger;
+
+public class Day11 implements Problem<String, String> {
+    
+    private static final Logger LOG = Logger.getLogger(Day11.class);
 
     public static void main(String[] args) {
-        String password = "hxbxxzaa";
-        while (!isValidPassword(password)) {
-            password = nextPassword(password);
-        }
-        System.out.println(password);
+        String input = Util.readLine(2015, 11);
+        Day11 problem = new Day11();
+        LOG.info(problem.solve1(input));
+        LOG.info(problem.solve2(input));
     }
 
-    private static String nextPassword(String inputString) {
+    public String solve1(String input) {
+        while (isInvalidPassword(input)) {
+            input = nextPassword(input);
+        }
+        return input;
+    }
+
+    public String solve2(String input) {
+        input = solve1(input);
+        input = nextPassword(input);
+        while (isInvalidPassword(input)) {
+            input = nextPassword(input);
+        }
+        return input;
+    }
+
+    private String nextPassword(String inputString) {
         StringBuilder password = new StringBuilder(inputString);
         boolean overhouden = true;
         int ophogen = password.length() - 1;
@@ -28,9 +49,9 @@ public class Day11 {
         return password.toString();
     }
 
-    private static boolean isValidPassword(String password) {
+    private boolean isInvalidPassword(String password) {
         if (password.contains("i") || password.contains("o") || password.contains("l")) {
-            return false;
+            return true;
         }
 
         boolean increment = false;
@@ -41,18 +62,20 @@ public class Day11 {
             }
         }
         if (!increment) {
-            return false;
+            return true;
         }
         int pairs = 0;
-        for (int i = 0; i < password.length() - 1; i++) {
-            if (password.charAt(i) == password.charAt(i + 1)) {
+        int pointer = 0;
+        while (pointer < password.length() - 1) {
+            if (password.charAt(pointer) == password.charAt(pointer + 1)) {
                 pairs++;
-                if (i + 2 < password.length() && password.charAt(i) == password.charAt(i + 2)) {
-                    i++;
+                if (pointer + 2 < password.length() && password.charAt(pointer) == password.charAt(pointer + 2)) {
+                    pointer++;
                 }
             }
+            pointer++;
         }
-        return pairs >= 2;
+        return pairs < 2;
     }
 }
 

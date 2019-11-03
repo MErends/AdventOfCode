@@ -1,0 +1,4 @@
+Frosting: capacity -1, durability -2, flavor 6, texture 3, calories 8
+Candy: capacity 2, durability 3, flavor -2, texture -1, calories 3
+Butterscotch: capacity -100, durability -100, flavor -100, texture -100, calories -100
+Sugar: capacity -100, durability -100, flavor -100, texture -100, calories -100

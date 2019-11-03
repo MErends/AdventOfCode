@@ -6,9 +6,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Day12 {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         int sum = 0;
-        char[] line = Util.getFileAsList("C:\\Users\\marke\\IdeaProjects\\Adventofcode\\resource\\2015day12.txt").get(0).toCharArray();
+        char[] line = Util.readLine(2015, 12).toCharArray();
         Set<Character> allowed = new HashSet<>();
         allowed.add('0');
         allowed.add('1');
