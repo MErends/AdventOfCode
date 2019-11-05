@@ -1,21 +1,26 @@
 package nl.erends.advent.year2016;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Day1 {
+public class Day01 extends AbstractProblem<String, Integer> {
 
     public static void main(String[] args) {
+        new Day01().setAndSolve(Util.readLine(2016, 1));
+    }
+
+    @Override
+    public Integer solve1() {
         List<String> visited = new ArrayList<>();
         visited.add("0_0");
         int x = 0;
         int y = 0;
         Direction orientation = Direction.PLUSY;
-        String line = Util.getFileAsList("C:/Users/marke/IdeaProjects/Adventofcode/resource/2016day1.txt").get(0);
-        List<String> directions = Arrays.asList(line.split(", "));
+        List<String> directions = Arrays.asList(input.split(", "));
         for (String direction : directions) {
             orientation = updateDirection(orientation, direction.substring(0, 1));
             int steps = Integer.parseInt(direction.substring(1));
@@ -51,20 +56,19 @@ public class Day1 {
                     break;
             }
         }
-        System.out.println(Math.abs(x) + Math.abs(y));
+        return Math.abs(x) + Math.abs(y);
     }
 
-    private static void checkVisited(List<String> visited, int x, int y) {
+    private void checkVisited(List<String> visited, int x, int y) {
         String position = x + "_" + y;
-        if (visited.contains(position)) {
-            System.out.println(Math.abs(x) + Math.abs(y));
-            System.exit(0);
+        if (visited.contains(position) && answer2 == null) {
+            answer2 = Math.abs(x) + Math.abs(y);
         } else {
             visited.add(position);
         }
     }
 
-    private static Direction updateDirection(Direction direction, String command) {
+    private Direction updateDirection(Direction direction, String command) {
         if (command.equals("L")) {
             switch (direction) {
                 case PLUSX:
@@ -90,12 +94,12 @@ public class Day1 {
         }
         return Direction.PLUSX;
     }
-}
 
 
-enum Direction {
-    PLUSX,
-    PLUSY,
-    MINX,
-    MINY
+    private enum Direction {
+        PLUSX,
+        PLUSY,
+        MINX,
+        MINY
+    }
 }

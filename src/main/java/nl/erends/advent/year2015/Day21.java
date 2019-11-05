@@ -1,30 +1,20 @@
 package nl.erends.advent.year2015;
 
-import nl.erends.advent.util.Problem;
-import nl.erends.advent.util.Timer;
-import org.apache.log4j.Logger;
+import nl.erends.advent.util.AbstractProblem;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 
-public class Day21 implements Problem<String, Integer> {
-    
-    private static final Logger LOG = Logger.getLogger(Day21.class);
-    
-    private int answer2;
+public class Day21 extends AbstractProblem<String, Integer> {
     
     public static void main(String[] args) {
-        Day21 problem = new Day21();
-        LOG.info(problem.solve1(null));
-        LOG.info(problem.solve2(null));
-        Timer.printStats();
+        new Day21().solve();
     }
     
     @Override
-    public Integer solve1(String input) {
-        Timer.start1();
+    public Integer solve1() {
         int minimalCost = Integer.MAX_VALUE;
         int maximalCost = Integer.MIN_VALUE;
         List<Weapon> weapons = loadWeapons();
@@ -41,18 +31,8 @@ public class Day21 implements Problem<String, Integer> {
                 }
             }
         }
-        Timer.end1();
         answer2 = maximalCost;
         return minimalCost;
-    }
-    
-    public Integer solve2(String input) {
-        Timer.start2();
-        if (answer2 == 0) {
-            solve1(input);
-        }
-        Timer.end2();
-        return answer2;
     }
     
     private boolean resolveBattle(Weapon weapon, Armor armor, RingSet ringSet) {

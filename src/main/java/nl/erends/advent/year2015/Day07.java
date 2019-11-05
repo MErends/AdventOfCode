@@ -1,31 +1,23 @@
 package nl.erends.advent.year2015;
 
-import nl.erends.advent.util.Problem;
-import nl.erends.advent.util.Timer;
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
-import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Day07 implements Problem<List<String>, Integer> {
+public class Day07 extends AbstractProblem<List<String>, Integer> {
     
-    private static final Logger LOG = Logger.getLogger(Day07.class);
     private Map<String, Integer> wires = new HashMap<>();
     private int valueA;
     
     public static void main(String[] args) {
-        List<String> input = Util.readInput(2015, 7);
-        Day07 problem = new Day07();
-        Timer.start1();
-        LOG.info(problem.solve1(input));
-        Timer.end1();
-        LOG.info(problem.solve2(input));
-        Timer.printStats();
+        new Day07().setAndSolve(Util.readInput(2015, 7));
     }
-    
-    public Integer solve1(List<String> input) {
+
+    @Override
+    public Integer solve1() {
         while (getWire("a") == -1) {
             for (String line : input) {
                 String[] words = line.split(" ");
@@ -47,17 +39,15 @@ public class Day07 implements Problem<List<String>, Integer> {
         valueA = getWire("a");
         return valueA;
     }
-    
-    public Integer solve2(List<String> input) {
-        Timer.start2();
+
+    @Override
+    public Integer solve2() {
         if (valueA == 0) {
-            solve1(input);
+            solve1();
         }
         wires = new HashMap<>();
         wires.put("b", valueA);
-        valueA = solve1(input);
-        Timer.end2();
-        return valueA;
+        return solve1();
     }
     
     private void processAnd(String input1, String input2, String output) {

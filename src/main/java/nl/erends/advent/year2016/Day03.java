@@ -1,36 +1,34 @@
 package nl.erends.advent.year2016;
 
-
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.List;
 
-public class Day3 {
+public class Day03 extends AbstractProblem<List<String>, Integer> {
 
     public static void main(String[] args) {
-        List<String> input = Util.getFileAsList("2016day3.txt");
-        System.out.println(solve1(input));
-        System.out.println(solve2(input));
+        new Day03().setAndSolve(Util.readInput(2016, 3));
     }
 
-    private static int solve1(List<String> input) {
+    @Override
+    public Integer solve1() {        
         int possible = 0;
         for (String line : input) {
             int a = Integer.parseInt(line.substring(0, 5).trim());
-            int b = Integer.parseInt(line.substring(5,10).trim());
+            int b = Integer.parseInt(line.substring(5, 10).trim());
             int c = Integer.parseInt(line.substring(10).trim());
-            if (a >= b && a >= c && a < b + c) {
-                possible++;
-            } else if (b >=a && b >= c && b < a + c) {
-                possible++;
-            } else if (c >= a && c >= b && c < a + b) {
+            if ((a >= b && a >= c && a < b + c) ||
+                    (b >=a && b >= c && b < a + c) ||
+                    (c >= a && c >= b && c < a + b)) {
                 possible++;
             }
         }
         return possible;
     }
 
-    private static int solve2(List<String> input) {
+    @Override
+    public Integer solve2() {
         int possible = 0;
         for (int index = 0; index < input.size() - 2; index += 3) {
             String line1 = input.get(index);
@@ -40,11 +38,9 @@ public class Day3 {
                 int a = Integer.parseInt(line1.substring(column * 5, column * 5 + 5).trim());
                 int b = Integer.parseInt(line2.substring(column * 5, column * 5 + 5).trim());
                 int c = Integer.parseInt(line3.substring(column * 5, column * 5 + 5).trim());
-                if (a >= b && a >= c && a < b + c) {
-                    possible++;
-                } else if (b >=a && b >= c && b < a + c) {
-                    possible++;
-                } else if (c >= a && c >= b && c < a + b) {
+                if ((a >= b && a >= c && a < b + c) ||
+                        (b >=a && b >= c && b < a + c) ||
+                        (c >= a && c >= b && c < a + b)) {
                     possible++;
                 }
             }

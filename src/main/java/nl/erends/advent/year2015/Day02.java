@@ -1,27 +1,18 @@
 package nl.erends.advent.year2015;
 
-import nl.erends.advent.util.Problem;
-import nl.erends.advent.util.Timer;
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
-import org.apache.log4j.Logger;
 
 import java.util.List;
 
-public class Day02 implements Problem<List<String>, Integer> {
-    
-    private static final Logger LOG = Logger.getLogger(Day02.class);
-    private int answer2;
+public class Day02 extends AbstractProblem<List<String>, Integer> {
     
     public static void main(String[] args) {
-        List<String> input = Util.readInput(2015, 2);
-        Day02 problem = new Day02();
-        LOG.info(problem.solve1(input));
-        LOG.info(problem.answer2);
-        Timer.printStats();
+        new Day02().setAndSolve(Util.readInput(2015, 2));
     }
     
-    public Integer solve1(List<String> input) {
-        Timer.start();
+    @Override
+    public Integer solve1() {
         int paper = 0;
         int lint = 0;
         for (String packing : input) {
@@ -34,14 +25,8 @@ public class Day02 implements Problem<List<String>, Integer> {
             lint += ribbon(width, height, length);
             lint += bow(width, height, length);
         }
-        Timer.end();
         answer2 = lint;
         return paper;
-    }
-    
-    public Integer solve2(List<String> input) {
-        solve1(input);
-        return answer2;
     }
 
     private int surface(int width, int height, int length) {

@@ -10,7 +10,7 @@ import java.util.Map;
 public class Day12 {
 
     public static void main(String[] args) {
-        List<String> lines = Util.getFileAsList("2016day12.txt");
+        List<String> lines = Util.getFileAsList("year2016/2016day12.txt");
         Map<String, Integer> memoryBank = new HashMap<>();
         memoryBank.put("a", 0);
         memoryBank.put("b", 0);

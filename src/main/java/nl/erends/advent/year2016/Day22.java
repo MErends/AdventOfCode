@@ -14,7 +14,7 @@ public class Day22 {
     static Gridnode[][] grid;
     
     public static void main(String[] args) {
-        List<String> gridnodes = Util.getFileAsList("2016day22.txt");
+        List<String> gridnodes = Util.getFileAsList("year2016/2016day22.txt");
         gridnodes.remove(0);
         gridnodes.remove(0);
         Gridnode maxGridnode = new Gridnode(gridnodes.get(gridnodes.size() - 1));

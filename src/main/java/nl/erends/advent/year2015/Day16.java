@@ -1,31 +1,21 @@
 package nl.erends.advent.year2015;
 
-import nl.erends.advent.util.Problem;
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
-import nl.erends.advent.util.Timer;
-import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Day16 implements Problem<List<String>, Integer> {
-    
-    private static final Logger LOG = Logger.getLogger(Day16.class);
-
-    private int answer2;
+public class Day16 extends AbstractProblem<List<String>, Integer> {
     
     public static void main(String[] args) {
-        List<String> input = Util.readInput(2015, 16);
-        Day16 problem = new Day16();
-        LOG.info(problem.solve1(input));
-        LOG.info(problem.answer2);
-        Timer.printStats();
+        new Day16().setAndSolve(Util.readInput(2015, 16));
     }
-    
-    public Integer solve1(List<String> input) {
-        Timer.start1();
+
+    @Override
+    public Integer solve1() {
         List<Sue> sues = new ArrayList<>();
         for (String line : input) {
             sues.add(new Sue(line));
@@ -46,18 +36,8 @@ public class Day16 implements Problem<List<String>, Integer> {
             sue.checkEquals("cars", 2, true);
             sue.checkEquals("perfumes", 1, true);
         }
-        Timer.end1();
         answer2 = sues.stream().filter(sue -> sue.canBe2).mapToInt(Sue::getNumber).findFirst().orElseThrow(IllegalStateException::new);
         return sues.stream().filter(sue -> sue.canBe1).mapToInt(Sue::getNumber).findFirst().orElseThrow(IllegalStateException::new);
-    }
-    
-    public Integer solve2(List<String> input) {
-        Timer.start2();
-        if (answer2 == 0) {
-            solve1(input);
-        }
-        Timer.end2();
-        return answer2;
     }
     
     private class Sue {

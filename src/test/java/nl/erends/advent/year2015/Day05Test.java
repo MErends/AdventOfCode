@@ -11,15 +11,15 @@ public class Day05Test {
 
     @Test
     public void day05Test1() {
-        List<String> input = Util.readInput(2015, 5, 1);
         Day05 problem = new Day05();
-        assertEquals(2, problem.solve1(input).intValue());
+        problem.setInput(Util.readInput(2015, 5, 1));
+        assertEquals(2, problem.solve1().intValue());
     }
     
     @Test
     public void day05Test2() {
-        List<String> input = Util.readInput(2015, 5, 2);
         Day05 problem = new Day05();
-        assertEquals(2, problem.solve2(input).intValue());
+        problem.setInput(Util.readInput(2015, 5, 2));
+        assertEquals(2, problem.solve2().intValue());
     }
 }

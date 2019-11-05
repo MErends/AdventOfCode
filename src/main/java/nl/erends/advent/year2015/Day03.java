@@ -1,27 +1,19 @@
 package nl.erends.advent.year2015;
 
-import nl.erends.advent.util.Problem;
-import nl.erends.advent.util.Timer;
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
-import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Day03 implements Problem<String, Integer> {
-    
-    private static final Logger LOG = Logger.getLogger(Day03.class);
+public class Day03 extends AbstractProblem<String, Integer> {
 
     public static void main(String[] args) {
-        String input = Util.readLine(2015, 3);
-        Day03 problem = new Day03();
-        LOG.info(problem.solve1(input));
-        LOG.info(problem.solve2(input));
-        Timer.printStats();
+        new Day03().setAndSolve(Util.readLine(2015, 3));
     }
-    
-    public Integer solve1(String input) {
-        Timer.start();
+
+    @Override
+    public Integer solve1() {
         Santa santa = new Santa();
         List<House> houses = new ArrayList<>();
         addHouse(santa, houses);
@@ -30,12 +22,11 @@ public class Day03 implements Problem<String, Integer> {
             santa.doMovement(movement);
             addHouse(santa, houses);
         }
-        Timer.end1();
         return houses.size();
     }
-    
-    public Integer solve2(String input) {
-        Timer.start2();
+
+    @Override
+    public Integer solve2() {
         List<House> houses = new ArrayList<>();
         Santa santa = new Santa();
         Santa roboSanta = new Santa();
@@ -53,7 +44,6 @@ public class Day03 implements Problem<String, Integer> {
             }
             santaTurn = !santaTurn;
         }
-        Timer.end2();
         return houses.size();
     }
 

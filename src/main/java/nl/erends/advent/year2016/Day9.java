@@ -8,7 +8,7 @@ import java.util.List;
 public class Day9 {
 
     public static void main(String[] args) {
-        List<String> lines = Util.getFileAsList("2016day9.txt");
+        List<String> lines = Util.getFileAsList("year2016/2016day9.txt");
         for (String line : lines) {
             StringBuilder output = new StringBuilder();
             while (line.contains("(")) {
@@ -30,7 +30,7 @@ public class Day9 {
             System.out.println(output.length());
         }
 
-        lines = Util.getFileAsList("2016day9.txt");
+        lines = Util.getFileAsList("year2016/2016day9.txt");
         for (String line : lines) {
             StringBuilder input = new StringBuilder(line);
             long decompressed = 0;

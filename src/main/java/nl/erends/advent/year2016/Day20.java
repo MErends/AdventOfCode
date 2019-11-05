@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Day20 {
 
-    static List<String> blacklist = Util.getFileAsList("2016day20.txt");
+    static List<String> blacklist = Util.getFileAsList("year2016/2016day20.txt");
     // 14975795
     public static void main(String[] args) {
        System.out.println(nextFree(0));

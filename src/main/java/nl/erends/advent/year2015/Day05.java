@@ -1,45 +1,36 @@
 package nl.erends.advent.year2015;
 
-import nl.erends.advent.util.Problem;
-import nl.erends.advent.util.Timer;
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
-import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Day05 implements Problem<List<String>, Integer> {
+public class Day05 extends AbstractProblem<List<String>, Integer> {
     
-    private static final Logger LOG = Logger.getLogger(Day05.class);
     public static void main(String[] args) {
-        List<String> input = Util.readInput(2015, 5);
-        Day05 problem = new Day05();
-        LOG.info(problem.solve1(input));
-        LOG.info(problem.solve2(input));
-        Timer.printStats();
+        new Day05().setAndSolve(Util.readInput(2015, 5));
     }
-    
-    public Integer solve1(List<String> input) {
-        Timer.start1();
+
+    @Override
+    public Integer solve1() {
         int niceLines = 0;
         for (String line : input) {
            if (has3Vowels(line) && hasDoubles(line) && !hasBadWords(line)) {
                 niceLines++;
             }
         }
-        Timer.end1();
         return niceLines;
     }
-    
-    public Integer solve2(List<String> input) {
-        Timer.start2();
+
+    @Override
+    public Integer solve2() {
         int niceLines = 0;
         for (String line : input) {
             if (hasDoubleString(line) && hasSkips(line)) {
                 niceLines++;
             }
         }
-        Timer.end2();
         return niceLines;
     }
     

@@ -1,31 +1,31 @@
 package nl.erends.advent.year2016;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.MD5;
+import nl.erends.advent.util.Util;
 
-public class Day5 {
+public class Day05 extends AbstractProblem<String, String> {
 
     public static void main(String[] args) {
-        String input = "cxdnnyjw";
-        Day5.solve1(input);
-        Day5.solve2(input);
-
+        new Day05().setAndSolve(Util.readLine(2016, 5));
     }
 
-    public static String solve1(String input) {
+    @Override
+    public String solve1() {
         StringBuilder password = new StringBuilder();
         int nonce = 0;
         while (password.length() < 8) {
             String hash = MD5.getHash(input + nonce);
             if (hash.startsWith("00000")) {
                 password.append(hash.charAt(5));
-                System.out.println(password);
             }
             nonce++;
         }
         return password.toString();
     }
 
-    public static String solve2(String input) {
+    @Override
+    public String solve2() {
         char[] output = "________".toCharArray();
         int charsFound = 0;
         int nonce = 0;
@@ -38,7 +38,7 @@ public class Day5 {
                     if (output[position] == '_') {
                         output[position] = hash.charAt(6);
                         charsFound++;
-                        System.out.println(new String(output));
+                        // LOG.info(new String(output))
                     }
                 }
             }

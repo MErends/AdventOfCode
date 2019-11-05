@@ -8,7 +8,7 @@ import java.util.List;
 public class Day8 {
 
     public static void main(String[] args) {
-        List<String> lines = Util.getFileAsList("2016day8.txt");
+        List<String> lines = Util.getFileAsList("year2016/2016day8.txt");
         Display display = new Display(50, 6);
         for (String line : lines) {
             display.processCommand(line);

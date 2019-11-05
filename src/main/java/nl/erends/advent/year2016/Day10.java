@@ -9,7 +9,7 @@ import java.util.*;
 public class Day10 {
 
     public static void main(String[] args) {
-        List<String> lines = Util.getFileAsList("2016day10.txt");
+        List<String> lines = Util.getFileAsList("year2016/2016day10.txt");
         Map<Integer, Bot> bots = new HashMap<>();
         Map<Integer, List<Integer>> outputs = new HashMap<>();
         while (!lines.isEmpty()) {

@@ -9,7 +9,7 @@ import java.util.List;
 public class Day7 {
 
     public static void main(String[] args) {
-        List<String> lines = Util.getFileAsList("2016day7.txt");
+        List<String> lines = Util.getFileAsList("year2016/2016day7.txt");
         int tlsLines = 0;
         int sslLines = 0;
         for (String line : lines) {

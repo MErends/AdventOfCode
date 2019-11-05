@@ -1,28 +1,19 @@
 package nl.erends.advent.year2015;
 
-import nl.erends.advent.util.Problem;
-import nl.erends.advent.util.Timer;
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
-import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Day06 implements Problem<List<String>, Integer> {
-    
-    private static final Logger LOG = Logger.getLogger(Day06.class);
-    private int answer2;
+public class Day06 extends AbstractProblem<List<String>, Integer> {
     
     public static void main(String[] args) {
-        List<String> input = Util.readInput(2015, 6);
-        Day06 problem = new Day06();
-        LOG.info(problem.solve1(input));
-        LOG.info(problem.answer2);
-        Timer.printStats();
+        new Day06().setAndSolve(Util.readInput(2015, 6));
     }
-    
-    public Integer solve1(List<String> input) {
-        Timer.start();
+
+    @Override
+    public Integer solve1() {
         Lamp[][] lampGrid = new Lamp[1000][1000];
         for (int x = 0; x < 1000; x++) {
             for (int y = 0; y < 1000; y++) {
@@ -44,14 +35,8 @@ public class Day06 implements Problem<List<String>, Integer> {
                 totalBrightness += lampGrid[x][y].getBrightness();
             }
         }
-        Timer.end();
         answer2 = totalBrightness;
         return numLampsOn;
-    }
-    
-    public Integer solve2(List<String> input) {
-            solve1(input);
-            return answer2;
     }
 
     private void processLine(String line, Lamp[][] lampGrid) {

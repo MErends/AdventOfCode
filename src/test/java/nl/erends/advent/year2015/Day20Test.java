@@ -9,9 +9,9 @@ public class Day20Test {
 
     @Test
     public void day20Test1() {
-        int input = Integer.parseInt(Util.readLine(2015, 20, 1));
         Day20 problem = new Day20();
-        assertEquals(96, problem.solve1(input).intValue());
-        assertEquals(84, problem.solve2(input).intValue());
+        problem.setInput(Integer.parseInt(Util.readLine(2015, 20, 1)));
+        assertEquals(96, problem.solve1().intValue());
+        assertEquals(84, problem.solve2().intValue());
     }
 }

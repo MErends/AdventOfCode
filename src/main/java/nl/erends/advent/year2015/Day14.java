@@ -1,112 +1,79 @@
 package nl.erends.advent.year2015;
 
+import nl.erends.advent.util.AbstractProblem;
+import nl.erends.advent.util.Util;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Day14 {
+public class Day14 extends AbstractProblem<List<String>, Integer> {
+    
+    private int maxSeconds = 2503;
 
     public static void main(String[] args) {
+        new Day14().setAndSolve(Util.readInput(2015, 14));
 
-        Reindeer comet = new Reindeer(13, 7, 82);
-        Reindeer dancer = new Reindeer(3, 16, 37);
-        Reindeer vixen = new Reindeer(19, 7, 124);
-        Reindeer rudolph = new Reindeer(3, 15, 28);
-        Reindeer donner = new Reindeer(19, 9, 164);
-        Reindeer blitzen = new Reindeer(19, 9, 158);
-        Reindeer cupid = new Reindeer(25, 6, 145);
-        Reindeer dasher = new Reindeer(14, 3, 38);
-        Reindeer prancer = new Reindeer(25, 6, 143);
+    }
 
+    @Override
+    public Integer solve1() {
         List<Reindeer> reindeers = new ArrayList<>();
-        reindeers.add(comet);
-        reindeers.add(dancer);
-        reindeers.add(vixen);
-        reindeers.add(rudolph);
-        reindeers.add(donner);
-        reindeers.add(blitzen);
-        reindeers.add(cupid);
-        reindeers.add(dasher);
-        reindeers.add(prancer);
-        for (int second = 0; second < 2503; second++) {
+        for (String line : input) {
+            reindeers.add(new Reindeer(line));
+        }
+        for (int second = 0; second < maxSeconds; second++) {
             reindeers.forEach(Reindeer::update);
             final int[] maxDistance = {0};
-            reindeers.forEach(reindeer -> maxDistance[0] = Math.max(maxDistance[0], reindeer.getDistance()));
-            reindeers.forEach(reindeer -> {if (reindeer.getDistance() == maxDistance[0]) reindeer.givePoint();});
+            reindeers.forEach(reindeer -> maxDistance[0] = Math.max(maxDistance[0], reindeer.distance));
+            reindeers.forEach(reindeer -> {
+                if (reindeer.distance == maxDistance[0]) {
+                    reindeer.points++;
+                }
+            });
         }
-
-        reindeers.forEach(r -> System.out.println(r.getPoints()));
-//        System.out.println(comet.getDistance());
-//        System.out.println(dancer.getDistance());
-    }
-
-}
-
-class Reindeer {
-
-    private final int speed;
-    private final int duration;
-    private final int downtime;
-
-    private int downtimeRemaining;
-    private int durationRemaining;
-    private int distance;
-    private int points;
-
-
-    public Reindeer(int speed, int duration, int downtime) {
-        this.speed = speed;
-        this.duration = duration;
-        this.downtime = downtime;
-        this.durationRemaining = duration;
-        this.downtimeRemaining = 0;
-        this.distance = 0;
-        this.points = 0;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public int getDowntime() {
-        return downtime;
-    }
-
-    public int getDowntimeRemaining() {
-        return downtimeRemaining;
-    }
-
-    public int getDurationRemaining() {
-        return durationRemaining;
-    }
-
-    public int getDistance() {
+        int distance = reindeers.stream().mapToInt(r -> r.distance).max().orElseThrow(IllegalStateException::new);
+        answer2 = reindeers.stream().mapToInt(r -> r.points).max().orElseThrow(IllegalStateException::new);
         return distance;
     }
 
-    public int getPoints() {
-        return points;
+    public void setMaxSeconds(int maxSeconds) {
+        this.maxSeconds = maxSeconds;
     }
 
-    public void update() {
-        if (durationRemaining != 0) {
-            durationRemaining--;
-            distance += speed;
-            if (durationRemaining == 0) {
-                downtimeRemaining = downtime;
-            }
-        } else {
-            downtimeRemaining--;
-            if (downtimeRemaining == 0) {
-                durationRemaining = duration;
+    private class Reindeer {
+        private final int speed;
+        private final int duration;
+        private final int downtime;
+
+        private int downtimeRemaining;
+        private int durationRemaining;
+        private int distance;
+        private int points;
+        
+        Reindeer(String line) {
+            String[] words = line.split(" ");
+            this.speed = Integer.parseInt(words[3]);
+            this.duration = Integer.parseInt(words[6]);
+            this.downtime = Integer.parseInt(words[13]);
+            this.durationRemaining = duration;
+            this.downtimeRemaining = 0;
+            this.distance = 0;
+            this.points = 0;
+        }
+
+        void update() {
+            if (durationRemaining != 0) {
+                durationRemaining--;
+                distance += speed;
+                if (durationRemaining == 0) {
+                    downtimeRemaining = downtime;
+                }
+            } else {
+                downtimeRemaining--;
+                if (downtimeRemaining == 0) {
+                    durationRemaining = duration;
+                }
             }
         }
     }
-    public void givePoint() {
-        points++;
-    }
-
 }

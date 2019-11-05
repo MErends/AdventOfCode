@@ -1,19 +1,19 @@
 package nl.erends.advent.year2016;
 
-
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.List;
 
-public class Day2 {
+public class Day02 extends AbstractProblem<List<String>, String> {
 
     public static void main(String[] args) {
-        List<String> input = Util.getFileAsList("2016day2.txt");
-        System.out.println(solve1(input));
-        System.out.println(solve2(input));
+        new Day02().setAndSolve(Util.readInput(2016, 2));
+
     }
 
-    private static String solve1(List<String> input) {
+    @Override
+    public String solve1() {
         StringBuilder output = new StringBuilder();
         int location = 5;
         for (String line : input) {
@@ -26,8 +26,9 @@ public class Day2 {
         return output.toString();
     }
 
-    private static int newLocation(int oldLocation, char direction) {
+    private int newLocation(int oldLocation, char direction) {
         switch (direction) {
+            default:
             case 'U':
                 if (oldLocation <= 3) {
                     return oldLocation;
@@ -53,11 +54,10 @@ public class Day2 {
                     return oldLocation + 1;
                 }
         }
-        return -1;
     }
 
-
-    private static String solve2(List<String> input) {
+    @Override
+    public String solve2() {
         StringBuilder output = new StringBuilder();
         char location = '5';
         for (String line : input) {
@@ -71,8 +71,9 @@ public class Day2 {
     }
 
 
-    private static char newLocation2(char oldLocation, char direction) {
+    private char newLocation2(char oldLocation, char direction) {
         switch (direction) {
+            default:
             case 'U':
                 switch (oldLocation) {
                     case 'D': return 'B';
@@ -122,6 +123,5 @@ public class Day2 {
                     default: return oldLocation;
                 }
         }
-        return '\0';
     }
 }

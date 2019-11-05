@@ -1,29 +1,25 @@
 package nl.erends.advent.year2015;
 
-import nl.erends.advent.util.Problem;
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
-import org.apache.log4j.Logger;
 
-public class Day11 implements Problem<String, String> {
-    
-    private static final Logger LOG = Logger.getLogger(Day11.class);
+public class Day11 extends AbstractProblem<String, String> {
 
     public static void main(String[] args) {
-        String input = Util.readLine(2015, 11);
-        Day11 problem = new Day11();
-        LOG.info(problem.solve1(input));
-        LOG.info(problem.solve2(input));
+        new Day11().setAndSolve(Util.readLine(2015, 11));
     }
 
-    public String solve1(String input) {
+    @Override
+    public String solve1() {
         while (isInvalidPassword(input)) {
             input = nextPassword(input);
         }
         return input;
     }
 
-    public String solve2(String input) {
-        input = solve1(input);
+    @Override
+    public String solve2() {
+        input = solve1();
         input = nextPassword(input);
         while (isInvalidPassword(input)) {
             input = nextPassword(input);

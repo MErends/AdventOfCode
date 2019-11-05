@@ -11,7 +11,7 @@ public class Day15 {
 //
 //Disc #6 has 19 positions; at time=0, it is at position 17.
     public static void main(String[] args) {
-        List<String> lines = Util.getFileAsList("2016day15_2.txt");
+        List<String> lines = Util.getFileAsList("year2016/2016day15_2.txt");
         sizeOfDisc = new int[lines.size()];
         holePositionOfDisc = new int[lines.size()];
         int discNo = 0;

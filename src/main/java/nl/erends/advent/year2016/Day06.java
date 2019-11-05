@@ -1,22 +1,26 @@
 package nl.erends.advent.year2016;
 
-
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Day6 {
+public class Day06 extends AbstractProblem<List<String>, String> {
 
     public static void main(String[] args) {
-        List<String> lines = Util.getFileAsList("2016day6.txt");
+        new Day06().setAndSolve(Util.readInput(2016, 6));
+    }
+
+    @Override
+    public String solve1() {
         StringBuilder mostOften = new StringBuilder();
         StringBuilder leastOften = new StringBuilder();
-        for (int index = 0; index < lines.get(0).length(); index++) {
+        for (int index = 0; index < input.get(0).length(); index++) {
             Map<Character, Integer> counts = new HashMap<>();
 
-            for (String line : lines) {
+            for (String line : input) {
                 char letter = line.charAt(index);
                 if (counts.containsKey(letter)) {
                     counts.put(letter, counts.get(letter) + 1);
@@ -41,7 +45,7 @@ public class Day6 {
             mostOften.append(oftenLetter);
             leastOften.append(leastLetter);
         }
-        System.out.println(mostOften);
-        System.out.println(leastOften);
+        answer2 = leastOften.toString();
+        return mostOften.toString();
     }
 }

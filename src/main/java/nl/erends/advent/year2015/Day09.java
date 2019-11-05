@@ -1,9 +1,7 @@
 package nl.erends.advent.year2015;
 
-import nl.erends.advent.util.Problem;
-import nl.erends.advent.util.Timer;
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
-import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,22 +9,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class Day09 implements Problem<List<String>, Integer> {
+public class Day09 extends AbstractProblem<List<String>, Integer> {
     
-    private static final Logger LOG = Logger.getLogger(Day09.class);
     private int maxDistance = Integer.MIN_VALUE;
     private int minDistance = Integer.MAX_VALUE;
     
     public static void main(String[] args) {
-        List<String> lines = Util.readInput(2015, 9);
-        Day09 problem = new Day09();
-        LOG.info(problem.solve1(lines));
-        LOG.info(problem.solve2(lines));
-        Timer.printStats();
+        new Day09().setAndSolve(Util.readInput(2015, 9));
     }
-    
-    public Integer solve1(List<String> input) {
-        Timer.start1();
+
+    @Override
+    public Integer solve1() {
         Set<String> cities = new HashSet<>();
         Map<String, Integer> distances = new HashMap<>();
         for (String line : input) {
@@ -41,16 +34,14 @@ public class Day09 implements Problem<List<String>, Integer> {
             citiesLeft.remove(fromCity);
             calculate(fromCity, citiesLeft, 0, distances);
         }
-        Timer.end1();
         return minDistance;
     }
-    
-    public Integer solve2(List<String> input) {
-        Timer.start2();
+
+    @Override
+    public Integer solve2() {
         if (minDistance == Integer.MAX_VALUE) {
-            solve1(input);
+            solve1();
         }
-        Timer.end2();
         return maxDistance;
     }
     

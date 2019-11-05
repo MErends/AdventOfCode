@@ -1,28 +1,18 @@
 package nl.erends.advent.year2015;
 
-import nl.erends.advent.util.Problem;
-import nl.erends.advent.util.Timer;
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
-import org.apache.log4j.Logger;
 
 import java.util.List;
 
-public class Day15 implements Problem<List<String>, Integer> {
-    
-    private static final Logger LOG = Logger.getLogger(Day15.class);
-    
-    private int answer2;
+public class Day15 extends AbstractProblem<List<String>, Integer> {
 
     public static void main(String[] args) {
-        List<String> input = Util.readInput(2015, 15);
-        Day15 problem = new Day15();
-        LOG.info(problem.solve1(input));
-        LOG.info(problem.solve2(input));
-        Timer.printStats();
+        new Day15().setAndSolve(Util.readInput(2015, 15));
     }
-    
-    public Integer solve1(List<String> input) {
-        Timer.start1();
+
+    @Override
+    public Integer solve1() {
         String[] words = input.get(0).split(" ");
         Ingredient frosting = new Ingredient(readValue(words[2]), readValue(words[4]), readValue(words[6]), readValue(words[8]), readValue(words[10]));
         words = input.get(1).split(" ");
@@ -78,18 +68,8 @@ public class Day15 implements Problem<List<String>, Integer> {
                 }
             }
         }
-        Timer.end1();
         answer2 = max500Score;
         return maxScore;
-    }
-    
-    public Integer solve2(List<String> input) {
-        Timer.start2();
-        if (answer2 == 0) {
-            solve1(input);
-        }
-        Timer.end2();
-        return answer2;
     }
 
     private int readValue(String input) {
