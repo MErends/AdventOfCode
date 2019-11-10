@@ -8,14 +8,21 @@ public class Assembunny {
     
     private Map<String, Integer> memoryBank = new HashMap<>();
     private List<String> instructions;
+    private int outputLimit;
+    private String output = "";
+    
+    Assembunny(List<String> instructions, int outputLimit) {
+        this.instructions = instructions;
+        this.outputLimit = outputLimit;
+    }
     
     Assembunny(List<String> instructions) {
-        this.instructions = instructions;
+        this(instructions, Integer.MAX_VALUE);
     }
     
     public void execute() {
         int pointer = 0;
-        while (pointer >= 0 && pointer < instructions.size()) {
+        while (pointer >= 0 && pointer < instructions.size() && output.length() < outputLimit) {
             String instruction = instructions.get(pointer);
             String[] words = instruction.split(" ");
             switch (words[0]) {
@@ -37,6 +44,10 @@ public class Assembunny {
                     break;
                 case "tgl":
                     doToggle(words[1], pointer);
+                    pointer++;
+                    break;
+                case "out":
+                    doOut(words[1]);
                     pointer++;
                     break;
             }
@@ -102,8 +113,16 @@ public class Assembunny {
                 break;
         }
     }
+    
+    private void doOut(String memory) {
+        output += getMemory(memory);
+    }
 
     public Map<String, Integer> getMemoryBank() {
         return memoryBank;
+    }
+
+    public String getOutput() {
+        return output;
     }
 }
