@@ -60,8 +60,8 @@ public class Util {
             while ((input = br.readLine()) != null) {
                 list.add(input);
             }
-        } catch (IOException ioe) {
-            LOG.error("Could not read from file", ioe);
+        } catch (IOException | NullPointerException e) {
+            LOG.error("Could not read from: " + filename, e);
         }
         return list;
     }

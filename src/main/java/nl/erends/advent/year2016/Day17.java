@@ -1,22 +1,27 @@
 package nl.erends.advent.year2016;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.MD5;
 
-public class Day17 {
+public class Day17 extends AbstractProblem<String, String> {
 
-    private static int shortestLength = Integer.MAX_VALUE;
-    private static String shortestPath = "";
-    private static int longestLength = Integer.MIN_VALUE;
+    private int shortestLength = Integer.MAX_VALUE;
+    private String shortestPath = "";
+    private int longestLength = Integer.MIN_VALUE;
 
 
     public static void main(String[] args) {
+        new Day17().setAndSolve("rrrbmfta");
+    }
+    @Override
+    public String solve1() {
         solveMaze("", 1, 1);
-        System.out.println(shortestPath);
-        System.out.println(longestLength);
+        answer2 = Integer.toString(longestLength);
+        return shortestPath;
     }
 
 
-    private static void solveMaze(String path, int x, int y) {
+    private void solveMaze(String path, int x, int y) {
         if (x == 4 && y == 4) {
             if (path.length() < shortestLength) {
                 shortestLength = path.length();
@@ -26,8 +31,7 @@ public class Day17 {
             }
             return;
         }
-        String pass = "rrrbmfta";
-        String hash = MD5.getHash(pass + path);
+        String hash = MD5.getHash(input + path);
         if (y != 4 && hash.charAt(1) > 'a') {
             solveMaze(path + 'D', x, y + 1);
         }

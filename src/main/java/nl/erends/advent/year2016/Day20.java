@@ -1,56 +1,60 @@
 package nl.erends.advent.year2016;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.List;
 
-public class Day20 {
+public class Day20 extends AbstractProblem<List<String>, Long> {
+    
+    private long maxValue = 4294967295L;
 
-    static List<String> blacklist = Util.getFileAsList("year2016/2016day20.txt");
-    // 14975795
     public static void main(String[] args) {
-       System.out.println(nextFree(0));
-       int numFree = 0;
-       long pointer = 0;
-       while (true) {
-           long freeOne = nextFree(pointer);
-           if (freeOne == 4294967296L) break;
-           long takenOne = nextBlocked(freeOne);
-           numFree += (takenOne - freeOne);
-           pointer = takenOne;
-       }
-       System.out.println(numFree);
+        new Day20().setAndSolve(Util.readInput(2016, 20));
+    }
+
+    @Override
+    public Long solve1() {
+        return nextFree(0);
+    }
+
+    @Override
+    public Long solve2() {
+    int numFree = 0;
+        long pointer = 0;
+        while (true) {
+            long freeOne = nextFree(pointer);
+            if (freeOne > maxValue) break;
+            long takenOne = nextBlocked(freeOne);
+            numFree += (takenOne - freeOne);
+            pointer = takenOne;
+        }
+        return (long) numFree;
     }
     
-    
-    
-    public static long nextFree(long number) {
-        long nextFree = number + 1;
-        boolean done = false;
-        while (!done) {
-            done = true;
-            int i = 0;
-            for (String blackRange : blacklist) {
-                long lower = Long.parseLong(blackRange.split("-")[0]);
-                long upper = Long.parseLong(blackRange.split("-")[1]);
-                if (nextFree >= lower && nextFree < upper) {
-                    nextFree = Math.max(nextFree, upper + 1);
-                    done = false;
-                }
+    private long nextFree(long blocked) {
+        for (String blackRange : input) {
+            long lower = Long.parseLong(blackRange.split("-")[0]);
+            long upper = Long.parseLong(blackRange.split("-")[1]);
+            if (lower <= blocked && upper >= blocked) {
+                return nextFree(upper + 1);
             }
         }
-        return nextFree;
+        return blocked;
     }
     
-    public static long nextBlocked(long number) {
-        long nextBlocked = Long.MAX_VALUE;
-        boolean done = false;
-        for (String blackRange : blacklist) {
+    private long nextBlocked(long free) {
+        long nextBlocked = maxValue + 1;
+        for (String blackRange : input) {
             long lower = Long.parseLong(blackRange.split("-")[0]);
-            if (lower > number) {
+            if (lower > free) {
                 nextBlocked = Math.min(nextBlocked, lower);
             }
         }
         return nextBlocked;
+    }
+
+    public void setMaxValue(long maxValue) {
+        this.maxValue = maxValue;
     }
 }

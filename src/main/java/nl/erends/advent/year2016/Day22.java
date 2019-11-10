@@ -1,108 +1,106 @@
 package nl.erends.advent.year2016;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Day22 {
-    //          1111111111222222222233333333344444444
-    //01234567890123456789012345678901234567890123456
-    ///dev/grid/node-x7-y4     89T   64T    25T   71%
-    ///dev/grid/node-x21-y24   92T   66T    26T   71%
+public class Day22 extends AbstractProblem<List<String>, Integer> {
+    
+    private Gridnode[][] grid;
 
-    
-    static Gridnode[][] grid;
-    
     public static void main(String[] args) {
-        List<String> gridnodes = Util.getFileAsList("year2016/2016day22.txt");
+        new Day22().setAndSolve(Util.readInput(2016, 22));
+    }
+    
+    @Override
+    public Integer solve1() {
+        List<String> gridnodes = new ArrayList<>(input);
         gridnodes.remove(0);
         gridnodes.remove(0);
-        Gridnode maxGridnode = new Gridnode(gridnodes.get(gridnodes.size() - 1));
-        grid = new Gridnode[maxGridnode.getY() + 1][maxGridnode.getX() + 1];
-        for (String input : gridnodes) {
-            Gridnode gridnode = new Gridnode(input);
-            grid[gridnode.getY()][gridnode.getX()] = gridnode;
-        }
+        createGrid(gridnodes);
         int validPairs = 0;
         for (Gridnode[] rowA : grid) {
             for (Gridnode nodaA : rowA) {
-                for (Gridnode[] rowB : grid) {
-                    for (Gridnode nodeB : rowB) {
-                        if (nodaA != nodeB && nodaA.getUsed() != 0 && nodaA.getUsed() <= nodeB.getAvailable()) {
-                            validPairs++;
-                        }
-                    }
+                validPairs += findValidPairs(nodaA, grid);
+            }
+        }
+        return validPairs;
+    }
+    
+    @Override
+    public Integer solve2() {
+        if (grid == null) {
+            List<String> gridnodes = new ArrayList<>(input);
+            gridnodes.remove(0);
+            gridnodes.remove(0);
+            createGrid(gridnodes);
+        }
+        int holeX = 0;
+        int holeY = 0;
+        for (int y = 0; y < grid.length; y++) {
+            for (int x = 0; x < grid[y].length; x++) {
+                if (grid[y][x].used == 0) {
+                    holeX = x;
+                    holeY = y;
+                    break;
                 }
             }
         }
-        System.out.println(validPairs);
+        int steps = 0;
+        while (holeX != 0) {
+            holeX--;
+            steps++;
+        }
+        while (holeY != 0) {
+            holeY--;
+            steps++;
+        }
+        while (holeX != grid[0].length - 1) {
+            holeX++;
+            steps++;
+        }
+        steps += 5 * (grid[0].length - 2);
+        return steps;
     }
     
-    
-}
-
-class Gridnode {
-    private String id;
-    private int x;
-    private int y;
-    private int size;
-    private int used;
-    private int available;
-
-    Gridnode(String input) {
-        id = input.substring(0, 22).trim();
-        x = Integer.parseInt(id.split("-")[1].substring(1));
-        y = Integer.parseInt(id.split("-")[2].substring(1));
-        size = Integer.parseInt(input.substring(22, 27).trim());
-        used = Integer.parseInt(input.substring(28, 33).trim());
-        available = Integer.parseInt(input.substring(34, 40).trim());
+    private int findValidPairs(Gridnode nodeA, Gridnode[][] grid) {
+        int validPairs = 0;
+        for (Gridnode[] rowB : grid) {
+            for (Gridnode nodeB : rowB) {
+                if (nodeA != nodeB && nodeA.used != 0 && nodeA.used <= nodeB.available) {
+                    validPairs++;
+                }
+            }
+        }
+        return validPairs;
     }
     
-    public String getId() {
-        return id;
+    private void createGrid(List<String> gridnodes) {
+        Gridnode maxGridnode = new Gridnode(gridnodes.get(gridnodes.size() - 1));
+        grid = new Gridnode[maxGridnode.y + 1][maxGridnode.x + 1];
+        for (String input : gridnodes) {
+            Gridnode gridnode = new Gridnode(input);
+            grid[gridnode.y][gridnode.x] = gridnode;
+        }
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
-    public int getX() {
-        return x;
-    }
+    private class Gridnode {
+        
+        private String id;
+        private int x;
+        private int y;
+        private int used;
+        private int available;
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public int getUsed() {
-        return used;
-    }
-
-    public void setUsed(int used) {
-        this.used = used;
-    }
-
-    public int getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(int available) {
-        this.available = available;
+        Gridnode(String input) {
+            id = input.substring(0, 22).trim();
+            x = Integer.parseInt(id.split("-")[1].substring(1));
+            y = Integer.parseInt(id.split("-")[2].substring(1));
+            used = Integer.parseInt(input.substring(28, 33).trim());
+            available = Integer.parseInt(input.substring(34, 40).trim());
+        }
     }
 }

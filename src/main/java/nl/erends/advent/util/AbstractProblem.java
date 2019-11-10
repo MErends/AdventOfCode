@@ -35,6 +35,9 @@ public abstract class AbstractProblem<T, U> {
         if (answer2 == null) {
             solve1();
         }
+        if (answer2 == null) {
+            LOG.warn("Part 2 not implemented!");
+        }
         return answer2;
     }
 }

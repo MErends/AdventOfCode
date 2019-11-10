@@ -1,13 +1,18 @@
 package nl.erends.advent.year2015;
 
-import nl.erends.advent.util.FileIO;
+import nl.erends.advent.util.AbstractProblem;
+import nl.erends.advent.util.Util;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
 
-public class Day19 {
+public class Day19 extends AbstractProblem<List<String>, Integer> {
        
     public static void main(String[] args) {
+        new Day19().setAndSolve(Util.readInput(2015, 19));
+    }
+
+    @Override
+    public Integer solve1() {
         // replace Rn with (
         // replace Ar with )
         // replace Y  with ,
@@ -16,7 +21,6 @@ public class Day19 {
         // X => Y(Z)        saves 1 element per ( and )
         // X => Y(Z,U)      comma saves 2 elements
         // X => Y(Z,U,V)    each comma saves 2 elements
-        List<String> input = FileIO.getFileAsList("2015day19.txt");
         String line = "";
         for (int index = 0; index < input.size(); index++) {
             if (input.get(index).isEmpty()) {
@@ -34,13 +38,10 @@ public class Day19 {
         int parentheses = countOccurences(line, '(');
         parentheses += countOccurences(line, ')');
         int commas = countOccurences(line, ',');
-        System.out.println(totalLength - parentheses - (2 * commas) - 1);
-        
-        // 354 too high
+        return totalLength - parentheses - (2 * commas) - 1;
     }
     
-    
-    private static int countOccurences(String input, char token) {
+    private int countOccurences(String input, char token) {
         int count = 0;
         for (char c : input.toCharArray()) {
             count += c == token ? 1 : 0;

@@ -1,108 +1,100 @@
 package nl.erends.advent.year2016;
 
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.*;
 
 //bot 85 gives low to bot 93 and high to bot 191
-public class Day10 {
+public class Day10 extends AbstractProblem<List<String>, Integer> {
+    
+    private Map<Integer, Bot> botMap = new HashMap<>();
+    private Map<Integer, Integer> outputMap = new HashMap<>();
+    private int answer1;
+    private int highCheck = 61;
+    private int lowCheck = 17;
 
     public static void main(String[] args) {
-        List<String> lines = Util.getFileAsList("year2016/2016day10.txt");
-        Map<Integer, Bot> bots = new HashMap<>();
-        Map<Integer, List<Integer>> outputs = new HashMap<>();
+        new Day10().setAndSolve(Util.readInput(2016, 10));
+    }
+    
+    @Override
+    public Integer solve1() {
+        List<String> lines = input;
+        generateBots(lines);
         while (!lines.isEmpty()) {
-            Iterator<String> iterator = lines.iterator();
-            while (iterator.hasNext()) {
-                String line = iterator.next();
-                String[] words = line.split(" ");
-                if (words[0] .equals("value")) {
-                    int value = Integer.parseInt(words[1]);
-                    int id = Integer.parseInt(words[5]);
-                    Bot toBot = bots.get(id);
-                    if (toBot == null) {
-                        toBot = new Bot(id);
-                        bots.put(id, toBot);
-                    }
-                    toBot.giveValue(value);
-                    bots.put(id, toBot);
-                    iterator.remove();
-                } else {
-                    int fromBotID = Integer.parseInt(words[1]);
-                    int lowBotID = Integer.parseInt(words[6]);
-                    int highBotID = Integer.parseInt(words[11]);
-                    Bot fromBot = bots.get(fromBotID);
-                    if (fromBot != null && fromBot.isReady()) {
-                        if (words[5].equals("bot")) {
-                            Bot lowBot = bots.get(lowBotID);
-                            if (lowBot == null) {
-                                lowBot = new Bot(lowBotID);
-                                bots.put(lowBotID, lowBot);
-                            }
-                            lowBot.giveValue(fromBot.getLowValue());
-                        } else {
-                            List<Integer> output = outputs.get(lowBotID);
-                            if (output == null) {
-                                output = new ArrayList<>();
-                                outputs.put(lowBotID, output);
-                            }
-                            output.add(fromBot.getLowValue());
-                        }
-                        if (words[10].equals("bot")) {
-                            Bot highBot = bots.get(highBotID);
-                            if (highBot == null) {
-                                highBot = new Bot(highBotID);
-                                bots.put(highBotID, highBot);
-                            }
-                            highBot.giveValue(fromBot.getHighValue());
-                        } else {
-                            List<Integer> output = outputs.get(highBotID);
-                            if (output == null) {
-                                output = new ArrayList<>();
-                                outputs.put(highBotID, output);
-                            }
-                            output.add(fromBot.getHighValue());
-                        }
-                        iterator.remove();
-                        if (fromBot.getLowValue() == 17 && fromBot.getHighValue() == 61) {
-                            System.out.println(fromBot.id);
-                        }
-                    }
-                }
+            lines.removeIf(this::processTransaction);
+        }
+        answer2 = outputMap.get(0) * outputMap.get(1) * outputMap.get(2);
+        return answer1;
+    }
+    
+    private void generateBots(List<String> lines) {
+        Iterator<String> lineIterator = lines.iterator();
+        while (lineIterator.hasNext()) {
+            String line = lineIterator.next();
+            String[] words = line.split(" ");
+            if ("value".equals(words[0])) {
+                Bot bot = botMap.computeIfAbsent(Integer.valueOf(words[5]), Bot::new);
+                bot.giveValue(Integer.valueOf(words[1]));
+                lineIterator.remove();
             }
         }
-        System.out.println(outputs.get(0).get(0) * outputs.get(1).get(0) * outputs.get(2).get(0));
     }
-}
-
-class Bot {
-    int id;
-    int lowValue;
-    int highValue;
-
-    public Bot(int id) {
-        this.id = id;
+    
+    private boolean processTransaction(String line) {
+        String[] words = line.split(" ");
+        Bot fromBot = botMap.computeIfAbsent(Integer.valueOf(words[1]), Bot::new);
+        if (fromBot.isReady()) {
+            if (fromBot.lowValue == lowCheck && fromBot.highValue == highCheck) {
+                answer1 = fromBot.id;
+            }
+            if ("bot".equals(words[5])) {
+                Bot toBot = botMap.computeIfAbsent(Integer.valueOf(words[6]), Bot::new);
+                toBot.giveValue(fromBot.lowValue);
+            } else {
+                outputMap.put(Integer.valueOf(words[6]), fromBot.lowValue);
+            }
+            if ("bot".equals(words[10])) {
+                Bot toBot = botMap.computeIfAbsent(Integer.valueOf(words[11]), Bot::new);
+                toBot.giveValue(fromBot.highValue);
+            } else {
+                outputMap.put(Integer.valueOf(words[11]), fromBot.highValue);
+            }
+            return true;
+        }
+        return false;
     }
 
-    public void giveValue(int newValue) {
-        if (newValue < highValue) {
-            lowValue = newValue;
-        } else {
-            lowValue = highValue;
-            highValue = newValue;
+    private class Bot {
+        int id;
+        int lowValue;
+        int highValue;
+
+        Bot(int id) {
+            this.id = id;
+        }
+
+        void giveValue(int newValue) {
+            if (newValue < highValue) {
+                lowValue = newValue;
+            } else {
+                lowValue = highValue;
+                highValue = newValue;
+            }
+        }
+
+        boolean isReady() {
+            return (lowValue != 0 && highValue != 0);
         }
     }
 
-    public boolean isReady() {
-        return (lowValue != 0 && highValue != 0);
+    public void setHighCheck(int highCheck) {
+        this.highCheck = highCheck;
     }
 
-    public int getLowValue() {
-        return lowValue;
-    }
-
-    public int getHighValue() {
-        return highValue;
+    public void setLowCheck(int lowCheck) {
+        this.lowCheck = lowCheck;
     }
 }

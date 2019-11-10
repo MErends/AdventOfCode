@@ -1,17 +1,27 @@
 package nl.erends.advent.year2016;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Day15 {
+public class Day15 extends AbstractProblem<List<String>, Integer> {
 
-    private static int[] sizeOfDisc;
-    private static int[] holePositionOfDisc;
-//
-//Disc #6 has 19 positions; at time=0, it is at position 17.
+    private int[] sizeOfDisc;
+    private int[] holePositionOfDisc;
+    private boolean part1 = true;
+
     public static void main(String[] args) {
-        List<String> lines = Util.getFileAsList("year2016/2016day15_2.txt");
+        new Day15().setAndSolve(Util.readInput(2016, 15));
+    }
+
+    @Override
+    public Integer solve1() {
+        List<String> lines = new ArrayList<>(input);
+        if (part1) {
+            lines.remove(lines.size() - 1);
+        }
         sizeOfDisc = new int[lines.size()];
         holePositionOfDisc = new int[lines.size()];
         int discNo = 0;
@@ -27,24 +37,30 @@ public class Day15 {
             delay++;
             updateDiscs();
         }
-        System.out.println(delay);
+        return delay;
+    }
+    
+    @Override
+    public Integer solve2() {
+        part1 = false;
+        return solve1();
     }
 
-    private static void updateDiscs() {
+    private void updateDiscs() {
         for (int discNo = 0; discNo < sizeOfDisc.length; discNo++) {
-            int sizeOfDisc = Day15.sizeOfDisc[discNo];
-            holePositionOfDisc[discNo] = (holePositionOfDisc[discNo] + 1) % sizeOfDisc;
+            int sizeofDisc = sizeOfDisc[discNo];
+            holePositionOfDisc[discNo] = (holePositionOfDisc[discNo] + 1) % sizeofDisc;
         }
     }
 
-    private static void initializeDiscPosition() {
+    private void initializeDiscPosition() {
         for (int discNo = 0; discNo < sizeOfDisc.length; discNo++) {
             int sizeofDisc = sizeOfDisc[discNo];
             holePositionOfDisc[discNo] = (holePositionOfDisc[discNo] + discNo + 1) % sizeofDisc;
         }
     }
 
-    private static boolean freefall() {
+    private boolean freefall() {
         for (int holePosition : holePositionOfDisc) {
             if (holePosition != 0) {
                 return false;

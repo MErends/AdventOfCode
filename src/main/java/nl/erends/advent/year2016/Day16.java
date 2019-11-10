@@ -1,26 +1,33 @@
 package nl.erends.advent.year2016;
 
-public class Day16 {
+import nl.erends.advent.util.AbstractProblem;
+
+public class Day16 extends AbstractProblem<String, String> {
+    
+    private int targetLength = 272;
 
 
     public static void main(String[] args) {
-        String discData = "11100010111110100";
-        int targetLength = 272;
-        while (discData.length() < targetLength) {
-            discData = dragonCurve(discData);
+        new Day16().setAndSolve("11100010111110100");
+    }
+    
+    @Override
+    public String solve1() {
+        String input = "11100010111110100";
+        while (input.length() < targetLength) {
+            input = dragonCurve(input);
         }
-        discData = discData.substring(0, targetLength);
-        System.out.println(checksum(discData));
-        discData = "11100010111110100";
+        input = input.substring(0, targetLength);
+        return checksum(input);
+    }
+    
+    @Override
+    public String solve2() {
         targetLength = 35651584;
-        while (discData.length() < targetLength) {
-            discData = dragonCurve(discData);
-        }
-        discData = discData.substring(0, targetLength);
-        System.out.println(checksum(discData));
+        return solve1();
     }
 
-    private static String dragonCurve(String input) {
+    private String dragonCurve(String input) {
         StringBuilder output = new StringBuilder(input);
         output.append('0');
         char[] inputchars = input.toCharArray();
@@ -30,7 +37,7 @@ public class Day16 {
         return output.toString();
     }
 
-    private static String checksum(String input) {
+    private String checksum(String input) {
         StringBuilder output = new StringBuilder();
         for (int index = 0; index < input.length(); index += 2) {
             String subString = input.substring(index, index + 2);

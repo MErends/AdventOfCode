@@ -1,144 +1,154 @@
 package nl.erends.advent.year2016;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Day21 {
+public class Day21 extends AbstractProblem<List<String>, String> {
     
-    private static StringBuilder password = new StringBuilder("abcdefgh");
+    private String input1 = "abcdefgh";
+    private String input2 = "fbgdceah";
     
     public static void main(String[] args) {
-        List<String> commands = Util.getFileAsList("year2016/2016day21.txt");
-        for (String command : commands) {
-            String[] words = command.split(" ");
-            switch (words[0]) {
-                case "swap":
-                    if (words[1].equals("position")) {
-                        swapPositions(Integer.parseInt(words[2]), Integer.parseInt(words[5]));
-                    } else {
-                        swapLetter(words[2].charAt(0), words[5].charAt(0));
-                    }
-                    break;
-                case "rotate":
-                    switch (words[1]) {
-                        case "left":
-                            rotateLeft(Integer.parseInt(words[2]));
-                            break;
-                        case "right":
-                            rotateRight(Integer.parseInt(words[2]));
-                            break;
-                        default:
-                            rotateIndex(words[6].charAt(0));
-                            break;
-                    }
-                    break;
-                case "reverse":
+        new Day21().setAndSolve(Util.readInput(2016, 21));
+    }
+    
+    @Override
+    public String solve1() {
+        PasswordTool passwordTool = new PasswordTool(input);
+        return passwordTool.scramble(input1);
+    }
+    
+    @Override
+    public String solve2() {
+        PasswordTool passwordTool = new PasswordTool(input);
+        return passwordTool.unscramble(input2);
+    }
+
+    public void setInput1(String input1) {
+        this.input1 = input1;
+    }
+
+    public void setInput2(String input2) {
+        this.input2 = input2;
+    }
+
+    private class PasswordTool {
+
+        private List<String> instructions;
+        private StringBuilder password;
+
+        PasswordTool(List<String> instructions) {
+            this.instructions = instructions;
+        }
+
+        String scramble(String input) {
+            password = new StringBuilder(input);
+            for (String instruction : instructions) {
+                String[] words = instruction.split(" ");
+                if (instruction.startsWith("swap position")) {
+                    swapPositions(Integer.parseInt(words[2]), Integer.parseInt(words[5]));
+                } else if (instruction.startsWith("swap letter")) {
+                    swapLetter(words[2], words[5]);
+                } else if (instruction.startsWith("rotate based")) {
+                    rotateIndex(words[6]);
+                } else if (instruction.startsWith("rotate left")) {
+                    rotateLeft(Integer.parseInt(words[2]));
+                } else if (instruction.startsWith("rotate right")) {
+                    rotateRight(Integer.parseInt(words[2]));
+                } else if (instruction.startsWith("reverse")) {
                     reversePositions(Integer.parseInt(words[2]), Integer.parseInt(words[4]));
-                    break;
-                default:
+                } else {
                     movePosition(Integer.parseInt(words[2]), Integer.parseInt(words[5]));
-                    break;
+                }
             }
+            return password.toString();
         }
-        System.out.println(password);
-        
-        password = new StringBuilder("fbgdceah");
-        Collections.reverse(commands);
-        for (String command : commands) {
-            String[] words = command.split(" ");
-            switch (words[0]) {
-                case "swap":
-                    if (words[1].equals("position")) {
-                        swapPositions(Integer.parseInt(words[2]), Integer.parseInt(words[5]));
-                    } else {
-                        swapLetter(words[2].charAt(0), words[5].charAt(0));
-                    }
-                    break;
-                case "rotate":
-                    switch (words[1]) {
-                        case "right":
-                            rotateLeft(Integer.parseInt(words[2]));
-                            break;
-                        case "left":
-                            rotateRight(Integer.parseInt(words[2]));
-                            break;
-                        default:
-                            unrotateIndex(words[6].charAt(0));
-                            break;
-                    }
-                    break;
-                case "reverse":
+
+        String unscramble(String input) {
+            password = new StringBuilder(input);
+            List<String> reverseInstructions = new ArrayList<>(instructions);
+            Collections.reverse(reverseInstructions);
+            for (String instruction : reverseInstructions) {
+                String[] words = instruction.split(" ");
+                if (instruction.startsWith("swap position")) {
+                    swapPositions(Integer.parseInt(words[2]), Integer.parseInt(words[5]));
+                } else if (instruction.startsWith("swap letter")) {
+                    swapLetter(words[2], words[5]);
+                } else if (instruction.startsWith("rotate based")) {
+                    unrotateIndex(words[6]);
+                } else if (instruction.startsWith("rotate left")) {
+                    rotateRight(Integer.parseInt(words[2]));
+                } else if (instruction.startsWith("rotate right")) {
+                    rotateLeft(Integer.parseInt(words[2]));
+                } else if (instruction.startsWith("reverse")) {
                     reversePositions(Integer.parseInt(words[2]), Integer.parseInt(words[4]));
-                    break;
-                default:
+                } else {
                     movePosition(Integer.parseInt(words[5]), Integer.parseInt(words[2]));
+                }
+            }
+            return password.toString();
+        }
+
+        private void swapPositions(int a, int b) {
+            char temp = password.charAt(a);
+            password.setCharAt(a, password.charAt(b));
+            password.setCharAt(b, temp);
+        }
+
+        private void swapLetter(String a, String b) {
+            swapPositions(password.indexOf(a), password.indexOf(b));
+        }
+
+        private void rotateLeft(int steps) {
+            steps %= password.length();
+            String a = password.substring(0, steps);
+            String b = password.substring(steps);
+            password = new StringBuilder(b).append(a);
+        }
+
+        private void rotateRight(int steps) {
+            password.reverse();
+            rotateLeft(steps);
+            password.reverse();
+        }
+
+        private void rotateIndex(String a) {
+            int index = password.indexOf(a);
+            if (index >= 4) index++;
+            rotateRight(index + 1);
+        }
+
+        private void unrotateIndex(String a) {
+            String target = password.toString();
+            int timesRotated = 0;
+            while (true) {
+                rotateLeft(timesRotated);
+                rotateIndex(a);
+                if (password.toString().equals(target)) {
                     break;
+                } else {
+                    password = new StringBuilder(target);
+                    timesRotated++;
+                }
             }
-        }
-        System.out.println(password);
-    }
-    
-    
-    
-    private static void swapPositions(int a, int b) {
-        char temp = password.charAt(a);
-        password.setCharAt(a, password.charAt(b));
-        password.setCharAt(b, temp);
-    }
-    
-    private static void swapLetter(char a, char b) {
-        int indexOfA = password.indexOf("" + a);
-        password.setCharAt(password.indexOf("" + b), a);
-        password.setCharAt(indexOfA, b);
-    }
-    
-    private static void rotateLeft(int steps) {
-        steps %= password.length();
-        String a = password.substring(0, steps);
-        String b = password.substring(steps);
-        password = new StringBuilder(b + a);
-    }
-    
-    private static void rotateRight(int steps) {
-        password.reverse();
-        rotateLeft(steps);
-        password.reverse();
-    }
-    
-    private static void rotateIndex(char a) {
-        int index = password.indexOf("" + a);
-        if (index > 3) index++;
-        rotateRight(index + 1);
-    }
-    
-    private static void unrotateIndex(char a) {
-        String target = password.toString();
-        int timesRotated = 0;
-        while (true) {
             rotateLeft(timesRotated);
-            rotateIndex(a);
-            if (password.toString().equals(target)) {
-                break;
-            } else {
-                password = new StringBuilder(target);
-                timesRotated++;
-            }
         }
-        rotateLeft(timesRotated);
-    }
-    
-    private static void reversePositions(int a, int b) {
-        StringBuilder newPassword = new StringBuilder(password.substring(0, a));
-        StringBuilder midsection = new StringBuilder(password.substring(a, b + 1));
-        newPassword.append(midsection.reverse()).append(password.substring(b + 1));
-        password = newPassword;
-    }
-    
-    private static void movePosition(int a, int b) {
-        char c = password.charAt(a);
-        password.deleteCharAt(a);
-        password.insert(b, c);
+
+        private void reversePositions(int a, int b) {
+            StringBuilder newPassword = new StringBuilder(password.substring(0, a));
+            StringBuilder midsection = new StringBuilder(password.substring(a, b + 1));
+            newPassword.append(midsection.reverse()).append(password.substring(b + 1));
+            password = newPassword;
+        }
+
+        private void movePosition(int a, int b) {
+            char c = password.charAt(a);
+            password.deleteCharAt(a);
+            password.insert(b, c);
+        }
     }
 }

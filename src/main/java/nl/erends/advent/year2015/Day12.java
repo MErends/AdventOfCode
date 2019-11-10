@@ -1,14 +1,20 @@
 package nl.erends.advent.year2015;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class Day12 {
+public class Day12 extends AbstractProblem<String, Integer> {
     public static void main(String[] args) {
+        new Day12().setAndSolve(Util.readLine(2015, 12));
+    }
+
+    @Override
+    public Integer solve1() {
         int sum = 0;
-        char[] line = Util.readLine(2015, 12).toCharArray();
+        char[] line = input.toCharArray();
         Set<Character> allowed = new HashSet<>();
         allowed.add('0');
         allowed.add('1');
@@ -33,7 +39,6 @@ public class Day12 {
                 sum += Integer.parseInt(word);
             }
         }
-        System.out.println(sum);
-
+        return sum;
     }
 }
