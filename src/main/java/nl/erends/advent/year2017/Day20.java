@@ -1,21 +1,20 @@
 package nl.erends.advent.year2017;
 
-//  p=<1609,-863,-779>, v=<-15,54,-69>, a=<-10,0,14>
-//  p=<-391,1353,-387>, v=<-94,-42,0>, a=<14,-5,3>
-
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Day20 {
+public class Day20 extends AbstractProblem<List<String>, Integer> {
     
     public static void main(String[] args) {
-        List<String> input = Util.getFileAsList("2017day20.txt");
-        List<Particle> particles = new ArrayList<>();
-        for (int index = 0; index < input.size(); index++) {
-            particles.add(new Particle(index, input.get(index)));
-        }
+        new Day20().setAndSolve(Util.readInput(2017, 20));
+    }
+    
+    @Override
+    public Integer solve1() {
+        List<Particle> particles = readParticles();
         boolean done = false;
         int closestID = 0;
         while (!done) {
@@ -25,48 +24,58 @@ public class Day20 {
                 if (particle.inScope) {
                     particle.update();
                 }
-                if (particle.inScope && particle.getDistance() < smallestDistance) {
+                if (particle.inScope && particle.distance < smallestDistance) {
                     done = false;
-                    smallestDistance = particle.getDistance();
-                    closestID = particle.getId();
+                    smallestDistance = particle.distance;
+                    closestID = particle.id;
                 }
             }
         }
-        System.out.println(closestID);
-
-        particles = new ArrayList<>();
-        for (int index = 0; index < input.size(); index++) {
-            particles.add(new Particle(index, input.get(index)));
-        }
-        done = false;
-        while (!done) {
-            done = true;
-            for (Particle particle : particles) {
-                if (particle.inScope) {
-                    done = false;
-                    particle.update();
-                }
-            }
+        return closestID;
+    }
+    
+    @Override
+    public Integer solve2() {
+        List<Particle> particles = readParticles();
+        boolean done = false;
+        while (!done || particles.size() == 1) {
+            done = updateParticles(particles);
             for (Particle particle1 : particles) {
                 for (Particle particle2 : particles) {
-                    if (particle1.getId() != particle2.getId() &&
-                            particle1.getX() == particle2.getX() &&
-                            particle1.getY() == particle2.getY() &&
-                            particle1.getZ() == particle2.getZ()) {
-                        particle1.setCollided(true);
-                        particle2.setCollided(true);
+                    if (particle1.id != particle2.id &&
+                            particle1.x == particle2.x &&
+                            particle1.y == particle2.y &&
+                            particle1.z == particle2.z) {
+                        particle1.collided = true;
+                        particle2.collided = true;
                     }
                 }
             }
-            particles.removeIf(Particle::isCollided);
+            particles.removeIf(p -> p.collided);
         }
-        System.out.println(particles.size());
+        return particles.size();
+    }
+
+    private boolean updateParticles(List<Particle> particles) {
+        boolean done = true;
+        for (Particle particle : particles) {
+            if (particle.inScope) {
+                done = false;
+                particle.update();
+            }
+        }
+        return done;
+    }
+
+    private List<Particle> readParticles() {
+        List<Particle> particles = new ArrayList<>();
+        for (int index = 0; index < input.size(); index++) {
+            particles.add(new Particle(index, input.get(index)));
+        }
+        return particles;
     }
     
-    
-    
-    
-    private static class Particle {
+    private class Particle {
         int id;
         int distance;
         int x;
@@ -109,38 +118,6 @@ public class Day20 {
                 distance = Math.abs(x) + Math.abs(y) + Math.abs(z);
                 if (distance < 0) inScope = false;
             }
-        }
-        
-        int getId() {
-            return id;
-        }
-        
-        boolean isInScope() {
-            return inScope;
-        }
-        
-        int getDistance() {
-            return distance;
-        }
-
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
-        }
-
-        public int getZ() {
-            return z;
-        }
-
-        public boolean isCollided() {
-            return collided;
-        }
-        
-        public void setCollided(boolean collided) {
-            this.collided = collided;
         }
     }
 }

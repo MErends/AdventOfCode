@@ -5,18 +5,24 @@ package nl.erends.advent.year2017;
 //     4 5 6   8 5 2
 //     7 8 9   9 6 3
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Day21 {
+public class Day21 extends AbstractProblem<List<String>, Integer> {
     
-    private static Map<String, String> mapping = new HashMap<>();
+    private Map<String, String> mapping = new HashMap<>();
     
     public static void main(String[] args) {
-        List<String> input = Util.getFileAsList("2017day21.txt");
+        new Day21().setAndSolve(Util.readInput(2017, 21));
+    }
+    
+    @Override
+    public Integer solve1() {
+        int answer1 = 0;
         for (String line : input) {
             String[] mappingArray = line.split("=>");
             mapping.put(mappingArray[0].trim(), mappingArray[1].trim());
@@ -25,14 +31,15 @@ public class Day21 {
         for (int iterations = 1 ; iterations <= 18; iterations++) {
             grid = enhanceGrid(grid);
             if (iterations == 5) {
-                System.out.println(pixelsOn(grid));
+                answer1 = pixelsOn(grid);
             }
             
         }
-        System.out.println(pixelsOn(grid));
+        answer2 = pixelsOn(grid);
+        return answer1;
     }
     
-    private static char[][] enhanceGrid(char[][] grid) {
+    private char[][] enhanceGrid(char[][] grid) {
         int scale = grid.length % 2 == 0 ? 2 : 3;
         int newSize = scale == 2 ? grid.length / 2 * 3 : grid.length / 3 * 4;
         char[][] target = new char[newSize][newSize];
@@ -48,27 +55,23 @@ public class Day21 {
     
     
     
-    private static char[][] getSubgrid(char[][] grid, int x, int y) {
+    private char[][] getSubgrid(char[][] grid, int x, int y) {
         int scale = grid.length % 2 == 0 ? 2 : 3;
         char[][] subgrid = new char[scale][scale];
         for (int subgridY = 0; subgridY < scale; subgridY++) {
-            for (int subgridX = 0; subgridX < scale; subgridX++) {
-                subgrid[subgridY][subgridX] = grid[y * scale + subgridY][x * scale + subgridX];
-            }
+            System.arraycopy(grid[y * scale + subgridY], x * scale, subgrid[subgridY], 0, scale);
         }
         return subgrid;
     }
     
-    private static void setSubgrid(char[][] grid, char[][] subgrid, int x, int y) {
+    private void setSubgrid(char[][] grid, char[][] subgrid, int x, int y) {
         int scale = subgrid.length;
         for (int subgridY = 0; subgridY < scale; subgridY++) {
-            for (int subgridX = 0; subgridX < scale; subgridX++) {
-                grid[y * scale + subgridY][x * scale + subgridX] = subgrid[subgridY][subgridX];
-            }
+            System.arraycopy(subgrid[subgridY], 0, grid[y * scale + subgridY], x * scale, scale);
         }
     }
     
-    private static char[][] getEnhancedSubgrid(char[][] input) {
+    private char[][] getEnhancedSubgrid(char[][] input) {
         for (int i = 0; i < 4; i++) {
             if (mapping.containsKey(getStringRep(input))) {
                 break;
@@ -94,7 +97,7 @@ public class Day21 {
         return output;
     }
 
-    private static String getStringRep(char[][] input) {
+    private String getStringRep(char[][] input) {
         StringBuilder inputString = new StringBuilder();
         for (char[] row : input) {
             inputString.append(row).append("/");
@@ -103,7 +106,7 @@ public class Day21 {
         return inputString.toString();
     }
 
-    private static void rotate(char[][] input) {
+    private void rotate(char[][] input) {
         if (input.length == 2) {
             rotate2x2(input);
         } else {
@@ -111,7 +114,7 @@ public class Day21 {
         }
     }
     
-    private static void rotate3x3(char[][] input) {
+    private void rotate3x3(char[][] input) {
         char[][] temp = new char[3][3];
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
@@ -128,7 +131,7 @@ public class Day21 {
         input[2][2] = temp[0][2];
     }
     
-    private static void rotate2x2(char[][] input) {
+    private void rotate2x2(char[][] input) {
         char[][] temp = new char[2][2];
         for (int x = 0; x < 2; x++) {
             for (int y = 0; y < 2; y++) {
@@ -142,7 +145,7 @@ public class Day21 {
     }
 
 
-    private static void flip(char[][] input) {
+    private void flip(char[][] input) {
         if (input.length == 2) {
             flip2x2(input);
         } else {
@@ -150,7 +153,7 @@ public class Day21 {
         }
     }
     
-    private static void flip3x3(char[][] input) {
+    private void flip3x3(char[][] input) {
         char[][] temp = new char[3][3];
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
@@ -165,7 +168,7 @@ public class Day21 {
         input[2][2] = temp[0][2];
     }
 
-    private static void flip2x2(char[][] input) {
+    private void flip2x2(char[][] input) {
         char[][] temp = new char[2][2];
         for (int x = 0; x < 2; x++) {
             for (int y = 0; y < 2; y++) {
@@ -178,17 +181,7 @@ public class Day21 {
         input[1][1] = temp[0][1];
     }
     
-    private static void printGrid(char[][] grid) {
-        for (char[] row : grid) {
-            for (char c : row) {
-                System.out.print(c + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
-    
-    private static int pixelsOn(char[][] grid) {
+    private int pixelsOn(char[][] grid) {
         int pixelsOn = 0;
         for (char[] row : grid) {
             for (char c : row) {

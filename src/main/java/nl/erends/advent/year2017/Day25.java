@@ -1,21 +1,22 @@
 package nl.erends.advent.year2017;
 
-public class Day25 {
+import nl.erends.advent.util.AbstractProblem;
+
+public class Day25 extends AbstractProblem<String, Integer> {
     
-    public static int[] tape = {0};
-    public static int position = 0;
-    public static char state = 'A';
+    private int[] tape = {0};
+    private int position = 0;
+    private char state = 'A';
+    
     public static void main(String[] args) {
+        new Day25().setAndSolve(null);
+    }
     
+    @Override
+    public Integer solve1() {
         int maxSteps = 12425180;
         for (int step = 0; step < maxSteps; step++) {
-            try {
-                takeStep();
-            } catch (Exception e) {
-                System.out.println("error in step " + step);
-                e.printStackTrace();
-                throw new RuntimeException();
-            }
+            takeStep();
         }
         int checksum = 0;
         for (int c : tape) {
@@ -23,88 +24,106 @@ public class Day25 {
                 checksum++;
             }
         }
-        System.out.println(checksum);
+        return checksum;
     }
     
-    private static void takeStep() {
+    private void takeStep() {
         switch (state) {
             case 'A':
-                if (tape[position] == 0) {
-                    tape[position] = 1;
-                    goRight();
-                    state = 'B';
-                } else {
-                    tape[position] = 0;
-                    goRight();
-                    state = 'F';
-                }
+                doA();
                 break;
             case 'B':
-                if (tape[position] == 0) {
-                    tape[position] = 0;
-                    goLeft();
-                    state = 'B';
-                } else {
-                    tape[position] = 1;
-                    goLeft();
-                    state = 'C';
-                }
+                doB();
                 break;
             case 'C':
-                if (tape[position] == 0) {
-                    tape[position] = 1;
-                    goLeft();
-                    state = 'D';
-                } else {
-                    tape[position] = 0;
-                    goRight();
-                    state = 'C';
-                }
+                doC();
                 break;
             case 'D':
-                if (tape[position] == 0) {
-                    tape[position] = 1;
-                    goLeft();
-                    state = 'E';
-                } else {
-                    tape[position] = 1;
-                    goRight();
-                    state = 'A';
-                }
+                doD();
                 break;
             case 'E':
-                if (tape[position] == 0) {
-                    tape[position] = 1;
-                    goLeft();
-                    state = 'F';
-                } else {
-                    tape[position] = 0;
-                    goLeft();
-                    state = 'D';
-                }
+                doE();
                 break;
             case 'F':
-                if (tape[position] == 0) {
-                    tape[position] = 1;
-                    goRight();
-                    state = 'A';
-                } else {
-                    tape[position] = 0;
-                    goLeft();
-                    state = 'E';
-                }
+                doF();
                 break;
+            default:
         }
     }
-    
-    private static void printTape() {
-        for (int c : tape) {
-            System.out.print(c);
+
+    private void doA() {
+        if (tape[position] == 0) {
+            tape[position] = 1;
+            goRight();
+            state = 'B';
+        } else {
+            tape[position] = 0;
+            goRight();
+            state = 'F';
         }
-        System.out.println();
     }
-    
-    private static void goLeft() {
+
+    private void doB() {
+        if (tape[position] == 0) {
+            tape[position] = 0;
+            goLeft();
+            state = 'B';
+        } else {
+            tape[position] = 1;
+            goLeft();
+            state = 'C';
+        }
+    }
+
+    private void doC() {
+        if (tape[position] == 0) {
+            tape[position] = 1;
+            goLeft();
+            state = 'D';
+        } else {
+            tape[position] = 0;
+            goRight();
+            state = 'C';
+        }
+    }
+
+    private void doD() {
+        if (tape[position] == 0) {
+            tape[position] = 1;
+            goLeft();
+            state = 'E';
+        } else {
+            tape[position] = 1;
+            goRight();
+            state = 'A';
+        }
+    }
+
+    private void doE() {
+        if (tape[position] == 0) {
+            tape[position] = 1;
+            goLeft();
+            state = 'F';
+        } else {
+            tape[position] = 0;
+            goLeft();
+            state = 'D';
+        }
+    }
+
+    private void doF() {
+        if (tape[position] == 0) {
+            tape[position] = 1;
+            goRight();
+            state = 'A';
+        } else {
+            tape[position] = 0;
+            goLeft();
+            state = 'E';
+        }
+    }
+
+    private void goLeft() {
         if (position == 0) {
             addToFront();
         } else {
@@ -112,20 +131,20 @@ public class Day25 {
         }
     }
     
-    private static void goRight() {
+    private void goRight() {
         if (position == tape.length - 1) {
             addToEnd();
         }
         position++;
     }
     
-    private static void addToFront() {
+    private void addToFront() {
         int[] target = new int[tape.length + 1];
         System.arraycopy(tape, 0, target, 1, tape.length);
         tape = target;
     }
 
-    private static void addToEnd() {
+    private void addToEnd() {
         int[] target = new int[tape.length + 1];
         System.arraycopy(tape, 0, target, 0, tape.length);
         tape = target;

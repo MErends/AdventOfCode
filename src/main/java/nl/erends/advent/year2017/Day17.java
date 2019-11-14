@@ -1,38 +1,43 @@
 package nl.erends.advent.year2017;
 
+import nl.erends.advent.util.AbstractProblem;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Day17 {
+public class Day17 extends AbstractProblem<Integer, Integer> {
 
     public static void main(String[] args) {
-
+        new Day17().setAndSolve(343);
+    }
+    
+    @Override
+    public Integer solve1() {
         List<Integer> memory = new ArrayList<>();
         memory.add(0);
+        int answer1 = 0;
         int position = 0;
-        int increment = 343;
         int insert = 1;
         for ( ; insert < 2018; insert++) {
-            position = (position + increment) % memory.size();
+            position = (position + input) % memory.size();
             memory.add(position + 1, insert);
             position++;
         }
         for (int index = 0; index < memory.size(); index++) {
             if (memory.get(index) == 2017) {
-                System.out.println(memory.get(index + 1));
+                answer1 = memory.get(index + 1);
                 break;
             }
         }
         int valueAfterZero = memory.get(1);
         for ( ; insert < 50_000_001; insert++) {
-            position = (position + increment) % insert;
+            position = (position + input) % insert;
             if (position == 0) {
                 valueAfterZero = insert;
             }
             position++;
         }
-        System.out.println(valueAfterZero);
+        answer2 = valueAfterZero;
+        return answer1;
     }
-
-
 }

@@ -1,19 +1,27 @@
 package nl.erends.advent.year2017;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
-public class Day9 {
+public class Day09 extends AbstractProblem<String, Integer> {
 
     public static void main(String[] args) {
-        char[] tokens = Util.getFileAsString("2017day9.txt").toCharArray();
+        new Day09().setAndSolve(Util.readLine(2017, 9));
+    }
+    
+    @Override
+    public Integer solve1() {
+        char[] tokens = input.toCharArray();
         int depth = 0;
         int score = 0;
         int cancelled = 0;
         boolean inGarbage = false;
-        for (int index = 0; index < tokens.length; index++) {
-            char token = tokens[index];
+        int pointer = 0;
+        while (pointer < tokens.length) {
+            char token = tokens[pointer];
             if (inGarbage && token != '>' && token != '!') {
                 cancelled++;
+                pointer++;
                 continue;
             }
             switch (token) {
@@ -25,7 +33,7 @@ public class Day9 {
                     depth--;
                     break;
                 case '!':
-                    index++;
+                    pointer++;
                     break;
                 case '<':
                     inGarbage = true;
@@ -33,9 +41,11 @@ public class Day9 {
                 case '>':
                     inGarbage = false;
                     break;
+                default:
             }
+            pointer++;
         }
-        System.out.println(score);
-        System.out.println(cancelled);
+        answer2 = cancelled;
+        return score;
     }
 }

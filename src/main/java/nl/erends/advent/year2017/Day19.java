@@ -1,106 +1,132 @@
 package nl.erends.advent.year2017;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.List;
 
-import static nl.erends.advent.year2017.Day19.Direction.*;
-//             |
-//             |  +--+
-//             A  |  C
-//         F---|----E|--+
-//             |  |  |  D
-//             +B-+  +--+
-
-public class Day19 {
-
+public class Day19 extends AbstractProblem<List<String>, String> {
+    
+    private int x;
+    private int y;
+    private char[][] maze;
+    private Direction direction;
 
     public static void main(String[] args) {
-        List<String> input = Util.getFileAsList("2017day19.txt");
-        char[][] maze = new char[input.size()][];
-        for (int y = 0; y < maze.length; y++) {
-            maze[y] = new char[input.get(y).length()];
-            for (int x = 0; x< maze[y].length; x++) {
-                maze[y][x] = input.get(y).charAt(x);
-            }
-        }
-        int y = 0;
-        int x = 0;
-        Direction direction = DOWN;
-        for (; x < maze[y].length; x++) {
-            if (maze[y][x] == '|') {
-                break;
-            }
-        }
+        new Day19().setAndSolve(Util.readInput(2017, 19));
+    }
+    
+    @Override
+    public String solve1() {
+        readMaze();
+        direction = Direction.DOWN;
+        findStartX();
         StringBuilder word = new StringBuilder();
         int stepsTaken = 0;
         while (true) {
             stepsTaken++;
-            switch (direction) {
-                case UP:
-                    y--;
-                    break;
-                case DOWN:
-                    y++;
-                    break;
-                case LEFT:
-                    x--;
-                    break;
-                case RIGHT:
-                    x++;
-                    break;
-            }
+            updatePosition();
             if (maze[y][x] == ' ') {
                 break;
             }
             if (!"|-+".contains("" + maze[y][x])) {
                 word.append(maze[y][x]);
             }
-            switch (direction) {
-                case UP:
-                    if (maze[y - 1][x] == ' ') {
-                        if (maze[y][x - 1] != ' ') {
-                            direction = LEFT;
-                        } else if (maze[y][x + 1] != ' ') {
-                            direction = RIGHT;
-                        }
-                    }
-                    break;
-                case DOWN:
-                    if (maze[y + 1][x] == ' ') {
-                        if (maze[y][x - 1] != ' ') {
-                            direction = LEFT;
-                        } else if (maze[y][x + 1] != ' ') {
-                            direction = RIGHT;
-                        }
-                    }
-                    break;
-                case LEFT:
-                    if (maze[y][x - 1] == ' ') {
-                        if (maze[y - 1][x] != ' ') {
-                            direction = UP;
-                        } else if (maze[y + 1][x] != ' ') {
-                            direction = DOWN;
-                        }
-                    }
-                    break;
-                case RIGHT:
-                    if (maze[y][x + 1] == ' ') {
-                        if (maze[y - 1][x] != ' ') {
-                            direction = UP;
-                        } else if (maze[y + 1][x] != ' ') {
-                            direction = DOWN;
-                        }
-                    }
-                    break;
-            }
+            makeTurn();
         }
-        System.out.println(word);
-        System.out.println(stepsTaken);
+        answer2 = Integer.toString(stepsTaken);
+        return word.toString();
     }
 
+    private void makeTurn() {
+        switch (direction) {
+            case UP:
+                turnFromUp();
+                break;
+            case DOWN:
+                turnFromDown();
+                break;
+            case LEFT:
+                turnFromLeft();
+                break;
+            case RIGHT:
+                turnFromRight();
+                break;
+        }
+    }
 
-    public enum Direction {
-        UP, DOWN, LEFT, RIGHT
+    private void turnFromRight() {
+        if (maze[y][x + 1] == ' ') {
+            if (maze[y - 1][x] != ' ') {
+                direction = Direction.UP;
+            } else if (maze[y + 1][x] != ' ') {
+                direction = Direction.DOWN;
+            }
+        }
+    }
+
+    private void turnFromLeft() {
+        if (maze[y][x - 1] == ' ') {
+            if (maze[y - 1][x] != ' ') {
+                direction = Direction.UP;
+            } else if (maze[y + 1][x] != ' ') {
+                direction = Direction.DOWN;
+            }
+        }
+    }
+
+    private void turnFromDown() {
+        if (maze[y + 1][x] == ' ') {
+            if (maze[y][x - 1] != ' ') {
+                direction = Direction.LEFT;
+            } else if (maze[y][x + 1] != ' ') {
+                direction = Direction.RIGHT;
+            }
+        }
+    }
+
+    private void turnFromUp() {
+        if (maze[y - 1][x] == ' ') {
+            if (maze[y][x - 1] != ' ') {
+                direction = Direction.LEFT;
+            } else if (maze[y][x + 1] != ' ') {
+                direction = Direction.RIGHT;
+            }
+        }
+    }
+
+    private void updatePosition() {
+        switch (direction) {
+            case UP:
+                y--;
+                break;
+            case DOWN:
+                y++;
+                break;
+            case LEFT:
+                x--;
+                break;
+            case RIGHT:
+                x++;
+                break;
+        }
+    }
+
+    private void findStartX() {
+        for (; x < maze[y].length; x++) {
+            if (maze[y][x] == '|') {
+                break;
+            }
+        }
+    }
+
+    private void readMaze() {
+        maze = new char[input.size()][];
+        for (int tempY = 0; tempY < maze.length; tempY++) {
+            maze[tempY] = new char[input.get(tempY).length()];
+            for (int tempX = 0; tempX< maze[tempY].length; tempX++) {
+                maze[tempY][tempX] = input.get(tempY).charAt(tempX);
+            }
+        }
     }
 }

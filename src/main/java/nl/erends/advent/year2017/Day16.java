@@ -1,25 +1,27 @@
 package nl.erends.advent.year2017;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Day16 {
-
-
-//            s1, a spin of size 1: eabcd.
-//            x3/4, swapping the last two programs: eabdc.
-//            pe/b, swapping programs e and b: baedc.
-
-    static String[] commands = Util.getFileAsString("2017day16.txt").split(",");
+public class Day16 extends AbstractProblem<String, String> {
+    
+    private String[] commands;
 
     public static void main(String[] args) {
+        new Day16().setAndSolve(Util.readLine(2017, 16));
+    }
+    
+    @Override
+    public String solve1() {
+        commands = input.split(",");
         List<String> history = new ArrayList<>();
         String programs = "abcdefghijklmnop";
         history.add(programs);
         programs = dance(programs);
-        System.out.println(programs);
+        String answer1 = programs;
         history.add(programs);
         while (true) {
             programs = dance(programs);
@@ -29,10 +31,11 @@ public class Day16 {
                 history.add(programs);
             }
         }
-        System.out.println(history.get(1_000_000_000 % history.size()));
+        answer2 = history.get(1_000_000_000 % history.size());
+        return answer1;
     }
 
-    private static String dance(String input) {
+    private String dance(String input) {
         StringBuilder programs = new StringBuilder(input);
         for (String command : commands) {
             if (command.startsWith("s")) {

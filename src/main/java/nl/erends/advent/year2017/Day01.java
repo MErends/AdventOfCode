@@ -1,16 +1,16 @@
 package nl.erends.advent.year2017;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
-public class Day1 {
+public class Day01 extends AbstractProblem<String, Integer> {
 
 	public static void main(String[] args) {
-		String input = Util.getFileAsString("2017day1.txt");
-		System.out.println(solve1(input));
-		System.out.println(solve2(input));
+	    new Day01().setAndSolve(Util.readLine(2017, 1));
 	}
 
-	public static int solve1(String input) {
+	@Override
+	public Integer solve1() {
 		int length = input.length();
 		int sum = 0;
 		String b = input.substring(1) + input.substring(0, 1);
@@ -24,7 +24,8 @@ public class Day1 {
 		return sum;
 	}
 
-	public static int solve2(String input) {
+	@Override
+	public Integer solve2() {
 		int length = input.length();
 		int sum = 0;
 		String a = input.substring(0, length / 2);

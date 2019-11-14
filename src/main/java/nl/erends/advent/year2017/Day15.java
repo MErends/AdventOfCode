@@ -1,10 +1,18 @@
 package nl.erends.advent.year2017;
 
-public class Day15 {
+import nl.erends.advent.util.AbstractProblem;
+
+public class Day15 extends AbstractProblem<String, Integer> {
 
     public static void main(String[] args) {
-        Generator genA = new Generator(699, 16807);
-        Generator genB = new Generator(124, 48271);
+        new Day15().setAndSolve("699,124");
+    }
+
+    @Override
+    public Integer solve1() {
+        String[] values = input.split(",");
+        Generator genA = new Generator(Integer.parseInt(values[0]), 16807);
+        Generator genB = new Generator(Integer.parseInt(values[1]), 48271);
         int equals = 0;
         for (int i = 0; i < 40_000_000; i++) {
             long a = genA.getNextNumber();
@@ -14,11 +22,15 @@ public class Day15 {
             }
 
         }
-        System.out.println(equals);
+        return equals;
+    }
 
-        genA = new Generator(699, 16807);
-        genB = new Generator(124, 48271);
-        equals = 0;
+    @Override
+    public Integer solve2() {
+        String[] values = input.split(",");
+        Generator genA = new Generator(Integer.parseInt(values[0]), 16807);
+        Generator genB = new Generator(Integer.parseInt(values[1]), 48271);
+        int equals = 0;
         for (int i = 0; i < 5_000_000; i++) {
             long a = genA.getNextMultiple(4);
             long b = genB.getNextMultiple(8);
@@ -27,30 +39,30 @@ public class Day15 {
             }
 
         }
-        System.out.println(equals);
-    }
-}
-
-class Generator {
-
-    private long number;
-    private int multiplier;
-
-
-    Generator(int seed, int multiplier) {
-        number = seed;
-        this.multiplier = multiplier;
+        return equals;
     }
 
-    long getNextNumber() {
-        number = (number * multiplier) % 2147483647;
-        return number;
-    }
+    private class Generator {
 
-    long getNextMultiple(long factor) {
-        do {
-            getNextNumber();
-        } while (number % factor != 0);
-        return number;
+        private long number;
+        private int multiplier;
+
+
+        Generator(int seed, int multiplier) {
+            number = seed;
+            this.multiplier = multiplier;
+        }
+
+        long getNextNumber() {
+            number = (number * multiplier) % 2147483647;
+            return number;
+        }
+
+        long getNextMultiple(long factor) {
+            do {
+                getNextNumber();
+            } while (number % factor != 0);
+            return number;
+        }
     }
 }

@@ -1,96 +1,82 @@
 package nl.erends.advent.year2017;
 
-
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-public class Day12 {
+public class Day12 extends AbstractProblem<List<String>, Integer> {
 
-
-    public static Map<Integer, Program> programs = new HashMap<>();
+    private Map<Integer, Program> programs = new HashMap<>();
 
     public static void main(String[] args) {
-        List<String> input = Util.getFileAsList("2017day12.txt");
+        new Day12().setAndSolve(Util.readInput(2017, 12));
+    }
+
+    @Override
+    public Integer solve1() {
         for (String nodeLine : input) {
             Program program = new Program(nodeLine);
-            programs.put(program.getId(), program);
+            programs.put(program.id, program);
         }
         Program programZero = programs.get(0);
-        programZero.setGroupid(0);
+        programZero.groupid = 0;
         programZero.cascadeGroupid();
         int groupZero = 0;
         for (Program program : programs.values()) {
-            if (program.getGroupid() == 0) {
+            if (program.groupid == 0) {
                 groupZero++;
             }
         }
-        System.out.println(groupZero);
+        return groupZero;
+    }
 
+    @Override
+    public Integer solve2() {
         Set<Integer> uniqueGroups = new HashSet<>();
         for (int index = 0; index < programs.size(); index++) {
             Program program = programs.get(index);
-            if (program.getGroupid() == -1) {
-                program.setGroupid(program.getId());
+            if (program.groupid == -1) {
+                program.groupid = program.id;
                 program.cascadeGroupid();
             }
-            uniqueGroups.add(program.getGroupid());
+            uniqueGroups.add(program.groupid);
         }
-        System.out.println(uniqueGroups.size());
+        return uniqueGroups.size();
     }
 
-}
+    private class Program {
+        
+        int id;
+        int groupid;
+        int[] linked;
 
-class Program {
-    int id;
-    int groupid;
-    int[] linked;
-
-    public Program(String input) {
-        //6 <-> 107, 136, 366, 1148, 1875
-        this.id = Integer.parseInt(input.substring(0, input.indexOf("<->")).trim());
-        String[] linkedNodes = input.substring(input.indexOf("<->") + 3).split(",");
-        this.linked = new int[linkedNodes.length];
-        for (int index = 0; index < linkedNodes.length; index++) {
-            linked[index] = Integer.parseInt(linkedNodes[index].trim());
+        Program(String input) {
+            //6 <-> 107, 136, 366, 1148, 1875
+            this.id = Integer.parseInt(input.substring(0, input.indexOf("<->")).trim());
+            String[] linkedNodes = input.substring(input.indexOf("<->") + 3).split(",");
+            this.linked = new int[linkedNodes.length];
+            for (int index = 0; index < linkedNodes.length; index++) {
+                linked[index] = Integer.parseInt(linkedNodes[index].trim());
+            }
+            groupid = -1;
         }
-        groupid = -1;
-    }
 
-    public int getId() {
-        return id;
-    }
+        boolean isLinked() {
+            return groupid != -1;
+        }
 
-    public int getGroupid() {
-        return groupid;
-    }
-
-    public int[] getLinked() {
-        return linked;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setGroupid(int groupid) {
-        this.groupid = groupid;
-    }
-
-    public void setLinked(int[] linked) {
-        this.linked = linked;
-    }
-
-    public boolean isLinked() {
-        return groupid != -1;
-    }
-
-    public void cascadeGroupid() {
-        for (int linkedProgramid : linked) {
-            Program program = Day12.programs.get(linkedProgramid);
-            if (!program.isLinked()) {
-                program.setGroupid(this.groupid);
-                program.cascadeGroupid();
+        void cascadeGroupid() {
+            for (int linkedProgramid : linked) {
+                Program program = programs.get(linkedProgramid);
+                if (!program.isLinked()) {
+                    program.groupid = this.groupid;
+                    program.cascadeGroupid();
+                }
             }
         }
     }
