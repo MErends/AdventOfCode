@@ -1,21 +1,37 @@
 package nl.erends.advent.year2018;
 
-import java.util.*;
+import nl.erends.advent.util.AbstractProblem;
+import nl.erends.advent.util.Util;
 
-public class Day22 {
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.TreeSet;
 
-    private static int targetX = 9;
-    private static int targetY = 751;
+public class Day22 extends AbstractProblem<List<String>, Integer> {
+
+    private int targetX;
+    private int targetY;
+    private int depth;
     
-    private static int[][] erosionGrid = new int[targetY + targetX][targetX + targetY];
-    private static int[][] timeGrid = new int[targetY + targetX][targetX + targetY];
-    private static Region[][] regionGrid = new Region[targetY + targetX][targetX + targetY];
-    private static int lowestGoal = Integer.MAX_VALUE;
-    
-    private static TreeSet<GridState> states = new TreeSet<>();
+    private int[][] erosionGrid;
+    private int[][] timeGrid;
+    private Region[][] regionGrid;
+    private int lowestGoal = Integer.MAX_VALUE;
+    private TreeSet<GridState> states = new TreeSet<>();
     
     public static void main(String[] args) {
-        long start = System.currentTimeMillis();
+        new Day22().setAndSolve(Util.readInput(2018, 22));
+    }
+    
+    @Override
+    public Integer solve1() {
+        depth = Integer.parseInt(input.get(0).split(" ")[1]);
+        targetX = Integer.parseInt(input.get(1).split(" ")[1].split(",")[0]);
+        targetY = Integer.parseInt(input.get(1).split(" ")[1].split(",")[1]);
+        erosionGrid = new int[targetY + targetX][targetX + targetY];
+        timeGrid = new int[targetY + targetX][targetX + targetY];
+        regionGrid = new Region[targetY + targetX][targetX + targetY];
         for (int[] row : erosionGrid) {
             Arrays.fill(row, -1);
         }
@@ -33,8 +49,11 @@ public class Day22 {
                 }
             }
         }
-        System.out.println(totalRisk);
-        long mid = System.currentTimeMillis();
+        return totalRisk;
+    }
+    
+    @Override
+    public Integer solve2() {
         for (int[] row : timeGrid) {
             Arrays.fill(row, Integer.MAX_VALUE - 20);
         }
@@ -43,27 +62,11 @@ public class Day22 {
             GridState state = states.pollFirst();
             calculateTimeFrom(Objects.requireNonNull(state));
         }
-        System.out.println(lowestGoal);
-        long end = System.currentTimeMillis();
-//        
-//        for (Region[] row : regionGrid) {
-//            for (Region r : row) {
-//                System.out.print(r == Region.ROCKY ? '.' : r == Region.WET ? '=' : '|');
-//            }
-//            System.out.println();
-//        }
-//        
-//        for (int[] row : timeGrid) {
-//            for (int time : row) {
-//                System.out.printf("%3d", time);
-//            }
-//            System.out.println();
-//        }
-        System.out.println("Part 1: " + (mid - start) + " millis.\nPart 2: " + (end - mid) + " millis.");
+        return lowestGoal;
     }
     
     
-    private static int erosionAt(int x, int y) {
+    private int erosionAt(int x, int y) {
         int erosionInt = erosionGrid[y][x];
         if (erosionInt != -1) return erosionInt;
         int geologic;
@@ -76,7 +79,6 @@ public class Day22 {
         } else {
             geologic = erosionAt(x - 1, y) * erosionAt(x, y - 1);
         }
-        int depth = 11817;
         erosionInt = (geologic + depth) % 20183;
         erosionGrid[y][x] = erosionInt;
         return erosionInt;
@@ -109,7 +111,7 @@ public class Day22 {
         NEITHER
     }
     
-    private static void calculateTimeFrom(GridState state) {
+    private void calculateTimeFrom(GridState state) {
         int x = state.x;
         int y = state.y;
         Gear presentGear = state.presentGear;
@@ -127,146 +129,156 @@ public class Day22 {
             }
         }
         Region presentRegion = regionGrid[y][x];
-        if ((presentRegion == Region.ROCKY && presentGear == Gear.NEITHER)
-            || (presentRegion == Region.WET && presentGear == Gear.TORCH)
-            || (presentRegion == Region.NARROW && presentGear == Gear.CLIMBING)) {
-            throw new IllegalStateException();
-        }
         // GO down?
         if (y + 1 < regionGrid.length) {
-            Region targetRegion = regionGrid[y + 1][x];
-            switch (targetRegion) {
-                case ROCKY:
-                    if (presentGear == Gear.CLIMBING || presentGear == Gear.TORCH) {
-                        states.add(new GridState(x, y + 1, presentGear, stateTime + 1));
-                    } else if (presentRegion == Region.WET) {
-                        states.add(new GridState(x, y + 1, Gear.CLIMBING, stateTime + 8));
-                    } else if (presentRegion == Region.NARROW) {
-                        states.add(new GridState(x, y + 1, Gear.TORCH, stateTime + 8));
-                    }
-                    break;
-                case WET:
-                    if (presentGear == Gear.CLIMBING || presentGear == Gear.NEITHER) {
-                        states.add(new GridState(x, y + 1, presentGear, stateTime + 1));
-                    } else if (presentRegion == Region.ROCKY) {
-                        states.add(new GridState(x, y + 1, Gear.CLIMBING, stateTime + 8));
-                    } else if (presentRegion == Region.NARROW) {
-                        states.add(new GridState(x, y + 1, Gear.NEITHER, stateTime + 8));
-                    }
-                    break;
-                case NARROW:
-                    if (presentGear == Gear.TORCH || presentGear == Gear.NEITHER) {
-                        states.add(new GridState(x, y + 1, presentGear, stateTime + 1));
-                    } else if (presentRegion == Region.ROCKY) {
-                        states.add(new GridState(x, y + 1, Gear.TORCH, stateTime + 8));
-                    } else if (presentRegion == Region.WET) {
-                        states.add(new GridState(x, y + 1, Gear.NEITHER, stateTime + 8));
-                    }
-                    break;
-            }
+            checkDown(x, y, presentGear, stateTime, presentRegion);
         }
         // GO right?
         if (x + 1 < regionGrid[y].length) {
-            Region targetRegion = regionGrid[y][x + 1];
-            switch (targetRegion) {
-                case ROCKY:
-                    if (presentGear == Gear.CLIMBING || presentGear == Gear.TORCH) {
-                        states.add(new GridState(x + 1, y, presentGear, stateTime + 1));
-                    } else if (presentRegion == Region.WET) {
-                        states.add(new GridState(x + 1, y, Gear.CLIMBING, stateTime + 8));
-                    } else if (presentRegion == Region.NARROW) {
-                        states.add(new GridState(x + 1, y, Gear.TORCH, stateTime + 8));
-                    }
-                    break;
-                case WET:
-                    if (presentGear == Gear.CLIMBING || presentGear == Gear.NEITHER) {
-                        states.add(new GridState(x + 1, y, presentGear, stateTime + 1));
-                    } else if (presentRegion == Region.ROCKY) {
-                        states.add(new GridState(x + 1, y, Gear.CLIMBING, stateTime + 8));
-                    } else if (presentRegion == Region.NARROW) {
-                        states.add(new GridState(x + 1, y, Gear.NEITHER, stateTime + 8));
-                    }
-                    break;
-                case NARROW:
-                    if (presentGear == Gear.TORCH || presentGear == Gear.NEITHER) {
-                        states.add(new GridState(x + 1, y, presentGear, stateTime + 1));
-                    } else if (presentRegion == Region.ROCKY) {
-                        states.add(new GridState(x + 1, y, Gear.TORCH, stateTime + 8));
-                    } else if (presentRegion == Region.WET) {
-                        states.add(new GridState(x + 1, y, Gear.NEITHER, stateTime + 8));
-                    }
-                    break;
-            }
+            checkRight(x, y, presentGear, stateTime, presentRegion);
         }
         // GO up?
         if (y - 1 >= 0) {
-            Region targetRegion = regionGrid[y - 1][x];
-            switch (targetRegion) {
-                case ROCKY:
-                    if (presentGear == Gear.CLIMBING || presentGear == Gear.TORCH) {
-                        states.add(new GridState(x, y - 1, presentGear, stateTime + 1));
-                    } else if (presentRegion == Region.WET) {
-                        states.add(new GridState(x, y - 1, Gear.CLIMBING, stateTime + 8));
-                    } else if (presentRegion == Region.NARROW) {
-                        states.add(new GridState(x, y - 1, Gear.TORCH, stateTime + 8));
-                    }
-                    break;
-                case WET:
-                    if (presentGear == Gear.CLIMBING || presentGear == Gear.NEITHER) {
-                        states.add(new GridState(x, y - 1, presentGear, stateTime + 1));
-                    } else if (presentRegion == Region.ROCKY) {
-                        states.add(new GridState(x, y - 1, Gear.CLIMBING, stateTime + 8));
-                    } else if (presentRegion == Region.NARROW) {
-                        states.add(new GridState(x, y - 1, Gear.NEITHER, stateTime + 8));
-                    }
-                    break;
-                case NARROW:
-                    if (presentGear == Gear.TORCH || presentGear == Gear.NEITHER) {
-                        states.add(new GridState(x, y - 1, presentGear, stateTime + 1));
-                    } else if (presentRegion == Region.ROCKY) {
-                        states.add(new GridState(x, y - 1, Gear.TORCH, stateTime + 8));
-                    } else if (presentRegion == Region.WET) {
-                        states.add(new GridState(x, y - 1, Gear.NEITHER, stateTime + 8));
-                    }
-                    break;
-            }
+            checkUp(x, y, presentGear, stateTime, presentRegion);
         }
         // GO left?
         if (x - 1 >= 0) {
-            Region targetRegion = regionGrid[y][x - 1];
-            switch (targetRegion) {
-                case ROCKY:
-                    if (presentGear == Gear.CLIMBING || presentGear == Gear.TORCH) {
-                        states.add(new GridState(x - 1, y, presentGear, stateTime + 1));
-                    } else if (presentRegion == Region.WET) {
-                        states.add(new GridState(x - 1, y, Gear.CLIMBING, stateTime + 8));
-                    } else if (presentRegion == Region.NARROW) {
-                        states.add(new GridState(x - 1, y, Gear.TORCH, stateTime + 8));
-                    }
-                    break;
-                case WET:
-                    if (presentGear == Gear.CLIMBING || presentGear == Gear.NEITHER) {
-                        states.add(new GridState(x - 1, y, presentGear, stateTime + 1));
-                    } else if (presentRegion == Region.ROCKY) {
-                        states.add(new GridState(x - 1, y, Gear.CLIMBING, stateTime + 8));
-                    } else if (presentRegion == Region.NARROW) {
-                        states.add(new GridState(x - 1, y, Gear.NEITHER, stateTime + 8));
-                    }
-                    break;
-                case NARROW:
-                    if (presentGear == Gear.TORCH || presentGear == Gear.NEITHER) {
-                        states.add(new GridState(x - 1, y, presentGear, stateTime + 1));
-                    } else if (presentRegion == Region.ROCKY) {
-                        states.add(new GridState(x - 1, y, Gear.TORCH, stateTime + 8));
-                    } else if (presentRegion == Region.WET) {
-                        states.add(new GridState(x - 1, y, Gear.NEITHER, stateTime + 8));
-                    }
-                    break;
-            }
+            checkLeft(x, y, presentGear, stateTime, presentRegion);
         }
     }
-    
-    
+
+    private void checkLeft(int x, int y, Gear presentGear, int stateTime, Region presentRegion) {
+        Region targetRegion = regionGrid[y][x - 1];
+        switch (targetRegion) {
+            case ROCKY:
+                if (presentGear != Gear.NEITHER) {
+                    states.add(new GridState(x - 1, y, presentGear, stateTime + 1));
+                } else if (presentRegion == Region.WET) {
+                    states.add(new GridState(x - 1, y, Gear.CLIMBING, stateTime + 8));
+                } else if (presentRegion == Region.NARROW) {
+                    states.add(new GridState(x - 1, y, Gear.TORCH, stateTime + 8));
+                }
+                break;
+            case WET:
+                if (presentGear == Gear.CLIMBING || presentGear == Gear.NEITHER) {
+                    states.add(new GridState(x - 1, y, presentGear, stateTime + 1));
+                } else if (presentRegion == Region.ROCKY) {
+                    states.add(new GridState(x - 1, y, Gear.CLIMBING, stateTime + 8));
+                } else if (presentRegion == Region.NARROW) {
+                    states.add(new GridState(x - 1, y, Gear.NEITHER, stateTime + 8));
+                }
+                break;
+            case NARROW:
+                if (presentGear == Gear.TORCH || presentGear == Gear.NEITHER) {
+                    states.add(new GridState(x - 1, y, presentGear, stateTime + 1));
+                } else if (presentRegion == Region.ROCKY) {
+                    states.add(new GridState(x - 1, y, Gear.TORCH, stateTime + 8));
+                } else if (presentRegion == Region.WET) {
+                    states.add(new GridState(x - 1, y, Gear.NEITHER, stateTime + 8));
+                }
+                break;
+        }
+    }
+
+    private void checkUp(int x, int y, Gear presentGear, int stateTime, Region presentRegion) {
+        Region targetRegion = regionGrid[y - 1][x];
+        switch (targetRegion) {
+            case ROCKY:
+                if (presentGear != Gear.NEITHER) {
+                    states.add(new GridState(x, y - 1, presentGear, stateTime + 1));
+                } else if (presentRegion == Region.WET) {
+                    states.add(new GridState(x, y - 1, Gear.CLIMBING, stateTime + 8));
+                } else if (presentRegion == Region.NARROW) {
+                    states.add(new GridState(x, y - 1, Gear.TORCH, stateTime + 8));
+                }
+                break;
+            case WET:
+                if (presentGear == Gear.CLIMBING || presentGear == Gear.NEITHER) {
+                    states.add(new GridState(x, y - 1, presentGear, stateTime + 1));
+                } else if (presentRegion == Region.ROCKY) {
+                    states.add(new GridState(x, y - 1, Gear.CLIMBING, stateTime + 8));
+                } else if (presentRegion == Region.NARROW) {
+                    states.add(new GridState(x, y - 1, Gear.NEITHER, stateTime + 8));
+                }
+                break;
+            case NARROW:
+                if (presentGear == Gear.TORCH || presentGear == Gear.NEITHER) {
+                    states.add(new GridState(x, y - 1, presentGear, stateTime + 1));
+                } else if (presentRegion == Region.ROCKY) {
+                    states.add(new GridState(x, y - 1, Gear.TORCH, stateTime + 8));
+                } else if (presentRegion == Region.WET) {
+                    states.add(new GridState(x, y - 1, Gear.NEITHER, stateTime + 8));
+                }
+                break;
+        }
+    }
+
+    private void checkRight(int x, int y, Gear presentGear, int stateTime, Region presentRegion) {
+        Region targetRegion = regionGrid[y][x + 1];
+        switch (targetRegion) {
+            case ROCKY:
+                if (presentGear != Gear.NEITHER) {
+                    states.add(new GridState(x + 1, y, presentGear, stateTime + 1));
+                } else if (presentRegion == Region.WET) {
+                    states.add(new GridState(x + 1, y, Gear.CLIMBING, stateTime + 8));
+                } else if (presentRegion == Region.NARROW) {
+                    states.add(new GridState(x + 1, y, Gear.TORCH, stateTime + 8));
+                }
+                break;
+            case WET:
+                if (presentGear == Gear.CLIMBING || presentGear == Gear.NEITHER) {
+                    states.add(new GridState(x + 1, y, presentGear, stateTime + 1));
+                } else if (presentRegion == Region.ROCKY) {
+                    states.add(new GridState(x + 1, y, Gear.CLIMBING, stateTime + 8));
+                } else if (presentRegion == Region.NARROW) {
+                    states.add(new GridState(x + 1, y, Gear.NEITHER, stateTime + 8));
+                }
+                break;
+            case NARROW:
+                if (presentGear == Gear.TORCH || presentGear == Gear.NEITHER) {
+                    states.add(new GridState(x + 1, y, presentGear, stateTime + 1));
+                } else if (presentRegion == Region.ROCKY) {
+                    states.add(new GridState(x + 1, y, Gear.TORCH, stateTime + 8));
+                } else if (presentRegion == Region.WET) {
+                    states.add(new GridState(x + 1, y, Gear.NEITHER, stateTime + 8));
+                }
+                break;
+        }
+    }
+
+    private void checkDown(int x, int y, Gear presentGear, int stateTime, Region presentRegion) {
+        Region targetRegion = regionGrid[y + 1][x];
+        switch (targetRegion) {
+            case ROCKY:
+                if (presentGear != Gear.NEITHER) {
+                    states.add(new GridState(x, y + 1, presentGear, stateTime + 1));
+                } else if (presentRegion == Region.WET) {
+                    states.add(new GridState(x, y + 1, Gear.CLIMBING, stateTime + 8));
+                } else if (presentRegion == Region.NARROW) {
+                    states.add(new GridState(x, y + 1, Gear.TORCH, stateTime + 8));
+                }
+                break;
+            case WET:
+                if (presentGear == Gear.CLIMBING || presentGear == Gear.NEITHER) {
+                    states.add(new GridState(x, y + 1, presentGear, stateTime + 1));
+                } else if (presentRegion == Region.ROCKY) {
+                    states.add(new GridState(x, y + 1, Gear.CLIMBING, stateTime + 8));
+                } else if (presentRegion == Region.NARROW) {
+                    states.add(new GridState(x, y + 1, Gear.NEITHER, stateTime + 8));
+                }
+                break;
+            case NARROW:
+                if (presentGear == Gear.TORCH || presentGear == Gear.NEITHER) {
+                    states.add(new GridState(x, y + 1, presentGear, stateTime + 1));
+                } else if (presentRegion == Region.ROCKY) {
+                    states.add(new GridState(x, y + 1, Gear.TORCH, stateTime + 8));
+                } else if (presentRegion == Region.WET) {
+                    states.add(new GridState(x, y + 1, Gear.NEITHER, stateTime + 8));
+                }
+                break;
+        }
+    }
+
     private static class GridState implements Comparable<GridState> {
         int x;
         int y;
@@ -289,16 +301,6 @@ public class Day22 {
         }
 
         @Override
-        public String toString() {
-            return "GridState{" +
-                    "x=" + x +
-                    ", y=" + y +
-                    ", presentGear=" + presentGear +
-                    ", time=" + time +
-                    '}';
-        }
-
-        @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
@@ -311,7 +313,6 @@ public class Day22 {
 
         @Override
         public int hashCode() {
-
             return Objects.hash(x, y, presentGear, time);
         }
     }

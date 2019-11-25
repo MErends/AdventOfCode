@@ -1,25 +1,30 @@
 package nl.erends.advent.year2018;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
-public class Day08 {
+public class Day08 extends AbstractProblem<String, Integer> {
 
     public static void main(String[] args) {
-        List<String> input = Arrays.asList(Util.getFileAsList("2018day08.txt").get(0).split(" "));
-        long start = System.currentTimeMillis();
-        List<Integer> rootSource = input.stream().map(Integer::parseInt).collect(Collectors.toList());
-        Node rootNode = new Node(rootSource);
-        System.out.println(rootNode.totalMeta());
-        long mid = System.currentTimeMillis();
-        System.out.println(rootNode.rootValue());
-        long end = System.currentTimeMillis();
-        System.out.println("Part 1: " + (mid - start) + " millis.\nPart 2: " + (end - mid) + " millis.");
+        new Day08().setAndSolve(Util.readLine(2018, 8));
     }
     
-    private static class Node {
+    @Override
+    public Integer solve1() {
+        List<String> chain = Arrays.asList(input.split(" "));
+        List<Integer> rootSource = chain.stream().map(Integer::parseInt).collect(Collectors.toList());
+        Node rootNode = new Node(rootSource);
+        int answer1 = rootNode.totalMeta();
+        answer2 = rootNode.rootValue();
+        return answer1;
+    }
+    
+    private class Node {
         private int childrenCount;
         private int metadataCount;
         private List<Integer> trueSource;

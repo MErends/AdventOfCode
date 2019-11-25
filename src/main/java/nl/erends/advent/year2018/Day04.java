@@ -1,95 +1,62 @@
 package nl.erends.advent.year2018;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
-public class Day04 {
+public class Day04 extends AbstractProblem<List<String>, Integer> {
     
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private List<Event> eventList;
+    private int guardId;
+    private LocalDateTime fellAsleep;
+    private Map<Integer, Integer> minutesAsleepMap;
+    private int sleepyGuard;
+    private Map<Integer, Long> guardSleepMap;
+    private Map<Integer, Map<Integer, Integer>> guardAtMinuteAsleepMap;
 
     public static void main(String[] args) {
-        List<String> input = Util.getFileAsList("2018day04.txt");
-        long start = System.currentTimeMillis();
-        List<Event> eventList = new ArrayList<>();
+        new Day04().setAndSolve(Util.readInput(2018, 4));
+    }
+    
+    @Override
+    public Integer solve1() {
+        eventList = new ArrayList<>();
         input.stream().map(Day04::getEventFromString).sorted().forEach(eventList::add);
-        Map<Integer, Long> guardSleepMap = new HashMap<>();
-        LocalDateTime fellAsleep = LocalDateTime.now();
-        int guardId = 0;
+        guardSleepMap = new HashMap<>();
+        fellAsleep = LocalDateTime.now();
+        guardId = 0;
         for (Event event : eventList) {
-            switch (event.eventType) {
-                case BEGIN_SHIFT:
-                    guardId = event.id;
-                    break;
-                case FALLS_ASLEEP:
-                    fellAsleep = event.dateTime;
-                    break;
-                case WAKES_UP:
-                    long minutesAsleep = Duration.between(fellAsleep, event.dateTime).toMinutes();
-                    if (guardSleepMap.containsKey(guardId)) {
-                        guardSleepMap.put(guardId, guardSleepMap.get(guardId) + minutesAsleep);
-                    } else {
-                        guardSleepMap.put(guardId, minutesAsleep);
-                    }
-                    break;
-            }
+            fillGuardSleepMap(event);
         }
         Optional<Map.Entry<Integer, Long>> optional = guardSleepMap.entrySet().stream()
                 .max((e1, e2) -> (int) (e1.getValue() - e2.getValue()));
-        int sleepyGuard = optional.isPresent() ? optional.get().getKey() : 0;
-        Map<Integer, Integer> minutesAsleepMap = new HashMap<>();
+        sleepyGuard = optional.isPresent() ? optional.get().getKey() : 0;
+        minutesAsleepMap = new HashMap<>();
         for (Event event : eventList) {
-            switch (event.eventType) {
-                case BEGIN_SHIFT:
-                    guardId = event.id;
-                    break;
-                case FALLS_ASLEEP:
-                    fellAsleep = event.dateTime;
-                    break;
-                case WAKES_UP:
-                    if (guardId == sleepyGuard) {
-                        for (int minute = fellAsleep.getMinute(); minute < event.dateTime.getMinute(); minute++) {
-                            if (minutesAsleepMap.containsKey(minute)) {
-                                minutesAsleepMap.put(minute, minutesAsleepMap.get(minute) + 1);
-                            } else {
-                                minutesAsleepMap.put(minute, 1);
-                            }
-                        }
-                    }
-                    break;
-            }
+            fillMinutesAsleepMap(event);
         }
         Optional<Map.Entry<Integer, Integer>> optional1 = minutesAsleepMap.entrySet().stream()
                 .max(Comparator.comparingInt(Map.Entry::getValue));
         int maxMinuteAsleep = optional1.isPresent() ? optional1.get().getKey() : 0;
-        System.out.println(sleepyGuard * maxMinuteAsleep);
-        long mid = System.currentTimeMillis();
-        Map<Integer, Map<Integer, Integer>> guardAtMinuteAsleepMap = new HashMap<>();
+        return sleepyGuard * maxMinuteAsleep;
+    }
+
+    @Override
+    public Integer solve2() {
+        guardAtMinuteAsleepMap = new HashMap<>();
         for (Event event : eventList) {
-            switch (event.eventType) {
-                case BEGIN_SHIFT:
-                    guardId = event.id;
-                    break;
-                case FALLS_ASLEEP:
-                    fellAsleep = event.dateTime;
-                    break;
-                case WAKES_UP:
-                    if (!guardAtMinuteAsleepMap.containsKey(guardId)) {
-                        guardAtMinuteAsleepMap.put(guardId, new HashMap<>());
-                    }
-                    minutesAsleepMap = guardAtMinuteAsleepMap.get(guardId);
-                    for (int minute = fellAsleep.getMinute(); minute < event.dateTime.getMinute(); minute++) {
-                        if (minutesAsleepMap.containsKey(minute)) {
-                            minutesAsleepMap.put(minute, minutesAsleepMap.get(minute) + 1);
-                        } else {
-                            minutesAsleepMap.put(minute, 1);
-                        }
-                    }
-                    break;
-            }
+            fillGuardAtMinuteAsleepMap(event);
         }
         int timesAsleep = Integer.MIN_VALUE;
         int minute = 0;
@@ -102,9 +69,72 @@ public class Day04 {
                 }
             }
         }
-        System.out.println(minute * sleepyGuard);
-        long end = System.currentTimeMillis();
-        System.out.println("Part 1: " + (mid - start) + " millis.\nPart 2: " + (end - mid) + " millis.");
+        return minute * sleepyGuard;
+    }
+
+    private void fillMinutesAsleepMap(Event event) {
+        switch (event.eventType) {
+            case BEGIN_SHIFT:
+                guardId = event.id;
+                break;
+            case FALLS_ASLEEP:
+                fellAsleep = event.dateTime;
+                break;
+            case WAKES_UP:
+                if (guardId == sleepyGuard) {
+                    for (int minute = fellAsleep.getMinute(); minute < event.dateTime.getMinute(); minute++) {
+                        if (minutesAsleepMap.containsKey(minute)) {
+                            minutesAsleepMap.put(minute, minutesAsleepMap.get(minute) + 1);
+                        } else {
+                            minutesAsleepMap.put(minute, 1);
+                        }
+                    }
+                }
+                break;
+        }
+    }
+
+    private void fillGuardSleepMap(Event event) {
+        switch (event.eventType) {
+            case BEGIN_SHIFT:
+                guardId = event.id;
+                break;
+            case FALLS_ASLEEP:
+                fellAsleep = event.dateTime;
+                break;
+            case WAKES_UP:
+                long minutesAsleep = Duration.between(fellAsleep, event.dateTime).toMinutes();
+                if (guardSleepMap.containsKey(guardId)) {
+                    guardSleepMap.put(guardId, guardSleepMap.get(guardId) + minutesAsleep);
+                } else {
+                    guardSleepMap.put(guardId, minutesAsleep);
+                }
+                break;
+        }
+    }
+
+    private void fillGuardAtMinuteAsleepMap(Event event) {
+        switch (event.eventType) {
+            case BEGIN_SHIFT:
+                guardId = event.id;
+                break;
+            case FALLS_ASLEEP:
+                fellAsleep = event.dateTime;
+                break;
+            case WAKES_UP:
+                if (!guardAtMinuteAsleepMap.containsKey(guardId)) {
+                    guardAtMinuteAsleepMap.put(guardId, new HashMap<>());
+                }
+                minutesAsleepMap = guardAtMinuteAsleepMap.get(guardId);
+                for (int minute = fellAsleep.getMinute(); minute < event.dateTime.getMinute(); minute++) {
+                    if (minutesAsleepMap.containsKey(minute)) {
+                        minutesAsleepMap.put(minute, minutesAsleepMap.get(minute) + 1);
+                    } else {
+                        minutesAsleepMap.put(minute, 1);
+                    }
+                }
+                break;
+        }
     }
 
     private static Event getEventFromString(String line) {
@@ -138,12 +168,16 @@ public class Day04 {
         }
 
         @Override
-        public String toString() {
-            return "Event{" +
-                    "dateTime=" + dateTime +
-                    ", id=" + id +
-                    ", eventType=" + eventType +
-                    '}';
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Event event = (Event) o;
+            return Objects.equals(dateTime, event.dateTime);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(dateTime);
         }
     }
     

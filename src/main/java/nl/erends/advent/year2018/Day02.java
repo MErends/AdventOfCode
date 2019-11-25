@@ -1,40 +1,51 @@
 package nl.erends.advent.year2018;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Day02 {
+public class Day02 extends AbstractProblem<List<String>, String> {
 
     public static void main(String[] args) {
-        List<String> input = Util.getFileAsList("2018day02.txt");
-        long start = System.currentTimeMillis();
+        new Day02().setAndSolve(Util.readInput(2018, 2));
+    }
+    
+    @Override
+    public String solve1() {
         int hasDoubleChar = 0;
         int hasTripleChar = 0;
         for (String line : input) {
-            Map<String, Long> lettermap = Arrays.stream(line.split("")).collect(Collectors.groupingBy(c -> c, Collectors.counting()));
-            if (lettermap.values().stream().anyMatch(l -> l == 2)) hasDoubleChar++;
-            if (lettermap.values().stream().anyMatch(l -> l == 3)) hasTripleChar++;
+            Map<String, Long> lettermap = Arrays.stream(line.split(""))
+                    .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
+            if (lettermap.values().stream().anyMatch(l -> l == 2)) {
+                hasDoubleChar++;
+            }
+            if (lettermap.values().stream().anyMatch(l -> l == 3)) {
+                hasTripleChar++;
+            }
         }
-        System.out.println(hasDoubleChar * hasTripleChar);
-        long mid = System.currentTimeMillis();
-        outer:
+        return Integer.toString(hasDoubleChar * hasTripleChar);
+    }
+    
+    @Override
+    public String solve2() {
         for (int indexA = 0; indexA < input.size(); indexA++) {
             for (int indexB = indexA + 1; indexB < input.size(); indexB++) {
                 String difference = difference(input.get(indexA), input.get(indexB));
                 if (!difference.equals("")) {
-                    System.out.println(difference);
-                    break outer;
+                    return difference;
                 }
             }
         }
-        long end = System.currentTimeMillis();
-        System.out.println("Part 1: " + (mid - start) + " millis.\nPart 2: " + (end - mid) + " millis.");
+        return "";
     }
     
     
-    private static String difference(String a, String b) {
+    private String difference(String a, String b) {
         int differentIndex = -1;
         for (int index = 0; index < a.length(); index++) {
             if (a.charAt(index) != b.charAt(index)) {

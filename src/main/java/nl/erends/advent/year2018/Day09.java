@@ -1,20 +1,29 @@
 package nl.erends.advent.year2018;
 
-import nl.erends.advent.util.Util;
+import nl.erends.advent.util.AbstractProblem;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.OptionalLong;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Day09 {
+public class Day09 extends AbstractProblem<String, Long> {
+    
+    private boolean part2 = false;
 
-    public static void main(String... args) {
-        String part = args.length == 0 ? "1" : args[0]; 
-        List<String> input = Arrays.asList(Util.getFileAsList("2018day09.txt").get(0).split(" "));
-        long start = System.currentTimeMillis();
-        int playerCount = Integer.parseInt(input.get(0));
-        int maxMarble = Integer.parseInt(input.get(6));
-        if (part.equals("2")) maxMarble *= 100;
+    public static void main(String[] args) {
+        new Day09().setAndSolve("446 players; last marble is worth 71522 points");
+    }
+    
+    @Override
+    public Long solve1() {
+        String[] words = input.split(" ");
+        int playerCount = Integer.parseInt(words[0]);
+        int maxMarble = Integer.parseInt(words[6]);
+        if (part2) {
+            maxMarble *= 100;
+        }
         List<Integer> circle = new ArrayList<>();
         circle.add(0);
         int currentMarbleIndex = 0;
@@ -37,12 +46,13 @@ public class Day09 {
             currentPlayerIndex = (currentPlayerIndex + 1) % playerList.size();
         }
         OptionalLong optionalLong = playerList.stream().mapToLong(p -> p.score).max();
-        System.out.println(optionalLong.orElse(-1));
-        long end = System.currentTimeMillis();
-        System.out.println("Part "+ part + ": " + (end - start) + " millis.");
-        if (part.equals("1")) {
-            main("2");
-        }
+        return optionalLong.orElseThrow(IllegalStateException::new);
+    }
+    
+    @Override
+    public Long solve2() {
+        part2 = true;
+        return solve1();
     }
     
     private static class Player {

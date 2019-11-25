@@ -1,28 +1,36 @@
 package nl.erends.advent.year2018;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Day10 {
+public class Day10 extends AbstractProblem<List<String>, String> {
+    
+    private int fontSize = 9;
 
     public static void main(String[] args) {
-        List<String> input = Util.getFileAsList("2018day10.txt");
-        long start = System.currentTimeMillis();
+        new Day10().setAndSolve(Util.readInput(2018, 10));
+    }
+    
+    @Override
+    public String solve1() {
         Sky sky = new Sky(input);
         int ticks = 0;
-        while (sky.getMaxY() - sky.getMinY() != 9) {
+        while (sky.getMaxY() - sky.getMinY() > fontSize) {
             sky.doTick();
             ticks++;
         }
-        System.out.println(sky);
-        System.out.println(ticks);
-        long end = System.currentTimeMillis();
-        System.out.println("Part 1 and 2: " + (end - start) + " millis.");
+        answer2 = Integer.toString(ticks);
+        return sky.toString();
     }
-    
-    private static class Sky {
+
+    public void setFontSize(int fontSize) {
+        this.fontSize = fontSize;
+    }
+
+    private class Sky {
         private List<Star> stars;
         
         private Sky(List<String> input) {
@@ -87,7 +95,7 @@ public class Day10 {
         }
     }
     
-    private static class Star {
+    private class Star {
         private int x;
         private int y;
         private int vx;

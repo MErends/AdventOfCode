@@ -1,73 +1,87 @@
 package nl.erends.advent.year2018;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Day24 {
-       
+public class Day24 extends AbstractProblem<List<String>, Integer> {
+
+    private List<Group> groups;
+    private Map<Group, Group> targetMap;
+    private List<Group> immunes;
+    private List<Group> infections;
+
     public static void main(String[] args) {
-        List<String> input = Util.getFileAsList("2018day24.txt");
-        long mid = System.currentTimeMillis();
-        long start = System.currentTimeMillis();
+        new Day24().setAndSolve(Util.readInput(2018, 24));
+    }
+    
+    @Override
+    public Integer solve1() {
+        int answer1 = 0;
         input.remove(0);
         boolean part1done = false;
         int boost = 0;
         while (true) {
-            List<Group> groups = new ArrayList<>();
-            boolean readingInfections = false;
-            for (String line : input) {
-                if (line.contains("Infection:")) {
-                    readingInfections = true;
-                    continue;
-                }
-                if (line.isEmpty()) {
-                    continue;
-                }
-                groups.add(new Group(line, readingInfections ? Army.INFECTION : Army.IMMUNE, boost));
-            }
+            loadGroups(boost);
             while (groups.stream().anyMatch(g -> g.army == Army.IMMUNE)
                     && groups.stream().anyMatch(g -> g.army == Army.INFECTION)) {
                 int totalUnits = groups.stream().mapToInt(g -> g.unitCount).sum();
                 groups.sort(Group.targetingComparator);
-                List<Group> immunes = groups.stream().filter(g -> g.army == Army.IMMUNE).collect(Collectors.toList());
-                List<Group> infections = groups.stream().filter(g -> g.army == Army.INFECTION).collect(Collectors.toList());
-                Map<Group, Group> targetMap = new HashMap<>();
-                for (Group attacker : groups) {
-                    List<Group> targets = attacker.army == Army.INFECTION ? immunes : infections;
-                    Group target = findTarget(attacker, targets);
-                    targetMap.put(attacker, target);
-                    targets.remove(target);
-                }
+                immunes = groups.stream().filter(g -> g.army == Army.IMMUNE).collect(Collectors.toList());
+                infections = groups.stream().filter(g -> g.army == Army.INFECTION).collect(Collectors.toList());
+                fillTargetMap();
                 groups.sort(Group.attackingComparator);
-                for (Group attacker : groups) {
-                    Group defender = targetMap.get(attacker);
-                    if (defender != null) {
-                        defender.beAttackedBy(attacker);
-                    }
-                }
+                doAttacks();
                 if (totalUnits == groups.stream().mapToInt(g -> g.unitCount).sum()) {
                     break;
                 }
                 groups.removeIf(g -> g.unitCount == 0);
             }
             if (!part1done) {
-                mid = System.currentTimeMillis();
-                System.out.println(groups.stream().mapToInt(g -> g.unitCount).sum());
+                answer1 = groups.stream().mapToInt(g -> g.unitCount).sum();
                 part1done = true;
             }
             if (groups.stream().allMatch(g -> g.army == Army.IMMUNE)) {
-                System.out.println(groups.stream().mapToInt(g -> g.unitCount).sum());
-                break;
+                answer2 = groups.stream().mapToInt(g -> g.unitCount).sum();
+                return answer1;
             }
             boost++;
         }
-        long end = System.currentTimeMillis();
-        
-        System.out.println("Part 1: " + (mid - start) + " millis.\nPart 2: " + (end - mid) + " millis.");
     }
-    
+
+    private void doAttacks() {
+        for (Group attacker : groups) {
+            Group defender = targetMap.get(attacker);
+            if (defender != null) {
+                defender.beAttackedBy(attacker);
+            }
+        }
+    }
+
+    private void fillTargetMap() {
+        targetMap = new HashMap<>();
+        for (Group attacker : groups) {
+            List<Group> targets = attacker.army == Army.INFECTION ? immunes : infections;
+            Group target = findTarget(attacker, targets);
+            targetMap.put(attacker, target);
+            targets.remove(target);
+        }
+    }
+
+    private void loadGroups(int boost) {
+        groups = new ArrayList<>();
+        boolean readingInfections = false;
+        for (String line : input) {
+            if (line.contains("Infection:")) {
+                readingInfections = true;
+            } else if (!line.isEmpty()) {
+                groups.add(new Group(line, readingInfections ? Army.INFECTION : Army.IMMUNE, boost));
+            }
+        }
+    }
+
     private enum Type {
         RADIATION,
         BLUDGEONING,
@@ -105,29 +119,26 @@ public class Day24 {
             unitAttack = Integer.parseInt(words[words.length - 6]) + (army == Army.IMMUNE ? boost : 0);
             boolean readingWeakness = false;
             boolean readingImmune = false;
-            for (int index = 7; ; index++) {
+            int index = 7;
+            while (true) {
                 String word = words[index];
                 if (word.contains("immune")) {
                     readingImmune = true;
                     readingWeakness = false;
                     index++;
-                    continue;
-                }
-                if (word.contains("weak")) {
+                } else if (word.contains("weak")) {
                     readingImmune = false;
                     readingWeakness = true;
                     index++;
-                    continue;
-                }
-                if (word.contains("with")) {
+                } else if (word.contains("with")) {
                     break;
-                }
-                if (readingImmune) {
+                } else if (readingImmune) {
                     immuneTo.add(Type.getType(word.substring(0, word.length() - 1)));
                 }
-                if (readingWeakness) {
+                else if (readingWeakness) {
                     weakTo.add(Type.getType(word.substring(0, word.length() - 1)));
                 }
+                index++;
             }
         }
         
@@ -157,24 +168,23 @@ public class Day24 {
         return multiplier * attacker.getEffectivePower();
     }
     
-    private static Group findTarget(Group attacker, List<Group> targets) {
+    private Group findTarget(Group attacker, List<Group> targets) {
         Group target = null;
         int largestDamage = 0;
         int targetEffectivePower = 0;
         int targetInitiative = 0;
         for (Group defender : targets) {
-            int potentialDamage = potentialDamage(attacker, defender);
-            if (potentialDamage < largestDamage) continue;
-            if (potentialDamage == largestDamage) {
-                if (defender.getEffectivePower() < targetEffectivePower) continue;
-                if (defender.getEffectivePower() == targetEffectivePower) {
-                    if (defender.initiative < targetInitiative) continue;
-                }
+            if (potentialDamage(attacker, defender) > largestDamage
+                    || (potentialDamage(attacker, defender) == largestDamage
+                        && defender.getEffectivePower() > targetEffectivePower)
+                    || (potentialDamage(attacker, defender) == largestDamage
+                        && defender.getEffectivePower() == targetEffectivePower
+                        && defender.initiative > targetInitiative)) {
+                target = defender;
+                largestDamage = potentialDamage(attacker, defender);
+                targetEffectivePower = defender.getEffectivePower();
+                targetInitiative = defender.initiative;
             }
-            target = defender;
-            largestDamage = potentialDamage;
-            targetEffectivePower = defender.getEffectivePower();
-            targetInitiative = defender.initiative;
         }
         return target;
     }

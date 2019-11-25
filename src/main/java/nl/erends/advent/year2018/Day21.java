@@ -1,13 +1,19 @@
 package nl.erends.advent.year2018;
 
+import nl.erends.advent.util.AbstractProblem;
+
 import java.util.HashSet;
 import java.util.Set;
 
-public class Day21 {
+public class Day21 extends AbstractProblem<String, Long> {
     
     public static void main(String[] args) {
-        long mid = 0;
-        long start = System.currentTimeMillis();
+        new Day21().setAndSolve(null);
+    }
+    
+    @Override
+    public Long solve1() { //NOSONAR
+        long answer1 = 0;
         boolean part1Done = false;
         long previousD = 0;
         Set<Long> dSet = new HashSet<>();
@@ -18,7 +24,6 @@ public class Day21 {
         long d = 0;
         long e;
         
-        outer:
         do {
             c = d | 65536;
             d = 832312;
@@ -30,17 +35,16 @@ public class Day21 {
                 d = d & 16777215;
                 if (256 > c) {
                     if (!part1Done) {
-                        mid = System.currentTimeMillis();
-                        System.out.println(d);
+                        answer1 = d;
                         part1Done = true;
                     }
                     boolean added = dSet.add(d);
                     if (!added) {
-                        System.out.println(previousD);
-                        break outer;
+                        answer2 = previousD;
+                        return answer1;
                     }
                     previousD = d;
-                    continue outer;
+                    break;
                 }
                 b = 0;
                 while (true) {
@@ -54,7 +58,6 @@ public class Day21 {
                 c = b;
             }
         } while (a != d);
-        long end = System.currentTimeMillis();
-        System.out.println("Part 1: " + (mid - start) + " millis.\nPart 2: " + (end - mid) + " millis.");
+        return 0L;
     }
 }

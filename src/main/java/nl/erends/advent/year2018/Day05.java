@@ -1,13 +1,17 @@
 package nl.erends.advent.year2018;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
-public class Day05 {
+public class Day05 extends AbstractProblem<String, Integer> {
     
     public static void main(String[] args) {
-        String input = Util.getFileAsList("2018day05.txt").get(0);
+        new Day05().setAndSolve(Util.readLine(2018, 5));
+    }
+    
+    @Override
+    public Integer solve1() {
         String part1Input = input;
-        long start = System.currentTimeMillis();
         int lengthBefore = part1Input.length();
         int lengthAfter = 0;
         while (lengthBefore != lengthAfter) {
@@ -20,15 +24,18 @@ public class Day05 {
                 }
             }
         }
-        System.out.println(part1Input.length());
-        long mid = System.currentTimeMillis();
+        return part1Input.length();
+    }
+    
+    @Override
+    public Integer solve2() {
         int smallestPolymer = Integer.MAX_VALUE;
         for (char letter = 'a'; letter <= 'z'; letter++) {
             String input2 = input;
             input2 = input2.replace("" + letter, "");
             input2 = input2.replace("" + Character.toUpperCase(letter), "");
-            lengthBefore = input2.length();
-            lengthAfter = 0;
+            int lengthBefore = input2.length();
+            int lengthAfter = 0;
             while (lengthBefore != lengthAfter) {
                 lengthBefore = input2.length();
                 for (int index = 0; index < input2.length() - 1; index++) {
@@ -41,12 +48,10 @@ public class Day05 {
             }
             smallestPolymer = Math.min(smallestPolymer, input2.length());
         }
-        System.out.println(smallestPolymer);
-        long end = System.currentTimeMillis();
-        System.out.println("Part 1: " + (mid - start) + " millis.\nPart 2: " + (end - mid) + " millis.");
+        return smallestPolymer;
     }
     
-    private static boolean isPair(String pair) {
+    private boolean isPair(String pair) {
         char first = pair.charAt(0);
         char second = pair.charAt(1);
         return (!Character.isLowerCase(first) || !Character.isLowerCase(second))

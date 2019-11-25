@@ -1,107 +1,79 @@
 package nl.erends.advent.year2018;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Day15 {
+public class Day15 extends AbstractProblem<List<String>, Integer> {
 
-    private static List<Unit> units = new ArrayList<>();
-    private static List<Elf> elfs = new ArrayList<>();
-    private static List<Goblin> goblins = new ArrayList<>();
+    private List<Unit> units = new ArrayList<>();
+    private List<Elf> elfs = new ArrayList<>();
+    private List<Goblin> goblins = new ArrayList<>();
+    private int rounds;
     
-    private static Cave cave;
+    private Cave cave;
 
     public static void main(String[] args) {
-        List<String> input = Util.getFileAsList("2018day15.txt");
-        long start = System.currentTimeMillis();
-        cave = new Cave(input);
-        int rounds = 0;
-        loop:
+        new Day15().setAndSolve(Util.readInput(2018, 15));
+    }
+    
+    @Override
+    public Integer solve1() {
+        cave = new Cave(input, 3);
+        resolveCave();
+        return rounds * goblins.stream().mapToInt(goblin -> goblin.hp).sum();
+    }
+
+    @Override
+    public Integer solve2() {
+        int elfAttack = 4;
+        while (true) {
+            cave = new Cave(input, elfAttack);
+            int elfsBefore = elfs.size();
+            resolveCave();
+            if (elfs.size() == elfsBefore) {
+                break;
+            }
+            elfAttack++;
+        }
+        int hpLeft = elfs.stream().mapToInt(elf -> elf.hp).sum();
+        return rounds * hpLeft;
+    }
+
+    private void resolveCave() {
+        rounds = 0;
         while (true) {
             units.clear();
             units.addAll(elfs);
             units.addAll(goblins);
             Collections.sort(units);
             for (Unit unit : units) {
-                if (elfs.size() == 0 || goblins.size() == 0) {
-                    break loop;
+                if (elfs.isEmpty() || goblins.isEmpty()) {
+                    return;
                 }
-                if (unit.HP <= 0) continue;
-                if (!unit.nextToEnemy()) {
-                    List<Tile> targetsInRange = unit.findTargetsInRange();
-                    if (targetsInRange.size() == 0) continue;
-                    Map<Tile, Integer> targetsReachable = unit.findTargetsReachable(targetsInRange);
-                    if (targetsReachable.size() == 0) continue;
-                    List<Tile> targetsNearest = unit.findTargetsNearest(targetsReachable);
-                    Collections.sort(targetsNearest);
-                    Tile targetChosen = targetsNearest.get(0);
-                    Tile step = unit.determineFirstStep(targetChosen);
-                    unit.moveTo(step);
+                if (unit.hp <= 0) {
+                    continue;
                 }
-                if (unit.nextToEnemy()) {
-                    unit.doAttack();
-                }
+                unit.moveAndAttack();
             }
             rounds++;
         }
-        units.clear();
-        units.addAll(elfs);
-        units.addAll(goblins);
-        int HPleft = units.stream().mapToInt(unit -> unit.HP).sum();
-        System.out.println(rounds * HPleft);
-        long mid = System.currentTimeMillis();
-        for (int elfAttack = 4; ; elfAttack++) {
-            Elf.ATTACK = elfAttack;
-            cave = new Cave(input);
-            int elfsNeeded = elfs.size();
-            rounds = 0;
-            loop:
-            while (true) {
-                units.clear();
-                units.addAll(elfs);
-                units.addAll(goblins);
-                Collections.sort(units);
-                for (Unit unit : units) {
-                    if (elfs.size() == 0 || goblins.size() == 0) {
-                        break loop;
-                    }
-                    if (unit.HP <= 0) continue;
-                    if (!unit.nextToEnemy()) {
-                        List<Tile> targetsInRange = unit.findTargetsInRange();
-                        if (targetsInRange.size() == 0) continue;
-                        Map<Tile, Integer> targetsReachable = unit.findTargetsReachable(targetsInRange);
-                        if (targetsReachable.size() == 0) continue;
-                        List<Tile> targetsNearest = unit.findTargetsNearest(targetsReachable);
-                        Collections.sort(targetsNearest);
-                        Tile targetChosen = targetsNearest.get(0);
-                        Tile step = unit.determineFirstStep(targetChosen);
-                        unit.moveTo(step);
-                    }
-                    if (unit.nextToEnemy()) {
-                        unit.doAttack();
-                    }
-                }
-                rounds++;
-            }
-            units.clear();
-            units.addAll(elfs);
-            units.addAll(goblins);
-            if (elfs.size() != elfsNeeded) continue;
-            HPleft = units.stream().mapToInt(unit -> unit.HP).sum();
-            System.out.println(rounds * HPleft);
-            break;
-        }
-        long end = System.currentTimeMillis();
-        System.out.println("Part 1: " + (mid - start) + " millis.\nPart 2: " + (end - mid) + " millis.");
     }
 
-    private static abstract class Unit implements Comparable<Unit> {
-        int HP = 200;
+    private abstract class Unit implements Comparable<Unit> {
+        int hp = 200;
         int x;
         int y;
-        
+
         @Override
         public int compareTo(Unit other) {
             if (y < other.y) return -1;
@@ -111,25 +83,41 @@ public class Day15 {
             return 0;
         }
 
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Unit unit = (Unit) o;
+            return x == unit.x &&
+                    y == unit.y;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(x, y);
+        }
+
         Unit(int x, int y) {
             this.x = x;
             this.y = y;
         }
-        
+
         public abstract boolean nextToEnemy();
+
         public abstract void doAttack();
+
         public abstract List<Tile> findTargetsInRange();
-        
+
         Map<Tile, Integer> findTargetsReachable(List<Tile> targetsInRange) {
             Tile currentTile = cave.getTile(x, y);
             Map<Tile, Integer> distanceMap = new HashMap<>();
-            List<Tile> tileList = currentTile.getNeighbors();
+            List<Tile> neighbors = currentTile.getNeighbors();
             final int[] distance = {1};
-            while (tileList.size() != 0) {
-                tileList = tileList.stream()
+            while (!neighbors.isEmpty()) {
+                neighbors = neighbors.stream()
                         .filter(tile -> !distanceMap.containsKey(tile))
                         .filter(Tile::isEmpty)
-                        .peek(tile -> distanceMap.put(tile, distance[0]))
+                        .map(tile -> {distanceMap.put(tile, distance[0]); return tile;})
                         .map(Tile::getNeighbors)
                         .flatMap(List::stream)
                         .filter(tile -> !distanceMap.containsKey(tile))
@@ -144,7 +132,7 @@ public class Day15 {
             }
             return targetsDistanceMap;
         }
-        
+
         List<Tile> findTargetsNearest(Map<Tile, Integer> distanceMap) {
             int closest = distanceMap.values().stream().mapToInt(i -> i).min().orElseThrow(IllegalStateException::new);
             List<Tile> closestList = new ArrayList<>();
@@ -155,7 +143,7 @@ public class Day15 {
             }
             return closestList;
         }
-        
+
         Tile determineFirstStep(Tile target) {
             Tile currentTile = cave.getTile(x, y);
             List<QueueItem> path = new ArrayList<>();
@@ -185,6 +173,29 @@ public class Day15 {
                     .filter(tile -> currentTile.getNeighbors().contains(tile))
                     .findFirst().orElse(null);
         }
+
+        void moveAndAttack() {
+            if(!nextToEnemy()) {
+                moveIfPossible();
+            }
+            if(nextToEnemy()) {
+            doAttack();
+            }
+        }
+
+        void moveIfPossible() {
+            List<Tile> targetsInRange = findTargetsInRange();
+            if (!targetsInRange.isEmpty()) {
+                Map<Tile, Integer> targetsReachable = findTargetsReachable(targetsInRange);
+                if (targetsReachable.size() != 0) {
+                    List<Tile> targetsNearest = findTargetsNearest(targetsReachable);
+                    Collections.sort(targetsNearest);
+                    Tile targetChosen = targetsNearest.get(0);
+                    Tile step = determineFirstStep(targetChosen);
+                    moveTo(step);
+                }
+            }
+        }
         
         void moveTo(Tile target) {
             cave.getTile(x, y).unit = null;
@@ -195,12 +206,13 @@ public class Day15 {
         
     }
     
-    private static class Elf extends Unit {
+    private class Elf extends Unit {
         
-        static int ATTACK = 3;
+        int attack;
 
-        Elf(int x, int y) {
+        Elf(int x, int y, int elfAttack) {
             super(x, y);
+            attack = elfAttack;
         }
         
         @Override
@@ -230,27 +242,40 @@ public class Day15 {
                     enemies.add((Goblin) neighborTile.unit);
                 }
             }
-            if (enemies.size() == 0) return;
+            if (enemies.isEmpty()) return;
             int minHP = Integer.MAX_VALUE;
             for (Goblin goblin : enemies) {
-                minHP = Math.min(minHP, goblin.HP);
+                minHP = Math.min(minHP, goblin.hp);
             }
             int finalMinHP = minHP;
-            enemies.removeIf(goblin -> goblin.HP != finalMinHP);
+            enemies.removeIf(goblin -> goblin.hp != finalMinHP);
             Collections.sort(enemies);
             Goblin target = enemies.get(0);
-            target.HP -= ATTACK;
-            if (target.HP <= 0) {
+            target.hp -= attack;
+            if (target.hp <= 0) {
                 goblins.remove(target);
                 cave.getTile(target.x, target.y).unit = null;
             }
         }
-        
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            if (!super.equals(o)) return false;
+            Goblin goblin = (Goblin) o;
+            return attack == goblin.attack;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(super.hashCode(), attack);
+        }
     }
     
-    private static class Goblin extends Unit {
+    private class Goblin extends Unit {
         
-        static int ATTACK = 3;
+        int attack = 3;
 
         Goblin(int x, int y) {
             super(x, y);
@@ -283,24 +308,38 @@ public class Day15 {
                     enemies.add((Elf) neighborTile.unit);
                 }
             }
-            if (enemies.size() == 0) return;
+            if (enemies.isEmpty()) return;
             int minHP = Integer.MAX_VALUE;
             for (Elf elf : enemies) {
-                minHP = Math.min(minHP, elf.HP);
+                minHP = Math.min(minHP, elf.hp);
             }
             int finalMinHP = minHP;
-            enemies.removeIf(goblin -> goblin.HP != finalMinHP);
+            enemies.removeIf(goblin -> goblin.hp != finalMinHP);
             Collections.sort(enemies);
             Elf target = enemies.get(0);
-            target.HP -= ATTACK;
-            if (target.HP <= 0) {
+            target.hp -= attack;
+            if (target.hp <= 0) {
                 elfs.remove(target);
                 cave.getTile(target.x, target.y).unit = null;
             }
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            if (!super.equals(o)) return false;
+            Goblin goblin = (Goblin) o;
+            return attack == goblin.attack;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(super.hashCode(), attack);
+        }
     }
     
-    private static class Tile implements Comparable<Tile> {
+    private class Tile implements Comparable<Tile> {
         private char type;
         private int x;
         private int y;
@@ -340,18 +379,24 @@ public class Day15 {
         }
 
         @Override
-        public String toString() {
-            return "Tile{" +
-                    "x=" + x +
-                    ", y=" + y +
-                    '}';
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Tile tile = (Tile) o;
+            return x == tile.x &&
+                    y == tile.y;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(x, y);
         }
     }
     
-    private static class Cave {
+    private class Cave {
         private Tile[][] grid;
         
-        Cave(List<String> input) {
+        Cave(List<String> input, int elfAttack) {
             elfs = new ArrayList<>();
             goblins = new ArrayList<>();
             units = new ArrayList<>();
@@ -366,7 +411,7 @@ public class Day15 {
                         grid[y][x].unit = goblin;
                         grid[y][x].type = '.';
                     } else if (c == 'E') {
-                        Elf elf = new Elf(x, y);
+                        Elf elf = new Elf(x, y, elfAttack);
                         elfs.add(elf);
                         grid[y][x].unit = elf;
                         grid[y][x].type = '.';
@@ -378,26 +423,6 @@ public class Day15 {
         public Tile getTile(int x, int y) {
             return grid[y][x];
         }
-        
-        @Override
-        public String toString() {
-            StringBuilder sb = new StringBuilder();
-            for (Tile[] row : grid) {
-                StringBuilder hp = new StringBuilder();
-                for (Tile tile : row) {
-                    if (tile.unit != null) {
-                        sb.append(tile.unit instanceof Elf ? 'E' : 'G');
-                        hp.append(tile.unit instanceof Elf ? 'E' : 'G');
-                        hp.append("(").append(tile.unit.HP).append("), ");
-                    } else {
-                        sb.append(tile.type);
-                    }
-                    sb.append(' ');
-                }
-                sb.append(hp.toString()).append('\n');
-            }
-            return sb.toString();
-        }
     }
     
     private static class QueueItem {
@@ -407,14 +432,6 @@ public class Day15 {
         QueueItem(Tile tile, int steps) {
             this.tile = tile;
             this.steps = steps;
-        }
-
-        @Override
-        public String toString() {
-            return "QueueItem{" +
-                    "tile=" + tile +
-                    ", steps=" + steps +
-                    '}';
         }
     }
 }

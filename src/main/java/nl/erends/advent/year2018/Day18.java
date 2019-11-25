@@ -1,5 +1,6 @@
 package nl.erends.advent.year2018;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.Arrays;
@@ -7,101 +8,103 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Day18 {
+public class Day18 extends AbstractProblem<List<String>, Integer> {
 
+    private char[][] field;
 
     public static void main(String[] args) {
-        List<String> input = Util.getFileAsList("2018day18.txt");
-        long end;
-        long mid = System.currentTimeMillis();
-        long start = System.currentTimeMillis();
-        char[][] field = new char[input.size()][];
-        for (int index = 0; index < input.size(); index++) {
-            field[index] = input.get(index).toCharArray();
+        new Day18().setAndSolve(Util.readInput(2018, 18));
+    }
+    
+    @Override
+    public Integer solve1() {
+        readInput();
+        for (int i = 0; i < 10; i++) {
+            iterate();
         }
+        int woodCount = countChar(field, '|');
+        int lumberCount = countChar(field, '#');
+        return woodCount * lumberCount;
+    }
+    
+    @Override
+    public Integer solve2() {
+        readInput();
         int turn = 0;
-        Map<char[][], Integer> fieldTurnMap = new HashMap<>();
-        outer:
+        Map<Integer, char[][]> turnFieldMap = new HashMap<>();
+        turnFieldMap.put(0, field);
         while (true) {
             turn++;
-            field = iterate(field);
-            int woodCount = countChar(field, '|');
-            int lumberCount = countChar(field, '#');
-            int score = woodCount * lumberCount;
-            if (turn == 10) {
-                mid = System.currentTimeMillis();
-                System.out.println(score);
-            }
-            for (char[][] oldField : fieldTurnMap.keySet()) {
+            iterate();
+            for (Map.Entry<Integer, char[][]> entry : turnFieldMap.entrySet()) {
+                char[][] oldField = entry.getValue();
                 if (Arrays.deepEquals(oldField, field)) {
-                    int firstOccurance = fieldTurnMap.get(oldField);
+                    int firstOccurance = entry.getKey();
                     int period = turn - firstOccurance;
                     int targetValue = 1000000000;
                     int findValue = ((targetValue - firstOccurance) % period) + firstOccurance;
-                    for (Map.Entry<char[][], Integer> entry : fieldTurnMap.entrySet()) {
-                        if (entry.getValue() == findValue) {
-                            char[][] findField = entry.getKey();
-                            woodCount = countChar(findField, '|');
-                            lumberCount = countChar(findField, '#');
-                            score = woodCount * lumberCount;
-                            end = System.currentTimeMillis();
-                            System.out.println(score);
-                            break outer;
-                        }
-                    }
+                    char[][] findField = turnFieldMap.get(findValue);
+                    int woodCount = countChar(findField, '|');
+                    int lumberCount = countChar(findField, '#');
+                    return  woodCount * lumberCount;
                 }
             }
-            fieldTurnMap.put(field, turn);
+            turnFieldMap.put(turn, field);
         }
-        System.out.println("Part 1: " + (mid - start) + " millis.\nPart 2: " + (end - mid) + " millis.");
+    }
+
+    private void readInput() {
+        field = new char[input.size()][];
+        for (int index = 0; index < input.size(); index++) {
+            field[index] = input.get(index).toCharArray();
+        }
     }
     
-    
-    private static int countChar(char[][] field, char c) {
+    private int countChar(char[][] field, char c) {
         int count = 0;
-        for (char[] aField : field) {
-            for (char anAField : aField) {
-                count += anAField == c ? 1 : 0;
+        for (char[] row : field) {
+            for (char acre : row) {
+                count += acre == c ? 1 : 0;
             }
         }
         return count;
     }
     
-    private static char[][] iterate(char[][] field) {
+    private int countChar(int xMin, int xMax, int yMin, int yMax, char c) {
+        int count = 0;
+        for (int yIndex = yMin; yIndex <= yMax; yIndex++) {
+            for (int xIndex = xMin; xIndex <= xMax; xIndex++) {
+                if (c == field[yIndex][xIndex]) count++;
+            }
+        }
+        return count;
+    }
+    
+    private void iterate() {
         char[][] newField = new char[field.length][field[0].length];
         for (int y = 0; y < field.length; y++) {
             for (int x = 0; x < field[y].length; x++) {
                 newField[y][x] = getNextState(field, x, y);
             }
         }
-        return newField;
+        field = newField;
     }
     
-    private static char getNextState(char[][] field, int x, int y) {
+    private char getNextState(char[][] field, int x, int y) {
         int xMin = Math.max(x - 1, 0);
         int xMax = Math.min(x + 1, field[0].length - 1);
         int yMin = Math.max(y - 1, 0);
         int yMax = Math.min(y + 1, field.length - 1);
-        int treeCount = 0;
-        int lumberCount = 0;
-        for (int yIndex = yMin; yIndex <= yMax; yIndex++) {
-            for (int xIndex = xMin; xIndex <= xMax; xIndex++) {
-                char c = field[yIndex][xIndex];
-                if (c == '|') treeCount++;
-                if (c == '#') lumberCount++;
-            }
-        }
+        int treeCount = countChar(xMin, xMax, yMin, yMax, '|');
+        int lumberCount = countChar(xMin, xMax, yMin, yMax, '#');
+
         char c = field[y][x];
         if (c == '.') return treeCount >= 3 ? '|' : c;
         if (c == '|') return lumberCount >= 3 ?  '#' : c;
-        if (c == '#') {
-            lumberCount--;
-            if (lumberCount == 0 || treeCount == 0) 
-                return '.';
-            else
-                return '#';
-        }
-        throw new IllegalStateException();
-        
+        lumberCount--;
+        if (lumberCount == 0 || treeCount == 0) 
+            return '.';
+        else
+            return '#';
     } 
 }

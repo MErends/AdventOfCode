@@ -1,16 +1,21 @@
 package nl.erends.advent.year2018;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Day25 {
+public class Day25 extends AbstractProblem<List<String>, Integer> {
    
     public static void main(String[] args) {
-        List<String> input = Util.getFileAsList("2018day25.txt");
-        long start = System.currentTimeMillis();
+        new Day25().setAndSolve(Util.getFileAsList("2018day25.txt"));
+    }
+    
+    @Override
+    public Integer solve1() {
         int constellations = 0;
         List<Star> stars = input.stream().map(Star::new).collect(Collectors.toList());
         while (!stars.isEmpty()) {
@@ -25,11 +30,7 @@ public class Day25 {
                 }
             }
         }
-        System.out.println(constellations);
-        long mid = System.currentTimeMillis();
-        long end = System.currentTimeMillis();
-        
-        System.out.println("Part 1: " + (mid - start) + " millis.\nPart 2: " + (end - mid) + " millis.");
+        return constellations;
     }
     
     
@@ -59,6 +60,16 @@ public class Day25 {
         @Override
         public int compareTo(Star other) {
             return other.constellation - constellation;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            return o instanceof Star && constellation == ((Star) o).constellation;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(constellation);
         }
     }
 }

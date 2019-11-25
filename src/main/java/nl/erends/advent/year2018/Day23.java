@@ -1,16 +1,20 @@
 package nl.erends.advent.year2018;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.*;
 
-public class Day23 {
+public class Day23 extends AbstractProblem<List<String>, Integer> {
     
-    static List<Drone> droneList = new ArrayList<>();
+    private List<Drone> droneList = new ArrayList<>();
    
     public static void main(String[] args) {
-        List<String> input = Util.getFileAsList("2018day23.txt");
-        long start = System.currentTimeMillis();
+        new Day23().setAndSolve(Util.readInput(2018, 23));
+    }
+    
+    @Override
+    public Integer solve1() {
         input.forEach(s -> droneList.add(new Drone(s)));
         Drone largestDrone = null;
         int radius = Integer.MIN_VALUE;
@@ -28,8 +32,14 @@ public class Day23 {
             distance += Math.abs(largestDrone.z - drone.z);
             if (distance <= largestDrone.r) inRange++;
         }
-        System.out.println(inRange);
-        long mid = System.currentTimeMillis();
+        return inRange;
+    }
+    
+    @Override
+    public Integer solve2() {
+        if (droneList.isEmpty()) {
+            solve1();
+        }
         int min = -1 * (1 << 29);
         int size = 1 << 30;
         List<Cube> cubes = new ArrayList<>();
@@ -38,18 +48,14 @@ public class Day23 {
             Collections.sort(cubes);
             Cube smallest = cubes.remove(0);
             if (smallest.size == 1) {
-                System.out.println(Math.abs(smallest.x) + Math.abs(smallest.y) + Math.abs(smallest.z));
-                break;
+                return Math.abs(smallest.x) + Math.abs(smallest.y) + Math.abs(smallest.z);
             }
             cubes.addAll(smallest.getSubcubes());
         }
-        long end = System.currentTimeMillis();
-        
-        System.out.println("Part 1: " + (mid - start) + " millis.\nPart 2: " + (end - mid) + " millis.");
     }
     
     
-    private static class Drone {
+    private class Drone {
         int x;
         int y;
         int z;
@@ -65,7 +71,7 @@ public class Day23 {
         }
     }
     
-    private static class Cube implements Comparable<Cube> {
+    private class Cube implements Comparable<Cube> {
         int x;
         int y;
         int z;
@@ -120,16 +126,22 @@ public class Day23 {
         }
 
         @Override
-        public String toString() {
-            return "Cube{" +
-                    "x=" + x +
-                    ", y=" + y +
-                    ", z=" + z +
-                    ", size=" + size +
-                    ", dronesInRange=" + dronesInRange +
-                    '}';
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Cube cube = (Cube) o;
+            return x == cube.x &&
+                    y == cube.y &&
+                    z == cube.z &&
+                    size == cube.size &&
+                    dronesInRange == cube.dronesInRange;
         }
-        
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(x, y, z, size, dronesInRange);
+        }
+
         private int distanceFromBox(int droneCoord, int lowerBoxCoord, int upperBoxCoord) {
             if (droneCoord < lowerBoxCoord) return lowerBoxCoord - droneCoord;
             if (droneCoord > upperBoxCoord) return droneCoord - upperBoxCoord;

@@ -1,14 +1,23 @@
 package nl.erends.advent.year2018;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.OptionalInt;
 
-public class Day06 {
+public class Day06 extends AbstractProblem<List<String>, Integer> {
 
     public static void main(String[] args) {
-        List<String> input = Util.getFileAsList("2018day06.txt");
-        long start = System.currentTimeMillis();
+        new Day06().setAndSolve(Util.readInput(2018, 6));
+    }
+    
+    @Override
+    public Integer solve1() {
         Map<Point, Integer> sources = new HashMap<>();
         List<Point> edges = new ArrayList<>();
         int maxX = Integer.MIN_VALUE;
@@ -40,14 +49,12 @@ public class Day06 {
         }
         edges.forEach(sources::remove);
         OptionalInt maximum = sources.values().stream().mapToInt(i -> i).max();
-        System.out.println(maximum.orElse(-1));
-        System.out.println(pointsWithin10k);
-        long end = System.currentTimeMillis();
-        System.out.println("Parts 1 & 2: " + (end - start) + " millis.");
+        answer2 = pointsWithin10k;
+        return maximum.orElse(-1);
     }
 
     
-    private static Point getNearest(int x, int y, Collection<Point> sources) {
+    private Point getNearest(int x, int y, Collection<Point> sources) {
         List<Point> nearest = new ArrayList<>();
         int minDistance = Integer.MAX_VALUE;
         for (Point source : sources) {
@@ -63,7 +70,7 @@ public class Day06 {
         return nearest.size() == 1 ? nearest.get(0) : null;
     }
     
-    private static int getTotalDistance(int x, int y, Collection<Point> sources) {
+    private int getTotalDistance(int x, int y, Collection<Point> sources) {
         int totalDistance = 0;
         for (Point source : sources) {
             totalDistance += Math.abs(x - source.x) + Math.abs(y - source.y);
@@ -71,7 +78,7 @@ public class Day06 {
         return totalDistance;
     }
     
-    private static class Point {
+    private class Point {
         private int x;
         private int y;
 

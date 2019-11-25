@@ -1,20 +1,49 @@
 package nl.erends.advent.year2018;
 
+import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Day12 {
+public class Day12 extends AbstractProblem<List<String>, Long> {
+    
+    private Map<String, Character> mapping = new HashMap<>();
+    private List<Integer> sums = new ArrayList<>();
 
 
     public static void main(String[] args) {
-        List<String> input = Util.getFileAsList("2018day12.txt");
-        long start = System.currentTimeMillis();
-        long mid = System.currentTimeMillis();
+        new Day12().setAndSolve(Util.readInput(2018, 12));
+    }
+    
+    @Override
+    public Long solve1() {
+        State state = new State(readInput());
+        for (int i = 0; i < 20; i++) {
+            state.iterate();
+        }
+        return (long) state.getSum();
+    }
+
+    @Override
+    public Long solve2() {
+        State state = new State(readInput());
+        sums.add(state.getSum());
+        while (sums.size() < 100 || !isLinear()) {
+            state.iterate();
+            sums.add(state.getSum());
+        }
+        int index = sums.size() - 1;
+        int sum = sums.get(index);
+        long slope = (long) sums.get(index) - sums.get(index - 1);
+        long constant = sum - (slope * index);
+        return slope * 50_000_000_000L + constant;
+    }
+
+    private String readInput() {
         String state = "";
-        Map<String, Character> mapping = new HashMap<>();
         for (String line : input) {
             if (line.contains(":")) {
                 state = line.split(" ")[2];
@@ -23,78 +52,51 @@ public class Day12 {
                 mapping.put(words[0], words[2].charAt(0));
             }
         }
-        int startingIndex = 0;
-        int iteration = 0;
-        int targetIteration = 20;
-        int oldOldIncrement;
-        int oldIncrement = 0;
-        int increment = 0;
-        while (true) {
-            int sumBefore = getSum(state, startingIndex);
-            if (iteration == targetIteration) {
-                System.out.println(getSum(state, startingIndex));
-                mid = System.currentTimeMillis();
-            }
-            boolean extended = false;
-            StringBuilder newState = new StringBuilder();
-            String chunk = "...." + state.substring(0, 1);
-            char newChar = mapping.get(chunk);
-            if (newChar == '#') {
-                newState.append(newChar);
-                startingIndex -= 2;
-                extended = true;
-            }
-            chunk = "..." + state.substring(0, 2);
-            newChar = mapping.get(chunk);
-            if (newChar == '#') {
-                newState.append(newChar);
-                if (!extended)
-                    startingIndex--;
-            } else if (extended) {
-                newState.append('.');
-            }
-            chunk = ".." + state.substring(0, 3);
-            newState.append(mapping.get(chunk));
-            chunk = "." + state.substring(0, 4);
-            newState.append(mapping.get(chunk));
-            for (int index = 0; index < state.length() - 4; index++) {
-                newState.append(mapping.get(state.substring(index, index + 5)));
-            }
-            newState.append(mapping.get(state.substring(state.length() - 4) + "."));
-            newState.append(mapping.get(state.substring(state.length() - 3) + ".."));
-            newState.append(mapping.get(state.substring(state.length() - 2) + "..."));
-            newState.append(mapping.get(state.substring(state.length() - 1) + "...."));
-            while (newState.substring(newState.length() - 1).equals(".")) {
-                newState.deleteCharAt(newState.length() - 1);
-            }
-            while (newState.substring(0, 1).equals(".")) {
-                newState.deleteCharAt(0);
-                startingIndex++;
-            }
-            state = newState.toString();
-            iteration++;
-            int sumAfter = getSum(state, startingIndex);
-            oldOldIncrement = oldIncrement;
-            oldIncrement = increment;
-            increment = sumAfter - sumBefore;
-            if (oldOldIncrement == oldIncrement && oldIncrement == increment) {
-                break;
-            }
-            if (iteration == Integer.MAX_VALUE) {
-                break;
-            }
-        }
-        System.out.println(getSum(state, startingIndex) + (50_000_000_000L - iteration) * increment);
-        long end = System.currentTimeMillis();
-        System.out.println("Part 1: " + (mid - start) + " millis.\nPart 2: " + (end - mid) + " millis.");
+        return state;
+    }
+    
+    private boolean isLinear() {
+        int sumSize = sums.size();
+        int dif1 = sums.get(sumSize - 1) - sums.get(sumSize - 2);
+        int dif2 = sums.get(sumSize - 2) - sums.get(sumSize - 3);
+        return dif1 == dif2;
     }
 
-    private static int getSum(String state, int startingIndex) {
-        int sum = 0;
-        for (char c : state.toCharArray()) {
-            sum += c == '#' ? startingIndex : 0;
-            startingIndex++;
+    private class State {
+        
+        private String stringState;
+        private int startIndex = 0;
+        
+        State(String stringState) {
+            this.stringState = stringState;
         }
-        return sum;
+        
+        void iterate() {
+            StringBuilder nextState = new StringBuilder();
+            stringState = "....." + stringState + ".....";
+            startIndex -= 3;
+            for (int pointer = 0; pointer < stringState.length() - 5; pointer++) {
+                String substring = stringState.substring(pointer, pointer + 5);
+                nextState.append(mapping.getOrDefault(substring, '.'));
+            }
+            while (nextState.charAt(0) == '.') {
+                nextState.deleteCharAt(0);
+                startIndex++;
+            }
+            while (nextState.charAt(nextState.length() - 1) == '.') {
+                nextState.deleteCharAt(nextState.length() - 1);
+            }
+            stringState = nextState.toString();
+        }
+        
+        public int getSum() {
+            int sum = 0;
+            int value = startIndex;
+            for (char c : stringState.toCharArray()) {
+                sum += c == '#' ? value : 0;
+                value++;
+            }
+            return sum;
+        }
     }
 }
