@@ -6,7 +6,7 @@
 
     <groupId>nl.erends</groupId>
     <artifactId>advent-of-code</artifactId>
-    <version>2018.25-SNAPSHOT</version>
+    <version>2019.01-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
