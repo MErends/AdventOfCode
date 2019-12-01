@@ -15,37 +15,6 @@ public class Util {
     private Util() {
         throw new IllegalStateException("Don't instantiate");
     }
-
-    /**
-     * Load file into one String
-     * Assuming file has no line separators!
-     * i.e. 2015 Day 1, 2015 Day 3
-     * @param filename file in current working directory or full pathname
-     * @return String
-     */
-    public static String getFileAsString(String filename) {
-        return Util.getFileAsList(filename).get(0);
-    }
-
-
-    /**
-     * Loads entire file, one line at a time, into List
-     * @param filename file in current working directory or full pathname
-     * @return ArrayList of strings
-     */
-    public static List<String> getFileAsList(String filename) {
-        List<String> list = new ArrayList<>();
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(Util.class.getResourceAsStream("/"+ filename)));
-                String input;
-            while ((input = br.readLine()) != null) {
-                    list.add(input);
-                }
-        } catch (IOException ioe) {
-            LOG.error("Could not read from file", ioe);
-        }
-        return list;
-    }
     
     public static List<String> readInput(int year, int day, int testcase) {
         String extension = ".txt";

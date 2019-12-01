@@ -9,7 +9,7 @@ public class MD5 {
     private static MessageDigest md5er;
     static {
         try {
-            md5er = MessageDigest.getInstance("MD5");
+            md5er = MessageDigest.getInstance("MD5"); // NOSONAR
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalStateException(e);
         }
