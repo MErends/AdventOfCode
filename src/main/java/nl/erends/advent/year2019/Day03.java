@@ -3,7 +3,6 @@ package nl.erends.advent.year2019;
 import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,6 @@ public class Day03 extends AbstractProblem<List<String>, Integer> {
 
     @Override
     public Integer solve1() {
-        List<String> intersects = new ArrayList<>();
         Map<String, Integer> firstWire = new HashMap<>();
         int totalSteps = 0;
         for (String pathElement : input.get(0).split(",")) {
@@ -35,6 +33,7 @@ public class Day03 extends AbstractProblem<List<String>, Integer> {
         x = 0;
         y = 0;
         totalSteps = 0;
+        int answer1 = Integer.MAX_VALUE;
         answer2 = Integer.MAX_VALUE;
         for (String pathElement : input.get(1).split(",")) {
             char direction = pathElement.charAt(0);
@@ -44,19 +43,13 @@ public class Day03 extends AbstractProblem<List<String>, Integer> {
                 totalSteps++;
                 String coords = x + "," + y;
                 if (firstWire.keySet().contains(coords)) {
-                    intersects.add(coords);
+                    answer1 = Math.min(answer1, Math.abs(x) + Math.abs(y));
                     answer2 = Math.min(answer2, totalSteps + firstWire.get(coords));
                 }
                 numSteps--;
             }
         }
-        int closestIntersect = Integer.MAX_VALUE;
-        for (String intersect : intersects) {
-            int intersectX = Integer.parseInt(intersect.split(",")[0]);
-            int intersectY = Integer.parseInt(intersect.split(",")[1]);
-            closestIntersect = Integer.min(closestIntersect, Math.abs(intersectX) + Math.abs(intersectY));
-        }
-        return closestIntersect;
+        return answer1;
     }
 
     private void updateXY(char direction) {
