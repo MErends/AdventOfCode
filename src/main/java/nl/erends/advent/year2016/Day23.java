@@ -18,4 +18,12 @@ public class Day23 extends AbstractProblem<List<String>, Integer> {
         assembunny.execute();
         return assembunny.getMemoryBank().get("a");
     }
+
+    @Override
+    public Integer solve2() {
+        Assembunny assembunny = new Assembunny(input);
+        assembunny.getMemoryBank().put("a", 12);
+        assembunny.execute();
+        return assembunny.getMemoryBank().get("a");
+    }
 }
