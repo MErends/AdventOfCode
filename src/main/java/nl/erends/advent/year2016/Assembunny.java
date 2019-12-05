@@ -1,5 +1,6 @@
 package nl.erends.advent.year2016;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,7 @@ public class Assembunny {
     private String output = "";
     
     Assembunny(List<String> instructions, int outputLimit) {
-        this.instructions = instructions;
+        this.instructions = new ArrayList<>(instructions);
         this.outputLimit = outputLimit;
     }
     
@@ -118,7 +119,7 @@ public class Assembunny {
         output += getMemory(memory);
     }
 
-    public Map<String, Integer> getMemoryBank() {
+    Map<String, Integer> getMemoryBank() {
         return memoryBank;
     }
 
