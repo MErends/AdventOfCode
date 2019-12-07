@@ -29,7 +29,10 @@ public class Intcode {
                     doThreeParameters(opcode);
                     break;
                 case 3:
-                    doSave();
+                    boolean readInput = doReadInput();
+                    if (!readInput) {
+                        return;
+                    }
                     break;
                 case 4:
                     doOutput();
@@ -76,10 +79,14 @@ public class Intcode {
         pointer += 4;
     }
 
-    private void doSave() {
+    private boolean doReadInput() {
+        if (input.isEmpty()) {
+            return false;
+        }
         int target = getCode(pointer + 1);
         setCode(target, input.remove());
         pointer += 2;
+        return true;
     }
 
     private void doOutput() {
