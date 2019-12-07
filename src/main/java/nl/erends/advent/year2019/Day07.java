@@ -41,7 +41,7 @@ public class Day07 extends AbstractProblem<String, Integer> {
             intcode.execute();
             List<Integer> newPhaseSettings = new ArrayList<>(phaseSettings);
             newPhaseSettings.remove(phaseSetting);
-            determineSignal(newPhaseSettings, intcode.getOutput().get(0));
+            determineSignal(newPhaseSettings, intcode.getOutput());
         }
     }
     
@@ -72,31 +72,22 @@ public class Day07 extends AbstractProblem<String, Integer> {
         amplifierA.getInput().add(finalSignal);
         while (true) {
             amplifierA.execute();
-
-            if (!amplifierA.getOutput().isEmpty()) {
-                amplifierB.getInput().add(amplifierA.getOutput().remove(0));
-            }
-            amplifierB.execute();
-            
-            if (!amplifierB.getOutput().isEmpty()) {
-                amplifierC.getInput().add(amplifierB.getOutput().remove(0));
-            }
-            amplifierC.execute();
-
-            if (!amplifierC.getOutput().isEmpty()) {
-                amplifierD.getInput().add(amplifierC.getOutput().remove(0));
-            }
-            amplifierD.execute();
-
-            if (!amplifierD.getOutput().isEmpty()) {
-                amplifierE.getInput().add(amplifierD.getOutput().remove(0));
-            }
-            amplifierE.execute();
-            
-            if (amplifierE.getOutput().isEmpty()) {
+            if (amplifierA.isHalted()) {
                 return finalSignal;
             }
-            finalSignal = amplifierE.getOutput().remove(0);
+            amplifierB.getInput().add(amplifierA.getOutput());
+            amplifierB.execute();
+            
+            amplifierC.getInput().add(amplifierB.getOutput());
+            amplifierC.execute();
+
+            amplifierD.getInput().add(amplifierC.getOutput());
+            amplifierD.execute();
+
+            amplifierE.getInput().add(amplifierD.getOutput());
+            amplifierE.execute();
+            
+            finalSignal = amplifierE.getOutput();
             amplifierA.getInput().add(finalSignal);
         }
     }

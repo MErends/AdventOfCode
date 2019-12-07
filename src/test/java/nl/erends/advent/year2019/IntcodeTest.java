@@ -3,7 +3,7 @@ package nl.erends.advent.year2019;
 import nl.erends.advent.util.Util;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static nl.erends.advent.util.Assert.assertEquals;
 
 public class IntcodeTest {
 
@@ -19,7 +19,7 @@ public class IntcodeTest {
         Intcode intcode = new Intcode("3,9,8,9,10,9,4,9,99,-1,8");
         intcode.getInput().add(8);
         intcode.execute();
-        assertEquals(1, intcode.getOutput().get(0).intValue());
+        assertEquals(1, intcode.getOutput());
     }
 
     @Test
@@ -29,16 +29,16 @@ public class IntcodeTest {
         Intcode intcode = new Intcode(input);
         intcode.getInput().add(7);
         intcode.execute();
-        assertEquals(999, intcode.getOutput().get(0).intValue());
+        assertEquals(999, intcode.getOutput());
 
         intcode = new Intcode(input);
         intcode.getInput().add(8);
         intcode.execute();
-        assertEquals(1000, intcode.getOutput().get(0).intValue());
+        assertEquals(1000, intcode.getOutput());
 
         intcode = new Intcode(input);
         intcode.getInput().add(9);
         intcode.execute();
-        assertEquals(1001, intcode.getOutput().get(0).intValue());
+        assertEquals(1001, intcode.getOutput());
     }
 }
