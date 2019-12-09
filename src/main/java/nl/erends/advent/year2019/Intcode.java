@@ -1,56 +1,69 @@
 package nl.erends.advent.year2019;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
 public class Intcode {
 
     private boolean halted = false;
-    private int pointer = 0;
-    private List<Integer> code;
-    private Queue<Integer> input = new LinkedList<>();
-    private Integer output;
+    private long pointer = 0;
+    private Map<Long, Long> code = new HashMap<>();
+    private Queue<Long> input = new LinkedList<>();
+    private Long output;
+    private long relativeBase = 0;
     
     Intcode(String input) {
-        code = Arrays.stream(input.split(",")).map(Integer::parseInt).collect(Collectors.toList());
+        List<Long> codeList = Arrays.stream(input.split(",")).map(Long::parseLong).collect(Collectors.toList());
+        for (int i = 0; i < codeList.size(); i++) {
+            code.put((long) i, codeList.get(i));
+        }
     }
     
     public void execute() {
         while (true) {
-            int opcode = getCode(pointer) % 100;
+            int opcode = (int) (getCode(pointer) % 100);
             switch (opcode) {
-                case 1:
-                case 2:
-                case 7:
-                case 8:
+                case 1: // add
+                case 2: // multiply
+                case 7: // less than
+                case 8: // equals
                     doThreeParameters(opcode);
                     break;
-                case 3:
+                case 3: // read
                     doReadInput();
                     break;
-                case 4:
+                case 4: // output
                     doOutput();
                     return;
-                case 5:
-                case 6:
+                case 5: // jump-if-true
+                case 6: // jump-if-false
                     doJumpIf(opcode);
                     break;
-                case 99:
+                case 9: // alter relative base+
+                    doAlterBase();
+                    break;
+                case 99: // halt
                     halted = true;
                     return;
                 default:
+                    throw new IllegalArgumentException("Unkown opcode: " + opcode);
             }
         }
     }
 
     private void doThreeParameters(int opcodeInt) {
         String opcode = String.format("%05d", getCode(pointer));
-        int input1 = getParameter(1, opcode);
-        int input2 = getParameter(2, opcode);
-        int target = getCode(pointer + 3);
+        long input1 = getParameter(1, opcode);
+        long input2 = getParameter(2, opcode);
+        long target = getCode(pointer + 3);
+        if (opcode.charAt(0) == '2') {
+            target = relativeBase + target;
+        }
         switch (opcodeInt) {
             case 1:
                 setCode(target, input1 + input2);
@@ -78,7 +91,11 @@ public class Intcode {
     }
 
     private void doReadInput() {
-        int target = getCode(pointer + 1);
+        String opcode = String.format("%05d", getCode(pointer));
+        long target = getCode(pointer + 1);
+        if (opcode.charAt(2) == '2') {
+            target = relativeBase + target;
+        }
         setCode(target, input.remove());
         pointer += 2;
     }
@@ -89,10 +106,10 @@ public class Intcode {
         pointer += 2;
     }
 
-    private void doJumpIf(int opcodeInt) {
+    private void doJumpIf(long opcodeInt) {
         String opcode = String.format("%05d", getCode(pointer));
-        int check = getParameter(1, opcode);
-        int newPointer = getParameter(2, opcode);
+        long check = getParameter(1, opcode);
+        long newPointer = getParameter(2, opcode);
         if ((opcodeInt == 5 && check != 0)
                 || (opcodeInt == 6 && check == 0)) {
             pointer = newPointer;
@@ -101,33 +118,46 @@ public class Intcode {
         }
     }
 
-    private int getParameter(int parameter, String opcode) {
-        int value = getCode(pointer + parameter);
-        if (opcode.charAt(3 - parameter) == '0') {
-            value = getCode(value);
+    private void doAlterBase() {
+        String opcode = String.format("%05d", getCode(pointer));
+        long adjustment = getParameter(1, opcode);
+        relativeBase += adjustment;
+        pointer += 2;
+    }
+
+    private long getParameter(int parameter, String opcode) {
+        char mode = opcode.charAt(3 - parameter);
+        if (mode == '0') { // position
+            int position = (int) getCode(pointer + parameter);
+            return getCode(position);
+        } else if (mode == '1') {
+            return getCode(pointer + parameter);
+        } else if (mode == '2') {
+            long offset = getCode(pointer + parameter);
+            return getCode(relativeBase + offset);
         }
-        return value;
+        throw new IllegalArgumentException("Invalid parameter mode: " + mode);
     }
     
-    void setCode(int index, int value) {
-        code.set(index, value);
+    void setCode(long index, long value) {
+        code.put(index, value);
     }
     
-    int getCode(int index) {
-        return code.get(index);
+    long getCode(long index) {
+        return code.computeIfAbsent(index, k -> 0L);
     }
 
-    public Queue<Integer> getInput() {
-        return input;
+    void addInput(long value) {
+        input.add(value);
     }
 
-    public Integer getOutput() {
-        Integer temp = output;
+    public Long getOutput() {
+        Long temp = output;
         output = null;
         return temp;
     }
 
-    public boolean isHalted() {
+    boolean isHalted() {
         return halted;
     }
 }

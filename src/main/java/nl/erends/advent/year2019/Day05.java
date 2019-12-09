@@ -6,17 +6,17 @@ import nl.erends.advent.util.Util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Day05 extends AbstractProblem<String, Integer> {
+public class Day05 extends AbstractProblem<String, Long> {
 
     public static void main(String[] args) {
         new Day05().setAndSolve(Util.readLine(2019, 5));
     }
 
     @Override
-    public Integer solve1() {
+    public Long solve1() {
         Intcode intcode = new Intcode(input);
-        intcode.getInput().add(1);
-        List<Integer> output = new ArrayList<>();
+        intcode.addInput(1);
+        List<Long> output = new ArrayList<>();
         while (true) {
             intcode.execute();
             if (!intcode.isHalted()) {
@@ -25,13 +25,13 @@ public class Day05 extends AbstractProblem<String, Integer> {
                 break;
             }
         }
-        return output.stream().mapToInt(Integer::intValue).sum();
+        return output.stream().mapToLong(Long::longValue).sum();
     }
 
     @Override
-    public Integer solve2() {
+    public Long solve2() {
         Intcode intcode = new Intcode(input);
-        intcode.getInput().add(5);
+        intcode.addInput(5);
         while (!intcode.isHalted()) {
             intcode.execute();
         }

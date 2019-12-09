@@ -7,37 +7,37 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Day07 extends AbstractProblem<String, Integer> {
+public class Day07 extends AbstractProblem<String, Long> {
     
-    private int signal = Integer.MIN_VALUE;
-    private int feedback = Integer.MIN_VALUE;
+    private long signal = Long.MIN_VALUE;
+    private long feedback = Long.MIN_VALUE;
 
     public static void main(String[] args) {
         new Day07().setAndSolve(Util.readLine(2019, 7));
     }
 
     @Override
-    public Integer solve1() {
+    public Long solve1() {
         determineSignal(Arrays.asList(0, 1, 2, 3, 4), 0);
         return signal;
     }
 
     @Override
-    public Integer solve2() {
+    public Long solve2() {
         List<Character> phaseSettings = Arrays.asList('5', '6', '7', '8', '9');
         determineFeedback(phaseSettings, "");
         return feedback;
     }
 
-    private void determineSignal(List<Integer> phaseSettings, int inputSignal) {
+    private void determineSignal(List<Integer> phaseSettings, long inputSignal) {
         if (phaseSettings.isEmpty()) {
             signal = Math.max(inputSignal, signal);
             return;
         }
         for (Integer phaseSetting : phaseSettings) {
             Intcode intcode = new Intcode(input);
-            intcode.getInput().add(phaseSetting);
-            intcode.getInput().add(inputSignal);
+            intcode.addInput(phaseSetting);
+            intcode.addInput(inputSignal);
             intcode.execute();
             List<Integer> newPhaseSettings = new ArrayList<>(phaseSettings);
             newPhaseSettings.remove(phaseSetting);
@@ -57,38 +57,38 @@ public class Day07 extends AbstractProblem<String, Integer> {
         }
     }
     
-    private int feedbackSignal(String sequence) {
+    private long feedbackSignal(String sequence) {
         Intcode amplifierA = new Intcode(input);
-        amplifierA.getInput().add(Integer.valueOf("" + sequence.charAt(0)));
+        amplifierA.addInput(Integer.valueOf("" + sequence.charAt(0)));
         Intcode amplifierB = new Intcode(input);
-        amplifierB.getInput().add(Integer.valueOf("" + sequence.charAt(1)));
+        amplifierB.addInput(Integer.valueOf("" + sequence.charAt(1)));
         Intcode amplifierC = new Intcode(input);
-        amplifierC.getInput().add(Integer.valueOf("" + sequence.charAt(2)));
+        amplifierC.addInput(Integer.valueOf("" + sequence.charAt(2)));
         Intcode amplifierD = new Intcode(input);
-        amplifierD.getInput().add(Integer.valueOf("" + sequence.charAt(3)));
+        amplifierD.addInput(Integer.valueOf("" + sequence.charAt(3)));
         Intcode amplifierE = new Intcode(input);
-        amplifierE.getInput().add(Integer.valueOf("" + sequence.charAt(4)));
-        int finalSignal = 0;
-        amplifierA.getInput().add(finalSignal);
+        amplifierE.addInput(Integer.valueOf("" + sequence.charAt(4)));
+        long finalSignal = 0;
+        amplifierA.addInput(finalSignal);
         while (true) {
             amplifierA.execute();
             if (amplifierA.isHalted()) {
                 return finalSignal;
             }
-            amplifierB.getInput().add(amplifierA.getOutput());
+            amplifierB.addInput(amplifierA.getOutput());
             amplifierB.execute();
             
-            amplifierC.getInput().add(amplifierB.getOutput());
+            amplifierC.addInput(amplifierB.getOutput());
             amplifierC.execute();
 
-            amplifierD.getInput().add(amplifierC.getOutput());
+            amplifierD.addInput(amplifierC.getOutput());
             amplifierD.execute();
 
-            amplifierE.getInput().add(amplifierD.getOutput());
+            amplifierE.addInput(amplifierD.getOutput());
             amplifierE.execute();
             
             finalSignal = amplifierE.getOutput();
-            amplifierA.getInput().add(finalSignal);
+            amplifierA.addInput(finalSignal);
         }
     }
 }
