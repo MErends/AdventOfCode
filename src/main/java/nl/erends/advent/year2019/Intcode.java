@@ -23,8 +23,12 @@ public class Intcode {
             code.put((long) i, codeList.get(i));
         }
     }
-    
-    public void execute() {
+
+
+    /**
+     * @return Whether the computer is still running. If true, either output was produced or input is required
+     */
+    public boolean execute() {
         while (true) {
             int opcode = (int) (getCode(pointer) % 100);
             switch (opcode) {
@@ -35,11 +39,14 @@ public class Intcode {
                     doThreeParameters(opcode);
                     break;
                 case 3: // read
-                    doReadInput();
+                    boolean success = doReadInput();
+                    if (!success) {
+                        return true;
+                    }
                     break;
                 case 4: // output
                     doOutput();
-                    return;
+                    return true;
                 case 5: // jump-if-true
                 case 6: // jump-if-false
                     doJumpIf(opcode);
@@ -49,7 +56,7 @@ public class Intcode {
                     break;
                 case 99: // halt
                     halted = true;
-                    return;
+                    return false;
                 default:
                     throw new IllegalArgumentException("Unkown opcode: " + opcode);
             }
@@ -90,14 +97,18 @@ public class Intcode {
         pointer += 4;
     }
 
-    private void doReadInput() {
+    private boolean doReadInput() {
         String opcode = String.format("%05d", getCode(pointer));
         long target = getCode(pointer + 1);
         if (opcode.charAt(2) == '2') {
             target = relativeBase + target;
         }
+        if (input.isEmpty()) {
+            return false;
+        }
         setCode(target, input.remove());
         pointer += 2;
+        return true;
     }
 
     private void doOutput() {
@@ -155,6 +166,10 @@ public class Intcode {
         Long temp = output;
         output = null;
         return temp;
+    }
+
+    boolean hasOutput() {
+        return output != null;
     }
 
     boolean isHalted() {
