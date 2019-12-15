@@ -24,6 +24,14 @@ public class Intcode {
         }
     }
 
+    Intcode(Intcode other) {
+        this.pointer = other.pointer;
+        this.relativeBase = other.relativeBase;
+        this.code = new HashMap<>(other.code);
+        this.output = other.output;
+        this.input = new LinkedList<>(other.input);
+        this.halted = other.halted;
+    }
 
     /**
      * @return Whether the computer is still running. If true, either output was produced or input is required
