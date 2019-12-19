@@ -1,6 +1,7 @@
 package nl.erends.advent.year2017;
 
 import nl.erends.advent.util.AbstractProblem;
+import nl.erends.advent.util.Direction;
 import nl.erends.advent.util.Util;
 
 import java.util.List;

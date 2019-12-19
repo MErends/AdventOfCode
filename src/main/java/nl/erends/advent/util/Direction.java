@@ -1,4 +1,4 @@
-package nl.erends.advent.year2017;
+package nl.erends.advent.util;
 
 public enum Direction {
     UP, DOWN, LEFT, RIGHT

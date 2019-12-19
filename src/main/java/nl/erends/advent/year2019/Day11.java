@@ -1,6 +1,7 @@
 package nl.erends.advent.year2019;
 
 import nl.erends.advent.util.AbstractProblem;
+import nl.erends.advent.util.Direction;
 import nl.erends.advent.util.Util;
 
 import java.util.HashMap;
@@ -95,12 +96,5 @@ public class Day11 extends AbstractProblem<String, String> {
             output.append('\n');
         }
         return output.toString();
-    }
-
-    private enum Direction {
-        LEFT,
-        UP,
-        RIGHT,
-        DOWN
     }
 }
