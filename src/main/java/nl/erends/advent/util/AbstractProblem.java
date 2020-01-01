@@ -8,7 +8,7 @@ public abstract class AbstractProblem<T, U> {
     
     protected U answer2;
     
-    private static final Logger LOG = Logger.getLogger(AbstractProblem.class);
+    protected static final Logger LOG = Logger.getLogger(AbstractProblem.class);
     
     public void setInput(T input) {
         this.input = input;
