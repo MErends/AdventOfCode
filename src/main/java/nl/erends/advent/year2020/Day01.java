@@ -17,13 +17,13 @@ public class Day01 extends AbstractProblem<List<String>, Integer> {
         int answer1 = 0;
         List<Integer> listOfNumbers = input.stream().map(Integer::parseInt).collect(Collectors.toList());
         for (int a = 0; a < listOfNumbers.size(); a++) {
-            for (int b = a; b < listOfNumbers.size(); b++) {
+            for (int b = a + 1; b < listOfNumbers.size(); b++) {
                 int numberA = listOfNumbers.get(a);
                 int numberB = listOfNumbers.get(b);
                 if (numberA + numberB == 2020) {
                     answer1 = numberA * numberB;
                 }
-                for (int c = b; c < listOfNumbers.size(); c++) {
+                for (int c = b + 1; c < listOfNumbers.size(); c++) {
                     int numberC = listOfNumbers.get(c);
                     if (numberA + numberB + numberC == 2020) {
                         answer2 = numberA * numberB * numberC;
