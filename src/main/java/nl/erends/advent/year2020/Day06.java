@@ -3,11 +3,8 @@ package nl.erends.advent.year2020;
 import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Day06 extends AbstractProblem<List<String>, Integer> {
 
@@ -17,24 +14,15 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
     
     @Override
     public Integer solve1() {
-        int solution = 0;
+        int answer1 = 0;
         answer2 = 0;
         String longString = String.join("\n", input);
         String[] groups = longString.split("\n\n");
         for (String group : groups) {
-            Set<Integer> answers = new HashSet<>();
             long groupSize = group.chars().filter(a -> a == '\n').count() + 1;
-            group = group.replaceAll("\n", "");
-            group.chars().forEach(answers::add);
-            Map<Character, Integer> answerMap = new HashMap<>();
-            for (char answer : group.toCharArray()) {
-                int answerCount = answerMap.computeIfAbsent(answer, a -> 0);
-                answerCount++;
-                answerMap.put(answer, answerCount);
-            }
-            solution += answers.size();
-            answer2 += (int) answerMap.values().stream().filter(ac -> ac == groupSize).count();
+            answer1 += group.chars().filter(a -> a != '\n').boxed().collect(Collectors.toSet()).size();
+            answer2 += (int) group.chars().boxed().collect(Collectors.toMap(v -> v, v -> 1, (v1, v2) -> v1 + 1)).values().stream().filter(v -> v == groupSize).count();
         }
-        return solution;
+        return answer1;
     }
 }
