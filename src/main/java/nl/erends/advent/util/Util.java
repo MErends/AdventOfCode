@@ -46,4 +46,19 @@ public class Util {
     public static String readLine(int year, int day, int testcase) {
         return readInput(year, day, testcase).get(0);
     }
+
+    public static long gcd(long a, long b) {
+        a = Math.abs(a);
+        b = Math.abs(b);
+        for (long d = Math.min(a, b); d >= 1; d--) {
+            if (a % d == 0 && b % d == 0) {
+                return d;
+            }
+        }
+        return 1;
+    }
+
+    public static long lcm(long a, long b) {
+        return (a * b) / gcd(a, b);
+    }
 }

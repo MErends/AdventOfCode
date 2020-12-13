@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static nl.erends.advent.util.Util.lcm;
+
 public class Day12 extends AbstractProblem<List<String>, Long> {
 
     private int maxSteps = 1000;
@@ -94,22 +96,7 @@ public class Day12 extends AbstractProblem<List<String>, Long> {
         this.maxSteps = maxSteps;
     }
 
-    private long gcd(long a, long b) {
-        a = Math.abs(a);
-        b = Math.abs(b);
-        for (long d = Math.min(a, b); d >= 1; d--) {
-            if (a % d == 0 && b % d == 0) {
-                return d;
-            }
-        }
-        return 1;
-    }
-
-    private long lcm(long a, long b) {
-        return (a * b) / gcd(a, b);
-    }
-
-    private class Moon {
+    private static class Moon {
 
         private int x;
         private int y;
