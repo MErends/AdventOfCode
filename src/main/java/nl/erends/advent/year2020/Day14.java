@@ -14,6 +14,7 @@ public class Day14 extends AbstractProblem<List<String>, Long> {
 
     private static final Pattern MEM_PAT = Pattern.compile("mem\\[(\\d+)] = (\\d+)");
     private String mask;
+    private boolean part1 = true;
 
     public static void main(String[] args) {
         new Day14().setAndSolve(Util.readInput(2020, 14));
@@ -21,13 +22,18 @@ public class Day14 extends AbstractProblem<List<String>, Long> {
 
     @Override
     public Long solve1() {
-        Map<Integer, Long> memory = new HashMap<>();
+        Map<Long, Long> memory = new HashMap<>();
         for (String line : input) {
             Matcher m = MEM_PAT.matcher(line);
             if (m.find()) {
-                int address = Integer.parseInt(m.group(1));
+                long address = Long.parseLong(m.group(1));
                 long value = Long.parseLong(m.group(2));
-                memory.put(address, maskValue(value));
+                if (part1) {
+                    memory.put(address, maskValue(value));
+                } else {
+                    List<Long> addressList = maskAddress(address);
+                    addressList.forEach(l -> memory.put(l, value));
+                }
             } else {
                 mask = line.substring(7);
             }
@@ -37,19 +43,8 @@ public class Day14 extends AbstractProblem<List<String>, Long> {
 
     @Override
     public Long solve2() {
-        Map<Long, Long> memory = new HashMap<>();
-        for (String line : input) {
-            Matcher m = MEM_PAT.matcher(line);
-            if (m.find()) {
-                int address = Integer.parseInt(m.group(1));
-                long value = Long.parseLong(m.group(2));
-                List<Long> addressList = maskAddress(address);
-                addressList.forEach(l -> memory.put(l, value));
-            } else {
-                mask = line.substring(7);
-            }
-        }
-        return memory.values().stream().mapToLong(l -> l).sum();
+        part1 = false;
+        return solve1();
     }
 
     private long maskValue(long valueLong) {
@@ -68,8 +63,8 @@ public class Day14 extends AbstractProblem<List<String>, Long> {
         return Long.parseLong(result.toString(), 2);
     }
 
-    private List<Long> maskAddress(int addressInt) {
-        StringBuilder address = new StringBuilder(Integer.toBinaryString(addressInt));
+    private List<Long> maskAddress(long addressLong) {
+        StringBuilder address = new StringBuilder(Long.toBinaryString(addressLong));
         while (address.length() != mask.length()) {
             address.insert(0, '0');
         }
@@ -81,20 +76,20 @@ public class Day14 extends AbstractProblem<List<String>, Long> {
                 result.append(mask.charAt(index));
             }
         }
-        List<String> stringValues = new ArrayList<>();
-        stringValues.add(result.toString());
-        List<Long> allValues = new ArrayList<>();
-        while (!stringValues.isEmpty()) {
-            String stringValue = stringValues.get(0);
-            int xLocation = stringValue.indexOf('X');
+        List<Long> resolved = new ArrayList<>();
+        List<String> unresolved = new ArrayList<>();
+        unresolved.add(result.toString());
+        while (!unresolved.isEmpty()) {
+            String addressX = unresolved.get(0);
+            int xLocation = addressX.indexOf('X');
             if (xLocation == -1) {
-                allValues.add(Long.parseLong(stringValue, 2));
+                resolved.add(Long.parseLong(addressX, 2));
             } else {
-                stringValues.add(stringValue.replaceFirst("X", "0"));
-                stringValues.add(stringValue.replaceFirst("X", "1"));
+                unresolved.add(addressX.replaceFirst("X", "0"));
+                unresolved.add(addressX.replaceFirst("X", "1"));
             }
-            stringValues.remove(0);
+            unresolved.remove(0);
         }
-        return allValues;
+        return resolved;
     }
 }
