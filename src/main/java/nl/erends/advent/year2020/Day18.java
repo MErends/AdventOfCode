@@ -19,7 +19,7 @@ public class Day18 extends AbstractProblem<List<String>, Long> {
     }
 
     private String solveExpr(String line) {
-        if (lineDone(line)) {
+        if (line.indexOf('*') == -1 && line.indexOf('+') == -1) {
             return line;
         }
         int closing = line.indexOf(')');
@@ -32,16 +32,12 @@ public class Day18 extends AbstractProblem<List<String>, Long> {
             line = line.replace(subExpr, solveExpr(subExpr.substring(1, subExpr.length() - 1)));
             return solveExpr(line);
         }
-        int plusIndex = line.indexOf('+');
-        int timesIndex = line.indexOf('*');
+        char plusIndex = (char) line.indexOf('+');
+        char timesIndex = (char) line.indexOf('*');
         int operandIndex = Math.min(plusIndex, timesIndex);
-        if (timesIndex == -1) {
-            operandIndex = plusIndex;
-        } else if (plusIndex == -1) {
-            operandIndex = timesIndex;
-        }
+
         if (part2) {
-            operandIndex = plusIndex == -1 ? timesIndex : plusIndex;
+            operandIndex = plusIndex > line.length() ? timesIndex : plusIndex;
         }
         int beginExp = operandIndex - 2;
         while (beginExp >= 0 && line.charAt(beginExp) != ' ') {
@@ -65,10 +61,6 @@ public class Day18 extends AbstractProblem<List<String>, Long> {
             result = Long.toString(a * b);
         }
         return solveExpr(line.substring(0, beginExp) + result + line.substring(endExp));
-    }
-
-    private boolean lineDone(String line) {
-        return line.indexOf('*') == -1 && line.indexOf('+') == -1;
     }
 
     @Override
