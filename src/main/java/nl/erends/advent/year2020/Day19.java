@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Day19 extends AbstractProblem<List<String>, Long> {
    
-    Map<String, Rule> rules = new HashMap<>();
+    private Map<String, Rule> rules = new HashMap<>();
 
     public static void main(String[] args) {
         new Day19().setAndSolve(Util.readInput(2020, 19));
@@ -74,7 +74,7 @@ public class Day19 extends AbstractProblem<List<String>, Long> {
             }
         }
 
-        public Set<String> getMatches() {
+        Set<String> getMatches() {
             if (!resolved) {
                 resolve();
             }

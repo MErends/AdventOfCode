@@ -69,7 +69,7 @@ public class Day09 extends AbstractProblem<List<String>, Long> {
         return false;
     }
     
-    public void setPreambleSize(int preambleSize) {
-        this.preambleSize = preambleSize;
+    void setTestPreamble() {
+        this.preambleSize = 5;
     }
 }

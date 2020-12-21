@@ -13,12 +13,12 @@ import java.util.stream.Collectors;
 
 public class Day20 extends AbstractProblem<List<String>, Number> {
 
-    List<Tile> tiles = new ArrayList<>();
-    Tile cornerTile;
-    Tile[][] tileGrid;
-    private static final List<String> SEAMONSTER = Arrays.asList("..................#.",
-                                                                 "#....##....##....###",
-                                                                 ".#..#..#..#..#..#...");
+    private List<Tile> tiles = new ArrayList<>();
+    private Tile cornerTile;
+    private Tile[][] tileGrid;
+    private static final List<String> SEAMONSTER = Arrays.asList("                  # ",
+                                                                 "#    ##    ##    ###",
+                                                                 " #  #  #  #  #  #   ");
     private char[][] picture;
 
     public static void main(String[] args) {

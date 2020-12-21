@@ -25,7 +25,7 @@ public class Day05 extends AbstractProblem<List<String>, Integer> {
     }
     
     private int getSeatId(String boardingPass) {
-        String binaryPass = boardingPass.replaceAll("F", "0").replaceAll("B", "1").replaceAll("R", "1").replaceAll("L", "0");
+        String binaryPass = boardingPass.replace("F", "0").replace("B", "1").replace("R", "1").replace("L", "0");
         int row = Integer.parseInt(binaryPass.substring(0, 7), 2);
         int column = Integer.parseInt(binaryPass.substring(7), 2);
         return row * 8 + column;

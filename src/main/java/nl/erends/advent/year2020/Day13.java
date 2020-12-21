@@ -66,7 +66,7 @@ public class Day13 extends AbstractProblem<List<String>, Long> {
         int id;
         int offset;
 
-        public Bus(int id, int offset) {
+        Bus(int id, int offset) {
             this.id = id;
             this.offset = offset;
         }
