@@ -1,13 +1,13 @@
 package nl.erends.advent.year2018;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Day11Test {
+class Day11Test {
 
     @Test
-    public void day11Test1() {
+    void day11Test1() {
         Day11 problem = new Day11();
         problem.setInput(18);
         assertEquals("33,45", problem.solve1());

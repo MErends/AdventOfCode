@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static nl.erends.advent.util.Assert.assertEquals;
 
-public class Day18Test {
+class Day18Test {
 
     @Test
     public void day18Test1() {

@@ -1,13 +1,13 @@
 package nl.erends.advent.year2016;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Day17Test {
+class Day17Test {
 
     @Test
-    public void day17Test1() {
+    void day17Test1() {
         Day17 problem = new Day17();
         problem.setInput("ihgpwlah");
         assertEquals("DDRRRD", problem.solve1());
@@ -15,7 +15,7 @@ public class Day17Test {
     }
 
     @Test
-    public void day17Test2() {
+    void day17Test2() {
         Day17 problem = new Day17();
         problem.setInput("kglvqrro");
         assertEquals("DDUDRLRRUDRD", problem.solve1());
@@ -23,7 +23,7 @@ public class Day17Test {
     }
 
     @Test
-    public void day17Test3() {
+    void day17Test3() {
         Day17 problem = new Day17();
         problem.setInput("ulqzkmiv");
         assertEquals("DRURDRUDDLLDLUURRDULRLDUUDDDRR", problem.solve1());

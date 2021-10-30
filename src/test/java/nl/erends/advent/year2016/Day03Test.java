@@ -1,14 +1,14 @@
 package nl.erends.advent.year2016;
 
 import nl.erends.advent.util.Util;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Day03Test {
+class Day03Test {
 
     @Test
-    public void day03Test1() {
+    void day03Test1() {
         Day03 problem = new Day03();
         problem.setInput(Util.readInput(2016, 3, 1));
         assertEquals(3, problem.solve1().intValue());
