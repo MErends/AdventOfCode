@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static nl.erends.advent.util.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -17,7 +16,7 @@ class IntcodeTest {
     void day02Test1() {
         Intcode intcode = new Intcode("1,9,10,3,2,3,11,0,99,30,40,50");
         intcode.execute();
-        assertEquals(3500, intcode.getCode(0));
+        assertThat(intcode.getCode(0), is(3500L));
     }
 
     @Test
@@ -25,7 +24,7 @@ class IntcodeTest {
         Intcode intcode = new Intcode("3,9,8,9,10,9,4,9,99,-1,8");
         intcode.addInput(8);
         intcode.execute();
-        assertEquals(1, intcode.getOutput());
+        assertThat(intcode.getOutput(), is(1L));
     }
 
     @Test
@@ -35,17 +34,17 @@ class IntcodeTest {
         Intcode intcode = new Intcode(input);
         intcode.addInput(7);
         intcode.execute();
-        assertEquals(999, intcode.getOutput());
+        assertThat(intcode.getOutput(), is(999L));
 
         intcode = new Intcode(input);
         intcode.addInput(8);
         intcode.execute();
-        assertEquals(1000, intcode.getOutput());
+        assertThat(intcode.getOutput(), is(1000L));
 
         intcode = new Intcode(input);
         intcode.addInput(9);
         intcode.execute();
-        assertEquals(1001, intcode.getOutput());
+        assertThat(intcode.getOutput(), is(1001L));
     }
 
     @Test

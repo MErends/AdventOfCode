@@ -12,7 +12,7 @@ class Day09Test {
     void day09Test1() {
         Day09 problem = new Day09();
         problem.setInput("10 players; last marble is worth 1618 points");
-        assertThat(problem.solve1(), is(8317));
-        assertThat(problem.solve2(), is(74765078));
+        assertThat(problem.solve1(), is(8317L));
+        assertThat(problem.solve2(), is(74765078L));
     }
 }

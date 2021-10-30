@@ -3,7 +3,8 @@ package nl.erends.advent.year2019;
 import nl.erends.advent.util.Util;
 import org.junit.jupiter.api.Test;
 
-import static nl.erends.advent.util.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 class Day12Test {
 
@@ -12,8 +13,8 @@ class Day12Test {
         Day12 problem = new Day12();
         problem.setInput(Util.readInput(2019, 12, 1));
         problem.setMaxSteps(10);
-        assertEquals(179, problem.solve1());
-        assertEquals(2772, problem.solve2());
+        assertThat(problem.solve1(), is(179L));
+        assertThat(problem.solve2(), is(2772L));
     }
 
     @Test
@@ -21,8 +22,8 @@ class Day12Test {
         Day12 problem = new Day12();
         problem.setInput(Util.readInput(2019, 12, 2));
         problem.setMaxSteps(100);
-        assertEquals(1940, problem.solve1());
-        assertEquals(4686774924L, problem.solve2());
+        assertThat(problem.solve1(), is(1940L));
+        assertThat(problem.solve2(), is(4686774924L));
     }
 
 }
