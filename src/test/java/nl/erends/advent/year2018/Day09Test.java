@@ -1,16 +1,18 @@
 package nl.erends.advent.year2018;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class Day09Test {
+
+class Day09Test {
 
     @Test
-    public void day09Test1() {
+    void day09Test1() {
         Day09 problem = new Day09();
         problem.setInput("10 players; last marble is worth 1618 points");
-        assertEquals(8317, problem.solve1().longValue());
-        assertEquals(74765078, problem.solve2().longValue());
+        assertThat(problem.solve1(), is(8317));
+        assertThat(problem.solve2(), is(74765078));
     }
 }

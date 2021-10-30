@@ -1,25 +1,27 @@
 package nl.erends.advent.year2019;
 
 import nl.erends.advent.util.Util;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static nl.erends.advent.util.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class IntcodeTest {
+class IntcodeTest {
 
     @Test
-    public void day02Test1() {
+    void day02Test1() {
         Intcode intcode = new Intcode("1,9,10,3,2,3,11,0,99,30,40,50");
         intcode.execute();
         assertEquals(3500, intcode.getCode(0));
     }
 
     @Test
-    public void positionModeEqualsTest() {
+    void positionModeEqualsTest() {
         Intcode intcode = new Intcode("3,9,8,9,10,9,4,9,99,-1,8");
         intcode.addInput(8);
         intcode.execute();
@@ -27,7 +29,7 @@ public class IntcodeTest {
     }
 
     @Test
-    public void day05Test1() {
+    void day05Test1() {
         String input = Util.readLine(2019, 5, 1);
 
         Intcode intcode = new Intcode(input);
@@ -47,7 +49,7 @@ public class IntcodeTest {
     }
 
     @Test
-    public void quineTest() {
+    void quineTest() {
         String input = "109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99";
         List<Long> outputList = new ArrayList<>();
         Intcode intcode = new Intcode(input);
@@ -60,6 +62,6 @@ public class IntcodeTest {
             }
         }
         String output = outputList.stream().map(String::valueOf).collect(Collectors.joining(","));
-        org.junit.Assert.assertEquals(output, input);
+        assertThat(input, is(output));
     }
 }

@@ -1,39 +1,41 @@
 package nl.erends.advent.year2015;
 
 import nl.erends.advent.util.Util;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class Day03Test {
+
+class Day03Test {
 
     @Test
-    public void day03Test1() {
+    void day03Test1() {
         Day03 problem = new Day03();
         problem.setInput(Util.readLine(2015, 3, 1));
-        assertEquals(2, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(2));
     }
 
     @Test
-    public void day03Test2() {
+    void day03Test2() {
         Day03 problem = new Day03();
         problem.setInput(Util.readLine(2015, 3, 2));
-        assertEquals(4, problem.solve1().intValue());
-        assertEquals(3, problem.solve2().intValue());
+        assertThat(problem.solve1(), is(4));
+        assertThat(problem.solve2(), is(3));
     }
 
     @Test
-    public void day03Test3() {
+    void day03Test3() {
         Day03 problem = new Day03();
         problem.setInput(Util.readLine(2015, 3, 3));
-        assertEquals(2, problem.solve1().intValue());
-        assertEquals(11, problem.solve2().intValue());
+        assertThat(problem.solve1(), is(2));
+        assertThat(problem.solve2(), is(11));
     }
 
     @Test
-    public void day03Test4() {
+    void day03Test4() {
         Day03 problem = new Day03();
         problem.setInput(Util.readLine(2015, 3, 4));
-        assertEquals(3, problem.solve2().intValue());
+        assertThat(problem.solve2(), is(3));
     }
 }

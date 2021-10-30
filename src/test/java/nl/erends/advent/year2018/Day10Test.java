@@ -1,14 +1,16 @@
 package nl.erends.advent.year2018;
 
 import nl.erends.advent.util.Util;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class Day10Test {
+
+class Day10Test {
 
     @Test
-    public void day10Test1() {
+    void day10Test1() {
         Day10 problem = new Day10();
         problem.setInput(Util.readInput(2018, 10, 1));
         problem.setFontSize(8);
@@ -21,7 +23,7 @@ public class Day10Test {
                          "#...#...#.\n" +
                          "#...#..###\n";
 
-        assertEquals(answer1, problem.solve1());
-        assertEquals("3", problem.solve2());
+        assertThat(problem.solve1(), is(answer1));
+        assertThat(problem.solve2(), is("3"));
     }
 }

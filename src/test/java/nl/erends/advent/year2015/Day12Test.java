@@ -1,64 +1,66 @@
 package nl.erends.advent.year2015;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class Day12Test {
+
+class Day12Test {
 
     @Test
-    public void day12Test1() {
+    void day12Test1() {
         Day12 problem = new Day12();
         problem.setInput("[1,2,3]");
-        assertEquals(6, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(6));
     }
 
     @Test
-    public void day12Test2() {
+    void day12Test2() {
         Day12 problem = new Day12();
         problem.setInput("{\"a\":2,\"b\":4}");
-        assertEquals(6, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(6));
     }
 
     @Test
-    public void day12Test3() {
+    void day12Test3() {
         Day12 problem = new Day12();
         problem.setInput("[[[3]]]");
-        assertEquals(3, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(3));
     }
 
     @Test
-    public void day12Test4() {
+    void day12Test4() {
         Day12 problem = new Day12();
         problem.setInput("{\"a\":{\"b\":4},\"c\":-1}");
-        assertEquals(3, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(3));
     }
 
     @Test
-    public void day12Test5() {
+    void day12Test5() {
         Day12 problem = new Day12();
         problem.setInput("{\"a\":[-1,1]}");
-        assertEquals(0, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(0));
     }
 
     @Test
-    public void day12Test6() {
+    void day12Test6() {
         Day12 problem = new Day12();
         problem.setInput("[-1,{\"a\":1}]");
-        assertEquals(0, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(0));
     }
 
     @Test
-    public void day12Test7() {
+    void day12Test7() {
         Day12 problem = new Day12();
         problem.setInput("[]");
-        assertEquals(0, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(0));
     }
     
     @Test
-    public void day12Test8() {
+    void day12Test8() {
         Day12 problem = new Day12();
         problem.setInput("{}");
-        assertEquals(0, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(0));
     }
 }

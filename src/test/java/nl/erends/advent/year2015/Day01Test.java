@@ -1,86 +1,87 @@
 package nl.erends.advent.year2015;
 
 import nl.erends.advent.util.Util;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class Day01Test {
+class Day01Test {
     
     @Test
-    public void day01Test1() {
+    void day01Test1() {
         Day01 problem = new Day01();
         problem.setInput(Util.readLine(2015, 1, 1));
-        assertEquals(0, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(0));
     }
 
     @Test
-    public void day01Test2() {
+    void day01Test2() {
         Day01 problem = new Day01();
         problem.setInput(Util.readLine(2015, 1, 2));
-        assertEquals(0, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(0));
     }
 
     @Test
-    public void day01Test3() {
+    void day01Test3() {
         Day01 problem = new Day01();
         problem.setInput(Util.readLine(2015, 1, 3));
-        assertEquals(3, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(3));
     }
 
     @Test
-    public void day01Test4() {
+    void day01Test4() {
         Day01 problem = new Day01();
         problem.setInput(Util.readLine(2015, 1, 4));
-        assertEquals(3, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(3));
     }
     
     @Test
-    public void day01Test5() {
+    void day01Test5() {
         Day01 problem = new Day01();
         problem.setInput(Util.readLine(2015, 1, 5));
-        assertEquals(3, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(3));
     }
 
     @Test
-    public void day01Test6() {
+    void day01Test6() {
         Day01 problem = new Day01();
         problem.setInput(Util.readLine(2015, 1, 6));
-        assertEquals(-1, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(-1));
     }
 
     @Test
-    public void day01Test7() {
+    void day01Test7() {
         Day01 problem = new Day01();
         problem.setInput(Util.readLine(2015, 1, 7));
-        assertEquals(-1, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(-1));
     }
 
     @Test
-    public void day01Test8() {
+    void day01Test8() {
         Day01 problem = new Day01();
         problem.setInput(Util.readLine(2015, 1, 8));
-        assertEquals(-3, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(-3));
     }
 
     @Test
-    public void day01Test9() {
+    void day01Test9() {
         Day01 problem = new Day01();
         problem.setInput(Util.readLine(2015, 1, 9));
-        assertEquals(-3, problem.solve1().intValue());
+        assertThat(problem.solve1(), is(-3));
     }
 
     @Test
-    public void day01Test10() {
+    void day01Test10() {
         Day01 problem = new Day01();
         problem.setInput(Util.readLine(2015, 1, 10));
-        assertEquals(1, problem.solve2().intValue());
+        assertThat(problem.solve2(), is(1));
     }
 
     @Test
-    public void day01Test11() {
+    void day01Test11() {
         Day01 problem = new Day01();
         problem.setInput(Util.readLine(2015, 1, 11));
-        assertEquals(5, problem.solve2().intValue());
+        assertThat(problem.solve2(), is(5));
     }
 }

@@ -1,17 +1,19 @@
 package nl.erends.advent.year2017;
 
 import nl.erends.advent.util.Util;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class Day23Test {
+
+class Day23Test {
 
     @Test
-    public void dat23Test1() {
+    void dat23Test1() {
         Day23 problem = new Day23();
         problem.setInput(Util.readInput(2017, 23, 1));
-        assertEquals(5929, problem.solve1().intValue());
-        assertEquals(907, problem.solve2().intValue());
+        assertThat(problem.solve1(), is(5929));
+        assertThat(problem.solve2(), is(907));
     }
 }

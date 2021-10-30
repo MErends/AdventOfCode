@@ -1,14 +1,14 @@
 package nl.erends.advent.year2020;
 
 import nl.erends.advent.util.Util;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static nl.erends.advent.util.Assert.assertEquals;
 
-public class Day09Test {
+class Day09Test {
     
     @Test
-    public void day09Test() {
+    void day09Test() {
         Day09 problem = new Day09();
         problem.setInput(Util.readInput(2020, 9, 1));
         problem.setTestPreamble();

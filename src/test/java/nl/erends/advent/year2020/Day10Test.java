@@ -1,14 +1,14 @@
 package nl.erends.advent.year2020;
 
 import nl.erends.advent.util.Util;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static nl.erends.advent.util.Assert.assertEquals;
 
-public class Day10Test {
+class Day10Test {
 
     @Test
-    public void day10Test1() {
+    void day10Test1() {
         Day10 problem = new Day10();
         problem.setInput(Util.readInput(2020, 10 , 1));
         assertEquals(7 * 5, problem.solve1());
@@ -16,7 +16,7 @@ public class Day10Test {
     }
 
     @Test
-    public void day10Test2() {
+    void day10Test2() {
         Day10 problem = new Day10();
         problem.setInput(Util.readInput(2020, 10 , 2));
         assertEquals(22 * 10, problem.solve1());

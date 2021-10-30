@@ -1,15 +1,17 @@
 package nl.erends.advent.year2015;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class Day21Test {
+
+class Day21Test {
 
     @Test
-    public void day21Test1() {
+    void day21Test1() {
         Day21 problem = new Day21();
-        assertEquals(78, problem.solve1().intValue());
-        assertEquals(148, problem.solve2().intValue());
+        assertThat(problem.solve1(), is(78));
+        assertThat(problem.solve2(), is(148));
     }
 }

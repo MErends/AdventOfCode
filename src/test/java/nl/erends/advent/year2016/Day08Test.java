@@ -1,11 +1,13 @@
 package nl.erends.advent.year2016;
 
 import nl.erends.advent.util.Util;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class Day08Test {
+
+class Day08Test {
     
     private static final String ANSWER2 = 
             ".##..####.#....####.#.....##..#...#####..##...###.\n" +
@@ -16,16 +18,16 @@ public class Day08Test {
             ".##..#....####.####.####..##....#..#.....##..###..\n";
 
     @Test
-    public void day08Test1() {
+    void day08Test1() {
         Day08 problem = new Day08();
         problem.setInput(Util.readInput(2016, 8, 1));
-        assertEquals("6", problem.solve1());
+        assertThat(problem.solve1(), is("6"));
     }
 
     @Test
-    public void day08Test2() {
+    void day08Test2() {
         Day08 problem = new Day08();
         problem.setInput(Util.readInput(2016, 8, 2));
-        assertEquals(ANSWER2, problem.solve2());
+        assertThat(problem.solve2(), is(ANSWER2));
     }
 }
