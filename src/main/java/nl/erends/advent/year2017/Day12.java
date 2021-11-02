@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class Day12 extends AbstractProblem<List<String>, Integer> {
 
-    private Map<Integer, Program> programs = new HashMap<>();
+    private final Map<Integer, Program> programs = new HashMap<>();
 
     public static void main(String[] args) {
         new Day12().setAndSolve(Util.readInput(2017, 12));
@@ -51,9 +51,9 @@ public class Day12 extends AbstractProblem<List<String>, Integer> {
 
     private class Program {
         
-        int id;
+        final int id;
         int groupid;
-        int[] linked;
+        final int[] linked;
 
         Program(String input) {
             //6 <-> 107, 136, 366, 1148, 1875

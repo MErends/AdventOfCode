@@ -59,9 +59,9 @@ public class Day03 extends AbstractProblem<String, Integer> {
     }
 
 
-    private class House {
-        private int x;
-        private int y;
+    private static class House {
+        private final int x;
+        private final int y;
 
         House(int x, int y) {
             this.x = x;
@@ -69,7 +69,7 @@ public class Day03 extends AbstractProblem<String, Integer> {
         }
     }
     
-    private class Santa {
+    private static class Santa {
         private int x;
         private int y;
         

@@ -76,8 +76,8 @@ public class Day07 extends AbstractProblem<List<String>, Integer> {
     // faded blue bags contain no other bags.
 
     private static class Bag {
-        String name;
-        Set<Bag> parents = new HashSet<>();
+        final String name;
+        final Set<Bag> parents = new HashSet<>();
         
         private Bag(String name) {
             this.name = name;

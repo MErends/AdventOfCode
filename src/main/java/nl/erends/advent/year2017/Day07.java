@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Day07 extends AbstractProblem<List<String>, String> {
 
-    private Map<String, Node> nodes = new HashMap<>();
+    private final Map<String, Node> nodes = new HashMap<>();
     
 	public static void main(String[] args) {
         new Day07().setAndSolve(Util.readInput(2017, 7));
@@ -52,9 +52,9 @@ public class Day07 extends AbstractProblem<List<String>, String> {
     }
 
     private class Node {
-        String name;
-        int weight;
-        List<String> supports;
+        final String name;
+        final int weight;
+        final List<String> supports;
 
         Node(String name, int weight, List<String> supports) {
             this.name = name;

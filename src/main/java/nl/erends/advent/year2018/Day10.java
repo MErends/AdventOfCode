@@ -30,8 +30,8 @@ public class Day10 extends AbstractProblem<List<String>, String> {
         this.fontSize = fontSize;
     }
 
-    private class Sky {
-        private List<Star> stars;
+    private static class Sky {
+        private final List<Star> stars;
         
         private Sky(List<String> input) {
             stars = new ArrayList<>();
@@ -95,11 +95,11 @@ public class Day10 extends AbstractProblem<List<String>, String> {
         }
     }
     
-    private class Star {
+    private static class Star {
         private int x;
         private int y;
-        private int vx;
-        private int vy;
+        private final int vx;
+        private final int vy;
 
         Star(int x, int y, int vx, int vy) {
             this.x = x;
@@ -108,7 +108,7 @@ public class Day10 extends AbstractProblem<List<String>, String> {
             this.vy = vy;
         }
         
-        public void doTick() {
+        void doTick() {
             x += vx;
             y += vy;
         }

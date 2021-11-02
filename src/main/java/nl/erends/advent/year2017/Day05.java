@@ -19,15 +19,12 @@ public class Day05 extends AbstractProblem<List<String>, Integer> {
         }
 		int position = 0;
 		int steps = 0;
-		while (true) {
-			if (position < 0 || position >= memory.length) {
-				break;
-			}
-			int increment = memory[position];
-			memory[position]++;
-			position += increment;
-			steps++;
-		}
+        while (position >= 0 && position < memory.length) {
+            int increment = memory[position];
+            memory[position]++;
+            position += increment;
+            steps++;
+        }
 		return steps;
 	}
 
@@ -39,10 +36,7 @@ public class Day05 extends AbstractProblem<List<String>, Integer> {
         }
         int position = 0;
         int steps = 0;
-        while (true) {
-            if (position < 0 || position >= memory.length) {
-                break;
-            }
+        while (position >= 0 && position < memory.length) {
             int increment = memory[position];
             if (increment >= 3) {
                 memory[position]--;

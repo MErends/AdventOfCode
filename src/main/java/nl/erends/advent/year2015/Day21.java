@@ -98,9 +98,9 @@ public class Day21 extends AbstractProblem<String, Integer> {
     }
 
 
-    private class Weapon {
-        int cost;
-        int damage;
+    private static class Weapon {
+        final int cost;
+        final int damage;
 
         Weapon(int cost, int damage) {
             this.cost = cost;
@@ -108,9 +108,9 @@ public class Day21 extends AbstractProblem<String, Integer> {
         }
     }
 
-    private class Armor {
-        int cost;
-        int defense;
+    private static class Armor {
+        final int cost;
+        final int defense;
 
         Armor(int cost, int defense) {
             this.cost = cost;
@@ -119,10 +119,10 @@ public class Day21 extends AbstractProblem<String, Integer> {
 
     }
 
-    private class Ring {
-        int cost;
-        int damage;
-        int armor;
+    private static class Ring {
+        final int cost;
+        final int damage;
+        final int armor;
 
         Ring(int cost, int damage, int armor) {
             this.cost = cost;
@@ -146,12 +146,12 @@ public class Day21 extends AbstractProblem<String, Integer> {
         }
     }
 
-    private class RingSet {
-        int cost;
-        int damage;
-        int armor;
-        Ring ring1;
-        Ring ring2;
+    private static class RingSet {
+        final int cost;
+        final int damage;
+        final int armor;
+        final Ring ring1;
+        final Ring ring2;
 
         RingSet(Ring ring1, Ring ring2) {
             this.ring1 = ring1;

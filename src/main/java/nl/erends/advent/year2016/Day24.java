@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Day24 extends AbstractProblem<List<String>, Integer> {
     
-    private Map<String, Integer> distanceMap = new HashMap<>();
+    private final Map<String, Integer> distanceMap = new HashMap<>();
     private int roundTrip = Integer.MAX_VALUE;
     private char[][] maze;
     private List<Character> nodes;

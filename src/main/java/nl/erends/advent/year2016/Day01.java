@@ -4,7 +4,6 @@ import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Day01 extends AbstractProblem<String, Integer> {
@@ -20,7 +19,7 @@ public class Day01 extends AbstractProblem<String, Integer> {
         int x = 0;
         int y = 0;
         Direction orientation = Direction.PLUSY;
-        List<String> directions = Arrays.asList(input.split(", "));
+        String[] directions = input.split(", ");
         for (String direction : directions) {
             orientation = updateDirection(orientation, direction.substring(0, 1));
             int steps = Integer.parseInt(direction.substring(1));

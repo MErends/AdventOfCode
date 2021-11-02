@@ -6,7 +6,6 @@ import nl.erends.advent.util.Util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -47,7 +46,7 @@ public class Day21 extends AbstractProblem<List<String>, String> {
                 .count());
 
         answer2 = badIngredients.entrySet().stream()
-                .sorted(Comparator.comparing(Map.Entry::getValue))
+                .sorted(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
                 .collect(Collectors.joining(","));
 
@@ -55,8 +54,8 @@ public class Day21 extends AbstractProblem<List<String>, String> {
     }
 
     private static class Food {
-        List<String> ingredient = new ArrayList<>();
-        List<String> allergies = new ArrayList<>();
+        final List<String> ingredient = new ArrayList<>();
+        final List<String> allergies = new ArrayList<>();
 
         private Food(String line) {
             String[] words = line.substring(0, line.length() - 1).split(" \\(contains ");

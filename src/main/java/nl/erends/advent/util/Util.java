@@ -47,7 +47,7 @@ public class Util {
         return readInput(year, day, testcase).get(0);
     }
 
-    public static long gcd(long a, long b) {
+    private static long gcd(long a, long b) {
         a = Math.abs(a);
         b = Math.abs(b);
         for (long d = Math.min(a, b); d >= 1; d--) {

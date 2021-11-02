@@ -22,10 +22,10 @@ public class Day08 extends AbstractProblem<List<String>, String> {
     }
 
 
-    private class Display {
-        int width;
-        int height;
-        boolean[][] grid;
+    private static class Display {
+        final int width;
+        final int height;
+        final boolean[][] grid;
 
         Display(int width, int height) {
             this.width = width;

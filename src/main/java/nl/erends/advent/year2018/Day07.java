@@ -104,7 +104,7 @@ public class Day07 extends AbstractProblem<List<String>, String> {
         }
     }
     
-    private class Worker {
+    private static class Worker {
         
         private boolean busy;
         private int timeLeft;

@@ -23,7 +23,7 @@ public class Day20 extends AbstractProblem<String, Integer> {
         return solvePuzzle(maze);
     }
     
-    private class Maze {
+    private static class Maze {
         char[][] grid;
 
         Maze() {
@@ -146,6 +146,7 @@ public class Day20 extends AbstractProblem<String, Integer> {
             for (String subPath : subPaths) {
                 if (isLoop(subPath)) {
                     hasLoop = true;
+                    break;
                 }
             }
             return getStrings(hasLoop, subPaths, endPath);

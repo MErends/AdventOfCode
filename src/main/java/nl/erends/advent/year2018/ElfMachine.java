@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ElfMachine {
+class ElfMachine {
     
     private Memorybank memory;
-    private List<String> instructions;
+    private final List<String> instructions;
     private int pointerBound = -1;
     
     ElfMachine(List<String> instructions) {
@@ -163,9 +163,9 @@ public class ElfMachine {
         this.pointerBound = pointerBound;
     }
 
-    private class Memorybank {
+    private static class Memorybank {
         
-        private List<Integer> memory;
+        private final List<Integer> memory;
 
         private Memorybank(String input) {
             memory = new ArrayList<>();

@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Day23 extends AbstractProblem<List<String>, Integer> {
     
-    private List<Drone> droneList = new ArrayList<>();
+    private final List<Drone> droneList = new ArrayList<>();
    
     public static void main(String[] args) {
         new Day23().setAndSolve(Util.readInput(2018, 23));
@@ -55,11 +55,11 @@ public class Day23 extends AbstractProblem<List<String>, Integer> {
     }
     
     
-    private class Drone {
-        int x;
-        int y;
-        int z;
-        int r;
+    private static class Drone {
+        final int x;
+        final int y;
+        final int z;
+        final int r;
         
         private Drone(String line) {
             String[] posR = line.split("=");
@@ -72,10 +72,10 @@ public class Day23 extends AbstractProblem<List<String>, Integer> {
     }
     
     private class Cube implements Comparable<Cube> {
-        int x;
-        int y;
-        int z;
-        int size;
+        final int x;
+        final int y;
+        final int z;
+        final int size;
         int dronesInRange;
 
 

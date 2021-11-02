@@ -40,7 +40,7 @@ public class Day14 extends AbstractProblem<List<String>, Integer> {
         this.maxSeconds = maxSeconds;
     }
 
-    private class Reindeer {
+    private static class Reindeer {
         private final int speed;
         private final int duration;
         private final int downtime;

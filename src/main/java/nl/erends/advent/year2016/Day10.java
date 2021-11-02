@@ -9,8 +9,8 @@ import java.util.*;
 //bot 85 gives low to bot 93 and high to bot 191
 public class Day10 extends AbstractProblem<List<String>, Integer> {
     
-    private Map<Integer, Bot> botMap = new HashMap<>();
-    private Map<Integer, Integer> outputMap = new HashMap<>();
+    private final Map<Integer, Bot> botMap = new HashMap<>();
+    private final Map<Integer, Integer> outputMap = new HashMap<>();
     private int answer1;
     private int highCheck = 61;
     private int lowCheck = 17;
@@ -37,7 +37,7 @@ public class Day10 extends AbstractProblem<List<String>, Integer> {
             String[] words = line.split(" ");
             if ("value".equals(words[0])) {
                 Bot bot = botMap.computeIfAbsent(Integer.valueOf(words[5]), Bot::new);
-                bot.giveValue(Integer.valueOf(words[1]));
+                bot.giveValue(Integer.parseInt(words[1]));
                 lineIterator.remove();
             }
         }
@@ -67,8 +67,8 @@ public class Day10 extends AbstractProblem<List<String>, Integer> {
         return false;
     }
 
-    private class Bot {
-        int id;
+    private static class Bot {
+        final int id;
         int lowValue;
         int highValue;
 

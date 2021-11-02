@@ -36,9 +36,9 @@ public class Day21 extends AbstractProblem<List<String>, String> {
         this.input2 = input2;
     }
 
-    private class PasswordTool {
+    private static class PasswordTool {
 
-        private List<String> instructions;
+        private final List<String> instructions;
         private StringBuilder password;
 
         PasswordTool(List<String> instructions) {

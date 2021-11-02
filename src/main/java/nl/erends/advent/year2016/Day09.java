@@ -15,7 +15,7 @@ public class Day09 extends AbstractProblem<String, Long> {
         StringBuilder output = new StringBuilder();
         while (line.contains("(")) {
             int split = line.indexOf('(');
-            output.append(line.substring(0, split));
+            output.append(line, 0, split);
             line = line.substring(split + 1);
             split = line.indexOf(')');
             String marker = line.substring(0, split);
@@ -23,7 +23,7 @@ public class Day09 extends AbstractProblem<String, Long> {
             int numChars = Integer.parseInt(marker.split("x")[0]);
             int repeat = Integer.parseInt(marker.split("x")[1]);
             while (repeat != 0) {
-                output.append(line.substring(0, numChars));
+                output.append(line, 0, numChars);
                 repeat--;
             }
             line = line.substring(numChars);

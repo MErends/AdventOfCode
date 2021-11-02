@@ -9,14 +9,14 @@ import java.util.Map;
 
 public class Day11 extends AbstractProblem<String, String> {
     
-    Map<String, Integer> tiles = new HashMap<>();
-    int x = 0;
-    int y = 0;
-    Direction direction = Direction.UP;
-    int xMin = Integer.MAX_VALUE;
-    int yMin = Integer.MAX_VALUE;
-    int xMax = Integer.MIN_VALUE;
-    int yMax = Integer.MIN_VALUE;
+    private Map<String, Integer> tiles = new HashMap<>();
+    private int x = 0;
+    private int y = 0;
+    private Direction direction = Direction.UP;
+    private int xMin = Integer.MAX_VALUE;
+    private int yMin = Integer.MAX_VALUE;
+    private int xMax = Integer.MIN_VALUE;
+    private int yMax = Integer.MIN_VALUE;
 
     public static void main(String[] args) {
         new Day11().setAndSolve(Util.readLine(2019, 11));

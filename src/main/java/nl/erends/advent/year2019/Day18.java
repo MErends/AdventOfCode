@@ -10,8 +10,8 @@ import java.util.List;
 
 public class Day18 extends AbstractProblem<List<String>, Integer> {
     
-    int minimalSteps = Integer.MAX_VALUE;
-    String keys = "abcdefghijklmnopqrstuvwxyz";
+    private int minimalSteps = Integer.MAX_VALUE;
+    private static final String KEYS = "abcdefghijklmnopqrstuvwxyz";
 
     public static void main(String[] args) {
         new Day18().setAndSolve(Util.readInput(2019, 18));
@@ -130,18 +130,18 @@ public class Day18 extends AbstractProblem<List<String>, Integer> {
     }
     
     private boolean isKey(char c) {
-        return keys.contains("" + c);
+        return KEYS.contains("" + c);
     }
     
     private static class State {
-        int x;
-        int y;
-        int steps;
-        char[][] maze;
-        String sequence;
-        double average;
+        final int x;
+        final int y;
+        final int steps;
+        final char[][] maze;
+        final String sequence;
+        final double average;
 
-        public State(int x, int y, int steps, char[][] maze, String sequence) {
+        State(int x, int y, int steps, char[][] maze, String sequence) {
             this.x = x;
             this.y = y;
             this.steps = steps;

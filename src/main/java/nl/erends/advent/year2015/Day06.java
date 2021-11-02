@@ -92,7 +92,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
         }
     }
     
-    private class Lamp {
+    private static class Lamp {
         private boolean on = false;
         private int brightness = 0;
 

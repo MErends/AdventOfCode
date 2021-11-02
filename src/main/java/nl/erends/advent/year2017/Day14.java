@@ -4,7 +4,7 @@ import nl.erends.advent.util.AbstractProblem;
 
 public class Day14 extends AbstractProblem<String, Integer> {
 
-    private Square[][] squares = new Square[128][128];
+    private final Square[][] squares = new Square[128][128];
 
     public static void main(String[] args) {
         new Day14().setAndSolve("hwlqcszp");
@@ -56,8 +56,8 @@ public class Day14 extends AbstractProblem<String, Integer> {
     }
 
     private class Square {
-        private int x;
-        private int y;
+        private final int x;
+        private final int y;
         private boolean data;
         private int group;
 

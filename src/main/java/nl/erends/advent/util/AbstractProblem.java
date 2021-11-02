@@ -29,7 +29,7 @@ public abstract class AbstractProblem<T, U> {
         Timer.printStats();
     }
     
-    public abstract U solve1();
+    protected abstract U solve1();
 
     public U solve2() {
         if (answer2 == null) {

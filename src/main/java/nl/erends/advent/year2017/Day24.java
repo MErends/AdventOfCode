@@ -57,10 +57,10 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
         }
     }
 
-    private class Connector {
-        private int port1;
-        private int port2;
-        private int strength;
+    private static class Connector {
+        private final int port1;
+        private final int port2;
+        private final int strength;
 
         Connector(int port1, int port2) {
             this.port1 = port1;

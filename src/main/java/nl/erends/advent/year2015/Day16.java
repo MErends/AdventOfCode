@@ -40,13 +40,13 @@ public class Day16 extends AbstractProblem<List<String>, Integer> {
         return sues.stream().filter(sue -> sue.canBe1).mapToInt(Sue::getNumber).findFirst().orElseThrow(IllegalStateException::new);
     }
     
-    private class Sue {
-        private int number;
-        private Map<String, Integer> properties;
+    private static class Sue {
+        private final int number;
+        private final Map<String, Integer> properties;
         private boolean canBe1 = true;
         private boolean canBe2 = true;
     
-        public Sue(String line) {
+        Sue(String line) {
             String[] words = line.split(" ");
             this.number = Integer.parseInt(words[1].substring(0, words[1].length() - 1));
             this.properties = new HashMap<>();

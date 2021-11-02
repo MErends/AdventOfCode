@@ -14,8 +14,8 @@ import java.util.regex.Pattern;
 public class Day25 extends AbstractProblem<String, Integer> {
 
     private static final boolean MANUAL = false;
-    public static final String SOUTH = "south";
-    public static final String NORTH = "north";
+    private static final String SOUTH = "south";
+    private static final String NORTH = "north";
 
     public static void main(String[] args) {
         new Day25().setAndSolve(Util.readLine(2019, 25));

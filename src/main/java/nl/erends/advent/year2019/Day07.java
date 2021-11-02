@@ -59,15 +59,15 @@ public class Day07 extends AbstractProblem<String, Long> {
     
     private long feedbackSignal(String sequence) {
         Intcode amplifierA = new Intcode(input);
-        amplifierA.addInput(Integer.valueOf("" + sequence.charAt(0)));
+        amplifierA.addInput(Integer.parseInt("" + sequence.charAt(0)));
         Intcode amplifierB = new Intcode(input);
-        amplifierB.addInput(Integer.valueOf("" + sequence.charAt(1)));
+        amplifierB.addInput(Integer.parseInt("" + sequence.charAt(1)));
         Intcode amplifierC = new Intcode(input);
-        amplifierC.addInput(Integer.valueOf("" + sequence.charAt(2)));
+        amplifierC.addInput(Integer.parseInt("" + sequence.charAt(2)));
         Intcode amplifierD = new Intcode(input);
-        amplifierD.addInput(Integer.valueOf("" + sequence.charAt(3)));
+        amplifierD.addInput(Integer.parseInt("" + sequence.charAt(3)));
         Intcode amplifierE = new Intcode(input);
-        amplifierE.addInput(Integer.valueOf("" + sequence.charAt(4)));
+        amplifierE.addInput(Integer.parseInt("" + sequence.charAt(4)));
         long finalSignal = 0;
         amplifierA.addInput(finalSignal);
         while (true) {

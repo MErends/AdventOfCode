@@ -14,7 +14,7 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
     
     private List<Criteria> criteria = new ArrayList<>();
     private int ticketStart;
-    private Set<Integer> invalidIndex = new HashSet<>();
+    private final Set<Integer> invalidIndex = new HashSet<>();
 
     public static void main(String[] args) {
         new Day16().setAndSolve(Util.readInput(2020, 16));
@@ -101,8 +101,8 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
     }
     
     private static class Criteria {
-        String name;
-        List<Range> ranges = new ArrayList<>();
+        final String name;
+        final List<Range> ranges = new ArrayList<>();
         List<Integer> indices;
         
         Criteria(String line) {
@@ -125,8 +125,8 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
     }
     
     private static class Range {
-        int lower;
-        int upper;
+        final int lower;
+        final int upper;
 
         Range(String rangeString) {
             String[] bounds = rangeString.trim().split("-");

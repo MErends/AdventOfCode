@@ -5,9 +5,9 @@ import nl.erends.advent.util.Util;
 
 public class Day08 extends AbstractProblem<String, String> {
     
-    char[][][] data;
-    public static final int COLUMNS = 25;
-    public static final int ROWS = 6;
+    private char[][][] data;
+    private static final int COLUMNS = 25;
+    private static final int ROWS = 6;
 
     public static void main(String[] args) {
         new Day08().setAndSolve(Util.readLine(2019, 8));

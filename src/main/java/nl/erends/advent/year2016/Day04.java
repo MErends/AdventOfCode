@@ -29,11 +29,11 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
         return totalID;
     }
 
-    private class Room {
-        int id;
-        StringBuilder name = new StringBuilder();
-        String checksum;
-        String fullName;
+    private static class Room {
+        final int id;
+        final StringBuilder name = new StringBuilder();
+        final String checksum;
+        final String fullName;
 
         Room(String input) {
             fullName = input.substring(0, input.lastIndexOf('-'));

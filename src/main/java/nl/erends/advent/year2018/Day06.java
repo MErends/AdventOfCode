@@ -4,7 +4,7 @@ import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Set;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +54,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
     }
 
     
-    private Point getNearest(int x, int y, Collection<Point> sources) {
+    private Point getNearest(int x, int y, Set<Point> sources) {
         List<Point> nearest = new ArrayList<>();
         int minDistance = Integer.MAX_VALUE;
         for (Point source : sources) {
@@ -70,7 +70,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
         return nearest.size() == 1 ? nearest.get(0) : null;
     }
     
-    private int getTotalDistance(int x, int y, Collection<Point> sources) {
+    private int getTotalDistance(int x, int y, Set<Point> sources) {
         int totalDistance = 0;
         for (Point source : sources) {
             totalDistance += Math.abs(x - source.x) + Math.abs(y - source.y);
@@ -78,9 +78,9 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
         return totalDistance;
     }
     
-    private class Point {
-        private int x;
-        private int y;
+    private static class Point {
+        private final int x;
+        private final int y;
 
         Point(int x, int y) {
             this.x = x;

@@ -3,12 +3,12 @@ package nl.erends.advent.year2020;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Console {
+class Console {
 
     private int accumulator = 0;
-    private List<String> instructions;
+    private final List<String> instructions;
     private int pointer = 0;
-    private List<Integer> seenPointers = new ArrayList<>();
+    private final List<Integer> seenPointers = new ArrayList<>();
 
     Console(List<String> instructions) {
         this.instructions = new ArrayList<>(instructions);
@@ -26,7 +26,7 @@ public class Console {
         return false;
     }
 
-    public boolean execute() {
+    private boolean execute() {
         if (pointer < 0 || pointer >= instructions.size()) {
             return false;
         }

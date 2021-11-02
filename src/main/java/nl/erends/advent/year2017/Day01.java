@@ -13,7 +13,7 @@ public class Day01 extends AbstractProblem<String, Integer> {
 	public Integer solve1() {
 		int length = input.length();
 		int sum = 0;
-		String b = input.substring(1) + input.substring(0, 1);
+		String b = input.substring(1) + input.charAt(0);
 		for (int i = 0; i < length; i++) {
 			int ia = Integer.parseInt(input.substring(i, i + 1));
 			int ib = Integer.parseInt(b.substring(i, i + 1));

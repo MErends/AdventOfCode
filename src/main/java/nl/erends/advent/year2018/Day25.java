@@ -35,10 +35,10 @@ public class Day25 extends AbstractProblem<List<String>, Integer> {
     
     
     private static class Star implements Comparable<Star> {
-        int x;
-        int y;
-        int z;
-        int t;
+        final int x;
+        final int y;
+        final int z;
+        final int t;
         
         int constellation = -1;
         

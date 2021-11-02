@@ -3,7 +3,7 @@ package nl.erends.advent.year2017;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KnotHasher {
+class KnotHasher {
     
     private KnotHasher() {
     }

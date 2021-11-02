@@ -76,7 +76,7 @@ public class Day17 extends AbstractProblem<List<String>, Integer> {
     }
 
     private int neighborCount(int x, int y, int z, int w) {
-        int count = 0 - grid[w][z][y][x];
+        int count = -grid[w][z][y][x];
         for (int dw : DELTA) {
             for (int dz : DELTA) {
                 for (int dy : DELTA) {

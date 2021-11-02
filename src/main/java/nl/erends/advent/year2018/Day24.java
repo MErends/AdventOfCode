@@ -89,7 +89,7 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
         SLASHING,
         COLD;
         
-        public static Type getType(String input) {
+        static Type getType(String input) {
             return valueOf(input.toUpperCase());
         }
     }
@@ -101,13 +101,13 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
     
     private static class Group {
         int unitCount;
-        int unitHP;
-        List<Type> immuneTo = new ArrayList<>();
-        List<Type> weakTo = new ArrayList<>();
-        Type attackType;
-        int unitAttack;
-        int initiative;
-        Army army;
+        final int unitHP;
+        final List<Type> immuneTo = new ArrayList<>();
+        final List<Type> weakTo = new ArrayList<>();
+        final Type attackType;
+        final int unitAttack;
+        final int initiative;
+        final Army army;
         
         private Group(String input, Army army, int boost) {
             this.army = army;
@@ -148,14 +148,14 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
             unitCount -= unitsKilled;
         }
         
-        static Comparator<Group> targetingComparator = (g1, g2) -> {
+        static final Comparator<Group> targetingComparator = (g1, g2) -> {
             int effective1 = g1.getEffectivePower();
             int effective2 = g2.getEffectivePower();
             if (effective1 != effective2) return Integer.compare(effective2, effective1);
             return Integer.compare(g2.initiative, g1.initiative);
         };
         
-        static Comparator<Group> attackingComparator = (g1, g2) -> Integer.compare(g2.initiative, g1.initiative);
+        static final Comparator<Group> attackingComparator = (g1, g2) -> Integer.compare(g2.initiative, g1.initiative);
         
         private int getEffectivePower() {
             return unitCount * unitAttack;

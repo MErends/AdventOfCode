@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Day22 extends AbstractProblem<List<String>, Integer> {
     
-    private int numCards = 10007;
+    private static final int NUM_CARDS = 10007;
 
     public static void main(String[] args) {
         new Day22().setAndSolve(Util.readInput(2019, 22));
@@ -18,7 +18,7 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
     @Override
     public Integer solve1() {
         List<Integer> deck = new ArrayList<>();
-        for (int i = 0; i < numCards; i++) {
+        for (int i = 0; i < NUM_CARDS; i++) {
             deck.add(i);
         }
         for (String line : input) {

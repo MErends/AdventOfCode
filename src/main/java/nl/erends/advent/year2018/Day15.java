@@ -102,11 +102,11 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
             this.y = y;
         }
 
-        public abstract boolean nextToEnemy();
+        protected abstract boolean nextToEnemy();
 
-        public abstract void doAttack();
+        protected abstract void doAttack();
 
-        public abstract List<Tile> findTargetsInRange();
+        protected abstract List<Tile> findTargetsInRange();
 
         Map<Tile, Integer> findTargetsReachable(List<Tile> targetsInRange) {
             Tile currentTile = cave.getTile(x, y);
@@ -117,7 +117,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
                 neighbors = neighbors.stream()
                         .filter(tile -> !distanceMap.containsKey(tile))
                         .filter(Tile::isEmpty)
-                        .map(tile -> {distanceMap.put(tile, distance[0]); return tile;})
+                        .peek(tile -> distanceMap.put(tile, distance[0]))
                         .map(Tile::getNeighbors)
                         .flatMap(List::stream)
                         .filter(tile -> !distanceMap.containsKey(tile))
@@ -208,7 +208,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
     
     private class Elf extends Unit {
         
-        int attack;
+        final int attack;
 
         Elf(int x, int y, int elfAttack) {
             super(x, y);
@@ -263,8 +263,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             if (!super.equals(o)) return false;
-            Goblin goblin = (Goblin) o;
-            return attack == goblin.attack;
+            return attack == Goblin.ATTACK;
         }
 
         @Override
@@ -275,7 +274,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
     
     private class Goblin extends Unit {
         
-        int attack = 3;
+        static final int ATTACK = 3;
 
         Goblin(int x, int y) {
             super(x, y);
@@ -317,7 +316,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
             enemies.removeIf(goblin -> goblin.hp != finalMinHP);
             Collections.sort(enemies);
             Elf target = enemies.get(0);
-            target.hp -= attack;
+            target.hp -= ATTACK;
             if (target.hp <= 0) {
                 elfs.remove(target);
                 cave.getTile(target.x, target.y).unit = null;
@@ -328,21 +327,19 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            if (!super.equals(o)) return false;
-            Goblin goblin = (Goblin) o;
-            return attack == goblin.attack;
+            return super.equals(o);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(super.hashCode(), attack);
+            return Objects.hash(super.hashCode(), ATTACK);
         }
     }
     
     private class Tile implements Comparable<Tile> {
         private char type;
-        private int x;
-        private int y;
+        private final int x;
+        private final int y;
         private Unit unit;
 
         Tile(char c, int x, int y) {
@@ -355,11 +352,11 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
             return type == '#';
         }
         
-        public boolean isEmpty() {
+        boolean isEmpty() {
             return !isWall() && unit == null;
         }
         
-        public List<Tile> getNeighbors() {
+        List<Tile> getNeighbors() {
             List<Tile> neighbors = new ArrayList<>();
             neighbors.add(cave.getTile(x, y + 1));
             neighbors.add(cave.getTile(x, y - 1));
@@ -394,7 +391,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
     }
     
     private class Cave {
-        private Tile[][] grid;
+        private final Tile[][] grid;
         
         Cave(List<String> input, int elfAttack) {
             elfs = new ArrayList<>();
@@ -420,14 +417,14 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
             }
         }
         
-        public Tile getTile(int x, int y) {
+        Tile getTile(int x, int y) {
             return grid[y][x];
         }
     }
     
     private static class QueueItem {
-        Tile tile;
-        int steps;
+        final Tile tile;
+        final int steps;
 
         QueueItem(Tile tile, int steps) {
             this.tile = tile;

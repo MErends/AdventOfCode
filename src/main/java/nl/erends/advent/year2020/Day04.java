@@ -46,7 +46,7 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
     
     private static class Passport {
         
-        private Map<String, String> attrs = new HashMap<>();
+        private final Map<String, String> attrs = new HashMap<>();
         
         private Passport(String line) {
             String[] words = line.split(" ");

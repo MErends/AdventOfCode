@@ -42,10 +42,10 @@ public class Day15 extends AbstractProblem<String, Integer> {
         return equals;
     }
 
-    private class Generator {
+    private static class Generator {
 
         private long number;
-        private int multiplier;
+        private final int multiplier;
 
 
         Generator(int seed, int multiplier) {

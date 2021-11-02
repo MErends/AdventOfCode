@@ -79,12 +79,12 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
         return Integer.parseInt(input);
     }
 
-    private class Ingredient {
-        int capacity;
-        int durability;
-        int flavor;
-        int texture;
-        int calories;
+    private static class Ingredient {
+        final int capacity;
+        final int durability;
+        final int flavor;
+        final int texture;
+        final int calories;
 
         Ingredient(int capacity, int durability, int flavor, int texture, int calories) {
             this.capacity = capacity;

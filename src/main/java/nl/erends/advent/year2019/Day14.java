@@ -12,10 +12,10 @@ import java.util.Set;
 
 public class Day14 extends AbstractProblem<List<String>, Integer> {
 
-    Map<String, List<String>> recipies;
-    Set<String> resourcesStillProduced;
-    Map<String, Integer> resourcesRequired;
-    Map<String, Long> inventory;
+    private Map<String, List<String>> recipies;
+    private Set<String> resourcesStillProduced;
+    private Map<String, Integer> resourcesRequired;
+    private Map<String, Long> inventory;
 
     public static void main(String[] args) {
         new Day14().setAndSolve(Util.readInput(2019, 14));

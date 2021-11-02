@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Day19 extends AbstractProblem<List<String>, Long> {
    
-    private Map<String, Rule> rules = new HashMap<>();
+    private final Map<String, Rule> rules = new HashMap<>();
 
     public static void main(String[] args) {
         new Day19().setAndSolve(Util.readInput(2020, 19));
@@ -28,14 +28,14 @@ public class Day19 extends AbstractProblem<List<String>, Long> {
         Rule zero = rules.get("0");
         zero.resolve();
          return input.subList(inputSplit + 1, input.size()).stream()
-                 .filter(s -> zero.matches.contains(s)).count();
+                 .filter(zero.matches::contains).count();
     }
 
     private class Rule {
-        String ruleString;
-        Set<String> matches = new HashSet<>();
+        final String ruleString;
+        final Set<String> matches = new HashSet<>();
         boolean resolved = false;
-        String number;
+        final String number;
         
         private Rule(String ruleString, String number) {
             this.ruleString = ruleString;

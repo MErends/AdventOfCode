@@ -18,7 +18,7 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
     private int[][] timeGrid;
     private Region[][] regionGrid;
     private int lowestGoal = Integer.MAX_VALUE;
-    private TreeSet<GridState> states = new TreeSet<>();
+    private final TreeSet<GridState> states = new TreeSet<>();
     
     public static void main(String[] args) {
         new Day22().setAndSolve(Util.readInput(2018, 22));
@@ -89,13 +89,13 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
         WET(1),
         NARROW(2);
         
-        private int type;
+        private final int type;
         
         Region(int type) {
             this.type = type;
         }
         
-        public static Region valueOf(int value) {
+        static Region valueOf(int value) {
             for (Region region : values()) {
                 if (region.type == value) {
                     return region;
@@ -280,10 +280,10 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
     }
 
     private static class GridState implements Comparable<GridState> {
-        int x;
-        int y;
-        Gear presentGear;
-        int time;
+        final int x;
+        final int y;
+        final Gear presentGear;
+        final int time;
         
         @Override
         public int compareTo(GridState other) {

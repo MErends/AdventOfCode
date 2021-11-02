@@ -42,7 +42,7 @@ public class Day03 extends AbstractProblem<List<String>, Integer> {
                 updateXY(direction);
                 totalSteps++;
                 String coords = x + "," + y;
-                if (firstWire.keySet().contains(coords)) {
+                if (firstWire.containsKey(coords)) {
                     answer1 = Math.min(answer1, Math.abs(x) + Math.abs(y));
                     answer2 = Math.min(answer2, totalSteps + firstWire.get(coords));
                 }

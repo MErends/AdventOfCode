@@ -32,7 +32,7 @@ public class Day23 extends AbstractProblem<String, Number> {
         int current;
         int end;
         int maxValue = Integer.MIN_VALUE;
-        Map<Integer, Integer> links = new HashMap<>();
+        final Map<Integer, Integer> links = new HashMap<>();
         
         private Circle(String input) {
             for (char c : input.toCharArray()) {

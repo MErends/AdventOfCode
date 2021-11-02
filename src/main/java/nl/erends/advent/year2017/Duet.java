@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-public class Duet {
+class Duet {
     
-    private List<Map<String, Long>> memoryBank = Arrays.asList(new HashMap<String, Long>(), new HashMap<String, Long>());
-    private List<Long> pointer = Arrays.asList(0L, 0L);
-    private List<Queue<Long>> queues = Arrays.asList(new LinkedList<Long>(), new LinkedList<Long>());
-    private List<Boolean> alive = Arrays.asList(true, true);
-    private List<String> instructions;
+    private final List<Map<String, Long>> memoryBank = Arrays.asList(new HashMap<>(), new HashMap<>());
+    private final List<Long> pointer = Arrays.asList(0L, 0L);
+    private final List<Queue<Long>> queues = Arrays.asList(new LinkedList<>(), new LinkedList<>());
+    private final List<Boolean> alive = Arrays.asList(true, true);
+    private final List<String> instructions;
     private long sound;
     private long recieve;
     private boolean multithread = false;

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class Day20 extends AbstractProblem<List<String>, Number> {
 
-    private List<Tile> tiles = new ArrayList<>();
+    private final List<Tile> tiles = new ArrayList<>();
     private Tile cornerTile;
     private Tile[][] tileGrid;
     private static final List<String> SEAMONSTER = Arrays.asList("                  # ",
@@ -183,13 +183,13 @@ public class Day20 extends AbstractProblem<List<String>, Number> {
     }
 
     private static class Tile {
-        int id;
+        final int id;
         char[][] tileGrid;
         String topEdge;
         String leftEdge;
         String rightEdge;
         String bottomEdge;
-        List<String> allEdges = new ArrayList<>();
+        final List<String> allEdges = new ArrayList<>();
 
         private Tile(List<String> lines) {
             id = Integer.parseInt(lines.get(0).split(" ")[1].split(":")[0]);

@@ -13,10 +13,10 @@ public class Day15 extends AbstractProblem<String, Integer> {
     private Set<String> placesBeen;
     private Queue<State> states;
     private int stepsToSystem;
-    public static final int NORTH = 1;
-    public static final int SOUTH = 2;
-    public static final int WEST = 3;
-    public static final int EAST = 4;
+    private static final int NORTH = 1;
+    private static final int SOUTH = 2;
+    private static final int WEST = 3;
+    private static final int EAST = 4;
     private State oxygenState;
 
     public static void main(String[] args) {
@@ -55,13 +55,13 @@ public class Day15 extends AbstractProblem<String, Integer> {
     }
 
     private class State {
-        int x;
-        int y;
+        final int x;
+        final int y;
         int steps;
-        Intcode droid;
+        final Intcode droid;
         int output;
 
-        public State(int x, int y, int steps, Intcode droid, int output) {
+        State(int x, int y, int steps, Intcode droid, int output) {
             this.x = x;
             this.y = y;
             this.steps = steps;

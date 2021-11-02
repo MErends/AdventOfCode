@@ -1,6 +1,7 @@
 package nl.erends.advent.year2018;
 
 import nl.erends.advent.util.AbstractProblem;
+import nl.erends.advent.util.Direction;
 import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
@@ -141,7 +142,7 @@ public class Day13 extends AbstractProblem<List<String>, String> {
         }
     }
 
-    private class Cart implements Comparable<Cart> {
+    private static class Cart implements Comparable<Cart> {
         private int x;
         private int y;
         private Direction direction;
@@ -175,43 +176,17 @@ public class Day13 extends AbstractProblem<List<String>, String> {
         }
     }
 
-    private class Track {
-        private int x;
-        private int y;
+    private static class Track {
+        private final int x;
+        private final int y;
         private Cart cart;
-        private char type;
+        private final char type;
 
         Track(int x, int y, Cart cart, char type) {
             this.x = x;
             this.y = y;
             this.cart = cart;
             this.type = type;
-        }
-    }
-
-    private enum Direction {
-        LEFT {
-            @Override
-            public Direction turnLeft() {
-                return DOWN;
-            }
-        },
-        UP,
-        RIGHT,
-        DOWN {
-            @Override
-            public Direction turnRight() {
-                return LEFT;
-            }
-        };
-        
-        public Direction turnLeft() {
-            return values()[ordinal() - 1];
-        }
-
-
-        public Direction turnRight() {
-            return values()[ordinal() + 1];
         }
     }
 }

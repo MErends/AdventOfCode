@@ -87,16 +87,15 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
     }
 
 
-    private class Gridnode {
-        
-        private String id;
-        private int x;
-        private int y;
-        private int used;
-        private int available;
+    private static class Gridnode {
+
+        private final int x;
+        private final int y;
+        private final int used;
+        private final int available;
 
         Gridnode(String input) {
-            id = input.substring(0, 22).trim();
+            String id = input.substring(0, 22).trim();
             x = Integer.parseInt(id.split("-")[1].substring(1));
             y = Integer.parseInt(id.split("-")[2].substring(1));
             used = Integer.parseInt(input.substring(28, 33).trim());

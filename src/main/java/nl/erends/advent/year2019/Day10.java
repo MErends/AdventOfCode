@@ -169,10 +169,10 @@ public class Day10 extends AbstractProblem<List<String>, Integer> {
     }
     
     private static class Asteroid {
-        private int x;
-        private int y;
+        private final int x;
+        private final int y;
 
-        public Asteroid(int x, int y) {
+        Asteroid(int x, int y) {
             this.x = x;
             this.y = y;
         }

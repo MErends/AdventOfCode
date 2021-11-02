@@ -30,7 +30,7 @@ public class Day13 extends AbstractProblem<String, Integer> {
         return game.score;
     }
 
-    private class Game {
+    private static class Game {
 
         private int score;
 

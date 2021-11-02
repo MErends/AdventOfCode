@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public class Day04 extends AbstractProblem<List<String>, Integer> {
     
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private List<Event> eventList;
     private int guardId;
     private LocalDateTime fellAsleep;
@@ -152,9 +152,9 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
     }
     
     private static class Event implements Comparable<Event> {
-        private LocalDateTime dateTime;
-        private int id;
-        private EventType eventType;
+        private final LocalDateTime dateTime;
+        private final int id;
+        private final EventType eventType;
 
         Event(LocalDateTime dateTime, int id, EventType eventType) {
             this.dateTime = dateTime;

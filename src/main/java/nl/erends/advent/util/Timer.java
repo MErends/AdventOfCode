@@ -2,7 +2,7 @@ package nl.erends.advent.util;
 
 import org.apache.log4j.Logger;
 
-public class Timer {
+class Timer {
     
     private static final Logger LOG = Logger.getLogger(Timer.class);
 

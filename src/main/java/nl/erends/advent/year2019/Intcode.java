@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
-public class Intcode {
+class Intcode {
 
     private boolean halted = false;
     private long pointer = 0;

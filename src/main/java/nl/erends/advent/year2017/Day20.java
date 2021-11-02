@@ -75,8 +75,8 @@ public class Day20 extends AbstractProblem<List<String>, Integer> {
         return particles;
     }
     
-    private class Particle {
-        int id;
+    private static class Particle {
+        final int id;
         int distance;
         int x;
         int y;

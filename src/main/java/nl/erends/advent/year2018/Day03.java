@@ -9,7 +9,7 @@ import java.util.List;
 public class Day03 extends AbstractProblem<List<String>, Integer> {
 
     private String[][] cloth;
-    private List<String> ids = new ArrayList<>();
+    private final List<String> ids = new ArrayList<>();
 
     public static void main(String[] args) {
         new Day03().setAndSolve(Util.readInput(2018, 3));

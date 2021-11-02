@@ -58,7 +58,7 @@ public class Day11 extends AbstractProblem<List<String>, Integer> {
         long hash = 17L;
         for (int y = 0; y < area.length; y++) {
             for (int x = 0; x < area[y].length; x++) {
-                hash += (x + 19) * (y + 23) * area[y][x];
+                hash += (long) (x + 19) * (y + 23) * area[y][x];
             }
         }
         return hash;

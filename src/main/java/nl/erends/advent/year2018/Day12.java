@@ -10,8 +10,8 @@ import java.util.Map;
 
 public class Day12 extends AbstractProblem<List<String>, Long> {
     
-    private Map<String, Character> mapping = new HashMap<>();
-    private List<Integer> sums = new ArrayList<>();
+    private final Map<String, Character> mapping = new HashMap<>();
+    private final List<Integer> sums = new ArrayList<>();
 
 
     public static void main(String[] args) {
@@ -89,7 +89,7 @@ public class Day12 extends AbstractProblem<List<String>, Long> {
             stringState = nextState.toString();
         }
         
-        public int getSum() {
+        int getSum() {
             int sum = 0;
             int value = startIndex;
             for (char c : stringState.toCharArray()) {

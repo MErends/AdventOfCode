@@ -13,8 +13,8 @@ import java.util.Map;
 public class Day16 extends AbstractProblem<List<String>, Integer> {
 
     private int programStartsAt = 0;
-    private Map<Integer, List<String>> opcodeMap = new HashMap<>();
-    private List<String> operations = Arrays.asList("addr", "addi", "mulr", "muli", "banr", "bani", "borr", "bori", "setr", "seti", "gtir", "gtri", "gtrr", "eqir", "eqri", "eqrr");
+    private final Map<Integer, List<String>> opcodeMap = new HashMap<>();
+    private final List<String> operations = Arrays.asList("addr", "addi", "mulr", "muli", "banr", "bani", "borr", "bori", "setr", "seti", "gtir", "gtri", "gtrr", "eqir", "eqri", "eqrr");
 
     public static void main(String[] args) {
         new Day16().setAndSolve(Util.readInput(2018, 16));

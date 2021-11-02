@@ -24,19 +24,18 @@ public class Day08 extends AbstractProblem<String, Integer> {
         return answer1;
     }
     
-    private class Node {
-        private int childrenCount;
-        private int metadataCount;
-        private List<Integer> trueSource;
-        private List<Node> children;
-        private List<Integer> metadata;
+    private static class Node {
+        private final int childrenCount;
+        private final List<Integer> trueSource;
+        private final List<Node> children;
+        private final List<Integer> metadata;
 
         private Node(List<Integer> source) {
             trueSource = new ArrayList<>();
             metadata = new ArrayList<>();
             List<Integer> rawSource = new ArrayList<>(source);
             childrenCount = rawSource.get(0);
-            metadataCount = rawSource.get(1);
+            int metadataCount = rawSource.get(1);
             children = new ArrayList<>();
             if (childrenCount == 0) {
                 trueSource.addAll(rawSource.subList(0, 2 + metadataCount));

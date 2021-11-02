@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Assembunny {
+class Assembunny {
     
-    private Map<String, Integer> memoryBank = new HashMap<>();
-    private List<String> instructions;
-    private int outputLimit;
+    private final Map<String, Integer> memoryBank = new HashMap<>();
+    private final List<String> instructions;
+    private final int outputLimit;
     private String output = "";
     
     Assembunny(List<String> instructions, int outputLimit) {
