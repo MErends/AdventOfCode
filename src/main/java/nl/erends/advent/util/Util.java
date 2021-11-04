@@ -2,9 +2,10 @@ package nl.erends.advent.util;
 
 import org.apache.log4j.Logger;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,22 +18,20 @@ public class Util {
     }
     
     public static List<String> readInput(int year, int day, int testcase) {
+        String location = "src/main/resources";
         String extension = ".txt";
         if (testcase != 0) {
+            location = "src/test/resources";
             extension = "_"+ testcase + extension;
         }
-        String filename = "/year" + year + "/day" + day + extension;
-        List<String> list = new ArrayList<>();
+        location += "/year" + year + "/day" + day + extension;
+        Path path = Paths.get(location);
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(Util.class.getResourceAsStream(filename)));
-            String input;
-            while ((input = br.readLine()) != null) {
-                list.add(input);
-            }
-        } catch (IOException | NullPointerException e) {
-            LOG.error("Could not read from: " + filename, e);
+            return Files.readAllLines(path);
+        } catch (IOException e) {
+            LOG.error("Could not read from: " + location, e);
         }
-        return list;
+        return new ArrayList<>();
     }
     
     public static List<String> readInput(int year, int day) {
@@ -47,7 +46,7 @@ public class Util {
         return readInput(year, day, testcase).get(0);
     }
 
-    private static long gcd(long a, long b) {
+    public static long gcd(long a, long b) {
         a = Math.abs(a);
         b = Math.abs(b);
         for (long d = Math.min(a, b); d >= 1; d--) {

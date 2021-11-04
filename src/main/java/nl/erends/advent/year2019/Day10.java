@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static nl.erends.advent.util.Util.gcd;
+
 public class Day10 extends AbstractProblem<List<String>, Integer> {
 
     private char[][] field;
@@ -78,11 +80,9 @@ public class Day10 extends AbstractProblem<List<String>, Integer> {
         }
         Asteroid asteroid = new Asteroid(xAsteroid, yAsteroid);
         if (toTheRight) {
-            List<Asteroid> asteroidList = rightSideMap.computeIfAbsent(gradient, k -> new ArrayList<>());
-            asteroidList.add(asteroid);
+            rightSideMap.computeIfAbsent(gradient, k -> new ArrayList<>()).add(asteroid);
         } else {
-            List<Asteroid> asteroidList = leftSideMap.computeIfAbsent(gradient, k -> new ArrayList<>());
-            asteroidList.add(asteroid);
+            leftSideMap.computeIfAbsent(gradient, k -> new ArrayList<>()).add(asteroid);
         }
     }
 
@@ -130,7 +130,7 @@ public class Day10 extends AbstractProblem<List<String>, Integer> {
 
     private String getFractionString(int dx, int dy) {
         while (true) {
-            int d = gcd(dx, dy);
+            long d = gcd(dx, dy);
             if (d != 1) {
                 dx /= d;
                 dy /= d;
@@ -138,17 +138,6 @@ public class Day10 extends AbstractProblem<List<String>, Integer> {
                 return "" + dx + "/" + dy;
             }
         }
-    }
-
-    private int gcd(int a, int b) {
-        a = Math.abs(a);
-        b = Math.abs(b);
-        for (int d = Math.min(a, b); d >= 1; d--) {
-            if (a % d == 0 && b % d == 0) {
-                return d;
-            }
-        }
-        return 1;
     }
     
     private void zapAsteroidFromList(List<Asteroid> asteroidList) {

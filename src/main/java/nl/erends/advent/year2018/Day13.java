@@ -97,6 +97,7 @@ public class Day13 extends AbstractProblem<List<String>, String> {
                     cart.direction = cart.direction.turnRight();
                     cart.nextTurn = cart.nextTurn.turnRight().turnRight();
                 }
+                break;
             default:
         }
     }
