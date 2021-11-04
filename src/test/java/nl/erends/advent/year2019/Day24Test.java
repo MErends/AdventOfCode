@@ -13,5 +13,7 @@ class Day24Test {
         Day24 problem = new Day24();
         problem.setInput(Util.readInput(2019, 24, 1));
         assertThat(problem.solve1(), is(2129920));
+        problem.iterations = 10;
+        assertThat(problem.solve2(), is(99));
     }
 }

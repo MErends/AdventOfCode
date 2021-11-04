@@ -3,6 +3,7 @@ package nl.erends.advent.year2019;
 import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,8 +11,7 @@ import java.util.Set;
 public class Day24 extends AbstractProblem<List<String>, Integer> {
     
     private int[][] grid;
-    private List<int[][]> levels;
-    private int minLevel;
+    int iterations = 200;
 
     public static void main(String[] args) {
         new Day24().setAndSolve(Util.readInput(2019, 24));
@@ -24,13 +24,36 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
         while (previousStates.add(calculateDiversity())) {
             iterate();
         }
-        printGrid();
         return calculateDiversity();
     }
 
     @Override
     public Integer solve2() {
-        return null;
+        List<Depth> depths = new ArrayList<>();
+        depths.add(new Depth(readInput()));
+        for (int iteration = 0; iteration < iterations; iteration++) {
+            if (depths.get(0).getValue() != 0) {
+                depths.add(0, new Depth());
+            }
+            if (depths.get(depths.size() - 1).getValue() != 0) {
+                depths.add(new Depth());
+            }
+            int dSize = depths.size();
+            List<Depth> newDepths = new ArrayList<>();
+            newDepths.add(depths.get(0).iterate(new int[5][5], depths.get(1).grid));
+            for (int d = 1; d < depths.size() - 1; d++) {
+                newDepths.add(depths.get(d).iterate(depths.get(d - 1).grid, depths.get(d + 1).grid));
+            }
+            newDepths.add(depths.get(dSize - 1).iterate(depths.get(dSize - 2).grid, new int[5][5]));
+            if (newDepths.get(0).getValue() == 0) {
+                newDepths.remove(0);
+            }
+            if (newDepths.get(newDepths.size() - 1).getValue() == 0) {
+                newDepths.remove(newDepths.size() - 1);
+            }
+            depths = newDepths;
+        }
+        return depths.stream().mapToInt(Depth::getValue).sum();
     }
 
     private int[][] readInput() {
@@ -41,15 +64,6 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
             }
         }
         return newGrid;
-    }
-    
-    private void printGrid() {
-        for (int[] line : grid) {
-            for (int i : line) {
-                System.out.print(i == 1 ? '#' : '.');
-            }
-            System.out.println();
-        }
     }
     
     private int calculateDiversity() {
@@ -80,10 +94,6 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
         }
         grid = newGrid;
     }
-    
-    private int[][] getLevel(int level) {
-        return null;
-    }
 
     private int countNeighbors(int x, int y) {
         int neighbors = 0;
@@ -102,61 +112,69 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
         return neighbors;
     }
     
-    private int countNeighbors(int x, int y, int level) {
-        switch (y) {
-            case 0:
-                return countNeighbors0(x, level);
+    private static class Depth {
+        
+        int[][] grid;
+        
+        Depth() {
+            this(new int[5][5]);
         }
-        return 0;
-    }
-    
-    private int countNeighbors0(int x, int level) {
-        int neighbors = 0;
-        if (level > 0) {
-            int[][] uppperGrid = levels.get(level - 1);
-            neighbors += uppperGrid[1][2]; // UP
-            if (x == 0) {
-                neighbors += uppperGrid[2][1]; // LEFT
+        
+        Depth(int[][] grid) {
+            this.grid = grid;
+        }
+
+        int getValue() {
+            int value = 0;
+            for (int[] row : grid) {
+                for (int i : row) {
+                    value += i;
+                }
             }
-            if (x == 4) {
-                neighbors += uppperGrid[2][3]; // RIGHT
+            return value;
+        }
+        
+        Depth iterate(int[][] down, int[][] up) {
+            int[][] newGrid = new int[5][5];
+            newGrid[0][0] = newValue(grid[0][0], up[1][2] + grid[0][1] + grid[1][0] + up[2][1]);
+            newGrid[0][1] = newValue(grid[0][1], up[1][2] + grid[0][2] + grid[1][1] + grid[0][0]);
+            newGrid[0][2] = newValue(grid[0][2], up[1][2] + grid[0][3] + grid[1][2] + grid[0][1]);
+            newGrid[0][3] = newValue(grid[0][3], up[1][2] + grid[0][4] + grid[1][3] + grid[0][2]);
+            newGrid[0][4] = newValue(grid[0][4], up[1][2] + up[2][3] + grid[1][4] + grid[0][3]);
+            
+            newGrid[1][0] = newValue(grid[1][0], grid[0][0] + grid[1][1] + grid[2][0] + up[2][1]);
+            newGrid[1][1] = newValue(grid[1][1], grid[0][1] + grid[1][2] + grid[2][1] + grid[1][0]);
+            newGrid[1][2] = newValue(grid[1][2], grid[0][2] + grid[1][3] + down[0][0] + down[0][1] + down[0][2] + down[0][3] + down[0][4] + grid[1][1]);
+            newGrid[1][3] = newValue(grid[1][3], grid[0][3] + grid[1][4] + grid[2][3] + grid[1][2]);
+            newGrid[1][4] = newValue(grid[1][4], grid[0][4] + up[2][3] + grid[2][4] + grid[1][3]);
+
+            newGrid[2][0] = newValue(grid[2][0], grid[1][0] + grid[2][1] + grid[3][0] + up[2][1]);
+            newGrid[2][1] = newValue(grid[2][1], grid[1][1] + down[0][0] + down[1][0] + down[2][0] + down[3][0] + down[4][0] + grid[3][1] + grid[2][0]);
+            newGrid[2][3] = newValue(grid[2][3], grid[1][3] + grid[2][4] + grid[3][3] + down[0][4] + down[1][4] + down[2][4] + down[3][4] + down[4][4]);
+            newGrid[2][4] = newValue(grid[2][4], grid[1][4] + up[2][3] + grid[3][4] + grid[2][3]);
+
+            newGrid[3][0] = newValue(grid[3][0], grid[2][0] + grid[3][1] + grid[4][0] + up[2][1]);
+            newGrid[3][1] = newValue(grid[3][1], grid[2][1] + grid[3][2] + grid[4][1] + grid[3][0]);
+            newGrid[3][2] = newValue(grid[3][2], down[4][0] + down[4][1] + down[4][2] + down[4][3] + down[4][4] + grid[3][3] + grid[4][2] + grid[3][1]);
+            newGrid[3][3] = newValue(grid[3][3], grid[2][3] + grid[3][4] + grid[4][3] + grid[3][2]);
+            newGrid[3][4] = newValue(grid[3][4], grid[2][4] + up[2][3] + grid[4][4] + grid[3][3]);
+
+            newGrid[4][0] = newValue(grid[4][0], grid[3][0] + grid[4][1] + up[3][2] + up[2][1]);
+            newGrid[4][1] = newValue(grid[4][1], grid[3][1] + grid[4][2] + up[3][2] + grid[4][0]);
+            newGrid[4][2] = newValue(grid[4][2], grid[3][2] + grid[4][3] + up[3][2] + grid[4][1]);
+            newGrid[4][3] = newValue(grid[4][3], grid[3][3] + grid[4][4] + up[3][2] + grid[4][2]);
+            newGrid[4][4] = newValue(grid[4][4], grid[3][4] + up[2][3] + up[3][2] + grid[4][3]);
+            
+            return new Depth(newGrid);
+        }
+        
+        int newValue(int currentValue, int neighbors) {
+            if (currentValue == 1 && neighbors != 1) {
+                return 0;
+            } else if (currentValue == 0 && (neighbors == 1 || neighbors == 2)) {
+                return 1;
             }
+            return currentValue;
         }
-        int[][] thisGrid = levels.get(level);
-        if (x > 0) {
-            neighbors += thisGrid[0][x - 1]; // LEFT
-        }
-        if (x < 4) {
-            neighbors += thisGrid[0][x + 1]; // RIGHT
-        }
-        neighbors += thisGrid[1][x]; // DOWN
-        return neighbors;
-    }
-    
-    private int countNeighbors1(int x, int level) {
-        int neighbors = 0;
-        if (level > 0) {
-            int[][] uppperGrid = levels.get(level - 1);
-            if (x == 0) {
-                neighbors += uppperGrid[2][1]; // LEFT
-            }
-            if (x == 4) {
-                neighbors += uppperGrid[2][3]; // RIGHT
-            }
-        }
-        int[][] thisGrid = levels.get(level);
-        if (x > 0) {
-            neighbors += thisGrid[1][x - 1]; // LEFT
-        }
-        if (x < 4) {
-            neighbors += thisGrid[1][x + 1]; // RIGHT
-        }
-        neighbors += thisGrid[0][x]; // UP
-        neighbors += thisGrid[2][x]; // DOWN
-        return neighbors;
-    }
-    
-    private int countNeighbors2(int x, int level) {
-        return 0;
     }
 }
