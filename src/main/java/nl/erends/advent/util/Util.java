@@ -3,15 +3,26 @@ package nl.erends.advent.util;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Util {
     
     private static final Logger LOG = Logger.getLogger(Util.class);
+    
+    private static final HttpClient httpClient = HttpClient.newBuilder()
+            .version(HttpClient.Version.HTTP_2)
+            .connectTimeout(Duration.ofSeconds(1))
+            .build();
     
     private Util() {
         throw new IllegalStateException("Don't instantiate");
@@ -26,6 +37,9 @@ public class Util {
         }
         location += "/year" + year + "/day" + day + extension;
         Path path = Paths.get(location);
+        if (Files.notExists(path)) {
+            downloadInput(year, day, path);
+        }
         try {
             return Files.readAllLines(path);
         } catch (IOException e) {
@@ -44,6 +58,21 @@ public class Util {
 
     public static String readLine(int year, int day, int testcase) {
         return readInput(year, day, testcase).get(0);
+    }
+    
+    private static void downloadInput(int year, int day, Path path) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create(String.format("https://adventofcode.com/%d/day/%d/input", year, day)))
+                .setHeader("Cookie", "session=" + System.getenv("session"))
+                .build();
+        try {
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            Files.createFile(path);
+            Files.write(path, response.body().getBytes(StandardCharsets.UTF_8));
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException("Could not download input", e);
+        }
     }
 
     public static long gcd(long a, long b) {
