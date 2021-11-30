@@ -23,9 +23,11 @@ public abstract class AbstractProblem<T, U> {
         Timer.start1();
         LOG.info(solve1());
         Timer.end1();
-        Timer.start2();
-        LOG.info(solve2());
-        Timer.end2();
+        if (answer2 == null) {
+            Timer.start2();
+            LOG.info(solve2());
+            Timer.end2();
+        }
         Timer.printStats();
     }
     
@@ -34,9 +36,6 @@ public abstract class AbstractProblem<T, U> {
     public U solve2() {
         if (answer2 == null) {
             solve1();
-        }
-        if (answer2 == null) {
-            LOG.warn("Part 2 not implemented!");
         }
         return answer2;
     }
