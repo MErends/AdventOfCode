@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Util {
     
@@ -50,6 +51,16 @@ public class Util {
     
     public static List<String> readInput(int year, int day) {
         return readInput(year, day, 0);
+    }
+    
+    public static List<Integer> readIntegers(int year, int day, int testcase) {
+        return readInput(year, day, testcase).stream()
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+    }
+    
+    public static List<Integer> readIntegers(int year, int day) {
+        return readIntegers(year, day, 0);
     }
     
     public static String readLine(int year, int day) {

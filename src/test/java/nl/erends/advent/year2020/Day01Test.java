@@ -11,7 +11,7 @@ class Day01Test {
     @Test
     void day01Test1() {
         Day01 problem = new Day01();
-        problem.setInput(Util.readInput(2020, 1, 1));
+        problem.setInput(Util.readIntegers(2020, 1, 1));
         assertThat(problem.solve1(), is(514579));
         assertThat(problem.solve2(), is(241861950));
     }

@@ -5,25 +5,23 @@ import nl.erends.advent.util.Util;
 
 import java.util.List;
 
-public class Day01 extends AbstractProblem<List<String>, Integer> {
+public class Day01 extends AbstractProblem<List<Integer>, Integer> {
 
     public static void main(String[] args) {        
-        new Day01().setAndSolve(Util.readInput(2019, 1));
+        new Day01().setAndSolve(Util.readIntegers(2019, 1));
     }
     
     @Override
     public Integer solve1() {
         return input.stream()
-                .mapToInt(Integer::parseInt)
-                .map(this::calculateFuel)
+                .mapToInt(this::calculateFuel)
                 .sum();
     }
     
     @Override
     public Integer solve2() {
         return input.stream()
-                .mapToInt(Integer::parseInt)
-                .map(this::calculateTotalFuel)
+                .mapToInt(this::calculateTotalFuel)
                 .sum();
     }
     

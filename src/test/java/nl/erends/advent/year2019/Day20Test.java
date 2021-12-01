@@ -11,14 +11,14 @@ class Day20Test {
     @Test
     void day20Test1() {
         Day20 problem = new Day20();
-        problem.setInput(Util.readInput(2019, 20 , 1));
+        problem.setInput(Util.readInput(2019, 20, 1));
         assertThat(problem.solve1(), is(23));
     }
 
     @Test
     void day20Test2() {
         Day20 problem = new Day20();
-        problem.setInput(Util.readInput(2019, 20 , 2));
+        problem.setInput(Util.readInput(2019, 20, 2));
         assertThat(problem.solve2(), is(396));
     }
 

@@ -12,7 +12,7 @@ class Day05Test {
 	@Test
     void day05Test1() {
 		Day05 problem = new Day05();
-		problem.setInput(Util.readInput(2017, 5, 1));
+		problem.setInput(Util.readIntegers(2017, 5, 1));
 		assertThat(problem.solve1(), is(5));
         assertThat(problem.solve2(), is(10));
 	}

@@ -10,17 +10,17 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Day10 extends AbstractProblem<List<String>, Long> {
+public class Day10 extends AbstractProblem<List<Integer>, Long> {
 
     private final Map<Integer, Integer> streakPermutationMap = new HashMap<>();
 
     public static void main(String[] args) {
-        new Day10().setAndSolve(Util.readInput(2020, 10));
+        new Day10().setAndSolve(Util.readIntegers(2020, 10));
     }
 
     @Override
     public Long solve1() {
-        List<Integer> adapters = input.stream().map(Integer::parseInt).sorted().collect(Collectors.toList());
+        List<Integer> adapters = input.stream().sorted().collect(Collectors.toList());
         adapters.add(0, 0);
         int diffOf1 = 0;
         int diffOf3 = 0;
@@ -38,7 +38,7 @@ public class Day10 extends AbstractProblem<List<String>, Long> {
 
     @Override
     public Long solve2() {
-        List<Integer> adapters = input.stream().map(Integer::parseInt).sorted().collect(Collectors.toList());
+        List<Integer> adapters = input.stream().sorted().collect(Collectors.toList());
         streakPermutationMap.put(1, 1);
         adapters.add(0, 0);
         List<Long> permutations = new ArrayList<>();

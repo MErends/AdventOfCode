@@ -11,14 +11,14 @@ class Day01Test {
     @Test
     void day01Test1() {
         Day01 problem = new Day01();
-        problem.setInput(Util.readInput(2019, 1, 1));
+        problem.setInput(Util.readIntegers(2019, 1, 1));
         assertThat(problem.solve1(), is(34241));
     }
     
     @Test
     void day01Test2() {
         Day01 problem = new Day01();
-        problem.setInput(Util.readInput(2019, 1, 2));
+        problem.setInput(Util.readIntegers(2019, 1, 2));
         assertThat(problem.solve2(), is(51314));
     }
 }

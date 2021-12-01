@@ -5,18 +5,17 @@ import nl.erends.advent.util.Util;
 
 import java.util.List;
 
-public class Day05 extends AbstractProblem<List<String>, Integer> {
+public class Day05 extends AbstractProblem<List<Integer>, Integer> {
 
 	public static void main(String[] args) {
-		new Day05().setAndSolve(Util.readInput(2017, 5));
+		new Day05().setAndSolve(Util.readIntegers(2017, 5));
 	}
 
 	@Override
 	public Integer solve1() {
-        int[] memory = new int[input.size()];
-        for (int i = 0; i < input.size(); i++) {
-            memory[i] = Integer.parseInt(input.get(i));
-        }
+        int[] memory = input.stream()
+                .mapToInt(i -> i)
+                .toArray();
 		int position = 0;
 		int steps = 0;
         while (position >= 0 && position < memory.length) {
@@ -30,10 +29,9 @@ public class Day05 extends AbstractProblem<List<String>, Integer> {
 
 	@Override
 	public Integer solve2() {
-        int[] memory = new int[input.size()];
-        for (int i = 0; i < input.size(); i++) {
-            memory[i] = Integer.parseInt(input.get(i));
-        }
+        int[] memory = input.stream()
+                .mapToInt(i -> i)
+                .toArray();
         int position = 0;
         int steps = 0;
         while (position >= 0 && position < memory.length) {

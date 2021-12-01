@@ -11,7 +11,7 @@ class Day10Test {
     @Test
     void day10Test1() {
         Day10 problem = new Day10();
-        problem.setInput(Util.readInput(2020, 10 , 1));
+        problem.setInput(Util.readIntegers(2020, 10, 1));
         assertThat(problem.solve1(), is(7 * 5L));
         assertThat(problem.solve2(), is(8L));
     }
@@ -19,7 +19,7 @@ class Day10Test {
     @Test
     void day10Test2() {
         Day10 problem = new Day10();
-        problem.setInput(Util.readInput(2020, 10 , 2));
+        problem.setInput(Util.readIntegers(2020, 10, 2));
         assertThat(problem.solve1(), is(22 * 10L));
         assertThat(problem.solve2(), is(19208L));
     }
