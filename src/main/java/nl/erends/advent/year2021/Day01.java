@@ -3,9 +3,9 @@ package nl.erends.advent.year2021;
 import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * --- Day 1: Sonar Sweep ---
@@ -32,20 +32,16 @@ public class Day01 extends AbstractProblem<List<String>, Integer> {
         List<Integer> depthList = input.stream()
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
-        List<Integer> slidingDepthList = new ArrayList<>();
-        for (int index = 0; index < depthList.size() - 2; index++) {
-            slidingDepthList.add(depthList.get(index) + depthList.get(index + 1) + depthList.get(index + 2));
-        }
+        List<Integer> slidingDepthList = IntStream.range(0, depthList.size() - 2)
+                .map(index -> depthList.get(index) + depthList.get(index + 1) + depthList.get(index + 2))
+                .boxed().collect(Collectors.toList());
         return countDepthIncreases(slidingDepthList);
     }
 
     private int countDepthIncreases(List<Integer> depthList) {
-        int depthIncreaseCount = 0;
-        for (int index = 1; index < depthList.size(); index++) {
-            if (depthList.get(index) > depthList.get(index - 1)) {
-                depthIncreaseCount++;
-            }
-        }
-        return depthIncreaseCount;
+        return (int) IntStream.range(0, depthList.size() - 1)
+                .mapToObj(index -> depthList.get(index + 1) > depthList.get(index))
+                .filter(b -> b)
+                .count();
     }
 }
