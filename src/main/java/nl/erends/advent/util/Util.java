@@ -67,6 +67,7 @@ public class Util {
                 .setHeader("Cookie", "session=" + System.getenv("session"))
                 .build();
         try {
+            LOG.info("Calling adventofcode.com!!");
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             Files.createFile(path);
             Files.write(path, response.body().getBytes(StandardCharsets.UTF_8));
