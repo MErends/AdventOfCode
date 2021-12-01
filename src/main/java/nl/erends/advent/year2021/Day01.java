@@ -35,8 +35,7 @@ public class Day01 extends AbstractProblem<List<Integer>, Integer> {
 
     private int countDepthIncreases(List<Integer> depthList) {
         return (int) IntStream.range(0, depthList.size() - 1)
-                .mapToObj(index -> depthList.get(index + 1) > depthList.get(index))
-                .filter(b -> b)
+                .filter(index -> depthList.get(index + 1) > depthList.get(index))
                 .count();
     }
 }
