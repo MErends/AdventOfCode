@@ -1,6 +1,7 @@
 package nl.erends.advent.util;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public abstract class AbstractProblem<T, U> {
     
@@ -8,7 +9,7 @@ public abstract class AbstractProblem<T, U> {
     
     protected U answer2;
     
-    protected static final Logger LOG = Logger.getLogger(AbstractProblem.class);
+    protected static final Logger LOG = LogManager.getLogger(AbstractProblem.class);
     
     public void setInput(T input) {
         this.input = input;

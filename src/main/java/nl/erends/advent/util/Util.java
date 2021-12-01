@@ -1,6 +1,7 @@
 package nl.erends.advent.util;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URI;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 
 public class Util {
     
-    private static final Logger LOG = Logger.getLogger(Util.class);
+    private static final Logger LOG = LogManager.getLogger(Util.class);
     
     private static final HttpClient httpClient = HttpClient.newBuilder()
             .version(HttpClient.Version.HTTP_2)
@@ -82,8 +83,10 @@ public class Util {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             Files.createFile(path);
             Files.write(path, response.body().getBytes(StandardCharsets.UTF_8));
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             throw new RuntimeException("Could not download input", e);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 

@@ -1,10 +1,11 @@
 package nl.erends.advent.util;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Timer {
     
-    private static final Logger LOG = Logger.getLogger(Timer.class);
+    private static final Logger LOG = LogManager.getLogger(Timer.class);
 
     private static long start1;
     private static long end1;
