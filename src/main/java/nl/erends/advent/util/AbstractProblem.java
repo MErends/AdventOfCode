@@ -26,9 +26,9 @@ public abstract class AbstractProblem<T, U> {
         Timer.end1();
         if (answer2 == null) {
             Timer.start2();
-            LOG.info(solve2());
-            Timer.end2();
         }
+        LOG.info(solve2());
+        Timer.end2();
         Timer.printStats();
     }
     
