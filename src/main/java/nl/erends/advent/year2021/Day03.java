@@ -23,11 +23,8 @@ public class Day03 extends AbstractProblem<List<String>, Integer> {
 
     @Override
     protected Integer solve1() {
-        List<String> longStrings = IntStream.range(0, input.get(0).length())
+        String gammaString = IntStream.range(0, input.get(0).length())
                 .mapToObj(index -> longString(input, index))
-                .collect(Collectors.toList());
-        
-        String gammaString = longStrings.stream()
                 .map(s -> countOnes(s) > s.length() / 2 ? "1" : "0")
                 .collect(Collectors.joining());
 
