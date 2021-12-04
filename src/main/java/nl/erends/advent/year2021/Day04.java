@@ -10,11 +10,14 @@ import java.util.stream.Collectors;
 
 /**
  * --- Day 4: Giant Squid ---
- * You play bingo with a giant squid. What are the scores of bingo boards that
- * are the first and last to win?
+ * You play bingo with a giant squid. What are the scores of the bingo boards
+ * that are the first and last to win?
  * <p><a href="https://adventofcode.com/2021/day/4">2021 Day 4</a>
  */
 public class Day04 extends AbstractProblem<List<String>, Integer> {
+    
+    private static final int CARD_SIZE = 5;
+    private static final int MARKED = -1;
     
     public static void main(String[] args) {
         new Day04().setAndSolve(Util.readInput(2021, 4));
@@ -22,13 +25,13 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
 
     @Override
     protected Integer solve1() {
-        List<Integer> drawnNumbers = Arrays.stream(input.get(0).split(","))
+        List<Integer> drawnNumbers = Arrays.stream(input.remove(0).split(","))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
-
+        input.removeIf(String::isEmpty);
         List<BingoCard> bingoCards = new ArrayList<>();
-        for (int lineNr = 2; lineNr < input.size(); lineNr += 6) {
-            bingoCards.add(new BingoCard(input.subList(lineNr, lineNr + 5)));
+        for (int lineNr = 0; lineNr < input.size(); lineNr += CARD_SIZE) {
+            bingoCards.add(new BingoCard(input.subList(lineNr, lineNr + CARD_SIZE)));
         }
 
         int answer1 = 0;
@@ -56,7 +59,7 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
         int[][] card = new int[5][5];
         
         BingoCard(List<String> cardStrings) {
-            for (int lineNr = 0; lineNr < cardStrings.size(); lineNr++) {
+            for (int lineNr = 0; lineNr < CARD_SIZE; lineNr++) {
                 card[lineNr] = Arrays.stream(cardStrings.get(lineNr).split(" "))
                         .filter(s -> !s.isEmpty())
                         .mapToInt(Integer::parseInt)
@@ -65,10 +68,10 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
         }
         
         void mark(int mark) {
-            for (int y = 0; y < card.length; y++) {
-                for (int x = 0; x < card[y].length; x++) {
+            for (int y = 0; y < CARD_SIZE; y++) {
+                for (int x = 0; x < CARD_SIZE; x++) {
                     if (card[y][x] == mark) {
-                        card[y][x] = -1;
+                        card[y][x] = MARKED;
                         return;
                     }
                 }
@@ -77,24 +80,28 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
         
         boolean isWinner() {
             for (int[] line : card) {
-                int sum = line[0] + line[1] + line[2] + line[3] + line[4];
-                if (sum == -5) {
+                int sum = Arrays.stream(line).sum();
+                if (sum == CARD_SIZE * MARKED) {
                     return true;
                 }
             }
-            for (int col = 0; col < card[0].length; col++) {
-                int sum = card[0][col] + card[1][col] + card[2][col] + card[3][col] + card[4][col];
-                if (sum == -5) {
+            for (int col = 0; col < CARD_SIZE; col++) {
+                int sum = 0;
+                for (int line = 0; line < CARD_SIZE; line ++) {
+                    sum += card[line][col];
+                }
+                if (sum == CARD_SIZE * MARKED) {
                     return true;
                 }
             }
+            // Here lived the code to check the diagonals :(
             return false;
         }
         
         int unmarkedTotal() {
             return Arrays.stream(card)
                     .flatMapToInt(Arrays::stream)
-                    .filter(i -> i != -1)
+                    .filter(i -> i != MARKED)
                     .sum();
         }
     }
