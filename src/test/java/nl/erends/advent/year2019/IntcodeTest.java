@@ -63,4 +63,19 @@ class IntcodeTest {
         String output = outputList.stream().map(String::valueOf).collect(Collectors.joining(","));
         assertThat(input, is(output));
     }
+    
+    @Test
+    void easterEggTest() {
+        Intcode intcode = new Intcode(Util.readLine(2021, 7));
+        StringBuilder sb = new StringBuilder();
+        while (true) {
+            intcode.execute();
+            if (intcode.isHalted()) {
+                break;
+            } else {
+                sb.append((char) intcode.getOutput().longValue());
+            }
+        }
+        assertThat(sb.toString(), is("Ceci n'est pas une intcode program\n"));
+    }
 }
