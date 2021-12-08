@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * --- Day 8:
+ * --- Day 8: Seven Segment Search ---
  * <p>As your submarine slowly makes its way through the cave system, you notice
  * that the four-digit seven-segment displays in your submarine are
  * malfunctioning. For each entry, determine all of the wire/segment connections
