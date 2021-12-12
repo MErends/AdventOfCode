@@ -21,9 +21,7 @@ import java.util.Set;
 public class Day12 extends AbstractProblem<List<String>, Integer> {
 
     private final Map<String, Set<String>> segments = new HashMap<>();
-    private static final String start = "start";
-    private int numPaths = 0;
-    private int numPaths2 = 0;
+    private static final String START = "start";
 
     public static void main(String[] args) {
         new Day12().setAndSolve(Util.readInput(2021, 12));
@@ -36,46 +34,31 @@ public class Day12 extends AbstractProblem<List<String>, Integer> {
             segments.computeIfAbsent(pathSplit[0], k -> new HashSet<>()).add(pathSplit[1]);
             segments.computeIfAbsent(pathSplit[1], k -> new HashSet<>()).add(pathSplit[0]);
         }
-        traverse(new ArrayList<>(), start);
-        traverse2(new ArrayList<>(), start, false);
-        answer2 = numPaths2;
+        int numPaths = countPaths(new ArrayList<>(), START, true);
+        answer2 = countPaths(new ArrayList<>(), START, false);
         return numPaths;
     }
     
-    private void traverse(List<String> currentPath, String destination) {
-        if (destination.toLowerCase().equals(destination) && currentPath.contains(destination)) {
-            return;
+    private int countPaths(List<String> currentPath, String destination, boolean hadDuplicate) {
+        if (destination.equals(START) && currentPath.contains(START)) {
+            return 0;
         }
         if (destination.equals("end")) {
-            numPaths++;
-            return;
-        }
-        for (String newDestination : segments.get(destination)) {
-            List<String> newCurrentPath = new ArrayList<>(currentPath);
-            newCurrentPath.add(destination);
-            traverse(newCurrentPath, newDestination);
-        }
-    }
-    
-    private void traverse2(List<String> currentPath, String destination, boolean hadDuplicate) {
-        if (destination.equals(start) && currentPath.contains(start)) {
-            return;
-        }
-        if (destination.equals("end")) {
-            numPaths2++;
-            return;
+            return 1;
         }
         if (destination.toLowerCase().equals(destination) && currentPath.contains(destination)) {
             if (hadDuplicate) {
-                return;
+                return 0;
             } else {
                 hadDuplicate = true;
             }
         }
+        int paths = 0;
         for (String newDestination : segments.get(destination)) {
             List<String> newCurrentPath = new ArrayList<>(currentPath);
             newCurrentPath.add(destination);
-            traverse2(newCurrentPath, newDestination, hadDuplicate);
+            paths += countPaths(newCurrentPath, newDestination, hadDuplicate);
         }
+        return paths;
     }
 }
