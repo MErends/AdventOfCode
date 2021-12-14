@@ -12,10 +12,10 @@ import java.util.Set;
 
 /**
  * --- Day 12: Passage Pathing ---
- * The only way you're getting out of this cave anytime soon is byfinding a path
- * yourself. How many paths through this cave system are there that visit small
- * caves at most once? How many paths are there when you can visit a single
- * small cave twice?
+ * <p>The only way you're getting out of this cave anytime soon is by finding a
+ * path yourself. How many paths through this cave system are there that visit
+ * small caves at most once? How many paths are there when you can visit a
+ * single small cave twice?
  * <p><a href="https://adventofcode.com/2021/day/12">2021 Day 12</a>
  */
 public class Day12 extends AbstractProblem<List<String>, Integer> {

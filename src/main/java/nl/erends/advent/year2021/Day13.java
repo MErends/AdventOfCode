@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 /**
  * --- Day 13: Transparent Origami ---
- * The transparent paper is marked with random dots and includes instructions on
- * how to fold it up. Finish folding the transparent paper according to the
+ * <p>The transparent paper is marked with random dots and includes instructions
+ * on how to fold it up. Finish folding the transparent paper according to the
  * instructions. The manual says the code is always eight capital letters. What
  * code do you use to activate the infrared thermal imaging camera system?
  * <p><a href="https://adventofcode.com/2021/day/13">2021 Day 13</a>
