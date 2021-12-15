@@ -71,39 +71,19 @@ public class Day15 extends AbstractProblem<List<String>,Integer> {
         }
         int localRisk = getRisk(x, y);
 
-        int neighborValue = getgrid(x, y - 1);
+        addGridPoint(x, y - 1, localRisk);
+        addGridPoint(x - 1, y, localRisk);
+        addGridPoint(x, y + 1, localRisk);
+        addGridPoint(x + 1, y, localRisk);
+    }
+    
+    private void addGridPoint(int x, int y, int localRisk) {
+        int neighborValue = getgrid(x, y);
         if (neighborValue != Integer.MAX_VALUE) {
             int neighborRisk = localRisk + neighborValue;
-            if (neighborRisk < getRisk(x, y - 1)) {
-                riskMap.put(x + "," + (y - 1), neighborRisk);
-                gridPoints.add(new GridPoint(x, y - 1, neighborRisk));
-            }
-        }
-
-        neighborValue = getgrid(x - 1, y);
-        if (neighborValue != Integer.MAX_VALUE) {
-            int neighborRisk = localRisk + neighborValue;
-            if (neighborRisk < getRisk(x - 1, y)) {
-                riskMap.put(x - 1 + "," + y, neighborRisk);
-                gridPoints.add(new GridPoint(x - 1, y, neighborRisk));
-            }
-        }
-
-        neighborValue = getgrid(x, y + 1);
-        if (neighborValue != Integer.MAX_VALUE) {
-            int neighborRisk = localRisk + neighborValue;
-            if (neighborRisk < getRisk(x, y + 1)) {
-                riskMap.put(x + "," + (y + 1), neighborRisk);
-                gridPoints.add(new GridPoint(x, y + 1, neighborRisk));
-            }
-        }
-
-        neighborValue = getgrid(x + 1, y);
-        if (neighborValue != Integer.MAX_VALUE) {
-            int neighborRisk = localRisk + neighborValue;
-            if (neighborRisk < getRisk(x + 1, y)) {
-                riskMap.put(x + 1 + "," + y, neighborRisk);
-                gridPoints.add(new GridPoint(x + 1, y, neighborRisk));
+            if (neighborRisk < getRisk(x, y)) {
+                riskMap.put(x + "," + y, neighborRisk);
+                gridPoints.add(new GridPoint(x, y, neighborRisk));
             }
         }
     }
