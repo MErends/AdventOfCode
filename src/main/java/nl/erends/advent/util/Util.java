@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 
 public class Util {
     
+    public static final int ASCII_OFFSET = 48;
+    
     private static final Logger LOG = LogManager.getLogger(Util.class);
     
     private static final HttpClient httpClient = HttpClient.newBuilder()

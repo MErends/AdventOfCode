@@ -6,6 +6,8 @@ import nl.erends.advent.util.Util;
 import java.util.Arrays;
 import java.util.List;
 
+import static nl.erends.advent.util.Util.ASCII_OFFSET;
+
 /**
  * --- Day 11: Dumbo Octopus ---
  * <p>You enter a large cavern full of rare bioluminescent dumbo octopuses! Each
@@ -17,7 +19,6 @@ import java.util.List;
  */
 public class Day11 extends AbstractProblem<List<String>, Integer> {
 
-    private static final int ASCII_OFFSET = 48;
     private int[][] grid;
     
     public static void main(String[] args) {
