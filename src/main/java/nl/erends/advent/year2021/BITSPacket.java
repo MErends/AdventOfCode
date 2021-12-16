@@ -7,86 +7,64 @@ import java.util.stream.LongStream;
 
 public class BITSPacket {
     
-    private String stringRemain;
-    private int version;
-    private int typeID;
+    private static StringBuilder binaryString;
+    private static int pointer;
+    
+    private final int version;
+    private final int typeID;
     private long literalValue;
     private final List<BITSPacket> subPackets = new ArrayList<>();
     
     public static BITSPacket of(String hexString) {
-        String binaryString = parseHexstring(hexString);
-        return sub(binaryString);
+        pointer = 0;
+        binaryString = new StringBuilder(hexString.chars()
+                .mapToObj(c -> leftPad(Integer.toBinaryString(Integer.parseInt("" + (char) c, 16))))
+                .collect(Collectors.joining()));
+        return new BITSPacket();
     }
     
-    private static BITSPacket sub(String binaryString) {
-        BITSPacket bitsPacket = new BITSPacket();
-        String versionString = binaryString.substring(0, 3);
-        binaryString = binaryString.substring(3);
-        bitsPacket.version = Integer.parseInt(versionString, 2);
-        
-        String typeIDString = binaryString.substring(0, 3);
-        binaryString = binaryString.substring(3);
-        bitsPacket.typeID = Integer.parseInt(typeIDString, 2);
-        
-        if (bitsPacket.typeID == 4) {
-            StringBuilder literalString = new StringBuilder();
+    private BITSPacket() {
+        version = Integer.parseInt(getBits(3), 2);
+        typeID = Integer.parseInt(getBits(3), 2);
+        if (typeID == 4) {
+            StringBuilder literal = new StringBuilder();
             while (true) {
-                String litBit = binaryString.substring(0, 5);
-                binaryString = binaryString.substring(5);
-                literalString.append(litBit.substring(1));
-                if (litBit.charAt(0) == '0') {
+                String lastBit = getBits(1);
+                literal.append(getBits(4));
+                if ("0".equals(lastBit)) {
                     break;
                 }
             }
-            bitsPacket.literalValue = Long.parseLong(literalString.toString(), 2);
+            literalValue = Long.parseLong(literal.toString(), 2);
+            return;
+        }
+        if ("0".equals(getBits(1))) {
+            int subpackageLength = Integer.parseInt(getBits(15), 2);
+            int pointerBefore = pointer;
+            while (pointer != pointerBefore + subpackageLength) {
+                BITSPacket subpacket = new BITSPacket();
+                subPackets.add(subpacket);
+            }
         } else {
-            String lengthID = binaryString.substring(0, 1);
-            binaryString = binaryString.substring(1);
-            if (lengthID.equals("0")) {
-                int subpackageLength = Integer.parseInt(binaryString.substring(0, 15), 2);
-                binaryString = binaryString.substring(15);
-                String subpackageBits = binaryString.substring(0, subpackageLength);
-                binaryString = binaryString.substring(subpackageLength);
-                while (!subpackageBits.isEmpty()) {
-                    BITSPacket subpacket = BITSPacket.sub(subpackageBits);
-                    subpackageBits = subpacket.stringRemain;
-                    bitsPacket.subPackets.add(subpacket);
-                }
-            } else {
-                int subPackageCount = Integer.parseInt(binaryString.substring(0, 11), 2);
-                binaryString = binaryString.substring(11);
-                for (int i = 0; i < subPackageCount; i++) {
-                    BITSPacket subpacket = BITSPacket.sub(binaryString);
-                    bitsPacket.subPackets.add(subpacket);
-                    binaryString = subpacket.stringRemain;
-                }
+            int subpackageCount = Integer.parseInt(getBits(11), 2);
+            for (int i = 0; i < subpackageCount; i++) {
+                BITSPacket subpacket = new BITSPacket();
+                subPackets.add(subpacket);
             }
         }
-        bitsPacket.stringRemain = binaryString;
-        return bitsPacket;
     }
-    
-    private static String parseHexstring(String hexString) {
-        return hexString.chars()
-                .mapToObj(c -> leftPad(Integer.toBinaryString(Integer.parseInt("" + (char)c, 16))))
-                .collect(Collectors.joining());
-    }
-    
+
     private static String leftPad(String input) {
-        StringBuilder inputBuilder = new StringBuilder(input);
-        while (inputBuilder.length() != 4) {
-            inputBuilder.insert(0, '0');
-        }
-        input = inputBuilder.toString();
-        return input;
+        String zeroes = LongStream.range(0, 4L - input.length())
+                .mapToObj(i -> "0")
+                .collect(Collectors.joining());
+        return zeroes + input;
     }
     
     int getTotalVersions() {
-        int totalVersions = version;
-        for (BITSPacket sub : subPackets) {
-            totalVersions += sub.getTotalVersions();
-        }
-        return totalVersions;
+        return version + subPackets.stream()
+                .mapToInt(BITSPacket::getTotalVersions)
+                .sum();
     }
     
     public long getValue() {
@@ -95,7 +73,7 @@ public class BITSPacket {
             case 0:
                 return valueStream.sum();
             case 1:
-                return valueStream.reduce(1L , (p1, p2) -> p1 * p2);
+                return valueStream.reduce(1L, (p1, p2) -> p1 * p2);
             case 2:
                 return valueStream.min().orElseThrow();
             case 3:
@@ -108,7 +86,14 @@ public class BITSPacket {
                 return subPackets.get(0).getValue() < subPackets.get(1).getValue() ? 1L : 0L;
             case 7:
                 return subPackets.get(0).getValue() == subPackets.get(1).getValue() ? 1L : 0L;
+            default:
+                throw new IllegalArgumentException();
         }
-        throw new IllegalArgumentException();
+    }
+    
+    private static String getBits(int numBits) {
+        String s = binaryString.substring(pointer, pointer + numBits);
+        pointer += numBits;
+        return s;
     }
 }
