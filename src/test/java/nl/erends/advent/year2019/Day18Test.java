@@ -10,7 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 class Day18Test {
 
     @Test
-    @Disabled
+    @Disabled("Werkt nog niet")
     void day18Test1() {
         Day18 problem = new Day18();
         problem.setInput(Util.readInput(2019, 18, 1));

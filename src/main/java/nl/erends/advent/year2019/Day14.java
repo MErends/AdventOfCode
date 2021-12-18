@@ -47,9 +47,9 @@ public class Day14 extends AbstractProblem<List<String>, Integer> {
     private void resolveResource(String resource, int amountNeeded) {
         Map.Entry<String, List<String>> recipe = recipies.entrySet().stream()
                 .filter(e -> e.getKey().contains(resource)).findFirst().orElseThrow(IllegalStateException::new);
-        int yield = Integer.parseInt(recipe.getKey().split(" ")[0]);
+        int result = Integer.parseInt(recipe.getKey().split(" ")[0]);
         int multiplier = 1;
-        while (multiplier * yield < amountNeeded) {
+        while (multiplier * result < amountNeeded) {
             multiplier++;
         }
         int finalMultiplier = multiplier;

@@ -122,9 +122,7 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
                 fellAsleep = event.dateTime;
                 break;
             case WAKES_UP:
-                if (!guardAtMinuteAsleepMap.containsKey(guardId)) {
-                    guardAtMinuteAsleepMap.put(guardId, new HashMap<>());
-                }
+                guardAtMinuteAsleepMap.putIfAbsent(guardId, new HashMap<>());
                 minutesAsleepMap = guardAtMinuteAsleepMap.get(guardId);
                 for (int minute = fellAsleep.getMinute(); minute < event.dateTime.getMinute(); minute++) {
                     if (minutesAsleepMap.containsKey(minute)) {

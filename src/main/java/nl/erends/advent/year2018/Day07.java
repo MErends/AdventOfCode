@@ -98,9 +98,7 @@ public class Day07 extends AbstractProblem<List<String>, String> {
             String step = words[7];
             String requires = words[1];
             steps.merge(step, requires, String::concat);
-            if (!steps.containsKey(requires)) {
-                steps.put(requires, "");
-            }
+            steps.putIfAbsent(requires, "");
         }
     }
     
@@ -115,11 +113,8 @@ public class Day07 extends AbstractProblem<List<String>, String> {
         return step.charAt(0) - 64 + jobTime;
     }
 
-    public void setWorkerCount(int workerCount) {
-        this.workerCount = workerCount;
-    }
-
-    public void setJobTime(int jobTime) {
-        this.jobTime = jobTime;
+    void setTestParams() {
+        this.workerCount = 2;
+        this.jobTime = 0;
     }
 }

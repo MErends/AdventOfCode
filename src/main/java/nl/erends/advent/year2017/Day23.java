@@ -27,15 +27,15 @@ public class Day23 extends AbstractProblem<List<String>, Integer> {
                     setMemory(words[1], getMemory(words[2]));
                     break;
                 case "sub":
-                    setMemory(words[1], getMemory(words[1]) - (long) getMemory(words[2]));
+                    setMemory(words[1], getMemory(words[1]) - getMemory(words[2]));
                     break;
                 case "mul":
-                    setMemory(words[1], getMemory(words[1]) * (long) getMemory(words[2]));
+                    setMemory(words[1], getMemory(words[1]) * getMemory(words[2]));
                     timesMultiplied++;
                     break;
                 case "jnz":
                     if (getMemory(words[1]) != 0) {
-                        pointer += (long) getMemory(words[2]);
+                        pointer += getMemory(words[2]);
                         continue;
                     }
                     break;

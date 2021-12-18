@@ -32,9 +32,9 @@ public class Day19 extends AbstractProblem<List<String>, Integer> {
         for (char c : line.toCharArray()) {
             if (Character.isUpperCase(c)) totalLength++;
         }
-        line = line.replaceAll("Rn", "(");
-        line = line.replaceAll("Ar", ")");
-        line = line.replaceAll("Y", ",");
+        line = line.replace("Rn", "(");
+        line = line.replace("Ar", ")");
+        line = line.replace("Y", ",");
         int parentheses = countOccurences(line, '(');
         parentheses += countOccurences(line, ')');
         int commas = countOccurences(line, ',');

@@ -1,34 +1,23 @@
 package nl.erends.advent.year2016;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-
 class Day17Test {
 
-    @Test
-    void day17Test1() {
+    @ParameterizedTest
+    @CsvSource({
+            "ihgpwlah, DDRRRD, 370",
+            "kglvqrro, DDUDRLRRUDRD, 492",
+            "ulqzkmiv, DRURDRUDDLLDLUURRDULRLDUUDDDRR, 830"
+    })
+    void day17Test(String input, String result1, String result2) {
         Day17 problem = new Day17();
-        problem.setInput("ihgpwlah");
-        assertThat(problem.solve1(), is("DDRRRD"));
-        assertThat(problem.solve2(), is("370"));
-    }
-
-    @Test
-    void day17Test2() {
-        Day17 problem = new Day17();
-        problem.setInput("kglvqrro");
-        assertThat(problem.solve1(), is("DDUDRLRRUDRD"));
-        assertThat(problem.solve2(), is("492"));
-    }
-
-    @Test
-    void day17Test3() {
-        Day17 problem = new Day17();
-        problem.setInput("ulqzkmiv");
-        assertThat(problem.solve1(), is("DRURDRUDDLLDLUURRDULRLDUUDDDRR"));
-        assertThat(problem.solve2(), is("830"));
+        problem.setInput(input);
+        assertThat(problem.solve1(), is(result1));
+        assertThat(problem.solve2(), is(result2));
     }
 }

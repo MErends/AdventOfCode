@@ -37,11 +37,10 @@ public class Timer {
 
     static void printStats() {
         if (start2 == 0) {
-            LOG.info("Part 1 & 2:\t" + (end1 - start1) + " millis.");
+            LOG.info("Part 1 & 2:\t{} millis.", end1 - start1);
         } else {
-            LOG.info("Part 1:\t" + (end1 - start1) + " millis.\n" +
-                    "Part 2:\t" + (end2 - start2) + " millis.\n" +
-                    "Total:\t" + (end2 - start1) + " millis.");
+            LOG.info("Part 1:\t{} millis.\nPart 2:\t{} millis.\nTotal:\t{} millis.",
+                    end1 - start1, end2 - start2, end2 - start1);
         }
     }
 
@@ -49,7 +48,7 @@ public class Timer {
         count++;
         long now = System.currentTimeMillis() / 1000;
         if (currentSecond != now) {
-            LOG.info(count + " tps");
+            LOG.info("{} tps", count);
             currentSecond = now;
             count = 0;
         }

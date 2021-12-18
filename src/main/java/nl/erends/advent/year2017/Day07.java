@@ -87,7 +87,8 @@ public class Day07 extends AbstractProblem<List<String>, String> {
             Map<Integer, List<String>> effectiveWeightMap = new HashMap<>();
             for (String support : supports) {
                 Node node = nodes.get(support);
-                effectiveWeightMap.computeIfAbsent(node.getEffectiveWeight(), ArrayList::new).add(node.name);
+                effectiveWeightMap.computeIfAbsent(node.getEffectiveWeight(), n -> new ArrayList<>())
+                        .add(node.name);
             }
             Node wrongNode = null;
             int correctEffectiveWeight = 0;

@@ -47,7 +47,7 @@ public class Util {
         try {
             return Files.readAllLines(path);
         } catch (IOException e) {
-            LOG.error("Could not read from: " + location, e);
+            LOG.error("Could not read from: {}", location, e);
         }
         return new ArrayList<>();
     }
@@ -86,7 +86,7 @@ public class Util {
             Files.createFile(path);
             Files.write(path, response.body().getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
-            throw new RuntimeException("Could not download input", e);
+            LOG.error("Could not download input", e);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

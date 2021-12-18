@@ -68,16 +68,23 @@ public class BITSPacket {
     }
     
     public long getValue() {
-        LongStream valueStream = subPackets.stream().mapToLong(BITSPacket::getValue);
         switch (typeID) {
             case 0:
-                return valueStream.sum();
+                return subPackets.stream()
+                        .mapToLong(BITSPacket::getValue)
+                        .sum();
             case 1:
-                return valueStream.reduce(1L, (p1, p2) -> p1 * p2);
+                return subPackets.stream()
+                        .mapToLong(BITSPacket::getValue)
+                        .reduce(1L, (p1, p2) -> p1 * p2);
             case 2:
-                return valueStream.min().orElseThrow();
+                return subPackets.stream()
+                        .mapToLong(BITSPacket::getValue)
+                        .min().orElseThrow();
             case 3:
-                return valueStream.max().orElseThrow();
+                return subPackets.stream()
+                        .mapToLong(BITSPacket::getValue)
+                        .max().orElseThrow();
             case 4:
                 return literalValue;
             case 5:
