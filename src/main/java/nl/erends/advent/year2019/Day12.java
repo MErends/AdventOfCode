@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import static nl.erends.advent.util.Util.lcm;
 
-public class Day12 extends AbstractProblem<List<String>, Long> {
+public class Day12 extends AbstractProblem<List<String>, Number> {
 
     private int maxSteps = 1000;
 
@@ -19,14 +19,14 @@ public class Day12 extends AbstractProblem<List<String>, Long> {
     }
 
     @Override
-    public Long solve1() {
+    public Integer solve1() {
         List<Moon> moons = readInput();
         int steps = 0;
         while (steps != maxSteps) {
             doStep(moons);
             steps++;
         }
-        return (long) moons.stream().mapToInt(Moon::getEnergy).sum();
+        return moons.stream().mapToInt(Moon::getEnergy).sum();
     }
 
     @Override

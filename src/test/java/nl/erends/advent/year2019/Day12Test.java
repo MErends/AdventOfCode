@@ -13,7 +13,7 @@ class Day12Test {
         Day12 problem = new Day12();
         problem.setInput(Util.readInput(2019, 12, 1));
         problem.setMaxSteps(10);
-        assertThat(problem.solve1(), is(179L));
+        assertThat(problem.solve1(), is(179));
         assertThat(problem.solve2(), is(2772L));
     }
 
@@ -22,8 +22,7 @@ class Day12Test {
         Day12 problem = new Day12();
         problem.setInput(Util.readInput(2019, 12, 2));
         problem.setMaxSteps(100);
-        assertThat(problem.solve1(), is(1940L));
+        assertThat(problem.solve1(), is(1940));
         assertThat(problem.solve2(), is(4686774924L));
     }
-
 }

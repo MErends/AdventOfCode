@@ -12,16 +12,16 @@ import nl.erends.advent.util.Util;
  * represented by your hexadecimal-encoded BITS transmission.
  * <p><a href="https://adventofcode.com/2021/day/16">2021 Day 16</a>
  */
-public class Day16 extends AbstractProblem<String,Long> {
+public class Day16 extends AbstractProblem<String, Number> {
     
     public static void main(String[] args) {
         new Day16().setAndSolve(Util.readLine(2021, 16));
     }
 
     @Override
-    public Long solve1() {
+    public Integer solve1() {
         BITSPacket packet = BITSPacket.of(input);
         answer2 = packet.getValue();
-        return (long) packet.getTotalVersions();
+        return packet.getTotalVersions();
     }
 }

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Day12 extends AbstractProblem<List<String>, Long> {
+public class Day12 extends AbstractProblem<List<String>, Number> {
     
     private final Map<String, Character> mapping = new HashMap<>();
     private final List<Integer> sums = new ArrayList<>();
@@ -19,12 +19,12 @@ public class Day12 extends AbstractProblem<List<String>, Long> {
     }
     
     @Override
-    public Long solve1() {
+    public Integer solve1() {
         State state = new State(readInput());
         for (int i = 0; i < 20; i++) {
             state.iterate();
         }
-        return (long) state.getSum();
+        return state.getSum();
     }
 
     @Override

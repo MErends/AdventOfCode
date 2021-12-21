@@ -5,7 +5,7 @@ import nl.erends.advent.util.Util;
 
 import java.util.List;
 
-public class Day20 extends AbstractProblem<List<String>, Long> {
+public class Day20 extends AbstractProblem<List<String>, Number> {
     
     private long maxValue = 4294967295L;
 
@@ -19,7 +19,7 @@ public class Day20 extends AbstractProblem<List<String>, Long> {
     }
 
     @Override
-    public Long solve2() {
+    public Integer solve2() {
     int numFree = 0;
         long pointer = 0;
         while (true) {
@@ -29,7 +29,7 @@ public class Day20 extends AbstractProblem<List<String>, Long> {
             numFree += (takenOne - freeOne);
             pointer = takenOne;
         }
-        return (long) numFree;
+        return numFree;
     }
     
     private long nextFree(long blocked) {

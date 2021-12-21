@@ -10,14 +10,14 @@ import java.util.stream.Collectors;
 
 import static nl.erends.advent.util.Util.lcm;
 
-public class Day13 extends AbstractProblem<List<String>, Long> {
+public class Day13 extends AbstractProblem<List<String>, Number> {
 
     public static void main(String[] args) {
         new Day13().setAndSolve(Util.readInput(2020, 13));
     }
 
     @Override
-    public Long solve1() {
+    public Integer solve1() {
         int time = Integer.parseInt(input.get(0));
         List<Integer> busIDs = Arrays.stream(input.get(1).split(","))
                 .filter(s -> !s.equals("x"))
@@ -32,7 +32,7 @@ public class Day13 extends AbstractProblem<List<String>, Long> {
                 targetBus = busId;
             }
         }
-        return (long) minWait * targetBus;
+        return minWait * targetBus;
     }
     
     @Override

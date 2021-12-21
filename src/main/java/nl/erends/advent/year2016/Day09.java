@@ -3,14 +3,14 @@ package nl.erends.advent.year2016;
 import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
-public class Day09 extends AbstractProblem<String, Long> {
+public class Day09 extends AbstractProblem<String, Number> {
 
     public static void main(String[] args) {
         new Day09().setAndSolve(Util.readLine(2016, 9));
     }
     
     @Override
-    public Long solve1() {
+    public Integer solve1() {
         String line = input;
         StringBuilder output = new StringBuilder();
         while (line.contains("(")) {
@@ -29,7 +29,7 @@ public class Day09 extends AbstractProblem<String, Long> {
             line = line.substring(numChars);
         }
         output.append(line);
-        return (long) output.length();
+        return output.length();
     }
     
     @Override

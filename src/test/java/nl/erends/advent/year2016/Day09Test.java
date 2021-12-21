@@ -15,7 +15,7 @@ class Day09Test {
             "A(2x2)BCD(2x2)EFG, 11",
             "(6x1)(1x3)A, 6"
     })
-    void day09Test1(String input, long result) {
+    void day09Test1(String input, int result) {
         Day09 problem = new Day09();
         problem.setInput(input);
         assertThat(problem.solve1(), is(result));
@@ -26,7 +26,7 @@ class Day09Test {
             "(3x3)XYZ, 9, 9",
             "X(8x2)(3x3)ABCY, 18, 20",
     })
-    void day09Test2(String input, long result1, long result2) {
+    void day09Test2(String input, int result1, long result2) {
         Day09 problem = new Day09();
         problem.setInput(input);
         assertThat(problem.solve1(), is(result1));

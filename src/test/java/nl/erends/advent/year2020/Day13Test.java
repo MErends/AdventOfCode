@@ -12,7 +12,7 @@ class Day13Test {
     void day13Test() {
         Day13 problem = new Day13();
         problem.setInput(Util.readInput(2020, 13, 1));
-        assertThat(problem.solve1(), is(295L));
+        assertThat(problem.solve1(), is(295));
         assertThat(problem.solve2(), is(1068781L));
     }
 }

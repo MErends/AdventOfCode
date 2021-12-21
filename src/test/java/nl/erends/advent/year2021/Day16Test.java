@@ -15,7 +15,7 @@ class Day16Test {
             "C0015000016115A2E0802F182340, 23",
             "A0016C880162017C3686B18A3D4780, 31"
     })
-    void day16Test1(String input, long result) {
+    void day16Test1(String input, int result) {
         Day16 problem = new Day16();
         problem.setInput(input);
         assertThat(problem.solve1(), is(result));

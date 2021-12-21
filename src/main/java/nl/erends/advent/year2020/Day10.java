@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Day10 extends AbstractProblem<List<Integer>, Long> {
+public class Day10 extends AbstractProblem<List<Integer>, Number> {
 
     private final Map<Integer, Integer> streakPermutationMap = new HashMap<>();
 
@@ -19,7 +19,7 @@ public class Day10 extends AbstractProblem<List<Integer>, Long> {
     }
 
     @Override
-    public Long solve1() {
+    public Integer solve1() {
         List<Integer> adapters = input.stream().sorted().collect(Collectors.toList());
         adapters.add(0, 0);
         int diffOf1 = 0;
@@ -33,7 +33,7 @@ public class Day10 extends AbstractProblem<List<Integer>, Long> {
             }
         }
         diffOf3++;
-        return (long) diffOf1 * diffOf3;
+        return diffOf1 * diffOf3;
     }
 
     @Override

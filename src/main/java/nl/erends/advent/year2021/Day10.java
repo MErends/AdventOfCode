@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * total syntax error score and autocomplete score for the incomplete lines.
  * <p><a href="https://adventofcode.com/2021/day/10">2021 Day 10</a>
  */
-public class Day10 extends AbstractProblem<List<String>, Long> {
+public class Day10 extends AbstractProblem<List<String>, Number> {
 
     private final Map<Character, Character> brackets = Map.of('<', '>', '{', '}', '[', ']', '(', ')');
     private final Map<Character, Integer> syntaxScore = Map.of(')', 3, ']', 57, '}', 1197, '>', 25137, '\0', 0);
@@ -27,7 +27,7 @@ public class Day10 extends AbstractProblem<List<String>, Long> {
     }
     
     @Override
-    protected Long solve1() {
+    protected Integer solve1() {
         List<LineParser> lineParsers = input.stream()
                 .map(LineParser::new)
                 .collect(Collectors.toList());
@@ -39,7 +39,7 @@ public class Day10 extends AbstractProblem<List<String>, Long> {
                 .collect(Collectors.toList());
         
         answer2 = scores.get(scores.size() / 2);
-        return (long) lineParsers.stream()
+        return lineParsers.stream()
                 .mapToInt(LineParser::syntaxScore)
                 .sum();
     }
