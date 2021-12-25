@@ -14,7 +14,7 @@ class Day20Test {
         Day20 problem = new Day20();
         problem.setInput(Util.readInput(2016, 20, 1));
         problem.setMaxValue(9);
-        assertThat(problem.solve1(), is(3));
+        assertThat(problem.solve1(), is(3L));
         assertThat(problem.solve2(), is(2));
     }
 }
