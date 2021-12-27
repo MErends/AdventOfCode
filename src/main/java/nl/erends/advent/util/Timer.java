@@ -45,10 +45,14 @@ public class Timer {
     }
 
     public static void tick() {
+        tick("");
+    }
+
+    public static void tick(Object message) {
         count++;
         long now = System.currentTimeMillis() / 1000;
         if (currentSecond != now) {
-            LOG.info("{} tps", count);
+            LOG.info("{} tps - {}", count, message);
             currentSecond = now;
             count = 0;
         }
