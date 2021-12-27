@@ -116,12 +116,6 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
         int cost = steps * stepCost.get(toRoomChar);
         toRoom.add(0, fromRoom.remove(0));
         newHotel.energy += cost;
-        if (newHotel.isSolved()) {
-            if (newHotel.energy < bestHotel.energy) {
-                bestHotel = newHotel;
-            }
-            return null;
-        }
         return newHotel;
     }
 
@@ -257,8 +251,7 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
             return "...........".equals(hallway)
                     && roomA.stream().allMatch(c -> c == 'A')
                     && roomB.stream().allMatch(c -> c == 'B')
-                    && roomC.stream().allMatch(c -> c == 'C')
-                    && roomD.stream().allMatch(c -> c == 'D');
+                    && roomC.stream().allMatch(c -> c == 'C');
         }
 
         @Override
