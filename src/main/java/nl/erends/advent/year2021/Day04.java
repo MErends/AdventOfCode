@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 /**
  * --- Day 4: Giant Squid ---
- * You play bingo with a giant squid. What are the scores of the bingo boards
+ * <p>You play bingo with a giant squid. What are the scores of the bingo boards
  * that are the first and last to win?
  * <p><a href="https://adventofcode.com/2021/day/4">2021 Day 4</a>
  */

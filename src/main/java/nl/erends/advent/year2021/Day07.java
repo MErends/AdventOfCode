@@ -6,7 +6,7 @@ import nl.erends.advent.util.Util;
 import java.util.Arrays;
 
 /**
- * --- Day 7:
+ * --- Day 7: The Treachery of Whales ---
  * <p>A giant whale has decided your submarine is its next meal. Suddenly, a
  * swarm of crabs zooms in to rescue you! Determine the horizontal position that
  * the crabs can align to using the least fuel possible. How much fuel must they
