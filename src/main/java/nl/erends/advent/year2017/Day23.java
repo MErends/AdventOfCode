@@ -73,7 +73,7 @@ public class Day23 extends AbstractProblem<List<String>, Integer> {
         //     if f
         //         h++
     
-    private boolean isPrime(int num) {
+    public static boolean isPrime(int num) {
         if (num < 2) return false;
         if (num == 2) return true;
         if (num % 2 == 0) return false;
