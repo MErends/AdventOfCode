@@ -6,6 +6,18 @@ import nl.erends.advent.util.Util;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * --- Day 1: Calorie Counting ---
+ * <p>Santa's reindeer typically eat regular reindeer food, but they need a lot
+ * of magical energy to deliver presents on Christmas. For that, their favorite
+ * snack is a special type of star fruit that only grows deep in the jungle. The
+ * Elves have brought you on their annual expedition to the grove where the
+ * fruit grows. The Elves take turns writing down the number of Calories
+ * contained by the various meals, snacks, rations, etc. that they've brought
+ * with them. Find the Elf carrying the most Calories. How many total Calories
+ * is that Elf carrying?
+ * <p><a href="https://adventofcode.com/2022/day/1">2022 Day 1</a>
+ */
 public class Day01 extends AbstractProblem<List<String>, Integer> {
 
     public static void main(String[] args) {
