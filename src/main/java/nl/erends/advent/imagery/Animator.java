@@ -36,8 +36,18 @@ public class Animator {
 
     private Animator() {
     }
-    
+
     public static void addGrid(char[][] grid) {
+        Color[][] colorGrid = new Color[grid.length][grid[0].length];
+        for (int y = 0; y < grid.length; y++) {
+            for (int x = 0; x < grid[y].length; x++) {
+                colorGrid[y][x] = colorMap.get(grid[y][x]);
+            }
+        }
+        colorList.add(colorGrid);
+    }
+
+    public static void addGrid(int[][] grid) {
         Color[][] colorGrid = new Color[grid.length][grid[0].length];
         for (int y = 0; y < grid.length; y++) {
             for (int x = 0; x < grid[y].length; x++) {
