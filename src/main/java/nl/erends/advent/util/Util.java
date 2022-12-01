@@ -16,6 +16,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Util {
     
@@ -105,5 +106,12 @@ public class Util {
 
     public static long lcm(long a, long b) {
         return (a * b) / gcd(a, b);
+    }
+
+    public static String leftPadWithZero(String input, int length) {
+        String zeroes = IntStream.range(0, length - input.length())
+                .mapToObj(i -> "0")
+                .collect(Collectors.joining());
+        return zeroes + input;
     }
 }

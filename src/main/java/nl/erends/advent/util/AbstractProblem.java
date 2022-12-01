@@ -1,5 +1,6 @@
 package nl.erends.advent.util;
 
+import nl.erends.advent.imagery.Animator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,6 +31,7 @@ public abstract class AbstractProblem<T, U> {
         LOG.info(solve2());
         Timer.end2();
         Timer.printStats();
+        Animator.makeGif();
     }
     
     protected abstract U solve1();

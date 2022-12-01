@@ -1,9 +1,10 @@
 package nl.erends.advent.year2021;
 
+import nl.erends.advent.util.Util;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.LongStream;
 
 public class BITSPacket {
     
@@ -18,7 +19,7 @@ public class BITSPacket {
     public static BITSPacket of(String hexString) {
         pointer = 0;
         binaryString = new StringBuilder(hexString.chars()
-                .mapToObj(c -> leftPad(Integer.toBinaryString(Integer.parseInt("" + (char) c, 16))))
+                .mapToObj(c -> Util.leftPadWithZero(Integer.toBinaryString(Integer.parseInt("" + (char) c, 16)), 4))
                 .collect(Collectors.joining()));
         return new BITSPacket();
     }
@@ -52,13 +53,6 @@ public class BITSPacket {
                 subPackets.add(subpacket);
             }
         }
-    }
-
-    private static String leftPad(String input) {
-        String zeroes = LongStream.range(0, 4L - input.length())
-                .mapToObj(i -> "0")
-                .collect(Collectors.joining());
-        return zeroes + input;
     }
     
     int getTotalVersions() {
