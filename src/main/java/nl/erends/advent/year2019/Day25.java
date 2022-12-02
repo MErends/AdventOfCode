@@ -6,6 +6,7 @@ import nl.erends.advent.util.Util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -13,17 +14,18 @@ import java.util.regex.Pattern;
 
 public class Day25 extends AbstractProblem<String, Integer> {
 
-    private static final boolean MANUAL = false;
+    private static boolean interactive = false;
     private static final String SOUTH = "south";
     private static final String NORTH = "north";
 
     public static void main(String[] args) {
+        interactive = args.length > 0 && "-i".equals(args[0]);
         new Day25().setAndSolve(Util.readLine(2019, 25));
     }
 
     @Override
     public Integer solve1() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
         Intcode computer = new Intcode(input);
         List<String> solution = Arrays.asList(SOUTH,
                 "take astronaut ice cream",
@@ -60,7 +62,7 @@ public class Day25 extends AbstractProblem<String, Integer> {
                 return Integer.parseInt(m.group());
             }
             String input = solution.get(index++);
-            if (MANUAL) {
+            if (interactive) {
                 try {
                     input = reader.readLine();
                 } catch (IOException e) {
