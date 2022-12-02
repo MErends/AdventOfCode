@@ -8,7 +8,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -80,12 +79,13 @@ public class Util {
                 .GET()
                 .uri(URI.create(String.format("https://adventofcode.com/%d/day/%d/input", year, day)))
                 .setHeader("Cookie", "session=" + System.getenv("session"))
+                .setHeader("User-Agent", "https://github.com/MErends/AdventOfCode/blob/main/src/main/java/nl/erends/advent/util/Util.java:44")
                 .build();
         try {
             LOG.info("Calling adventofcode.com!!");
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             Files.createFile(path);
-            Files.write(path, response.body().getBytes(StandardCharsets.UTF_8));
+            Files.writeString(path, response.body());
         } catch (IOException e) {
             LOG.error("Could not download input", e);
         } catch (InterruptedException e) {
