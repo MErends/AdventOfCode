@@ -58,7 +58,7 @@ public class Day10 extends AbstractProblem<List<Integer>, Number> {
 
     private int getPermutations(int streak) {
         if (!streakPermutationMap.containsKey(streak)) {
-            List<Integer> streakList = IntStream.rangeClosed(1, streak).boxed().collect(Collectors.toList());
+            List<Integer> streakList = IntStream.rangeClosed(1, streak).boxed().toList();
             streakPermutationMap.put(streak, countPermutations(streakList, 1));
         }
         return streakPermutationMap.get(streak);

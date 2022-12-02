@@ -279,25 +279,15 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
         }
     }
 
-    private static class GridState implements Comparable<GridState> {
-        final int x;
-        final int y;
-        final Gear presentGear;
-        final int time;
-        
+    private record GridState(int x, int y,
+                             Gear presentGear,
+                             int time) implements Comparable<GridState> {
         @Override
         public int compareTo(GridState other) {
             if (time != other.time) return Integer.compare(time, other.time);
             if (x != other.x) return Integer.compare(x, other.x);
             if (y != other.y) return Integer.compare(y, other.y);
             return presentGear == other.presentGear ? 0 : 1;
-        }
-
-        GridState(int x, int y, Gear presentGear, int time) {
-            this.x = x;
-            this.y = y;
-            this.presentGear = presentGear;
-            this.time = time;
         }
 
         @Override

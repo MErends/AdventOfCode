@@ -156,14 +156,7 @@ public class Day10 extends AbstractProblem<List<String>, Integer> {
             asteroid200 = closestAsteroid;
         }
     }
-    
-    private static class Asteroid {
-        private final int x;
-        private final int y;
 
-        Asteroid(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
+    private record Asteroid(int x, int y) {
     }
 }

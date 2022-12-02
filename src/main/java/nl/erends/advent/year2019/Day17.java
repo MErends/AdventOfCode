@@ -17,7 +17,7 @@ public class Day17 extends AbstractProblem<String, Integer> {
     }
 
     @Override
-    public Integer solve1() {
+    protected Integer solve1() {
         List<String> output = new ArrayList<>();
         Intcode robot = new Intcode(input);
         StringBuilder sb = new StringBuilder();
@@ -65,11 +65,13 @@ public class Day17 extends AbstractProblem<String, Integer> {
 
         Intcode robot = new Intcode(input);
         robot.setCode(0, 2);
-        String commands = "A,B,A,B,C,C,B,A,B,C\n" +
-                          "L,12,L,10,R,8,L,12\n" +
-                          "R,8,R,10,R,12\n" +
-                          "L,10,R,12,R,8\n" +
-                          "n\n";
+        String commands = """
+                A,B,A,B,C,C,B,A,B,C
+                L,12,L,10,R,8,L,12
+                R,8,R,10,R,12
+                L,10,R,12,R,8
+                n
+                """;
         for (char c : commands.toCharArray()) {
             robot.addInput((int) c);
         }
@@ -130,36 +132,19 @@ public class Day17 extends AbstractProblem<String, Integer> {
         int steps = 0;
         List<String> path = new ArrayList<>();
         while (true) {
-            char nextChar = '.';
-            switch (direction) {
-                case UP:
-                    nextChar = grid[y - 1][x];
-                    break;
-                case DOWN:
-                    nextChar = grid[y + 1][x];
-                    break;
-                case LEFT:
-                    nextChar = grid[y][x - 1];
-                    break;
-                case RIGHT:
-                    nextChar = grid[y][x + 1];
-                    break;
-            }
+            char nextChar = switch (direction) {
+                case UP -> grid[y - 1][x];
+                case DOWN -> grid[y + 1][x];
+                case LEFT -> grid[y][x - 1];
+                case RIGHT -> grid[y][x + 1];
+            };
             if (nextChar == '#') {
                 steps++;
                 switch (direction) {
-                    case UP:
-                        y--;
-                        break;
-                    case DOWN:
-                        y++;
-                        break;
-                    case LEFT:
-                        x--;
-                        break;
-                    case RIGHT:
-                        x++;
-                        break;
+                    case UP -> y--;
+                    case DOWN -> y++;
+                    case LEFT -> x--;
+                    case RIGHT -> x++;
                 }
             } else {
                 path.add(Integer.toString(steps));

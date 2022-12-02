@@ -62,34 +62,25 @@ public class BITSPacket {
     }
     
     public long getValue() {
-        switch (typeID) {
-            case 0:
-                return subPackets.stream()
-                        .mapToLong(BITSPacket::getValue)
-                        .sum();
-            case 1:
-                return subPackets.stream()
-                        .mapToLong(BITSPacket::getValue)
-                        .reduce(1L, (p1, p2) -> p1 * p2);
-            case 2:
-                return subPackets.stream()
-                        .mapToLong(BITSPacket::getValue)
-                        .min().orElseThrow();
-            case 3:
-                return subPackets.stream()
-                        .mapToLong(BITSPacket::getValue)
-                        .max().orElseThrow();
-            case 4:
-                return literalValue;
-            case 5:
-                return subPackets.get(0).getValue() > subPackets.get(1).getValue() ? 1L : 0L;
-            case 6:
-                return subPackets.get(0).getValue() < subPackets.get(1).getValue() ? 1L : 0L;
-            case 7:
-                return subPackets.get(0).getValue() == subPackets.get(1).getValue() ? 1L : 0L;
-            default:
-                throw new IllegalArgumentException();
-        }
+        return switch (typeID) {
+            case 0 -> subPackets.stream()
+                    .mapToLong(BITSPacket::getValue)
+                    .sum();
+            case 1 -> subPackets.stream()
+                    .mapToLong(BITSPacket::getValue)
+                    .reduce(1L, (p1, p2) -> p1 * p2);
+            case 2 -> subPackets.stream()
+                    .mapToLong(BITSPacket::getValue)
+                    .min().orElseThrow();
+            case 3 -> subPackets.stream()
+                    .mapToLong(BITSPacket::getValue)
+                    .max().orElseThrow();
+            case 4 -> literalValue;
+            case 5 -> subPackets.get(0).getValue() > subPackets.get(1).getValue() ? 1L : 0L;
+            case 6 -> subPackets.get(0).getValue() < subPackets.get(1).getValue() ? 1L : 0L;
+            case 7 -> subPackets.get(0).getValue() == subPackets.get(1).getValue() ? 1L : 0L;
+            default -> throw new IllegalArgumentException();
+        };
     }
     
     private static String getBits(int numBits) {

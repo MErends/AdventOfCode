@@ -3,7 +3,11 @@ package nl.erends.advent.year2018;
 import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Day24 extends AbstractProblem<List<String>, Integer> {
@@ -20,7 +24,6 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
     @Override
     public Integer solve1() {
         int answer1 = 0;
-        input.remove(0);
         boolean part1done = false;
         int boost = 0;
         while (true) {
@@ -29,8 +32,8 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
                     && groups.stream().anyMatch(g -> g.army == Army.INFECTION)) {
                 int totalUnits = groups.stream().mapToInt(g -> g.unitCount).sum();
                 groups.sort(Group.targetingComparator);
-                immunes = groups.stream().filter(g -> g.army == Army.IMMUNE).collect(Collectors.toList());
-                infections = groups.stream().filter(g -> g.army == Army.INFECTION).collect(Collectors.toList());
+                immunes = groups.stream().filter(g -> g.army == Army.IMMUNE).collect(Collectors.toCollection(ArrayList::new));
+                infections = groups.stream().filter(g -> g.army == Army.INFECTION).collect(Collectors.toCollection(ArrayList::new));
                 fillTargetMap();
                 groups.sort(Group.attackingComparator);
                 doAttacks();
@@ -76,7 +79,7 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
         for (String line : input) {
             if (line.contains("Infection:")) {
                 readingInfections = true;
-            } else if (!line.isEmpty()) {
+            } else if (!line.isEmpty() && !line.contains("Immune System:")) {
                 groups.add(new Group(line, readingInfections ? Army.INFECTION : Army.IMMUNE, boost));
             }
         }

@@ -5,7 +5,6 @@ import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Day09 extends AbstractProblem<List<String>, Long> {
     
@@ -19,7 +18,7 @@ public class Day09 extends AbstractProblem<List<String>, Long> {
 
     @Override
     public Long solve1() {
-        longInput = input.stream().map(Long::parseLong).collect(Collectors.toList());
+        longInput = input.stream().map(Long::parseLong).toList();
         List<Long> preamble = new ArrayList<>(longInput.subList(0, preambleSize));
         List<Long> candidates = new ArrayList<>(longInput.subList(preambleSize, input.size()));
         for (long candidate : candidates) {

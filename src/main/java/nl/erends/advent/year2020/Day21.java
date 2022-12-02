@@ -21,14 +21,14 @@ public class Day21 extends AbstractProblem<List<String>, String> {
 
     @Override
     public String solve1() {
-        List<Food> foods = input.stream().map(Food::new).collect(Collectors.toList());
+        List<Food> foods = input.stream().map(Food::new).toList();
         Map<String, String> badIngredients = new HashMap<>();
         Set<String> allergies = foods.stream().map(f -> f.allergies).flatMap(Collection::stream).collect(Collectors.toSet());
         while (!allergies.isEmpty()) {
             Iterator<String> it = allergies.iterator();
             while (it.hasNext()) {
                 String currentAllergy = it.next();
-                List<Food> possibleFood = foods.stream().filter(f -> f.allergies.contains(currentAllergy)).collect(Collectors.toList());
+                List<Food> possibleFood = foods.stream().filter(f -> f.allergies.contains(currentAllergy)).toList();
                 List<String> possibleIngredient = new ArrayList<>(possibleFood.get(0).ingredient);
                 possibleFood.forEach(pf -> possibleIngredient.removeIf(pi -> !pf.ingredient.contains(pi)));
                 possibleIngredient.removeIf(badIngredients::containsKey);

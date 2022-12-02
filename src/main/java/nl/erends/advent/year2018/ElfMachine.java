@@ -23,55 +23,23 @@ class ElfMachine {
             int b = Integer.parseInt(splitInstruction[2]);
             int c = Integer.parseInt(splitInstruction[3]);
             switch (operation) {
-                case "addr":
-                    addr(a, b, c);
-                    break;
-                case "addi":
-                    addi(a, b, c);
-                    break;
-                case "mulr":
-                    mulr(a, b, c);
-                    break;
-                case "muli":
-                    muli(a, b, c);
-                    break;
-                case "banr":
-                    banr(a, b, c);
-                    break;
-                case "bani":
-                    bani(a, b, c);
-                    break;
-                case "borr":
-                    borr(a, b, c);
-                    break;
-                case "bori":
-                    bori(a, b, c);
-                    break;
-                case "setr":
-                    setr(a, c);
-                    break;
-                case "seti":
-                    seti(a, c);
-                    break;
-                case "gtir":
-                    gtir(a, b, c);
-                    break;
-                case "gtri":
-                    gtri(a, b, c);
-                    break;
-                case "gtrr":
-                    gtrr(a, b, c);
-                    break;
-                case "eqir":
-                    eqir(a, b, c);
-                    break;
-                case "eqri":
-                    eqri(a, b, c);
-                    break;
-                case "eqrr":
-                    eqrr(a, b, c);
-                    break;
-                default:
+                case "addr" -> addr(a, b, c);
+                case "addi" -> addi(a, b, c);
+                case "mulr" -> mulr(a, b, c);
+                case "muli" -> muli(a, b, c);
+                case "banr" -> banr(a, b, c);
+                case "bani" -> bani(a, b, c);
+                case "borr" -> borr(a, b, c);
+                case "bori" -> bori(a, b, c);
+                case "setr" -> setr(a, c);
+                case "seti" -> seti(a, c);
+                case "gtir" -> gtir(a, b, c);
+                case "gtri" -> gtri(a, b, c);
+                case "gtrr" -> gtrr(a, b, c);
+                case "eqir" -> eqir(a, b, c);
+                case "eqri" -> eqri(a, b, c);
+                case "eqrr" -> eqrr(a, b, c);
+                default -> throw new IllegalArgumentException(operation);
             }
             if (pointerBound >= 0) {
                 pointer = memory.memory.get(pointerBound);
@@ -147,19 +115,19 @@ class ElfMachine {
         memory.set(c, memory.get(a) == memory.get(b) ? 1 : 0);
     }
 
-    public void setMemory(String memoryString) {
+    void setMemory(String memoryString) {
         memory = new Memorybank(memoryString);
     }
     
-    public String getMemoryString() {
+    String getMemoryString() {
         return memory.toString();
     }
     
-    public List<Integer> getMemory() {
+    List<Integer> getMemory() {
         return memory.memory;
     }
 
-    public void setPointerBound(int pointerBound) {
+    void setPointerBound(int pointerBound) {
         this.pointerBound = pointerBound;
     }
 

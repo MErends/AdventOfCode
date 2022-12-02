@@ -6,7 +6,6 @@ import nl.erends.advent.util.Util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static nl.erends.advent.util.Util.lcm;
 
@@ -22,7 +21,7 @@ public class Day13 extends AbstractProblem<List<String>, Number> {
         List<Integer> busIDs = Arrays.stream(input.get(1).split(","))
                 .filter(s -> !s.equals("x"))
                 .map(Integer::parseInt)
-                .collect(Collectors.toList());
+                .toList();
         int minWait = Integer.MAX_VALUE;
         int targetBus = 0;
         for (int busId : busIDs) {
@@ -62,13 +61,6 @@ public class Day13 extends AbstractProblem<List<String>, Number> {
         return time;
     }
 
-    private static class Bus {
-        final int id;
-        final int offset;
-
-        Bus(int id, int offset) {
-            this.id = id;
-            this.offset = offset;
-        }
+    private record Bus(int id, int offset) {
     }
 }

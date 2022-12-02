@@ -14,14 +14,16 @@ class Day10Test {
         Day10 problem = new Day10();
         problem.setInput(Util.readInput(2018, 10, 1));
         problem.setFontSize(8);
-        String answer1 = "#...#..###\n" +
-                         "#...#...#.\n" +
-                         "#...#...#.\n" +
-                         "#####...#.\n" +
-                         "#...#...#.\n" +
-                         "#...#...#.\n" +
-                         "#...#...#.\n" +
-                         "#...#..###\n";
+        String answer1 = """
+                #...#..###
+                #...#...#.
+                #...#...#.
+                #####...#.
+                #...#...#.
+                #...#...#.
+                #...#...#.
+                #...#..###
+                """;
 
         assertThat(problem.solve1(), is(answer1));
         assertThat(problem.solve2(), is("3"));

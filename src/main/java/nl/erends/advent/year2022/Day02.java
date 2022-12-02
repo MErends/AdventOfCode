@@ -43,15 +43,9 @@ public class Day02 extends AbstractProblem<List<String>, Integer> {
         for (String line : input) {
             Move them = Move.getMove(line.charAt(0));
             switch (line.charAt(2)) {
-                case 'X':
-                    score += Move.losesTo(them).score;
-                    break;
-                case 'Y':
-                    score += 3 + them.score;
-                    break;
-                default:
-                    score += 6 + Move.winsOver(them).score;
-                    break;
+                case 'X' -> score += Move.losesTo(them).score;
+                case 'Y' -> score += 3 + them.score;
+                default -> score += 6 + Move.winsOver(them).score;
             }
         }
         return score;
@@ -69,38 +63,27 @@ public class Day02 extends AbstractProblem<List<String>, Integer> {
         }
 
         static Move getMove(char in) {
-            switch (in) {
-                case 'A':
-                case 'X':
-                    return ROCK;
-                case 'B':
-                case 'Y':
-                    return PAPER;
-                default:
-                    return SCISSORS;
-            }
+            return switch (in) {
+                case 'A', 'X' -> ROCK;
+                case 'B', 'Y' -> PAPER;
+                default -> SCISSORS;
+            };
         }
 
         static Move losesTo(Move other) {
-            switch (other) {
-                case ROCK:
-                    return SCISSORS;
-                case PAPER:
-                    return ROCK;
-                default:
-                    return PAPER;
-            }
+            return switch (other) {
+                case ROCK -> SCISSORS;
+                case PAPER -> ROCK;
+                default -> PAPER;
+            };
         }
 
         static Move winsOver(Move other) {
-            switch (other) {
-                case ROCK:
-                    return PAPER;
-                case PAPER:
-                    return SCISSORS;
-                default:
-                    return ROCK;
-            }
+            return switch (other) {
+                case ROCK -> PAPER;
+                case PAPER -> SCISSORS;
+                default -> ROCK;
+            };
         }
     }
 }

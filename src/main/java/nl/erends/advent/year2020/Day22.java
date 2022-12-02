@@ -25,12 +25,12 @@ public class Day22 extends AbstractProblem<List<String>, Number> {
                 .skip(1)
                 .limit(splitIndex - 1)
                 .map(Integer::parseInt)
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(ArrayList::new));
 
         List<Integer> player2 = input.stream()
                 .skip(splitIndex + 2)
                 .map(Integer::parseInt)
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(ArrayList::new));
 
         int winner = findWinner(player1, player2, part2);
         List<Integer> winList = new ArrayList<>(winner == 2 ? player2 : player1);

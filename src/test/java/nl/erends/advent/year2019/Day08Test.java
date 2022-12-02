@@ -17,12 +17,14 @@ class Day08Test {
         
         problem = new Day08();
         problem.setInput(Util.readLine(2019, 8, 1));
-        String expected = "#### #  # ###  #  # #### \n" +
-                          "#    #  # #  # #  # #    \n" +
-                          "###  #### #  # #  # ###  \n" +
-                          "#    #  # ###  #  # #    \n" +
-                          "#    #  # # #  #  # #    \n" +
-                          "#### #  # #  #  ##  #### \n";
+        String expected = """
+                #### #  # ###  #  # ####\s
+                #    #  # #  # #  # #   \s
+                ###  #### #  # #  # ### \s
+                #    #  # ###  #  # #   \s
+                #    #  # # #  #  # #   \s
+                #### #  # #  #  ##  ####\s
+                """;
         assertThat(problem.solve2(), is(expected));
     }
 }

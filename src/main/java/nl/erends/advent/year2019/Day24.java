@@ -114,7 +114,7 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
     
     private static class Depth {
         
-        int[][] grid;
+        final int[][] grid;
         
         Depth() {
             this(new int[5][5]);

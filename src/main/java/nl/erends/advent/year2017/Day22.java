@@ -53,33 +53,23 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
         int infections = 0;
         int totalSteps = 10000000;
         for (int step = 0; step < totalSteps; step++) {
-            switch(grid[y][x]) {
-                case '\0':
-                    direction = turnLeft(direction);
-                    break;
-                case '#':
-                    direction = turnRight(direction);
-                    break;
-                case 'F':
+            switch (grid[y][x]) {
+                case '\0' -> direction = turnLeft(direction);
+                case '#' -> direction = turnRight(direction);
+                case 'F' -> {
                     direction = turnRight(direction);
                     direction = turnRight(direction);
-                    break;
-                default:
+                }
+                default -> {}
             }
-            switch(grid[y][x]) {
-                case '\0':
-                    grid[y][x] = 'W';
-                    break;
-                case 'W':
+            switch (grid[y][x]) {
+                case '\0' -> grid[y][x] = 'W';
+                case 'W' -> {
                     infections++;
                     grid[y][x] = '#';
-                    break;
-                case '#':
-                    grid[y][x] = 'F';
-                    break;
-                default:
-                    grid[y][x] = '\0';
-                    break;
+                }
+                case '#' -> grid[y][x] = 'F';
+                default -> grid[y][x] = '\0';
             }
             grid = updateGrid(grid, direction);
         }
@@ -207,28 +197,20 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
     }
     
     private Direction turnLeft(Direction direction) {
-        switch (direction) {
-            case UP:
-                return Direction.LEFT;
-            case DOWN:
-                return Direction.RIGHT;
-            case LEFT:
-                return Direction.DOWN;
-            default:
-                return Direction.UP;
-        } 
+        return switch (direction) {
+            case UP -> Direction.LEFT;
+            case DOWN -> Direction.RIGHT;
+            case LEFT -> Direction.DOWN;
+            default -> Direction.UP;
+        };
     }
 
     private Direction turnRight(Direction direction) {
-        switch (direction) {
-            case UP:
-                return Direction.RIGHT;
-            case DOWN:
-                return Direction.LEFT;
-            case LEFT:
-                return Direction.UP;
-            default:
-                return Direction.DOWN;
-        }
+        return switch (direction) {
+            case UP -> Direction.RIGHT;
+            case DOWN -> Direction.LEFT;
+            case LEFT -> Direction.UP;
+            default -> Direction.DOWN;
+        };
     }
 }

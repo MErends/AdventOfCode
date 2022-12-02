@@ -96,32 +96,24 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
 
     private void fillGuardSleepMap(Event event) {
         switch (event.eventType) {
-            case BEGIN_SHIFT:
-                guardId = event.id;
-                break;
-            case FALLS_ASLEEP:
-                fellAsleep = event.dateTime;
-                break;
-            case WAKES_UP:
+            case BEGIN_SHIFT -> guardId = event.id;
+            case FALLS_ASLEEP -> fellAsleep = event.dateTime;
+            case WAKES_UP -> {
                 long minutesAsleep = Duration.between(fellAsleep, event.dateTime).toMinutes();
                 if (guardSleepMap.containsKey(guardId)) {
                     guardSleepMap.put(guardId, guardSleepMap.get(guardId) + minutesAsleep);
                 } else {
                     guardSleepMap.put(guardId, minutesAsleep);
                 }
-                break;
+            }
         }
     }
 
     private void fillGuardAtMinuteAsleepMap(Event event) {
         switch (event.eventType) {
-            case BEGIN_SHIFT:
-                guardId = event.id;
-                break;
-            case FALLS_ASLEEP:
-                fellAsleep = event.dateTime;
-                break;
-            case WAKES_UP:
+            case BEGIN_SHIFT -> guardId = event.id;
+            case FALLS_ASLEEP -> fellAsleep = event.dateTime;
+            case WAKES_UP -> {
                 guardAtMinuteAsleepMap.putIfAbsent(guardId, new HashMap<>());
                 minutesAsleepMap = guardAtMinuteAsleepMap.get(guardId);
                 for (int minute = fellAsleep.getMinute(); minute < event.dateTime.getMinute(); minute++) {
@@ -131,7 +123,7 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
                         minutesAsleepMap.put(minute, 1);
                     }
                 }
-                break;
+            }
         }
     }
 
@@ -148,17 +140,9 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
         }
         return new Event(LocalDateTime.parse(dateTime, formatter), id, eventType);
     }
-    
-    private static class Event implements Comparable<Event> {
-        private final LocalDateTime dateTime;
-        private final int id;
-        private final EventType eventType;
 
-        Event(LocalDateTime dateTime, int id, EventType eventType) {
-            this.dateTime = dateTime;
-            this.id = id;
-            this.eventType = eventType;
-        }
+    private record Event(LocalDateTime dateTime, int id,
+                         EventType eventType) implements Comparable<Event> {
 
         @Override
         public int compareTo(Event otherEvent) {

@@ -38,33 +38,34 @@ public class Day20 extends AbstractProblem<String, Integer> {
             while (path.length() != 0) {
                 char c = path.charAt(0);
                 switch (c) {
-                    case 'N':
+                    case 'N' -> {
                         y--;
                         grid[y][x] = '-';
                         y--;
-                        break;
-                    case 'E':
+                    }
+                    case 'E' -> {
                         x++;
                         grid[y][x] = '|';
                         x++;
-                        break;
-                    case 'S':
+                    }
+                    case 'S' -> {
                         y++;
                         grid[y][x] = '-';
                         y++;
-                        break;
-                    case 'W':
+                    }
+                    case 'W' -> {
                         x--;
                         grid[y][x] = '|';
                         x--;
-                        break;
-                    case '(':
+                    }
+                    case '(' -> {
                         List<String> subPaths = splitOnPipe(path);
                         for (String subPath : subPaths) {
                             drawFromLocation(x, y, subPath);
                         }
                         return;
-                    default:
+                    }
+                    default -> throw new IllegalArgumentException("" + c);
                 }
                 if (grid[y][x] != 'X') grid[y][x] = '.';
                 path = path.substring(1);

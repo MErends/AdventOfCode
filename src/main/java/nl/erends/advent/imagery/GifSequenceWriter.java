@@ -26,11 +26,10 @@ class GifSequenceWriter {
      *
      * @param outputStream the ImageOutputStream to be written to
      * @param timeBetweenFramesMS the time between frames in miliseconds
-     * @param loop wether the gif should loop repeatedly
      *
      * @author Elliot Kroo (elliot[at]kroo[dot]net)
      */
-    private GifSequenceWriter(ImageOutputStream outputStream, int timeBetweenFramesMS, boolean loop) throws IOException {
+    private GifSequenceWriter(ImageOutputStream outputStream, int timeBetweenFramesMS) throws IOException {
 
         gifWriter = ImageIO.getImageWritersBySuffix("gif").next();
         imageWriteParam = gifWriter.getDefaultWriteParam();
@@ -50,7 +49,7 @@ class GifSequenceWriter {
 
         applicationExtension.setAttribute("applicationID", "NETSCAPE");
         applicationExtension.setAttribute("authenticationCode", "2.0");
-        applicationExtension.setUserObject(new byte[]{ 0x1, (byte) ((loop ? 0 : 1) & 0xFF), (byte) (0)});
+        applicationExtension.setUserObject(new byte[]{ 0x1, (byte) (1 & 0xFF), (byte) (0)});
         getNode(root, "ApplicationExtensions").appendChild(applicationExtension);
         imageMetaData.setFromTree(metaFormatName, root);
         gifWriter.setOutput(outputStream);
@@ -75,7 +74,7 @@ class GifSequenceWriter {
 
     static void startGif(String filename, int frameRate) throws IOException {
         output = new FileImageOutputStream(new File(filename));
-        writer = new GifSequenceWriter(output, frameRate, true);
+        writer = new GifSequenceWriter(output, frameRate);
 
     }
 

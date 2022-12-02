@@ -28,25 +28,18 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
                     line = line.substring(1);
                 }
                 switch (dir) {
-                    case "nw":
+                    case "nw" -> {
                         y++;
                         x--;
-                        break;
-                    case "se":
+                    }
+                    case "se" -> {
                         x++;
                         y--;
-                        break;
-                    case "ne":
-                        y++;
-                        break;
-                    case "sw":
-                        y--;
-                        break;
-                    case "w":
-                        x--;
-                        break;
-                    default:
-                        x++;
+                    }
+                    case "ne" -> y++;
+                    case "sw" -> y--;
+                    case "w" -> x--;
+                    default -> x++;
                 }
             }
             String tile = tile(x, y);

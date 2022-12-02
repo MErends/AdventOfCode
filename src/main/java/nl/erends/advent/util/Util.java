@@ -59,7 +59,7 @@ public class Util {
     public static List<Integer> readIntegers(int year, int day, int testcase) {
         return readInput(year, day, testcase).stream()
                 .map(Integer::parseInt)
-                .collect(Collectors.toList());
+                .toList();
     }
     
     public static List<Integer> readIntegers(int year, int day) {

@@ -41,18 +41,10 @@ public class Day19 extends AbstractProblem<List<String>, String> {
 
     private void makeTurn() {
         switch (direction) {
-            case UP:
-                turnFromUp();
-                break;
-            case DOWN:
-                turnFromDown();
-                break;
-            case LEFT:
-                turnFromLeft();
-                break;
-            case RIGHT:
-                turnFromRight();
-                break;
+            case UP -> turnFromUp();
+            case DOWN -> turnFromDown();
+            case LEFT -> turnFromLeft();
+            case RIGHT -> turnFromRight();
         }
     }
 
@@ -98,18 +90,10 @@ public class Day19 extends AbstractProblem<List<String>, String> {
 
     private void updatePosition() {
         switch (direction) {
-            case UP:
-                y--;
-                break;
-            case DOWN:
-                y++;
-                break;
-            case LEFT:
-                x--;
-                break;
-            case RIGHT:
-                x++;
-                break;
+            case UP -> y--;
+            case DOWN -> y++;
+            case LEFT -> x--;
+            case RIGHT -> x++;
         }
     }
 

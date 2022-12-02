@@ -47,18 +47,10 @@ public class Day12 extends AbstractProblem<List<String>, Integer> {
                     break;
                 default: // F
                     switch (facing) {
-                        case UP:
-                            y -= amount;
-                            break;
-                        case DOWN:
-                            y += amount;
-                            break;
-                        case LEFT:
-                            x -= amount;
-                            break;
-                        case RIGHT:
-                            x += amount;
-                            break;
+                        case UP -> y -= amount;
+                        case DOWN -> y += amount;
+                        case LEFT -> x -= amount;
+                        case RIGHT -> x += amount;
                     }
             }
         }

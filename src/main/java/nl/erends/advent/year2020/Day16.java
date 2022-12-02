@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Day16 extends AbstractProblem<List<String>, Number> {
@@ -65,7 +64,7 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
         }
         String[] myticket = input.get(index + 1).split(",");
         invalidIndex.stream().sorted((i1, i2) -> i2 - i1).mapToInt(i -> i).forEach(i -> input.remove(i));
-        List<Integer> indices = IntStream.range(0, myticket.length).boxed().collect(Collectors.toList());
+        List<Integer> indices = IntStream.range(0, myticket.length).boxed().toList();
         criteria.forEach(c -> c.indices = new ArrayList<>(indices));
         for (index = ticketStart; index < input.size(); index++) {
             String[] line = input.get(index).split(",");

@@ -72,56 +72,52 @@ public class Day02 extends AbstractProblem<List<String>, String> {
 
 
     private char newLocation2(char oldLocation, char direction) {
-        switch (direction) {
-            default:
-            case 'U':
-                switch (oldLocation) {
-                    case 'D': return 'B';
-                    case 'C': return '8';
-                    case 'B': return '7';
-                    case 'A': return '6';
-                    case '8': return '4';
-                    case '7': return '3';
-                    case '6': return '2';
-                    case '3': return '1';
-                    default: return oldLocation;
-                }
-            case 'D':
-                switch (oldLocation) {
-                    case 'B': return 'D';
-                    case '8': return 'C';
-                    case '7': return 'B';
-                    case '6': return 'A';
-                    case '4': return '8';
-                    case '3': return '7';
-                    case '2': return '6';
-                    case '1': return '3';
-                    default: return oldLocation;
-                }
-            case 'L':
-                switch (oldLocation) {
-                    case '9': return '8';
-                    case '4': return '3';
-                    case '8': return '7';
-                    case 'C': return 'B';
-                    case '3': return '2';
-                    case '7': return '6';
-                    case 'B': return 'A';
-                    case '6': return '5';
-                    default: return oldLocation;
-                }
-            case 'R':
-                switch (oldLocation) {
-                    case '8': return '9';
-                    case '3': return '4';
-                    case '7': return '8';
-                    case 'B': return 'C';
-                    case '2': return '3';
-                    case '6': return '7';
-                    case 'A': return 'B';
-                    case '5': return '6';
-                    default: return oldLocation;
-                }
-        }
+        return switch (direction) {
+            case 'U' -> switch (oldLocation) {
+                case 'D' -> 'B';
+                case 'C' -> '8';
+                case 'B' -> '7';
+                case 'A' -> '6';
+                case '8' -> '4';
+                case '7' -> '3';
+                case '6' -> '2';
+                case '3' -> '1';
+                default -> oldLocation;
+            };
+            case 'D' -> switch (oldLocation) {
+                case 'B' -> 'D';
+                case '8' -> 'C';
+                case '7' -> 'B';
+                case '6' -> 'A';
+                case '4' -> '8';
+                case '3' -> '7';
+                case '2' -> '6';
+                case '1' -> '3';
+                default -> oldLocation;
+            };
+            case 'L' -> switch (oldLocation) {
+                case '9' -> '8';
+                case '4' -> '3';
+                case '8' -> '7';
+                case 'C' -> 'B';
+                case '3' -> '2';
+                case '7' -> '6';
+                case 'B' -> 'A';
+                case '6' -> '5';
+                default -> oldLocation;
+            };
+            case 'R' -> switch (oldLocation) {
+                case '8' -> '9';
+                case '3' -> '4';
+                case '7' -> '8';
+                case 'B' -> 'C';
+                case '2' -> '3';
+                case '6' -> '7';
+                case 'A' -> 'B';
+                case '5' -> '6';
+                default -> oldLocation;
+            };
+            default -> throw new IllegalArgumentException("" + direction);
+        };
     }
 }

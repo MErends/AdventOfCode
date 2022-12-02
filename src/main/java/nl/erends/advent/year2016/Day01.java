@@ -69,29 +69,20 @@ public class Day01 extends AbstractProblem<String, Integer> {
 
     private Direction updateDirection(Direction direction, String command) {
         if (command.equals("L")) {
-            switch (direction) {
-                case PLUSX:
-                    return Direction.PLUSY;
-                case PLUSY:
-                    return Direction.MINX;
-                case MINX:
-                    return Direction.MINY;
-                case MINY:
-                    return Direction.PLUSX;
-            }
+            return switch (direction) {
+                case PLUSX -> Direction.PLUSY;
+                case PLUSY -> Direction.MINX;
+                case MINX -> Direction.MINY;
+                case MINY -> Direction.PLUSX;
+            };
         } else {
-            switch (direction) {
-                case PLUSX:
-                    return Direction.MINY;
-                case PLUSY:
-                    return Direction.PLUSX;
-                case MINX:
-                    return Direction.PLUSY;
-                case MINY:
-                    return Direction.MINX;
-            }
+            return switch (direction) {
+                case PLUSX -> Direction.MINY;
+                case PLUSY -> Direction.PLUSX;
+                case MINX -> Direction.PLUSY;
+                case MINY -> Direction.MINX;
+            };
         }
-        return Direction.PLUSX;
     }
 
 

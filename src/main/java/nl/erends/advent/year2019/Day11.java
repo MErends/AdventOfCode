@@ -47,32 +47,16 @@ public class Day11 extends AbstractProblem<String, String> {
 
     private void updateDirection(boolean rotateRight) {
         switch (direction) {
-            case LEFT:
-                direction = rotateRight ? Direction.UP : Direction.DOWN;
-                break;
-            case UP:
-                direction = rotateRight ? Direction.RIGHT : Direction.LEFT;
-                break;
-            case RIGHT:
-                direction = rotateRight ? Direction.DOWN : Direction.UP;
-                break;
-            case DOWN:
-                direction = rotateRight ? Direction.LEFT : Direction.RIGHT;
-                break;
+            case LEFT -> direction = rotateRight ? Direction.UP : Direction.DOWN;
+            case UP -> direction = rotateRight ? Direction.RIGHT : Direction.LEFT;
+            case RIGHT -> direction = rotateRight ? Direction.DOWN : Direction.UP;
+            case DOWN -> direction = rotateRight ? Direction.LEFT : Direction.RIGHT;
         }
         switch (direction) {
-            case LEFT:
-                x--;
-                break;
-            case UP:
-                y--;
-                break;
-            case RIGHT:
-                x++;
-                break;
-            case DOWN:
-                y++;
-                break;
+            case LEFT -> x--;
+            case UP -> y--;
+            case RIGHT -> x++;
+            case DOWN -> y++;
         }
     }
 

@@ -33,7 +33,7 @@ public class Day20 extends AbstractProblem<List<String>, Number> {
         }
         Map<String, Long> egdeMap = tiles.stream()
                 .map(t -> t.allEdges).flatMap(Collection::stream).collect(Collectors.groupingBy(i -> i, Collectors.counting()));
-        List<Tile> corners = tiles.stream().filter(t -> t.edgeSum(egdeMap) == 12).sorted(Comparator.comparingInt(t -> t.id)).collect(Collectors.toList());
+        List<Tile> corners = tiles.stream().filter(t -> t.edgeSum(egdeMap) == 12).sorted(Comparator.comparingInt(t -> t.id)).toList();
         cornerTile = corners.get(3);
         while (egdeMap.get(cornerTile.leftEdge) != 1 || egdeMap.get(cornerTile.topEdge) != 1) {
             cornerTile.rotate();

@@ -50,8 +50,8 @@ public class Day18 extends AbstractProblem<List<String>,Integer> {
         SnailNumber right;
         boolean isRegular;
         int value;
-        int nest;
-        SnailNumber parent;
+        final int nest;
+        final SnailNumber parent;
         
         SnailNumber(String number1, String number2) {
             this('[' + number1 + ',' + number2 + ']', 0, null);

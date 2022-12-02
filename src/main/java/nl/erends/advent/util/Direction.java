@@ -4,28 +4,20 @@ public enum Direction {
     UP, DOWN, LEFT, RIGHT;
     
     public Direction turnRight() {
-        switch (this) {
-            case UP:
-                return RIGHT;
-            case DOWN:
-                return LEFT;
-            case LEFT:
-                return UP;
-            default:
-                return DOWN;
-        }
+        return switch (this) {
+            case UP -> RIGHT;
+            case DOWN -> LEFT;
+            case LEFT -> UP;
+            default -> DOWN;
+        };
     }
     
     public Direction turnLeft() {
-        switch (this) {
-            case UP:
-                return LEFT;
-            case DOWN:
-                return RIGHT;
-            case LEFT:
-                return DOWN;
-            default:
-                return UP;
-        }
+        return switch (this) {
+            case UP -> LEFT;
+            case DOWN -> RIGHT;
+            case LEFT -> DOWN;
+            default -> UP;
+        };
     }
 }

@@ -132,9 +132,9 @@ public class Day19 extends AbstractProblem<List<String>,Integer> {
     
     
     private static class Scanner {
-        List<Coord> coords = new ArrayList<>();
+        final List<Coord> coords = new ArrayList<>();
         List<Coord> transformed = new ArrayList<>();
-        List<Coord> absolutes = new ArrayList<>();
+        final List<Coord> absolutes = new ArrayList<>();
         int offsetX;
         int offsetY;
         int offsetZ;

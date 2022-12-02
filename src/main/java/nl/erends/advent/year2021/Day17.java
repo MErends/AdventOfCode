@@ -58,13 +58,7 @@ public class Day17 extends AbstractProblem<String,Integer> {
         }
         return yRecord;
     }
-    
-    private static class Coord {
-        private final int x;
-        private final int y;
-        Coord(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
+
+    private record Coord(int x, int y) {
     }
 }

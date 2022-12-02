@@ -4,7 +4,6 @@ import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -29,7 +28,7 @@ public class Day01 extends AbstractProblem<List<Integer>, Integer> {
     public Integer solve2() {
         List<Integer> slidingDepthList = IntStream.range(0, input.size() - 2)
                 .map(index -> input.get(index) + input.get(index + 1) + input.get(index + 2))
-                .boxed().collect(Collectors.toList());
+                .boxed().toList();
         return countDepthIncreases(slidingDepthList);
     }
 

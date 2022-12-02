@@ -33,17 +33,13 @@ class Console {
         String instruction = instructions.get(pointer);
         String[] words = instruction.split(" ");
         switch (words[0]) {
-            default:
-            case "nop":
-                pointer++;
-                break;
-            case "acc":
+            case "nop" -> pointer++;
+            case "acc" -> {
                 accumulator += Integer.parseInt(words[1]);
                 pointer++;
-                break;
-            case "jmp":
-                pointer += Integer.parseInt(words[1]);
-                break;
+            }
+            case "jmp" -> pointer += Integer.parseInt(words[1]);
+            default -> throw new IllegalArgumentException(words[0]);
         }
         return true;
     }
