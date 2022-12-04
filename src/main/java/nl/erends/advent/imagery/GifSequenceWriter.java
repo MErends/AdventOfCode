@@ -49,7 +49,7 @@ class GifSequenceWriter {
 
         applicationExtension.setAttribute("applicationID", "NETSCAPE");
         applicationExtension.setAttribute("authenticationCode", "2.0");
-        applicationExtension.setUserObject(new byte[]{ 0x1, (byte) (1 & 0xFF), (byte) (0)});
+        applicationExtension.setUserObject(new byte[]{ 1, 0, 0});
         getNode(root, "ApplicationExtensions").appendChild(applicationExtension);
         imageMetaData.setFromTree(metaFormatName, root);
         gifWriter.setOutput(outputStream);

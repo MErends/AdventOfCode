@@ -21,6 +21,7 @@ import java.util.Map;
 public class Animator {
 
     private static final List<Color[][]> colorList = new ArrayList<>();
+    private static final List<String> textList = new ArrayList<>();
     private static Map<Object, Color> colorMap;
     private static String filename;
     private static int xFrame;
@@ -30,7 +31,7 @@ public class Animator {
     private static BufferedImage image;
     private static Graphics2D graphics;
     private static final int MARGIN = 10;
-    private static final int TOP_MARGIN = 30;
+    private static int topMargin = 56;
 
     private static final Logger LOG = LogManager.getLogger(Animator.class);
 
@@ -38,6 +39,11 @@ public class Animator {
     }
 
     public static void addGrid(char[][] grid) {
+        topMargin = 35;
+        addGrid(grid, null);
+    }
+
+    public static void addGrid(char[][] grid, String text) {
         Color[][] colorGrid = new Color[grid.length][grid[0].length];
         for (int y = 0; y < grid.length; y++) {
             for (int x = 0; x < grid[y].length; x++) {
@@ -45,6 +51,7 @@ public class Animator {
             }
         }
         colorList.add(colorGrid);
+        textList.add(text);
     }
 
     public static void addGrid(int[][] grid) {
@@ -59,6 +66,7 @@ public class Animator {
 
     public static void clear() {
         colorList.clear();
+        textList.clear();
     }
 
     public static void makeGif() {
@@ -69,29 +77,33 @@ public class Animator {
         frameCount = Integer.toString(colorList.size());
         xFrame = colorList.get(0)[0].length;
         yFrame = colorList.get(0).length;
-        scale = 0;
-        do {
+        scale = 1;
+        while (scale < 10 && xFrame * (scale + 1) <= 1000 && yFrame * (scale + 1) <= 1000) {
             scale++;
-        } while (xFrame * scale <= 1000 && yFrame * scale <= 1000 && scale <= 5);
+        }
+        LOG.info("Scale: {}", scale);
         int xImage = xFrame * scale + 2 * MARGIN;
-        int yImage = yFrame * scale + MARGIN + TOP_MARGIN;
+        int yImage = yFrame * scale + MARGIN + topMargin;
         image = new BufferedImage(xImage, yImage, BufferedImage.TYPE_INT_ARGB);
         graphics = image.createGraphics();
         graphics.setFont(new Font("Courier New", Font.PLAIN, 16));
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, xImage, yImage);
         graphics.setColor(Color.BLACK);
-        graphics.drawRect(MARGIN - 1, TOP_MARGIN - 1, xFrame * scale + 1, yFrame * scale + 1);
+        graphics.drawRect(MARGIN - 1, topMargin - 1, xFrame * scale + 1, yFrame * scale + 1);
         int count = 0;
         int frameRate = colorList.size() / 57;
+        LOG.info("Framerate: {}", frameRate);
+        int msPerFrame = 1000 * 57 / colorList.size();
+        LOG.info("ms per frame: {}", msPerFrame);
         try {
-            GifSequenceWriter.startGif(filename, frameRate);
-            for (Color[][] frame : colorList) {
-                addFrame(frame, count++);
+            GifSequenceWriter.startGif(filename, msPerFrame);
+            for (int frameNumber = 0; frameNumber < colorList.size(); frameNumber++) {
+                addFrame(colorList.get(frameNumber), textList.get(frameNumber), count++);
                 Timer.tick(count + "/" + colorList.size());
             }
             for (int i = 0; i < frameRate * 3; i++) {
-                addFrame(colorList.get(colorList.size() - 1), count);
+                addFrame(colorList.get(colorList.size() - 1), textList.get(textList.size() - 1), count);
             }
             GifSequenceWriter.closeGif();
         } catch (IOException e) {
@@ -100,16 +112,19 @@ public class Animator {
         LOG.info("Written gif to {}", filename);
     }
 
-    private static void addFrame(Color[][] frame, int number) throws IOException {
+    private static void addFrame(Color[][] frame, String text, int number) throws IOException {
         String count = Util.leftPadWithZero(Integer.toString(number), frameCount.length());
         graphics.setColor(Color.WHITE);
-        graphics.fillRect(0, 0, xFrame, TOP_MARGIN - 1);
+        graphics.fillRect(0, 0, xFrame * scale, topMargin - 1);
         graphics.setColor(Color.BLACK);
-        graphics.drawString(count + '/' + frameCount, MARGIN, TOP_MARGIN - 7);
+        graphics.drawString(count + '/' + frameCount, MARGIN, 22);
+        if (text != null) {
+            graphics.drawString(text, MARGIN, 46);
+        }
         for (int x = 0; x < xFrame; x++) {
             for (int y = 0; y < yFrame; y++) {
                 graphics.setColor(frame[y][x]);
-                graphics.fillRect(MARGIN + x * scale, TOP_MARGIN + y * scale, scale, scale);
+                graphics.fillRect(MARGIN + x * scale, topMargin + y * scale, scale, scale);
             }
         }
         GifSequenceWriter.addImage(image);
