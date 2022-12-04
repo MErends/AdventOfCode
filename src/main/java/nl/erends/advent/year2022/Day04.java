@@ -34,9 +34,8 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
             int bMax = Integer.parseInt(rangeB[1]);
             if (bMin <= aMin && aMax <= bMax || aMin <= bMin && bMax <= aMax) {
                 contains++;
-            }
-            if (bMin <= aMin && aMin <= bMax || aMin <= bMin && bMin <= aMax ||
-                    bMin <= aMax && aMax <= bMax || aMin <= bMax && bMax <= aMax) {
+                overlaps++;
+            } else if (bMin <= aMax && aMax <= bMax || aMin <= bMax && bMax <= aMax) {
                 overlaps++;
             }
         }
