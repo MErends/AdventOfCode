@@ -33,7 +33,8 @@ public class Day09 extends AbstractProblem<String, Integer> {
                 case '!' -> pointer++;
                 case '<' -> inGarbage = true;
                 case '>' -> inGarbage = false;
-                default -> {}
+                default -> { // Other char
+                }
             }
             pointer++;
         }

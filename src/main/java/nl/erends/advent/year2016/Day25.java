@@ -6,6 +6,8 @@ import nl.erends.advent.util.Util;
 import java.util.List;
 
 public class Day25 extends AbstractProblem<List<String>, Integer> {
+
+    private int a = 1;
     
     public static void main(String[] args) {
         new Day25().setAndSolve(Util.readInput(2016, 25));
@@ -14,7 +16,6 @@ public class Day25 extends AbstractProblem<List<String>, Integer> {
     @Override
     public Integer solve1() {
         answer2 = 0;
-        int a = 1;
         while (true) {
             Assembunny assembunny = new Assembunny(input, 12);
             assembunny.getMemoryBank().put("a", a);
@@ -25,5 +26,9 @@ public class Day25 extends AbstractProblem<List<String>, Integer> {
             a++;
         }
         return a;
+    }
+
+    void setTestValue() {
+        a = 150;
     }
 }

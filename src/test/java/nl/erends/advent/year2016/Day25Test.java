@@ -13,6 +13,7 @@ class Day25Test {
     void day25Test1() {
         Day25 problem = new Day25();
         problem.setInput(Util.readInput(2016, 25, 1));
+        problem.setTestValue();
         assertThat(problem.solve1(), is(158));
     }
 }

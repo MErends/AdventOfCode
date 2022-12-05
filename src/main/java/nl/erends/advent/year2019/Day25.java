@@ -57,7 +57,7 @@ public class Day25 extends AbstractProblem<String, Integer> {
                 computer.execute();
             }
             LOG.info(sb);
-            Matcher m =  Pattern.compile("[0-9]+").matcher(sb);
+            Matcher m =  Pattern.compile("\\d+").matcher(sb);
             if (sb.toString().contains("keypad") && m.find()) {
                 return Integer.parseInt(m.group());
             }
