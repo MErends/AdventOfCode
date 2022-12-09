@@ -40,4 +40,14 @@ public enum Direction {
             default -> UP;
         };
     }
+
+    public static Direction getDirection(char c) {
+        return switch (c) {
+            case 'U' -> Direction.UP;
+            case 'D' -> Direction.DOWN;
+            case 'R' -> Direction.RIGHT;
+            case 'L' -> Direction.LEFT;
+            default -> throw new IllegalArgumentException("" + c);
+        };
+    }
 }

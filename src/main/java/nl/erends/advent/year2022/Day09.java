@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * --- Day 9
+ * --- Day 9: Rope Bridge ---
  * <p>Consider a rope with a knot at each end; these knots mark the head and the
  * tail of the rope. If the head moves far enough away from the tail, the tail
  * is pulled toward the head. Simulate to complete hypothetical series of
@@ -43,7 +43,7 @@ public class Day09 extends AbstractProblem<List<String>, Integer> {
         Node head = nodes.get(0);
         Node tail = nodes.get(length - 1);
         for (String line : input) {
-            Direction d = getDirection(line.charAt(0));
+            Direction d = Direction.getDirection(line.charAt(0));
             int steps = Integer.parseInt(line.substring(2));
             for (int step = 0; step < steps; step++) {
                 head.x += d.dx();
@@ -71,15 +71,6 @@ public class Day09 extends AbstractProblem<List<String>, Integer> {
                 tail.x += xSep / Math.abs(xSep);
             }
         }
-    }
-
-    private Direction getDirection(char c) {
-        return switch (c) {
-            case 'U' -> Direction.UP;
-            case 'D' -> Direction.DOWN;
-            case 'R' -> Direction.RIGHT;
-            default -> Direction.LEFT;
-        };
     }
 
     private static class Node {
