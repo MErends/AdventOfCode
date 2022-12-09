@@ -114,7 +114,7 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
         }
         
         private boolean isValidPid() {
-            return attrs.get("pid").matches("[0-9]{9}");
+            return attrs.get("pid").matches("\\d{9}");
         }
     }
 }

@@ -64,7 +64,7 @@ public class Day25 extends AbstractProblem<List<String>, Integer> {
 
         @Override
         public boolean equals(Object o) {
-            return o instanceof Star && constellation == ((Star) o).constellation;
+            return o instanceof Star star && constellation == star.constellation;
         }
 
         @Override

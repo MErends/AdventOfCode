@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Day15 extends AbstractProblem<List<String>, Integer> {
 
@@ -121,7 +120,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
                         .map(Tile::getNeighbors)
                         .flatMap(List::stream)
                         .filter(tile -> !distanceMap.containsKey(tile))
-                        .collect(Collectors.toList());
+                        .toList();
                 distance[0]++;
             }
             Map<Tile, Integer> targetsDistanceMap = new HashMap<>();
@@ -238,8 +237,8 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
             List<Tile> neighborTiles = currentTile.getNeighbors();
             List<Goblin> enemies = new ArrayList<>();
             for (Tile neighborTile : neighborTiles) {
-                if (neighborTile.unit instanceof Goblin) {
-                    enemies.add((Goblin) neighborTile.unit);
+                if (neighborTile.unit instanceof Goblin goblin) {
+                    enemies.add(goblin);
                 }
             }
             if (enemies.isEmpty()) return;
@@ -303,8 +302,8 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
             List<Tile> neighborTiles = currentTile.getNeighbors();
             List<Elf> enemies = new ArrayList<>();
             for (Tile neighborTile : neighborTiles) {
-                if (neighborTile.unit instanceof Elf) {
-                    enemies.add((Elf) neighborTile.unit);
+                if (neighborTile.unit instanceof Elf elf) {
+                    enemies.add(elf);
                 }
             }
             if (enemies.isEmpty()) return;
@@ -421,14 +420,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
             return grid[y][x];
         }
     }
-    
-    private static class QueueItem {
-        final Tile tile;
-        final int steps;
 
-        QueueItem(Tile tile, int steps) {
-            this.tile = tile;
-            this.steps = steps;
-        }
+    private record QueueItem(Tile tile, int steps) {
     }
 }

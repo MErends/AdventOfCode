@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.stream.Collectors;
 
 class Intcode {
 
@@ -18,7 +17,7 @@ class Intcode {
     private long relativeBase = 0;
     
     Intcode(String input) {
-        List<Long> codeList = Arrays.stream(input.split(",")).map(Long::parseLong).collect(Collectors.toList());
+        List<Long> codeList = Arrays.stream(input.split(",")).map(Long::parseLong).toList();
         for (int i = 0; i < codeList.size(); i++) {
             code.put((long) i, codeList.get(i));
         }
@@ -40,33 +39,24 @@ class Intcode {
         while (true) {
             int opcode = (int) (getCode(pointer) % 100);
             switch (opcode) {
-                case 1: // add
-                case 2: // multiply
-                case 7: // less than
-                case 8: // equals
-                    doThreeParameters(opcode);
-                    break;
-                case 3: // read
+                case 1, 2, 7, 8 -> doThreeParameters(opcode); // add, multiply, less than, equals
+                case 3 -> { // read
                     boolean success = doReadInput();
                     if (!success) {
                         return true;
                     }
-                    break;
-                case 4: // output
+                }
+                case 4 -> { // output
                     doOutput();
                     return true;
-                case 5: // jump-if-true
-                case 6: // jump-if-false
-                    doJumpIf(opcode);
-                    break;
-                case 9: // alter relative base+
-                    doAlterBase();
-                    break;
-                case 99: // halt
+                }
+                case 5, 6 -> doJumpIf(opcode); // jump-if-true, jump-if-false
+                case 9 -> doAlterBase();// alter relative base+
+                case 99 -> { // halt
                     halted = true;
                     return false;
-                default:
-                    throw new IllegalArgumentException("Unkown opcode: " + opcode);
+                }
+                default -> throw new IllegalArgumentException("Unkown opcode: " + opcode);
             }
         }
     }

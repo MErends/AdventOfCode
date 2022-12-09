@@ -98,37 +98,14 @@ public class Day21 extends AbstractProblem<String, Integer> {
     }
 
 
-    private static class Weapon {
-        final int cost;
-        final int damage;
-
-        Weapon(int cost, int damage) {
-            this.cost = cost;
-            this.damage = damage;
-        }
+    private record Weapon(int cost, int damage) {
     }
 
-    private static class Armor {
-        final int cost;
-        final int defense;
-
-        Armor(int cost, int defense) {
-            this.cost = cost;
-            this.defense = defense;
-        }
+    private record Armor(int cost, int defense) {
 
     }
 
-    private static class Ring {
-        final int cost;
-        final int damage;
-        final int armor;
-
-        Ring(int cost, int damage, int armor) {
-            this.cost = cost;
-            this.damage = damage;
-            this.armor = armor;
-        }
+    private record Ring(int cost, int damage, int armor) {
 
         @Override
         public boolean equals(Object o) {

@@ -219,18 +219,13 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
         }
 
         private List<Character> getRoom(char room) {
-            switch (room) {
-                case 'A':
-                    return roomA;
-                case 'B':
-                    return roomB;
-                case 'C':
-                    return roomC;
-                case 'D':
-                    return roomD;
-                default:
-                    throw new IllegalArgumentException("Illegal room: " + room);
-            }
+            return switch (room) {
+                case 'A' -> roomA;
+                case 'B' -> roomB;
+                case 'C' -> roomC;
+                case 'D' -> roomD;
+                default -> throw new IllegalArgumentException("Illegal room: " + room);
+            };
         }
 
         private boolean pathBlocked(int from, int to) {

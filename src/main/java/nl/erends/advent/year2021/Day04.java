@@ -6,7 +6,6 @@ import nl.erends.advent.util.Util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * --- Day 4: Giant Squid ---
@@ -27,7 +26,7 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
     protected Integer solve1() {
         List<Integer> drawnNumbers = Arrays.stream(input.remove(0).split(","))
                 .map(Integer::parseInt)
-                .collect(Collectors.toList());
+                .toList();
         input.removeIf(String::isEmpty);
         List<BingoCard> bingoCards = new ArrayList<>();
         for (int lineNr = 0; lineNr < input.size(); lineNr += CARD_SIZE) {
@@ -39,7 +38,7 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
             bingoCards.forEach(b -> b.mark(drawnNumber));
             List<BingoCard> winners = bingoCards.stream()
                     .filter(BingoCard::isWinner)
-                    .collect(Collectors.toList());
+                    .toList();
             for (BingoCard winner : winners) {
                 if (answer1 == 0) {
                     answer1 = winner.unmarkedTotal() * drawnNumber;
@@ -56,7 +55,7 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
     
     private static class BingoCard {
         
-        int[][] card = new int[5][5];
+        final int[][] card = new int[5][5];
         
         BingoCard(List<String> cardStrings) {
             for (int lineNr = 0; lineNr < CARD_SIZE; lineNr++) {

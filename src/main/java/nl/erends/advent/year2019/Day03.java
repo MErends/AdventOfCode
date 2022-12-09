@@ -54,19 +54,11 @@ public class Day03 extends AbstractProblem<List<String>, Integer> {
 
     private void updateXY(char direction) {
         switch (direction) {
-            case 'U':
-                y++;
-                break;
-            case 'D':
-                y--;
-                break;
-            case 'L':
-                x--;
-                break;
-            case 'R':
-                x++;
-                break;
-            default:
+            case 'U' -> y++;
+            case 'D' -> y--;
+            case 'L' -> x--;
+            case 'R' -> x++;
+            default -> throw new IllegalArgumentException("" + direction);
         }
     }
 }

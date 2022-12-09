@@ -105,15 +105,6 @@ public class Day15 extends AbstractProblem<List<String>,Integer> {
         return risk == null ? Integer.MAX_VALUE : risk;
     }
     
-    private static class GridPoint {
-        int x;
-        int y;
-        int risk;
-
-        GridPoint(int x, int y, int risk) {
-            this.x = x;
-            this.y = y;
-            this.risk = risk;
-        }
+    private record GridPoint(int x, int y, int risk) {
     }
 }

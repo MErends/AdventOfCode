@@ -5,7 +5,6 @@ import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Day24 extends AbstractProblem<List<String>, Integer> {
 
@@ -21,7 +20,7 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
     public Integer solve1() {
         List<Connector> connectors = input.stream()
                 .map(line -> new Connector(Integer.parseInt(line.split("/")[0]), Integer.parseInt(line.split("/")[1])))
-                .collect(Collectors.toList());
+                .toList();
         buildBridge(new ArrayList<>(), connectors, 0);
         answer2 = strengthOfLongest;
         return maxStrength;

@@ -74,19 +74,19 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
         for (int x = minX; x <= maxX; x++) {
             for (int y = minY; y <= maxY; y++) {
                 switch (operation) {
-                    case "on":
+                    case "on" -> {
                         lampGrid[x][y].turnOn();
                         lampGrid[x][y].upBrightness();
-                        break;
-                    case "off":
+                    }
+                    case "off" -> {
                         lampGrid[x][y].turnOff();
                         lampGrid[x][y].lowerBrightness();
-                        break;
-                    default:
+                    }
+                    default -> {
                         lampGrid[x][y].toggle();
                         lampGrid[x][y].upBrightness();
                         lampGrid[x][y].upBrightness();
-                        break;
+                    }
                 }
             }
         }

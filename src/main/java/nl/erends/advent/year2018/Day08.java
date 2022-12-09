@@ -6,7 +6,6 @@ import nl.erends.advent.util.Util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Day08 extends AbstractProblem<String, Integer> {
 
@@ -17,7 +16,7 @@ public class Day08 extends AbstractProblem<String, Integer> {
     @Override
     public Integer solve1() {
         List<String> chain = Arrays.asList(input.split(" "));
-        List<Integer> rootSource = chain.stream().map(Integer::parseInt).collect(Collectors.toList());
+        List<Integer> rootSource = chain.stream().map(Integer::parseInt).toList();
         Node rootNode = new Node(rootSource);
         int answer1 = rootNode.totalMeta();
         answer2 = rootNode.rootValue();

@@ -97,25 +97,13 @@ public class Day11 extends AbstractProblem<String, Integer> {
 
     private void updateDirection(String direction) {
         switch (direction) {
-            case "n":
-                n++;
-                break;
-            case "ne":
-                ne++;
-                break;
-            case "se":
-                se++;
-                break;
-            case "s":
-                s++;
-                break;
-            case "sw":
-                sw++;
-                break;
-            case "nw":
-                nw++;
-                break;
-            default:
+            case "n" -> n++;
+            case "ne" -> ne++;
+            case "se" -> se++;
+            case "s" -> s++;
+            case "sw" -> sw++;
+            case "nw" -> nw++;
+            default -> throw new IllegalArgumentException(direction);
         }
     }
 }

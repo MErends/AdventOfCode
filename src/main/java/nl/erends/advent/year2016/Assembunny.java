@@ -27,30 +27,28 @@ class Assembunny {
             String instruction = instructions.get(pointer);
             String[] words = instruction.split(" ");
             switch (words[0]) {
-                default:
-                case "inc":
+                case "inc" -> {
                     doIncrease(words[1]);
                     pointer++;
-                    break;
-                case "dec":
+                }
+                case "dec" -> {
                     doDecrease(words[1]);
                     pointer++;
-                    break;
-                case "cpy":
+                }
+                case "cpy" -> {
                     doCopy(words[1], words[2]);
                     pointer++;
-                    break;
-                case "jnz": 
-                    pointer += doJumpWhenNotZero(words[1], words[2]);
-                    break;
-                case "tgl":
+                }
+                case "jnz" -> pointer += doJumpWhenNotZero(words[1], words[2]);
+                case "tgl" -> {
                     doToggle(words[1], pointer);
                     pointer++;
-                    break;
-                case "out":
+                }
+                case "out" -> {
                     doOut(words[1]);
                     pointer++;
-                    break;
+                }
+                default -> throw new IllegalArgumentException(words[0]);
             }
         }
     }
@@ -100,18 +98,10 @@ class Assembunny {
         }
         String instruction = instructions.get(pointer);
         switch (instruction.split(" ")[0]) {
-            case "inc":
-                instructions.set(pointer, "dec" + instruction.substring(3));
-                break;
-            case "jnz":
-                instructions.set(pointer, "cpy" + instruction.substring(3));
-                break;
-            case "cpy":
-                instructions.set(pointer, "jnz" + instruction.substring(3));
-                break;
-            default:
-                instructions.set(pointer, "inc" + instruction.substring(3));
-                break;
+            case "inc" -> instructions.set(pointer, "dec" + instruction.substring(3));
+            case "jnz" -> instructions.set(pointer, "cpy" + instruction.substring(3));
+            case "cpy" -> instructions.set(pointer, "jnz" + instruction.substring(3));
+            default -> instructions.set(pointer, "inc" + instruction.substring(3));
         }
     }
     

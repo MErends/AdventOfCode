@@ -52,40 +52,34 @@ public class Day23 extends AbstractProblem<List<String>, Integer> {
         String instruction = input.get(pointer);
         String[] words = instruction.split(" ");
         switch (words[0]) {
-            default:
-            case "hlf":
+            case "hlf" -> {
                 if (instruction.charAt(4) == 'a') {
                     a /= 2;
                 } else {
                     b /= 2;
                 }
                 pointer++;
-                break;
-            case "tpl":
+            }
+            case "tpl" -> {
                 if (instruction.charAt(4) == 'a') {
                     a *= 3;
                 } else {
                     b *= 3;
                 }
                 pointer++;
-                break;
-            case "inc":
+            }
+            case "inc" -> {
                 if (instruction.charAt(4) == 'a') {
                     a++;
                 } else {
                     b++;
                 }
                 pointer++;
-                break;
-            case "jmp":
-                pointer += Integer.parseInt(words[1]);
-                break;
-            case "jie":
-                jumpIfEven(instruction.charAt(4), Integer.parseInt(words[2]));
-                break;
-            case "jio":
-                jumpIfOne(instruction.charAt(4), Integer.parseInt(words[2]));
-                break;
+            }
+            case "jmp" -> pointer += Integer.parseInt(words[1]);
+            case "jie" -> jumpIfEven(instruction.charAt(4), Integer.parseInt(words[2]));
+            case "jio" -> jumpIfOne(instruction.charAt(4), Integer.parseInt(words[2]));
+            default -> throw new IllegalArgumentException(words[0]);
         }
         return true;
     }

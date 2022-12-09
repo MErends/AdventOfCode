@@ -59,14 +59,7 @@ public class Day03 extends AbstractProblem<String, Integer> {
     }
 
 
-    private static class House {
-        private final int x;
-        private final int y;
-
-        House(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
+    private record House(int x, int y) {
     }
     
     private static class Santa {
@@ -75,20 +68,11 @@ public class Day03 extends AbstractProblem<String, Integer> {
         
         void doMovement(char movement) {
             switch (movement) {
-                case '<':
-                    x--;
-                    break;
-                case '^':
-                    y++;
-                    break;
-                case '>':
-                    x++;
-                    break;
-                case 'v':
-                    y--;
-                    break;
-                default:
-                    throw new IllegalArgumentException(movement + " is an illegal movement");
+                case '<' -> x--;
+                case '^' -> y++;
+                case '>' -> x++;
+                case 'v' -> y--;
+                default -> throw new IllegalArgumentException(movement + " is an illegal movement");
             }
         }
     }

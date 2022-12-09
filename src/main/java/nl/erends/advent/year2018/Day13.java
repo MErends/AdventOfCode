@@ -59,22 +59,22 @@ public class Day13 extends AbstractProblem<List<String>, String> {
     private Track moveCart(Cart cart) {
         Track targetTrack = map[cart.y][cart.x];
         switch (cart.direction) {
-            case LEFT:
+            case LEFT -> {
                 targetTrack = map[cart.y][cart.x - 1];
                 cart.x--;
-                break;
-            case UP:
+            }
+            case UP -> {
                 targetTrack = map[cart.y - 1][cart.x];
                 cart.y--;
-                break;
-            case RIGHT:
+            }
+            case RIGHT -> {
                 targetTrack = map[cart.y][cart.x + 1];
                 cart.x++;
-                break;
-            case DOWN:
+            }
+            case DOWN -> {
                 targetTrack = map[cart.y + 1][cart.x];
                 cart.y++;
-                break;
+            }
         }
         return targetTrack;
     }

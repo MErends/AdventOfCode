@@ -36,7 +36,7 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
     public Integer solve2() {
         List<Display> displays = input.stream()
                 .map(Display::new)
-                .collect(Collectors.toList());
+                .toList();
         displays.forEach(Display::solve);
         return displays.stream().mapToInt(Display::getValue).sum();
     }
@@ -53,7 +53,7 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
                     .collect(Collectors.toList());
             values = Arrays.stream(split[1].split(" "))
                     .map(Day08::orderString)
-                    .collect(Collectors.toList());
+                    .toList();
         }
         
         private void solve() {

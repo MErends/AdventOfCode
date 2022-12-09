@@ -5,7 +5,6 @@ import nl.erends.advent.util.AbstractProblem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalLong;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Day09 extends AbstractProblem<String, Long> {
@@ -28,7 +27,7 @@ public class Day09 extends AbstractProblem<String, Long> {
         circle.add(0);
         int currentMarbleIndex = 0;
         List<Player> playerList = IntStream.rangeClosed(1, playerCount)
-                .mapToObj(i -> new Player()).collect(Collectors.toList());
+                .mapToObj(i -> new Player()).toList();
         int currentPlayerIndex = 0;
         for (int marble = 1; marble <= maxMarble; marble++) {
             if (marble % 23 == 0) {

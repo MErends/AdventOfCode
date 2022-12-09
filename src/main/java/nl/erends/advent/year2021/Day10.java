@@ -7,7 +7,6 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * --- Day 10: Syntax Scoring ---
@@ -30,13 +29,13 @@ public class Day10 extends AbstractProblem<List<String>, Number> {
     protected Integer solve1() {
         List<LineParser> lineParsers = input.stream()
                 .map(LineParser::new)
-                .collect(Collectors.toList());
+                .toList();
         
         List<Long> scores = lineParsers.stream()
                 .map(LineParser::stackScore)
                 .filter(i -> i != 0)
                 .sorted()
-                .collect(Collectors.toList());
+                .toList();
         
         answer2 = scores.get(scores.size() / 2);
         return lineParsers.stream()
@@ -47,7 +46,7 @@ public class Day10 extends AbstractProblem<List<String>, Number> {
     private class LineParser {
         
         char corruptChar;
-        Deque<Character> stack = new ArrayDeque<>();
+        final Deque<Character> stack = new ArrayDeque<>();
         
         private LineParser(String line) {
             for (char found : line.toCharArray()) {

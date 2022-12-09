@@ -29,25 +29,13 @@ public class Day25 extends AbstractProblem<String, Integer> {
     
     private void takeStep() {
         switch (state) {
-            case 'A':
-                doA();
-                break;
-            case 'B':
-                doB();
-                break;
-            case 'C':
-                doC();
-                break;
-            case 'D':
-                doD();
-                break;
-            case 'E':
-                doE();
-                break;
-            case 'F':
-                doF();
-                break;
-            default:
+            case 'A' -> doA();
+            case 'B' -> doB();
+            case 'C' -> doC();
+            case 'D' -> doD();
+            case 'E' -> doE();
+            case 'F' -> doF();
+            default -> throw new IllegalArgumentException("" + state);
         }
     }
 

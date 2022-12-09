@@ -25,23 +25,16 @@ public class Day09 extends AbstractProblem<String, Integer> {
                 continue;
             }
             switch (token) {
-                case '{':
-                    depth++;
-                    break;
-                case '}':
+                case '{' -> depth++;
+                case '}' -> {
                     score += depth;
                     depth--;
-                    break;
-                case '!':
-                    pointer++;
-                    break;
-                case '<':
-                    inGarbage = true;
-                    break;
-                case '>':
-                    inGarbage = false;
-                    break;
-                default:
+                }
+                case '!' -> pointer++;
+                case '<' -> inGarbage = true;
+                case '>' -> inGarbage = false;
+                default -> { // Other char
+                }
             }
             pointer++;
         }

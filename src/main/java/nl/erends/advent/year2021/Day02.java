@@ -34,19 +34,19 @@ public class Day02 extends AbstractProblem<List<String>, Integer> {
         String[] movement = line.split(" ");
         int value = Integer.parseInt(movement[1]);
         switch (movement[0]) {
-            case "forward":
+            case "forward" -> {
                 distance += value;
                 depth2 += value * aim;
                 answer2 = depth2 * distance;
-                break;
-            case "down":
+            }
+            case "down" -> {
                 aim += value;
                 depth += value;
-                break;
-            default: // up
+            }
+            default -> { // up
                 aim -= value;
                 depth -= value;
-                break;
+            }
         }
     }
 }

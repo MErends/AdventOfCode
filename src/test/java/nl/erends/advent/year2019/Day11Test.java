@@ -14,12 +14,14 @@ class Day11Test {
         Day11 problem = new Day11();
         problem.setInput(Util.readLine(2019, 11, 1));
         assertThat(problem.solve1(), is("2238"));
-        String expected = " ###  #  # #### ###   ##  #### ###  ###    \n" +
-                          " #  # # #  #    #  # #  #    # #  # #  #   \n" +
-                          " #  # ##   ###  #  # #  #   #  #  # #  #   \n" +
-                          " ###  # #  #    ###  ####  #   ###  ###    \n" +
-                          " #    # #  #    #    #  # #    # #  #      \n" +
-                          " #    #  # #    #    #  # #### #  # #      \n";
+        String expected = """
+                 ###  #  # #### ###   ##  #### ###  ###   \s
+                 #  # # #  #    #  # #  #    # #  # #  #  \s
+                 #  # ##   ###  #  # #  #   #  #  # #  #  \s
+                 ###  # #  #    ###  ####  #   ###  ###   \s
+                 #    # #  #    #    #  # #    # #  #     \s
+                 #    #  # #    #    #  # #### #  # #     \s
+                """;
         assertThat(problem.solve2(), is(expected));
     }
 }

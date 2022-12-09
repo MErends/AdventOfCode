@@ -62,7 +62,7 @@ public class Day22 extends AbstractProblem<List<String>, Number> {
                 cubes.add(cube);
             }
         }
-        return cubes.stream().mapToLong(Cube::volume).sum();
+        return cubes.stream().mapToLong(this::getVolume).sum();
     }
 
     @Override
@@ -119,27 +119,11 @@ public class Day22 extends AbstractProblem<List<String>, Number> {
         cubes.add(cube2);
         cubes.remove(cube);
     }
-    
-    private static class Cube {
-        
-        int x0;
-        int x1;
-        int y0;
-        int y1;
-        int z0;
-        int z1;
 
-        Cube(int x0, int x1, int y0, int y1, int z0, int z1) {
-            this.x0 = x0;
-            this.x1 = x1;
-            this.y0 = y0;
-            this.y1 = y1;
-            this.z0 = z0;
-            this.z1 = z1;
-        }
-        
-        private long volume() {
-            return ((long) x1 - x0) * (y1 - y0) * (z1 - z0);
-        }
+    private long getVolume(Cube cube) {
+        return ((long) cube.x1 - cube.x0) * (cube.y1 - cube.y0) * (cube.z1 - cube.z0);
+    }
+    
+    private record Cube(int x0,int x1, int y0, int y1, int z0, int z1) {
     }
 }

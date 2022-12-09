@@ -7,121 +7,73 @@ import java.util.List;
 
 public class Day02 extends AbstractProblem<List<String>, String> {
 
+    private char[][] activePad;
+    private int x;
+    private int y;
+
     public static void main(String[] args) {
         new Day02().setAndSolve(Util.readInput(2016, 2));
-
     }
 
     @Override
-    public String solve1() {
-        StringBuilder output = new StringBuilder();
-        int location = 5;
-        for (String line : input) {
-            char[] directions = line.toCharArray();
-            for (char direction : directions) {
-                location = newLocation(location, direction);
-            }
-            output.append(location);
-        }
-        return output.toString();
-    }
-
-    private int newLocation(int oldLocation, char direction) {
-        switch (direction) {
-            default:
-            case 'U':
-                if (oldLocation <= 3) {
-                    return oldLocation;
-                } else {
-                    return oldLocation - 3;
-                }
-            case 'D':
-                if (oldLocation >= 7) {
-                    return oldLocation;
-                } else {
-                    return oldLocation + 3;
-                }
-            case 'L':
-                if ((oldLocation - 1) % 3 == 0) {
-                    return oldLocation;
-                } else {
-                    return oldLocation - 1;
-                }
-            case 'R':
-                if (oldLocation % 3 == 0) {
-                    return oldLocation;
-                } else {
-                    return oldLocation + 1;
-                }
-        }
+    protected String solve1() {
+        activePad = new char[][]{
+                {'1', '2', '3'},
+                {'4', '5', '6'},
+                {'7', '8', '9'}};
+        x = 1;
+        y = 1;
+        return getCode();
     }
 
     @Override
     public String solve2() {
-        StringBuilder output = new StringBuilder();
-        char location = '5';
-        for (String line : input) {
-            char[] directions = line.toCharArray();
-            for (char direction : directions) {
-                location = newLocation2(location, direction);
-            }
-            output.append(location);
-        }
-        return output.toString();
+        activePad = new char[][]{
+                {'\0', '\0', '1', '\0', '\0'},
+                {'\0', '2', '3', '4', '\0'},
+                {'5', '6', '7', '8', '9'},
+                {'\0', 'A', 'B', 'C', '\0'},
+                {'\0', '\0', 'D', '\0', '\0'}};
+        x = 0;
+        y = 2;
+        return getCode();
     }
 
+    private String getCode() {
+        StringBuilder code = new StringBuilder();
+        for (String line : input) {
+            for (char direction : line.toCharArray()) {
+                updatePosition(direction);
+            }
+            code.append(activePad[y][x]);
+        }
+        return code.toString();
+    }
 
-    private char newLocation2(char oldLocation, char direction) {
+    private void updatePosition(char direction) {
         switch (direction) {
-            default:
-            case 'U':
-                switch (oldLocation) {
-                    case 'D': return 'B';
-                    case 'C': return '8';
-                    case 'B': return '7';
-                    case 'A': return '6';
-                    case '8': return '4';
-                    case '7': return '3';
-                    case '6': return '2';
-                    case '3': return '1';
-                    default: return oldLocation;
-                }
-            case 'D':
-                switch (oldLocation) {
-                    case 'B': return 'D';
-                    case '8': return 'C';
-                    case '7': return 'B';
-                    case '6': return 'A';
-                    case '4': return '8';
-                    case '3': return '7';
-                    case '2': return '6';
-                    case '1': return '3';
-                    default: return oldLocation;
-                }
             case 'L':
-                switch (oldLocation) {
-                    case '9': return '8';
-                    case '4': return '3';
-                    case '8': return '7';
-                    case 'C': return 'B';
-                    case '3': return '2';
-                    case '7': return '6';
-                    case 'B': return 'A';
-                    case '6': return '5';
-                    default: return oldLocation;
+                if (x > 0 && activePad[y][x - 1] != '\0') {
+                    x--;
                 }
+                break;
             case 'R':
-                switch (oldLocation) {
-                    case '8': return '9';
-                    case '3': return '4';
-                    case '7': return '8';
-                    case 'B': return 'C';
-                    case '2': return '3';
-                    case '6': return '7';
-                    case 'A': return 'B';
-                    case '5': return '6';
-                    default: return oldLocation;
+                if (x < activePad[y].length - 1 && activePad[y][x + 1] != '\0') {
+                    x++;
                 }
+                break;
+            case 'U':
+                if (y > 0 && activePad[y - 1][x] != '\0') {
+                    y--;
+                }
+                break;
+            case 'D':
+                if (y < activePad.length - 1 && activePad[y + 1][x] != '\0') {
+                    y++;
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown direction: " + direction);
         }
     }
 }

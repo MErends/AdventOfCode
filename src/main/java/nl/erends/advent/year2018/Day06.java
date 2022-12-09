@@ -77,14 +77,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
         }
         return totalDistance;
     }
-    
-    private static class Point {
-        private final int x;
-        private final int y;
 
-        Point(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
+    private record Point(int x, int y) {
     }
 }
