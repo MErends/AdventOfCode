@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.erends</groupId>
     <artifactId>advent-of-code</artifactId>
-    <version>2022.09-SNAPSHOT</version>
+    <version>2022.10-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
