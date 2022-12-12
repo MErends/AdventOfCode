@@ -13,10 +13,19 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
+/**
+ * --- Day 18: Many-Worlds Interpretation ---
+ * <p>As you approach Neptune, a planetary security system detects you and
+ * activates a giant tractor beam on Triton! You have no choice but to land. A
+ * scan of the local area reveals only one interesting feature: a massive
+ * underground vault. How many steps is the shortest path that collects all of
+ * the keys?
+ * <p><a href="https://adventofcode.com/2019/day/18">2019 Day 18</a>
+ */
 public class Day18 extends AbstractProblem<List<String>, Integer> {
 
     private Point start;
-    private State winState = new State(null, Integer.MAX_VALUE);
+    private State winState = new State(null, Integer.MAX_VALUE, new HashSet<>());
     private int keyCount = 0;
     private final Queue<State> states = new LinkedList<>();
     private char[][] maze;
@@ -38,18 +47,21 @@ public class Day18 extends AbstractProblem<List<String>, Integer> {
                 }
             }
         }
-        states.add(new State(Set.of(start), 0));
+        states.add(new State(Set.of(start), 0, new HashSet<>()));
         return findWinState().steps;
     }
 
     @Override
     public Integer solve2() {
         readMaze();
+        keyCount = 0;
         for (int y = 0; y < maze.length; y++) {
             for (int x = 0; x < maze[y].length; x++) {
                 if (maze[y][x] == '@') {
                     start = new Point(x, y);
                     maze[y][x] = '#';
+                } else if (Character.isLowerCase(maze[y][x])) {
+                    keyCount++;
                 }
             }
         }
@@ -61,7 +73,7 @@ public class Day18 extends AbstractProblem<List<String>, Integer> {
         startSet.add(new Point(start.x() + 1, start.y() - 1));
         startSet.add(new Point(start.x() - 1, start.y() + 1));
         startSet.add(new Point(start.x() - 1, start.y() - 1));
-        states.add(new State(startSet, 0));
+        states.add(new State(startSet, 0, new HashSet<>()));
         return findWinState().steps;
     }
 
@@ -124,38 +136,23 @@ public class Day18 extends AbstractProblem<List<String>, Integer> {
                     int y = neighbor.y();
                     if (distanceMaze[y][x] > currentDistance &&
                             (maze[y][x] == '.'
-                                    || oldState.keyList.contains(maze[y][x])
-                                    || oldState.keyList.contains(Character.toLowerCase(maze[y][x])))) {
+                                    || oldState.keySet.contains(maze[y][x])
+                                    || oldState.keySet.contains(Character.toLowerCase(maze[y][x])))) {
                         findNeighborsOf.add(neighbor);
                         distanceMaze[y][x] = currentDistance;
-                    } else if (Character.isLowerCase(maze[y][x]) && !oldState.keyList.contains(maze[y][x])) {
+                    } else if (Character.isLowerCase(maze[y][x]) && !oldState.keySet.contains(maze[y][x])) {
                         Set<Point> newPoints = new HashSet<>(oldState.points);
                         newPoints.remove(point);
                         newPoints.add(neighbor);
-                        states.add(new State(newPoints, oldState.steps + currentDistance, oldState.keyList, maze[y][x]));
+                        Set<Character> newKeySet = new HashSet<>(oldState.keySet);
+                        newKeySet.add(maze[y][x]);
+                        states.add(new State(newPoints, oldState.steps + currentDistance, newKeySet));
                     }
                 }
             }
         }
     }
-    private static class State {
-        final Set<Point> points;
-        final int steps;
-        List<Character> keyList = new ArrayList<>();
-        Set<Character> keySet = new HashSet<>();
 
-        State(Set<Point> points, int steps, List<Character> keys, char newKey) {
-            this.points = points;
-            this.steps = steps;
-            this.keyList.addAll(keys);
-            this.keySet.addAll(keys);
-            keyList.add(newKey);
-            keySet.add(newKey);
-        }
-
-        State(Set<Point> points, int steps) {
-            this.points = points;
-            this.steps = steps;
-        }
+    private record State(Set<Point> points, int steps, Set<Character> keySet) {
     }
 }
