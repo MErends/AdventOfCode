@@ -57,14 +57,18 @@ public class Day13 extends AbstractProblem<List<String>, Integer> {
     }
 
     private int compare(JsonElement first, JsonElement second) {
-        if (first.isJsonArray() && second.isJsonArray()) {
-            return compare(first.getAsJsonArray(), second.getAsJsonArray());
-        } else if (first.isJsonArray() && second.isJsonPrimitive()) {
-            return compare(first.getAsJsonArray(), second.getAsJsonPrimitive());
-        } else if (first.isJsonPrimitive() && second.isJsonArray()) {
-            return compare(first.getAsJsonPrimitive(), second.getAsJsonArray());
+        if (first.isJsonArray()) {
+            if (second.isJsonArray()) {
+                return compare(first.getAsJsonArray(), second.getAsJsonArray());
+            } else {
+                return compare(first.getAsJsonArray(), second.getAsJsonPrimitive());
+            }
         } else {
-            return compare(first.getAsJsonPrimitive(), second.getAsJsonPrimitive());
+            if (second.isJsonArray()) {
+                return compare(first.getAsJsonPrimitive(), second.getAsJsonArray());
+            } else {
+                return compare(first.getAsJsonPrimitive(), second.getAsJsonPrimitive());
+            }
         }
     }
 
