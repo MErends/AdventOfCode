@@ -3,6 +3,8 @@ package nl.erends.advent.util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Collection;
+
 public class Timer {
     
     private static final Logger LOG = LogManager.getLogger(Timer.class);
@@ -52,6 +54,9 @@ public class Timer {
         count++;
         long now = System.currentTimeMillis() / 1000;
         if (currentSecond != now) {
+            if (message instanceof Collection<?> collection) {
+                message = collection.size();
+            }
             LOG.info("{} tps - {}", count, message);
             currentSecond = now;
             count = 0;
