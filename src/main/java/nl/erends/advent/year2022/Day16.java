@@ -207,36 +207,19 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
                 tunnels.add(words[i].substring(0, 2));
             }
         }
-
-        @Override
-        public String toString() {
-            return "Room{" +
-                    "name='" + name + '\'' +
-                    ", rate=" + rate +
-                    '}';
-        }
     }
 
     private static class State {
+
         Set<Room> valvesClosed = new HashSet<>();
         List<Room> valvesOpen = new ArrayList<>();
         Room position;
         int time;
         int released;
-
-        @Override
-        public String toString() {
-            return "State{" +
-                    "valvesClosed=" + valvesClosed +
-                    ", valvesOpen=" + valvesOpen +
-                    ", position=" + position +
-                    ", time=" + time +
-                    ", released=" + released +
-                    '}';
-        }
     }
 
     private static class State2 {
+
         List<Room> valvesClosed = new ArrayList<>();
         List<Room> valvesOpen = new ArrayList<>();
         Room mPosition;
