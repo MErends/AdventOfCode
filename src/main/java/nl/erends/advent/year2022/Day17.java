@@ -9,8 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * --- Day 17
- * <p>
+ * --- Day 17: Pyroclastic Flow ---
+ * <p>The tunnels eventually open into a very tall, narrow chamber. Large,
+ * oddly-shaped rocks are falling into the chamber from above, presumably due to
+ * all the rumbling. If you can't work out where the rocks will fall next, you
+ * might be crushed! How many units tall will the tower of rocks be after 2022
+ * rocks have stopped falling?
  * <p><a href="https://adventofcode.com/2022/day/17">2022 Day 17</a>
  */
 public class Day17 extends AbstractProblem<String, Number> {
@@ -39,7 +43,7 @@ public class Day17 extends AbstractProblem<String, Number> {
         loadRocks();
         rockHeight = 0;
         offset = 0;
-        field = new char[200][7];
+        field = new char[100][7];
         boolean skipped = false;
         movementId = 0;
         Map<Integer, Long> moveHeightMap = new HashMap<>();
@@ -121,13 +125,13 @@ public class Day17 extends AbstractProblem<String, Number> {
                 rockHeight++;
             }
         }
-        if (rockHeight > 150) {
-            for (int row = 0; row < 100; row++) {
-                field[row] = field[row + 100];
-                field[row + 100] = new char[7];
+        if (rockHeight > 90) {
+            for (int row = 0; row < 50; row++) {
+                field[row] = field[row + 50];
+                field[row + 50] = new char[7];
             }
-            rockHeight -= 100;
-            offset += 100;
+            rockHeight -= 50;
+            offset += 50;
         }
     }
 
