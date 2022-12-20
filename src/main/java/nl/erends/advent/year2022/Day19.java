@@ -3,7 +3,9 @@ package nl.erends.advent.year2022;
 import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,7 +35,7 @@ public class Day19 extends AbstractProblem<List<String>, Number> {
         int quality = 0;
         for (Blueprint bp : bps) {
             maxGeodes = Integer.MIN_VALUE;
-            new State(bp, 24).buildAndCompute(-1);
+            new State(bp, 24).buildAndCompute(-1, Collections.emptyList());
             quality += bp.id * maxGeodes;
         }
         return quality;
@@ -45,7 +47,7 @@ public class Day19 extends AbstractProblem<List<String>, Number> {
         int geodes = 1;
         for (Blueprint bp : bps) {
             maxGeodes = Integer.MIN_VALUE;
-            new State(bp, 32).buildAndCompute(-1);
+            new State(bp, 32).buildAndCompute(-1, Collections.emptyList());
             geodes *= maxGeodes;
         }
         return geodes;
@@ -72,7 +74,7 @@ public class Day19 extends AbstractProblem<List<String>, Number> {
             bp = o.bp;
         }
 
-        void buildAndCompute(int newRobot) {
+        void buildAndCompute(int newRobot, List<Integer> dontBuild) {
             for (int resource = ORE; resource <= GEODE; resource++) {
                 resources[resource] += robots[resource];
             }
@@ -94,15 +96,21 @@ public class Day19 extends AbstractProblem<List<String>, Number> {
                 maxGeodes =  resources[GEODE];
                 return;
             }
+            List<Integer> possibleRobots = new ArrayList<>();
             for (int robot = GEODE; robot >= ORE; robot--) {
                 if (robots[robot] < bp.maxRobots[robot]
                         && bp.robotCost[robot][ORE] <= resources[ORE]
                         && bp.robotCost[robot][CLAY] <= resources[CLAY]
                         && bp.robotCost[robot][OBS] <= resources[OBS]) {
-                    new State(this).buildAndCompute(robot);
+                    possibleRobots.add(robot);
                 }
             }
-            buildAndCompute(-1);
+            for (int robot : possibleRobots) {
+                if (!dontBuild.contains(robot)) {
+                    new State(this).buildAndCompute(robot, Collections.emptyList());
+                }
+            }
+            buildAndCompute(-1, possibleRobots);
         }
     }
 
