@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>aoc-2022</artifactId>
-    <version>2022.21-SNAPSHOT</version>
+    <version>2022.22-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
