@@ -41,7 +41,7 @@ public class Util {
         }
         location += "/year" + year + "/day" + day + extension;
         Path path = Paths.get(location);
-        if (Files.notExists(path)) {
+        if (testcase == 0 && Files.notExists(path)) {
             downloadInput(year, day, path);
         }
         try {
