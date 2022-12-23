@@ -46,8 +46,6 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
                     mover.position = mover.proposal;
                 }
             }
-            directions.add(directions.remove(0));
-            round++;
             if (round == 10) {
                 int maxX = elfs.stream().mapToInt(e -> e.position.x()).max().orElseThrow();
                 int maxY = elfs.stream().mapToInt(e -> e.position.y()).max().orElseThrow();
@@ -55,6 +53,8 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
                 int minY = elfs.stream().mapToInt(e -> e.position.y()).min().orElseThrow();
                 round10 = (maxX - minX + 1) * (maxY - minY + 1) - elfs.size();
             }
+            directions.add(directions.remove(0));
+            round++;
         }
     }
 
