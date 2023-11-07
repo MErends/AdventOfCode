@@ -17,6 +17,7 @@
         <module>aoc-2020</module>
         <module>aoc-2021</module>
         <module>aoc-2022</module>
+        <module>aoc-2023</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
