@@ -32,7 +32,7 @@ public class Day06 extends AbstractProblem<List<String>, Number> {
                 .filter(s -> !s.isBlank())
                 .map(Integer::parseInt)
                 .toList();
-        long records = 1L;
+        int records = 1;
         for (int race = 0; race < times.size(); race++) {
             int time = times.get(race);
             int distance = distances.get(race);

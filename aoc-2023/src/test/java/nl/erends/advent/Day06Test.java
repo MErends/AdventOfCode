@@ -13,6 +13,6 @@ class Day06Test {
         Day06 problem = new Day06();
         problem.setInput(Util.readInput(2023, 6, 1));
         assertThat(problem.solve1(), is (288));
-        assertThat(problem.solve2(), is (71503L));
+        assertThat(problem.solve2(), is (71503));
     }
 }
