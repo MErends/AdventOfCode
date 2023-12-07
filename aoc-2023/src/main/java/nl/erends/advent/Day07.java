@@ -7,8 +7,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * <h1>--- Day 7:  ---</h1>
- * <p></p>
+ * <h1>--- Day 7: Camel Cards ---</h1>
+ * <p>Because the journey will take a few days, the Elf offers to teach you the
+ * game of Camel Cards. Camel Cards is sort of similar to poker except it's
+ * designed to be easier to play while riding a camel. Hands are primarily
+ * ordered based on type; for example, every full house is stronger than any
+ * three of a kind. Now, you can determine the total winnings of this set of
+ * hands by adding up the result of multiplying each hand's bid with its rank.
+ * </p>
  * <p><a href="https://adventofcode.com/2023/day/7">2023 Day 7</a></p>
  */
 public class Day07 extends AbstractProblem<List<String>, Number> {
