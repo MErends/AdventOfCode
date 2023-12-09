@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>aoc-2023</artifactId>
-    <version>8.2-SNAPSHOT</version>
+    <version>9.2-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
