@@ -5,8 +5,9 @@ import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -23,6 +24,9 @@ import java.util.stream.IntStream;
  */
 public class Day12 extends AbstractProblem<List<String>, Number> {
 
+    String target;
+    List<Integer> formula;
+    Map<Integer, Map<Integer, Long>> cache;
 
     public static void main(String[] args) {
         new Day12().setAndSolve(Util.readInput(2023, 12));
@@ -30,97 +34,110 @@ public class Day12 extends AbstractProblem<List<String>, Number> {
 
     @Override
     protected Number solve1() {
-        int sum = 0;
-        for (String line : input) {
-            String[] sA = line.split(" ");
-            String target = sA[0];
-            List<Integer> formula = Arrays.stream(sA[1].split(","))
-                    .map(Integer::parseInt)
-                    .collect(Collectors.toCollection(ArrayList::new));
-            List<String> options = getOptions(formula, target.length(), target);
-            options.removeIf(o -> !goodMatch(target, o));
-            sum += options.size();
-        }
-        return sum;
+        return solve(1);
     }
 
     @Override
     public Number solve2() {
-        int sum = 0;
-        int counter = 0;
+        return solve(5);
+    }
+
+    private Number solve(int multiplier) {
+        long sum = 0;
         for (String line : input) {
             String[] sA = line.split(" ");
-            String target = sA[0];
-            List<Integer> formula = Arrays.stream(sA[1].split(","))
+            cache = new HashMap<>();
+            target = sA[0];
+            formula = Arrays.stream(sA[1].split(","))
                     .map(Integer::parseInt)
                     .collect(Collectors.toCollection(ArrayList::new));
-            StringBuilder bigTargetSB = new StringBuilder(target);
-            List<Integer> bigFormula = new ArrayList<>(formula);
-            IntStream.rangeClosed(1, 4).forEach(i -> {
-                bigTargetSB.append('?').append(target);
-                bigFormula.addAll(formula);
-            });
-            String bigTarget = bigTargetSB.toString();
-            List<String> options = getOptions(bigFormula, bigTarget.length(), bigTarget);
-            for (String option : options) {
-                if (!goodMatch(bigTarget, option)) {
-                    LOG.info(option);
-                    LOG.info(bigTarget);
-                }
-            }
-            options.removeIf(o -> !goodMatch(bigTarget, o));
-            sum += options.size();
-            LOG.info("{}/{}. Sum={}", ++counter, input.size(), options.size());
+            List<Integer> formulaClone = new ArrayList<>(formula);
+            IntStream.range(1, multiplier).forEach(i -> {target += ',' + sA[0]; formula.addAll(formulaClone);});
+            long options = getOptions(0, 0);
+            sum += options;
         }
         return sum;
     }
 
-    private boolean goodMatch(String target, String option) {
-        for (int i = 0; i < option.length(); i++) {
-            char tC = target.charAt(i);
-            char oC = option.charAt(i);
-            if (tC != '?' && tC != oC) {
-                return false;
-            }
+    private long getOptions(int groupNumber, int offset) {
+        if (cache.containsKey(groupNumber) && cache.get(groupNumber).containsKey(offset)) {
+            return cache.get(groupNumber).get(offset);
         }
-        return true;
-    }
-
-    private List<String> getOptions(List<Integer> formula, int targetLength, String stringBegin) {
-        List<String> options = new ArrayList<>();
-        List<Integer> newFormula = new ArrayList<>(formula);
-        int groupSize = newFormula.remove(0);
-        if (newFormula.isEmpty()) {
-            final StringBuilder group = new StringBuilder();
-            IntStream.range(0, groupSize).forEach(i -> group.append('#'));
-            while (group.length() != targetLength) {
-                group.insert(0, '.');
-            }
-            while (group.charAt(0) != '#') {
-                String groupString = group.toString();
-                if (goodMatch(stringBegin, groupString)) {
-                    options.add(groupString);
+        if (groupNumber == formula.size() - 1) {
+            long options = 0;
+            int groupSize = formula.get(groupNumber);
+            for (int padding = 0; padding + groupSize <= target.length() - offset; padding++) {
+                boolean isOption = true;
+                for (int i = 0; i < padding; i++) {
+                    if (target.charAt(offset + i) == '#') {
+                        isOption = false;
+                        break;
+                    }
                 }
-                group.deleteCharAt(0);
-                group.append('.');
+                if (!isOption) {
+                    continue;
+                }
+                for (int i = padding; i < padding + groupSize; i++) {
+                    if (target.charAt(offset + i) == '.') {
+                        isOption = false;
+                        break;
+                    }
+                }
+                if (!isOption) {
+                    continue;
+                }
+                for (int i = padding + groupSize; i < target.length() - offset; i++) {
+                    if (target.charAt(offset + i) == '#') {
+                        isOption = false;
+                        break;
+                    }
+                }
+                options += isOption ? 1 : 0;
             }
-            options.add(group.toString());
-            Collections.reverse(options);
+            if (!cache.containsKey(groupNumber)) {
+                cache.put(groupNumber, new HashMap<>());
+            }
+            cache.get(groupNumber).put(offset, options);
             return options;
         }
+        long options = 0;
+        int groupSize = formula.get(groupNumber);
 
-        final StringBuilder group = new StringBuilder();
-        IntStream.range(0, groupSize).forEach(i -> group.append('#'));
-        group.append('.');
-        int formulaLength = newFormula.stream().mapToInt(i -> i).sum() + newFormula.size() - 1;
-        int paddingRoom = targetLength - formulaLength - group.length();
-        for (int padding = 0; padding <= paddingRoom; padding++) {
-            if (goodMatch(stringBegin, group.toString())) {
-                List<String> newOptions = getOptions(newFormula, targetLength - group.length(), stringBegin.substring(group.length()));
-                newOptions.forEach(nO -> options.add(group + nO));
-            }
-            group.insert(0, '.');
+        int restLength = -1;
+        for (int i = groupNumber + 1; i < formula.size(); i++) {
+            restLength += formula.get(i) + 1;
         }
+        int maxPadding = target.length() - offset - restLength - groupSize - 1;
+        for (int padding = 0; padding <= maxPadding; padding++) {
+            boolean isOption = true;
+            for (int i = 0; i < padding; i++) {
+                if (target.charAt(offset + i) == '#') {
+                    isOption = false;
+                    break;
+                }
+            }
+            if (!isOption) {
+                continue;
+            }
+            for (int i = padding; i < padding + groupSize; i++) {
+                if (target.charAt(offset + i) == '.') {
+                    isOption = false;
+                    break;
+                }
+            }
+            if (!isOption) {
+                continue;
+            }
+            if (target.charAt(offset + padding + groupSize) == '#') {
+                continue;
+            }
+            options += getOptions(groupNumber + 1, offset + padding + groupSize + 1);
+        }
+
+        if (!cache.containsKey(groupNumber)) {
+            cache.put(groupNumber, new HashMap<>());
+        }
+        cache.get(groupNumber).put(offset, options);
         return options;
     }
 }
