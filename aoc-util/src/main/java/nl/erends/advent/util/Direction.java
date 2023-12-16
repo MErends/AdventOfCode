@@ -50,4 +50,12 @@ public enum Direction {
             default -> throw new IllegalArgumentException("" + c);
         };
     }
+
+    public boolean isVertical() {
+        return this == UP || this == DOWN;
+    }
+
+    public boolean isHorizontal() {
+        return !isVertical();
+    }
 }
