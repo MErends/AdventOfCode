@@ -14,17 +14,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * <h1>--- Day 16: The Floor Will Be Lava ---</h1>
- * <p>Finally, as you approach what must be the heart of the mountain, you see a
- * bright light in a cavern up ahead. There, you discover that the beam of light
- * you so carefully focused is emerging from the cavern wall closest to the
- * facility and pouring all of its energy into a contraption on the opposite
- * side. Upon closer inspection, the contraption appears to be a flat,
- * two-dimensional square grid containing empty space (.), mirrors (/ and \),
- * and splitters (| and -).Find the initial beam configuration that energizes
- * the largest number of tiles; how many tiles are energized in that
- * configuration?</p>
- * <p><a href="https://adventofcode.com/2023/day/16">2023 Day 16</a></p>
+ * <h1>--- Day 19: Aplenty ---</h1>
+ * <p>As you reach the bottom of the relentless avalanche of machine parts, you
+ * discover that they're already forming a formidable heap. each part is sent
+ * through a series of workflows that will ultimately accept or reject the part.
+ * Each workflow has a name and contains a list of rules; each rule specifies a
+ * condition and where to send the part if the condition is true. What do you
+ * get if you add together all of the rating numbers for all of the parts that
+ * ultimately get accepted?</p>
+ * <p><a href="https://adventofcode.com/2023/day/19">2023 Day 19</a></p>
  */
 public class Day19 extends AbstractProblem<List<String>, Number> {
 

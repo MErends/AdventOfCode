@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 /**
- * <h1>--- Day 14: Lens Library ---</h1>
+ * <h1>--- Day 15: Lens Library ---</h1>
  * <p>The newly-focused parabolic reflector dish is sending all of the collected
  * light to a point on the side of yet another mountain. The book goes on to
  * describe a series of 256 boxes numbered 0 through 255. The boxes are arranged
