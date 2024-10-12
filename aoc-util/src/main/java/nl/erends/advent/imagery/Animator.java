@@ -62,6 +62,7 @@ public class Animator {
             }
         }
         colorList.add(colorGrid);
+        textList.add(null);
     }
 
     public static void clear() {

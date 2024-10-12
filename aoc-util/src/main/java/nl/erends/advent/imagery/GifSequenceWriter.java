@@ -69,7 +69,7 @@ class GifSequenceWriter {
         }
         IIOMetadataNode node = new IIOMetadataNode(nodeName);
         rootNode.appendChild(node);
-        return(node);
+        return node;
     }
 
     static void startGif(String filename, int frameRate) throws IOException {
