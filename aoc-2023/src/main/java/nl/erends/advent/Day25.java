@@ -12,15 +12,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * <h1>--- Day 22: Sand Slabs ---</h1>
- * <p>Enough sand has fallen; it can finally filter water for Snow Island.The
- * sand has been falling as large compacted bricks of sand, piling up to form an
- * impressive stack here near the edge of Island Island. In order to make use of
- * the sand to filter water, some of the bricks will need to be disintegrated
- * back into freely flowing sand. Figure how the blocks will settle based on the
- * snapshot. Once they've settled, consider disintegrating a single brick; how
- * many bricks could be safely chosen as the one to get disintegrated?</p>
- * <p><a href="https://adventofcode.com/2023/day/22">2023 Day 22</a></p>
+ * <h1>--- Day 25: Snoverload ---</h1>
+ * <p>Work in progress</p>
+ * <p><a href="https://adventofcode.com/2023/day/25">2023 Day 25</a></p>
  */
 public class Day25 extends AbstractProblem<List<String>, Number> {
 
