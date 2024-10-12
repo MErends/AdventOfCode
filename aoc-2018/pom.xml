@@ -12,11 +12,6 @@
     <artifactId>aoc-2018</artifactId>
     <version>2018.25-SNAPSHOT</version>
 
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>nl.erends</groupId>
