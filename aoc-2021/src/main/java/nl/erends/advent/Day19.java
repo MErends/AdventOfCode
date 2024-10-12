@@ -1,6 +1,7 @@
 package nl.erends.advent;
 
 import nl.erends.advent.util.AbstractProblem;
+import nl.erends.advent.util.Coord;
 import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
@@ -129,8 +130,8 @@ public class Day19 extends AbstractProblem<List<String>,Integer> {
         }
         return null;
     }
-    
-    
+
+
     private static class Scanner {
         final List<Coord> coords = new ArrayList<>();
         List<Coord> transformed = new ArrayList<>();
@@ -138,16 +139,16 @@ public class Day19 extends AbstractProblem<List<String>,Integer> {
         int offsetX;
         int offsetY;
         int offsetZ;
-        
+
         private void addCoord(String line) {
             coords.add(new Coord(line));
         }
-        
+
         private void pointToX() {
             transformed = new ArrayList<>();
             coords.forEach(c -> transformed.add(new Coord(c)));
         }
-        
+
         private void pointToY() {
             pointToX();
             for (Coord coord : transformed) {
@@ -156,7 +157,7 @@ public class Day19 extends AbstractProblem<List<String>,Integer> {
                 coord.y = -temp;
             }
         }
-        
+
         private void pointToZ() {
             pointToX();
             for (Coord coord : transformed) {
@@ -165,7 +166,7 @@ public class Day19 extends AbstractProblem<List<String>,Integer> {
                 coord.z = -temp;
             }
         }
-        
+
         private void rotate() {
             for (Coord coord : transformed) {
                 int temp = coord.y;
@@ -173,14 +174,14 @@ public class Day19 extends AbstractProblem<List<String>,Integer> {
                 coord.z = temp;
             }
         }
-        
+
         private void flip() {
             for (Coord coord : transformed) {
                 coord.x = -coord.x;
                 coord.z = -coord.z;
             }
         }
-        
+
         private void applyOffset(String offset) {
             String[] split = offset.split(",");
             offsetX = Integer.parseInt(split[0]);
@@ -195,43 +196,5 @@ public class Day19 extends AbstractProblem<List<String>,Integer> {
             }
         }
     }
-    
-    private static class Coord {
-        int x;
-        int y;
-        int z;
-        
-        private Coord(Coord coord) {
-            this.x = coord.x;
-            this.y = coord.y;
-            this.z = coord.z;
-        }
-        
-        private Coord(String line) {
-            String[] split = line.split(",");
-            x = Integer.parseInt(split[0]);
-            y = Integer.parseInt(split[1]);
-            z = Integer.parseInt(split[2]);
-        }
 
-        @Override
-        public String toString() {
-            return x + "," + y + "," + z;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Coord coord = (Coord) o;
-            if (x != coord.x) return false;
-            if (y != coord.y) return false;
-            return z == coord.z;
-        }
-
-        @Override
-        public int hashCode() {
-            return toString().hashCode();
-        }
-    }
 }
