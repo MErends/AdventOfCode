@@ -20,8 +20,18 @@ public class Day16 extends AbstractProblem<String, Number> {
 
     @Override
     public Integer solve1() {
-        BITSPacket packet = BITSPacket.of(input);
-        answer2 = packet.getValue();
-        return packet.getTotalVersions();
+        String hex = input;
+        StringBuilder binaryString = new StringBuilder();
+        for (int i = 0; i < hex.length(); i++) {
+            String hexChar = hex.substring(i, i+ 1);
+            int value = Integer.parseInt(hexChar, 16);
+            String charString = Integer.toBinaryString(value);
+            charString = Util.leftPadWithZero(charString, 4);
+            binaryString.append(charString);
+        }
+        BITSPacket bits = new BITSPacket(binaryString.toString(), 0);
+        bits.resolve();
+        answer2 = bits.getValue();
+        return bits.getTotalVersions();
     }
 }
