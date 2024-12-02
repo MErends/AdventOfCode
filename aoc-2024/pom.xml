@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>aoc-2024</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>2.2-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
