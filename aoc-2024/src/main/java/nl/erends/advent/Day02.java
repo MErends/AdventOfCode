@@ -44,23 +44,17 @@ public class Day02 extends AbstractProblem<List<String>, Integer> {
         }
 
         boolean isSafe() {
-            return strictlyIncreases() || strictlyDecreases();
-        }
-
-        boolean strictlyIncreases() {
+            boolean increases = true;
+            boolean decreases = true;
             for (int index = 0; index < levels.size() - 1; index++) {
                 int diff = levels.get(index) - levels.get(index + 1);
-                if (diff <= 0 || diff > 3) {
-                    return false;
+                if (increases && (diff > 3 || diff <= 0)) {
+                    increases = false;
                 }
-            }
-            return true;
-        }
-
-        boolean strictlyDecreases() {
-            for (int index = 0; index < levels.size() - 1; index++) {
-                int diff = levels.get(index) - levels.get(index + 1);
-                if (diff >= 0 || diff < -3) {
+                if (decreases && (diff < -3 || diff >= 0)) {
+                    decreases = false;
+                }
+                if (!increases && !decreases) {
                     return false;
                 }
             }
