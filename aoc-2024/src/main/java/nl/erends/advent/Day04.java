@@ -18,8 +18,6 @@ import java.util.regex.Pattern;
  */
 public class Day04 extends AbstractProblem<List<String>, Integer> {
 
-
-
     public static void main(String[] args) {
         new Day04().setAndSolve(Util.readInput(2024, 4));
     }
@@ -37,19 +35,21 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
         }
         lines.addAll(verticals);
         lines.addAll(getDiagonals());
-        lines.addAll(reverseStrings(lines));
-        Pattern p = Pattern.compile("XMAS");
+        Pattern p1 = Pattern.compile("XMAS");
+        Pattern p2 = Pattern.compile("SAMX");
         int count = 0;
         for (String line : lines) {
-            Matcher m = p.matcher(line);
-            count += (int) m.results().count();
+            Matcher m1 = p1.matcher(line);
+            Matcher m2 = p2.matcher(line);
+            count += (int) m1.results().count();
+            count += (int) m2.results().count();
         }
         return count;
     }
 
     private List<String> getDiagonals() {
         List<String> diagonals = new ArrayList<>();
-        for (int x0 = 0; x0 < input.size(); x0++) {
+        for (int x0 = 0; x0 < input.size() - 3; x0++) {
             StringBuilder negLine = new StringBuilder();
             StringBuilder posLine = new StringBuilder();
             int x = x0;
@@ -60,7 +60,7 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
             diagonals.add(negLine.toString());
             diagonals.add(posLine.toString());
         }
-        for (int y0 = 1; y0 < input.size(); y0++) {
+        for (int y0 = 1; y0 < input.size() - 3; y0++) {
             StringBuilder negLine = new StringBuilder();
             StringBuilder posLine = new StringBuilder();
             int y = y0;
@@ -74,24 +74,18 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
         return diagonals;
     }
 
-    private List<String> reverseStrings(List<String> lines) {
-        return lines.stream()
-                .map(StringBuilder::new)
-                .map(StringBuilder::reverse)
-                .map(StringBuilder::toString)
-                .toList();
-    }
-
     @Override
     public Integer solve2() {
+        char mAndS = 'M' + 'S';
         int count = 0;
         for (int x = 1; x < input.size() - 1; x++) {
             for (int y = 1; y < input.size() - 1; y++) {
                 if (input.get(y).charAt(x) != 'A') {
                     continue;
                 }
-                if (input.get(y - 1).charAt(x - 1) + input.get(y + 1).charAt(x + 1) == 'M' + 'S'
-                && input.get(y - 1).charAt(x + 1) + input.get(y + 1).charAt(x - 1) == 'M' + 'S') {
+                // Wait, that's illegal!
+                if (input.get(y - 1).charAt(x - 1) + input.get(y + 1).charAt(x + 1) == mAndS
+                && input.get(y - 1).charAt(x + 1) + input.get(y + 1).charAt(x - 1) == mAndS) {
                     count++;
                 }
             }
