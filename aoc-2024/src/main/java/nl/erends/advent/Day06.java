@@ -22,14 +22,18 @@ import static nl.erends.advent.util.Direction.UP;
  */
 public class Day06 extends AbstractProblem<List<String>, Integer> {
 
+    char[][] grid;
+    Coord start;
+
     public static void main(String[] args) {
         new Day06().setAndSolve(Util.readInput(2024, 6));
     }
 
     @Override
     protected Integer solve1() {
-        char[][] grid = readInput();
-        Coord guard = getStart(grid);
+        grid = readInput();
+        start = getStart(grid);
+        Coord guard = new Coord(start);
         Direction d = UP;
         boolean busy = true;
         while (busy) {
@@ -54,14 +58,12 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
     @Override
     public Integer solve2() {
         int obstructions = 0;
-        char[][] grid = readInput();
-        Coord guardStart = getStart(grid);
         for (Coord wall : getPossibleWalls(grid)) {
-            grid = readInput();
+            char[][] newGrid = readInput();
             grid[wall.y][wall.x] = '#';
-            Coord guard = new Coord(guardStart);
+            Coord guard = new Coord(start);
             Direction d = UP;
-            int[][] passes = new int[grid.length][grid[0].length];
+            int[][] passes = new int[newGrid.length][newGrid[0].length];
             boolean busy = true;
             while (busy) {
                 if (passes[guard.y][guard.x] == 4) { // Went by in all directions?!
@@ -69,7 +71,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
                     break;
                 }
                 passes[guard.y][guard.x]++;
-                switch (getSafeGrid(grid, guard.x + d.dx(), guard.y + d.dy())) {
+                switch (getSafeGrid(newGrid, guard.x + d.dx(), guard.y + d.dy())) {
                     case '\0' -> busy = false;
                     case '#' -> d = d.turnRight();
                     default -> guard.addDirection(d);
@@ -87,7 +89,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
     }
 
     private char[][] readInput() {
-        char[][] grid = new char[input.size()][];
+        grid = new char[input.size()][];
         for (int y = 0; y < input.size(); y++) {
             grid[y] = input.get(y).toCharArray();
         }
@@ -109,7 +111,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
         List<Coord> possibleWalls = new ArrayList<>();
         for (int y = 0; y < grid.length; y++) {
             for (int x = 0; x < grid[y].length; x++) {
-                if (grid[y][x] == '.') {
+                if (grid[y][x] == 'X') {
                     possibleWalls.add(new Coord(x, y));
                 }
             }
