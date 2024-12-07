@@ -9,7 +9,6 @@ public class Day17 extends AbstractProblem<List<String>, Integer> {
 
     private static final int CYCLES = 6;
     private int[][][][] grid;
-    private boolean part2 = false;
     private static final int[] DELTA = new int[]{-1, 0, 1};
 
     public static void main(String[] args) {
@@ -101,11 +100,5 @@ public class Day17 extends AbstractProblem<List<String>, Integer> {
             return grid[nw][nz][ny][nx];
         }
         return 0;
-    }
-
-    @Override
-    public Integer solve2() {
-        part2 = true;
-        return solve1();
     }
 }

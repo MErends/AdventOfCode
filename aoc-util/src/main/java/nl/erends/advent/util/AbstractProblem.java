@@ -9,6 +9,8 @@ public abstract class AbstractProblem<T, U> {
     protected T input;
     
     protected U answer2;
+
+    protected boolean part2;
     
     protected static final Logger LOG = LogManager.getLogger(AbstractProblem.class);
     
@@ -38,7 +40,11 @@ public abstract class AbstractProblem<T, U> {
 
     public U solve2() {
         if (answer2 == null) {
-            solve1();
+            part2 = true;
+            U candidate = solve1();
+            if (answer2 == null) {
+                answer2 = candidate;
+            }
         }
         return answer2;
     }

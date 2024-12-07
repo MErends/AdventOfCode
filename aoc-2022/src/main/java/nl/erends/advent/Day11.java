@@ -22,7 +22,7 @@ public class Day11 extends AbstractProblem<List<String>, Long> {
 
     private final List<Monkey> monkeys = new ArrayList<>();
     private long supermodulo = Integer.MAX_VALUE;
-    private boolean part2;
+    private boolean worried;
 
 
     public static void main(String[] args) {
@@ -37,7 +37,7 @@ public class Day11 extends AbstractProblem<List<String>, Long> {
 
     @Override
     public Long solve2() {
-        part2 = true;
+        worried = true;
         loadMonkeys();
         supermodulo = 1;
         for (Monkey monkey : monkeys) {
@@ -94,7 +94,7 @@ public class Day11 extends AbstractProblem<List<String>, Long> {
             inspects += items.size();
             for (long item : items) {
                 item = operation.applyAsLong(item);
-                if (!part2) {
+                if (!worried) {
                     item /= 3;
                 }
                 int targetMonkey = item % modulo == 0 ? trueMonkey : falseMonkey;

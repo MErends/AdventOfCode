@@ -14,7 +14,6 @@ public class Day11 extends AbstractProblem<List<String>, Integer> {
     private static final char OCCUPIED = '#';
     private static final char FLOOR = '.';
 
-    private boolean part2 = false;
 
     public static void main(String[] args) {
         new Day11().setAndSolve(Util.readInput(2020, 11));
@@ -46,12 +45,6 @@ public class Day11 extends AbstractProblem<List<String>, Integer> {
             }
         }
         return occupiedSeats;
-    }
-
-    @Override
-    public Integer solve2() {
-        part2 = true;
-        return solve1();
     }
 
     private long getHash() {

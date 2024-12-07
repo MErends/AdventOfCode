@@ -8,8 +8,6 @@ import java.util.OptionalLong;
 import java.util.stream.IntStream;
 
 public class Day09 extends AbstractProblem<String, Long> {
-    
-    private boolean part2 = false;
 
     public static void main(String[] args) {
         new Day09().setAndSolve("446 players; last marble is worth 71522 points");
@@ -46,12 +44,6 @@ public class Day09 extends AbstractProblem<String, Long> {
         }
         OptionalLong optionalLong = playerList.stream().mapToLong(p -> p.score).max();
         return optionalLong.orElseThrow(IllegalStateException::new);
-    }
-    
-    @Override
-    public Long solve2() {
-        part2 = true;
-        return solve1();
     }
     
     private static class Player {

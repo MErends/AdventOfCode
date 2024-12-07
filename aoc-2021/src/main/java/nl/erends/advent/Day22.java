@@ -21,7 +21,6 @@ public class Day22 extends AbstractProblem<List<String>, Number> {
     
     private final Pattern p = Pattern.compile("(\\w+) x=(-?\\d+)..(-?\\d+),y=(-?\\d+)..(-?\\d+),z=(-?\\d+)..(-?\\d+)");
     private List<Cube> cubes;
-    private boolean part2 = false;
     
     public static void main(String[] args) {
         new Day22().setAndSolve(Util.readInput(2021, 22));
@@ -63,12 +62,6 @@ public class Day22 extends AbstractProblem<List<String>, Number> {
             }
         }
         return cubes.stream().mapToLong(this::getVolume).sum();
-    }
-
-    @Override
-    public Number solve2() {
-        part2 = true;
-        return solve1();
     }
 
     private List<Cube> getIntersectingCubes(Cube cubeA) {

@@ -11,8 +11,6 @@ import java.util.stream.IntStream;
 
 public class Day22 extends AbstractProblem<List<String>, Number> {
 
-    private boolean part2 = false;
-
     public static void main(String[] args) {
         new Day22().setAndSolve(Util.readInput(2020, 22));
     }
@@ -37,12 +35,6 @@ public class Day22 extends AbstractProblem<List<String>, Number> {
         Collections.reverse(winList);
         return IntStream.rangeClosed(1, winList.size())
                 .reduce(0, (i1, i2) -> i1 + (i2 * winList.get(i2 - 1)));
-    }
-
-    @Override
-    public Integer solve2() {
-        part2 = true;
-        return solve1();
     }
 
     private int findWinner(List<Integer> player1, List<Integer> player2, boolean recursive) {

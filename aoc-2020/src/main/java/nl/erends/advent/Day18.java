@@ -7,8 +7,6 @@ import java.util.List;
 
 public class Day18 extends AbstractProblem<List<String>, Long> {
 
-    private boolean part2 = false;
-
     public static void main(String[] args) {
         new Day18().setAndSolve(Util.readInput(2020, 18));
     }
@@ -61,11 +59,5 @@ public class Day18 extends AbstractProblem<List<String>, Long> {
             result = Long.toString(a * b);
         }
         return solveExpr(line.substring(0, beginExp) + result + line.substring(endExp));
-    }
-
-    @Override
-    public Long solve2() {
-        part2 = true;
-        return solve1();
     }
 }

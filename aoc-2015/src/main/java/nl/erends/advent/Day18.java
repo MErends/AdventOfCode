@@ -19,7 +19,6 @@ public class Day18 extends AbstractProblem<List<String>,Integer> {
     private int size = 0;
     private int[][] grid;
     private int iterations = 100;
-    private boolean part2 = false;
 
     public static void main(String[] args) {
         new Day18().setAndSolve(Util.readInput(2015, 18));
@@ -35,12 +34,6 @@ public class Day18 extends AbstractProblem<List<String>,Integer> {
             }
         }
         return Arrays.stream(grid).flatMapToInt(Arrays::stream).sum();
-    }
-
-    @Override
-    public Integer solve2() {
-        part2 = true;
-        return solve1();
     }
 
     private void readInput() {

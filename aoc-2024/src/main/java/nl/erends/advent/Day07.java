@@ -20,8 +20,6 @@ import java.util.stream.Collectors;
  */
 public class Day07 extends AbstractProblem<List<String>, Long> {
 
-    private boolean part2 = false;
-
     public static void main(String[] args) {
         new Day07().setAndSolve(Util.readInput(2024, 7));
     }
@@ -41,12 +39,6 @@ public class Day07 extends AbstractProblem<List<String>, Long> {
             }
         }
         return result;
-    }
-
-    @Override
-    public Long solve2() {
-        part2 = true;
-        return solve1();
     }
 
     boolean isEquationpossible(List<Long> operands, long value, long target) {

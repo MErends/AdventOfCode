@@ -17,7 +17,6 @@ import java.util.List;
 public class Day22 extends AbstractProblem<List<String>, Number> {
 
     private char[][] board;
-    private boolean part2;
 
     public static void main(String[] args) {
         new Day22().setAndSolve(Util.readInput(2022, 22));
@@ -63,12 +62,6 @@ public class Day22 extends AbstractProblem<List<String>, Number> {
             case RIGHT -> 0;
         };
         return password + 1000 * (me.y + 1) + 4 * (me.x + 1);
-    }
-
-    @Override
-    public Number solve2() {
-        part2 = true;
-        return solve1();
     }
 
     private class Position {
