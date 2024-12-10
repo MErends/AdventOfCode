@@ -9,14 +9,14 @@ import java.util.List;
 import static nl.erends.advent.util.Util.ASCII_OFFSET;
 
 /**
- * <h1>--- Day 8: Resonant Collinearity ---</h1>
- * <p>You find yourselves on the roof of a top-secret Easter Bunny installation.
- * While The Historians do their thing, you take a look at the familiar huge
- * antenna. Each antenna is tuned to a specific frequency indicated by a single
- * lowercase letter, uppercase letter, or digit. Calculate the impact of the
- * signal. How many unique locations within the bounds of the map contain an
- * antinode?</p>
- * <p><a href="https://adventofcode.com/2024/day/8">2024 Day 8</a></p>
+ * <h1>--- Day 9: Disk Fragmenter ---</h1>
+ * <p>You notice an amphipod in the corner struggling with his computer. He's
+ * trying to make more contiguous free space by compacting all of the files, but
+ * his program isn't working; you offer to help. The amphipod would like to move
+ * file blocks one at a time from the end of the disk to the leftmost free space
+ * block. Compact the amphipod's hard drive using the process he requested. What
+ * is the resulting filesystem checksum?</p>
+ * <p><a href="https://adventofcode.com/2024/day/9">2024 Day 9</a></p>
  */
 public class Day09 extends AbstractProblem<String, Long> {
 
