@@ -36,13 +36,27 @@ public class Day14 extends AbstractProblem<List<String>, Integer> {
     public Integer solve2() {
         List<Robot> robots = input.stream().map(Robot::new).toList();
         int steps = 0;
-        int safetyFactor = Integer.MAX_VALUE;
-        while (safetyFactor > 99200000) { // YMMV
+        double totalDeviation = 0;
+        while (true) {
             robots.forEach(r -> r.move(1));
             steps++;
-            safetyFactor = getSafetyFactor(robots);
+            double currentDeviation = getDeviation(robots);
+            totalDeviation += currentDeviation;
+            double rollingDeviation = totalDeviation / steps;
+            if (currentDeviation * 1.5 < rollingDeviation) {
+                break;
+            }
         }
         return steps;
+    }
+
+    private double getDeviation(List<Robot> robots) {
+        int robotCount = robots.size();
+        double averageX = (double) robots.stream().mapToInt(r -> r.x).sum() / robotCount;
+        double averageY = (double) robots.stream().mapToInt(r -> r.y).sum() / robotCount;
+        return robots.stream()
+                .mapToDouble(r -> Math.sqrt(Math.pow(averageX - r.x, 2) + Math.pow(averageY - r.y, 2)))
+                .sum() / robotCount;
     }
 
     private int getSafetyFactor(List<Robot> robots) {
