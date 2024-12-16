@@ -98,9 +98,11 @@ public class Day09 extends AbstractProblem<String, Long> {
             if (currentBlock.isEmpty()) {
                 continue;
             }
-            for (int targetId = newDisk.size() - 1; targetId > blockId; targetId--) {
+            int targetId = newDisk.size() - 1;
+            while (targetId > blockId && currentBlock.id != -1) {
                 Block targetBlock = newDisk.get(targetId);
                 if (!targetBlock.isEmpty() || targetBlock.length < currentBlock.length) {
+                    targetId--;
                     continue;
                 }
                 int emptyLeft = targetBlock.length - currentBlock.length;
@@ -110,7 +112,6 @@ public class Day09 extends AbstractProblem<String, Long> {
                 if (emptyLeft > 0) {
                     newDisk.add(targetId, new Block(-1, emptyLeft));
                 }
-                break;
             }
         }
         List<Block> okDisk = new ArrayList<>();
