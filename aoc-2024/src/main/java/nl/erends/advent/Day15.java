@@ -34,69 +34,13 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
 
     @Override
     protected Integer solve1() {
-        int emptyIndex = input.indexOf("");
-        grid = new char[emptyIndex][];
-        for (int y = 0; y < emptyIndex; y++) {
-            grid[y] = input.get(y).toCharArray();
-            int robotX = input.get(y).indexOf('@');
-            if (robotX != -1) {
-                robot = Coord.of(robotX, y);
-            }
-        }
-        String movements = input.stream()
-                .skip(emptyIndex + 1L)
-                .collect(Collectors.joining());
-        for (char move : movements.toCharArray()) {
-            Direction d = Direction.getDirection(move);
-            if (grid[robot.y + d.dy()][robot.x + d.dx()] == 'O') {
-                moveBox(d);
-            }
-            if (grid[robot.y + d.dy()][robot.x + d.dx()] == '.') {
-                grid[robot.y + d.dy()][robot.x + d.dx()] = '@';
-                grid[robot.y][robot.x] = '.';
-                robot = robot.addDirection(d);
-            }
-        }
-        int score = 0;
-        for (int y = 0; y < grid.length; y++) {
-            for (int x = 0; x < grid[y].length; x++) {
-                if (grid[y][x] == 'O') {
-                    score += (y * 100) + x;
-                }
-            }
-        }
-        return score;
-    }
-
-    @Override
-    public Integer solve2() {
+        int width = part2 ? 2 : 1;
         int emptyIndex = input.indexOf("");
         grid = new char[emptyIndex][];
         boxes = new ArrayList<>();
         for (int y = 0; y < emptyIndex; y++) {
-            grid[y] = new char[input.get(y).length() * 2];
-            for (int x = 0; x < input.get(y).length(); x++) {
-                switch (input.get(y).charAt(x)) {
-                    case '.' -> {
-                        grid[y][2 * x] = '.';
-                        grid[y][2 * x + 1] = '.';
-                    }
-                    case 'O' -> {
-                        boxes.add(new Box(2 * x, y, true));
-                        grid[y][2 * x] = '.';
-                        grid[y][2 * x + 1] = '.';
-                    }
-                    case '@' -> {
-                        grid[y][2 * x] = '.';
-                        grid[y][2 * x + 1] = '.';
-                        robot = Coord.of(2 * x, y);
-                    }
-                    default -> {
-                        grid[y][2 * x] = '#';
-                        grid[y][2 * x + 1] = '#';
-                    }
-                }
-            }
+            grid[y] = new char[input.get(y).length() * width];
+            readLine(y, width);
         }
         String movements = input.stream()
                 .skip(emptyIndex + 1L)
@@ -119,16 +63,36 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
                 .mapToInt(b -> b.position.getFirst().y * 100 + b.position.getFirst().x).sum();
     }
 
-    private void moveBox(Direction d) {
-        int x = robot.x + d.dx();
-        int y = robot.y + d.dy();
-        while (grid[y][x] == 'O') {
-            x += d.dx();
-            y += d.dy();
-        }
-        if (grid[y][x] == '.') {
-            grid[y][x] = 'O';
-            grid[robot.y + d.dy()][robot.x + d.dx()] = '.';
+    private void readLine(int y, int width) {
+        for (int x = 0; x < input.get(y).length(); x++) {
+            switch (input.get(y).charAt(x)) {
+                case '.' -> {
+                    grid[y][width * x] = '.';
+                    if (part2) {
+                        grid[y][width * x + 1] = '.';
+                    }
+                }
+                case 'O' -> {
+                    boxes.add(new Box(width * x, y, part2));
+                    grid[y][width * x] = '.';
+                    if (part2) {
+                        grid[y][width * x + 1] = '.';
+                    }
+                }
+                case '@' -> {
+                    grid[y][width * x] = '.';
+                    if (part2) {
+                        grid[y][width * x + 1] = '.';
+                    }
+                    robot = Coord.of(width * x, y);
+                }
+                default -> {
+                    grid[y][width * x] = '#';
+                    if (part2) {
+                        grid[y][width * x + 1] = '#';
+                    }
+                }
+            }
         }
     }
 
