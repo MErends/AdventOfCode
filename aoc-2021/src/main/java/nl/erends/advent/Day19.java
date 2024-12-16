@@ -172,7 +172,7 @@ public class Day19 extends AbstractProblem<List<String>,Integer> {
             offsetY = Integer.parseInt(split[1]);
             offsetZ = Integer.parseInt(split[2]);
             for (Coord transform : transformed) {
-                Coord absolute = Coord.of(transform.x + offsetX, transform.y + offsetY, transform.z + offsetZ);
+                Coord absolute = transform.addDirection(offsetX, offsetY, offsetZ);
                 absolutes.add(absolute);
             }
         }

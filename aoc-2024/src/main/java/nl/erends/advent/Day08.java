@@ -56,7 +56,7 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
                     }
                     int dx = antennaB.x - antennaA.x;
                     int dy = antennaB.y - antennaA.y;
-                    Coord antinode = Coord.of(antennaB.x + dx, antennaB.y + dy);
+                    Coord antinode = antennaB.addDirection(dx, + dy);
                     antiNodes.add(antinode);
                 }
             }
@@ -79,7 +79,7 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
                     Coord antinode = Coord.of(nodeX, nodeY);
                     while (isNodeInRange(antinode)) {
                         antiNodes.add(antinode);
-                        antinode = Coord.of(antinode.x + dx, antinode.y + dy);
+                        antinode = antinode.addDirection(dx, dy);
                     }
                 }
             }

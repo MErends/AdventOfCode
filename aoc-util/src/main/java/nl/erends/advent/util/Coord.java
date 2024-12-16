@@ -30,12 +30,22 @@ public class Coord {
         return of(x, y, 0);
     }
 
-    public static Coord of(int x, int y, int z) {
-        return coordMap.computeIfAbsent(x, kx -> new HashMap<>()).computeIfAbsent(y, ky -> new HashMap<>()).computeIfAbsent(z, kz -> new Coord(x, y, z));
+    public static synchronized Coord of(int x, int y, int z) {
+        return coordMap.computeIfAbsent(x, kx -> new HashMap<>())
+                .computeIfAbsent(y, ky -> new HashMap<>())
+                .computeIfAbsent(z, kz -> new Coord(x, y, z));
     }
 
     public Coord addDirection(Direction d) {
         return of(x + d.dx(), y + d.dy());
+    }
+
+    public Coord addDirection(int dx, int dy) {
+        return of(x + dx, y + dy);
+    }
+
+    public Coord addDirection(int dx, int dy, int dz) {
+        return of(x + dx, y + dy, z + dz);
     }
 
     @Override
