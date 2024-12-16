@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>aoc-2024</artifactId>
-    <version>15.2-SNAPSHOT</version>
+    <version>16.2-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
