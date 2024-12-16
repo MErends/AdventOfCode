@@ -43,10 +43,10 @@ public enum Direction {
 
     public static Direction getDirection(char c) {
         return switch (c) {
-            case 'U' -> Direction.UP;
-            case 'D' -> Direction.DOWN;
-            case 'R' -> Direction.RIGHT;
-            case 'L' -> Direction.LEFT;
+            case 'U', '^' -> UP;
+            case 'D', 'v' -> DOWN;
+            case 'R', '>' -> RIGHT;
+            case 'L', '<' -> LEFT;
             default -> throw new IllegalArgumentException("" + c);
         };
     }
