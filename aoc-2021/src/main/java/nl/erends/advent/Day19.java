@@ -141,45 +141,29 @@ public class Day19 extends AbstractProblem<List<String>,Integer> {
         int offsetZ;
 
         private void addCoord(String line) {
-            coords.add(new Coord(line));
+            coords.add(Coord.of(line));
         }
 
         private void pointToX() {
-            transformed = new ArrayList<>();
-            coords.forEach(c -> transformed.add(new Coord(c)));
+            transformed = new ArrayList<>(coords);
         }
 
         private void pointToY() {
             pointToX();
-            for (Coord coord : transformed) {
-                int temp = coord.x;
-                coord.x = coord.y;
-                coord.y = -temp;
-            }
+            transformed.replaceAll(c -> Coord.of(c.y, -c.x, c.z));
         }
 
         private void pointToZ() {
             pointToX();
-            for (Coord coord : transformed) {
-                int temp = coord.x;
-                coord.x = coord.z;
-                coord.z = -temp;
-            }
+            transformed.replaceAll(c -> Coord.of(c.z, c.y, -c.x));
         }
 
         private void rotate() {
-            for (Coord coord : transformed) {
-                int temp = coord.y;
-                coord.y = -coord.z;
-                coord.z = temp;
-            }
+            transformed.replaceAll(c -> Coord.of(c.x, -c.z, c.y));
         }
 
         private void flip() {
-            for (Coord coord : transformed) {
-                coord.x = -coord.x;
-                coord.z = -coord.z;
-            }
+            transformed.replaceAll(c -> Coord.of(-c.x, c.y, -c.z));
         }
 
         private void applyOffset(String offset) {
@@ -188,10 +172,7 @@ public class Day19 extends AbstractProblem<List<String>,Integer> {
             offsetY = Integer.parseInt(split[1]);
             offsetZ = Integer.parseInt(split[2]);
             for (Coord transform : transformed) {
-                Coord absolute = new Coord(transform);
-                absolute.x = transform.x + offsetX;
-                absolute.y = transform.y + offsetY;
-                absolute.z = transform.z + offsetZ;
+                Coord absolute = Coord.of(transform.x + offsetX, transform.y + offsetY, transform.z + offsetZ);
                 absolutes.add(absolute);
             }
         }

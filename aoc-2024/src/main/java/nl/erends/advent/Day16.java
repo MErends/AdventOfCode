@@ -29,7 +29,7 @@ public class Day16 extends AbstractProblem<List<String>, Integer> {
     int[][] bestUp;
     int[][] bestDown;
     char[][] grid;
-    private Coord end = new Coord(0, 0);
+    private Coord end = Coord.ZERO;
 
     public static void main(String[] args) {
         new Day16().setAndSolve(Util.readInput(2024, 16));
@@ -37,7 +37,7 @@ public class Day16 extends AbstractProblem<List<String>, Integer> {
 
     @Override
     protected Integer solve1() {
-        Coord start = new Coord(0, 0);
+        Coord start = Coord.ZERO;
         grid = new char[input.size()][input.get(0).length()];
         bestLeft = new int[input.size()][input.get(0).length()];
         bestRight = new int[input.size()][input.get(0).length()];
@@ -53,9 +53,9 @@ public class Day16 extends AbstractProblem<List<String>, Integer> {
             for (int x = 0; x < input.get(y).length(); x++) {
                 grid[y][x] = input.get(y).charAt(x);
                 if (grid[y][x] == 'S') {
-                    start = new Coord(x, y);
+                    start = Coord.of(x, y);
                 } else if (grid[y][x] == 'E') {
-                    end = new Coord(x, y);
+                    end = Coord.of(x, y);
                 }
             }
         }
@@ -69,7 +69,7 @@ public class Day16 extends AbstractProblem<List<String>, Integer> {
             states.sort(Comparator.comparingInt(s -> s.points));
             State state = states.removeFirst();
             states.removeIf(s -> !isBest(s) || s.points > targetPoints[0]);
-            if (state.position.equals(end)) {
+            if (state.position == end) {
                 targetPoints[0] = state.points;
                 goodPaths.add(state);
             } else {
@@ -115,17 +115,17 @@ public class Day16 extends AbstractProblem<List<String>, Integer> {
             List<State> neighbors = new ArrayList<>();
             // straight
             if (grid[position.y + d.dy()][position.x + d.dx()] != '#') {
-                neighbors.add(new State(new Coord(position).addDirection(d), d, points + 1, this.path));
+                neighbors.add(new State(position.addDirection(d), d, points + 1, this.path));
             }
             Direction left = d.turnLeft();
             if (grid[position.y + left.dy()][position.x + left.dx()] != '#') {
-                neighbors.add(new State(new Coord(position).addDirection(left), left, points + 1001, this.path));
+                neighbors.add(new State(position.addDirection(left), left, points + 1001, this.path));
             }
             Direction right = d.turnRight();
             if (grid[position.y + right.dy()][position.x + right.dx()] != '#') {
-                neighbors.add(new State(new Coord(position).addDirection(right), right, points + 1001, this.path));
+                neighbors.add(new State(position.addDirection(right), right, points + 1001, this.path));
             }
-            if (neighbors.size() == 1 && !neighbors.getFirst().position.equals(end)) {
+            if (neighbors.size() == 1 && neighbors.getFirst().position != end) {
                 return neighbors.getFirst().getNeigbors();
             }
             return neighbors;

@@ -35,7 +35,7 @@ public class Day21 extends AbstractProblem<List<String>, Number> {
         for (int y = 0; y < grid.length; y++) {
             for (int x = 0; x < grid[y].length; x++) {
                 if (grid[y][x] == 'S') {
-                    start = new Coord(x, y);
+                    start = Coord.of(x, y);
                     grid[y][x] = '.';
                     break;
                 }
@@ -67,43 +67,43 @@ public class Day21 extends AbstractProblem<List<String>, Number> {
         answer += (gridRepeats - 1) * (gridRepeats - 1) * oddGridCount;
 
 
-        int[][] upGrid = getStepGrid(new Coord(dimension / 2, dimension - 1), startStep);
+        int[][] upGrid = getStepGrid(Coord.of(dimension / 2, dimension - 1), startStep);
         int upGridCount = getReachable(upGrid, maxStep);
         answer += upGridCount;
-        int[][] upRightEvenGrid = getStepGrid(new Coord(0, dimension - 1), startStep - 65);
+        int[][] upRightEvenGrid = getStepGrid(Coord.of(0, dimension - 1), startStep - 65);
         int upRightEvenCount = getReachable(upRightEvenGrid, maxStep);
         answer += upRightEvenCount * (gridRepeats - 1);
-        int[][] upRightOddGrid = getStepGrid(new Coord(0, dimension - 1), startStep + 66);
+        int[][] upRightOddGrid = getStepGrid(Coord.of(0, dimension - 1), startStep + 66);
         int upRightOddCount = getReachable(upRightOddGrid, maxStep);
         answer += upRightOddCount * (gridRepeats);
 
-        int[][] rightGrid = getStepGrid(new Coord(0, dimension / 2), startStep);
+        int[][] rightGrid = getStepGrid(Coord.of(0, dimension / 2), startStep);
         int rightGridCount = getReachable(rightGrid, maxStep);
         answer += rightGridCount;
-        int[][] rightDownEvenGrid = getStepGrid(new Coord(0, 0), startStep - 65);
+        int[][] rightDownEvenGrid = getStepGrid(Coord.of(0, 0), startStep - 65);
         int rightDownEvenCount = getReachable(rightDownEvenGrid, maxStep);
         answer += rightDownEvenCount * (gridRepeats - 1);
-        int[][] rightDownOddGrid = getStepGrid(new Coord(0, 0), startStep + 66);
+        int[][] rightDownOddGrid = getStepGrid(Coord.of(0, 0), startStep + 66);
         int rightDownOddCount = getReachable(rightDownOddGrid, maxStep);
         answer += rightDownOddCount * (gridRepeats);
 
-        int[][] downGrid = getStepGrid(new Coord(dimension / 2, 0), startStep);
+        int[][] downGrid = getStepGrid(Coord.of(dimension / 2, 0), startStep);
         int downCount = getReachable(downGrid, maxStep);
         answer += downCount;
-        int[][] downLeftEvenGrid = getStepGrid(new Coord(dimension - 1, 0), startStep - 65);
+        int[][] downLeftEvenGrid = getStepGrid(Coord.of(dimension - 1, 0), startStep - 65);
         int downLeftEvenCount = getReachable(downLeftEvenGrid, maxStep);
         answer += downLeftEvenCount * (gridRepeats - 1);
-        int[][] downLeftOddGrid = getStepGrid(new Coord(dimension - 1, 0), startStep + 66);
+        int[][] downLeftOddGrid = getStepGrid(Coord.of(dimension - 1, 0), startStep + 66);
         int downLeftOddCount = getReachable(downLeftOddGrid, maxStep);
         answer += downLeftOddCount * (gridRepeats);
 
-        int[][] leftGrid = getStepGrid(new Coord(dimension - 1, dimension / 2), startStep);
+        int[][] leftGrid = getStepGrid(Coord.of(dimension - 1, dimension / 2), startStep);
         int leftCount = getReachable(leftGrid, maxStep);
         answer += leftCount;
-        int[][] leftUpEvenGrid = getStepGrid(new Coord(dimension - 1, dimension - 1), startStep - 65);
+        int[][] leftUpEvenGrid = getStepGrid(Coord.of(dimension - 1, dimension - 1), startStep - 65);
         int leftUpEvenCount = getReachable(leftUpEvenGrid, maxStep);
         answer += leftUpEvenCount * (gridRepeats - 1);
-        int[][] leftUpOddGrid = getStepGrid(new Coord(dimension - 1, dimension - 1), startStep + 66);
+        int[][] leftUpOddGrid = getStepGrid(Coord.of(dimension - 1, dimension - 1), startStep + 66);
         int leftUpOddCount = getReachable(leftUpOddGrid, maxStep);
         answer += leftUpOddCount * (gridRepeats);
         return answer;
@@ -122,7 +122,7 @@ public class Day21 extends AbstractProblem<List<String>, Number> {
             Set<Coord> nextCoords = new HashSet<>();
             for (Coord c : coords) {
                 nextCoords.addAll(Arrays.stream(Direction.values())
-                        .map(d -> new Coord(c.x + d.dx(), c.y + d.dy()))
+                        .map(c::addDirection)
                         .filter(n -> n.x >= 0 && n.y >= 0 && n.y < grid.length && n.x < grid[n.y].length)
                         .filter(n -> grid[n.y][n.x] != '#' && stepGrid[n.y][n.x] == Integer.MAX_VALUE)
                         .toList());

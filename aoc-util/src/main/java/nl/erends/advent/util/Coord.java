@@ -1,68 +1,45 @@
 package nl.erends.advent.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Coord {
-    public int x;
-    public int y;
-    public int z;
 
-    public Coord(Coord coord) {
-        this.x = coord.x;
-        this.y = coord.y;
-        this.z = coord.z;
-    }
+    private static final Map<Integer, Map<Integer, Map<Integer, Coord>>> coordMap = new HashMap<>();
+    public static final Coord ZERO = of(0, 0);
 
-    public Coord(String line) {
-        String[] split = line.split(",");
-        x = Integer.parseInt(split[0]);
-        y = Integer.parseInt(split[1]);
-        z = Integer.parseInt(split[2]);
-    }
+    public final int x;
+    public final int y;
+    public final int z;
 
-    public Coord(int x, int y) {
-        this(x, y, 0);
-    }
-
-    public Coord(int x, int y, int z) {
+    private Coord(int x, int y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
-    public int x() {
-        return x;
+    public static Coord of(String line) {
+        String[] split = line.split(",");
+        int sx = Integer.parseInt(split[0]);
+        int sy = Integer.parseInt(split[1]);
+        int sz = Integer.parseInt(split[2]);
+        return of(sx, sy, sz);
     }
 
-    public int y() {
-        return y;
+    public static Coord of(int x, int y) {
+        return of(x, y, 0);
     }
 
-    public int z() {
-        return z;
+    public static Coord of(int x, int y, int z) {
+        return coordMap.computeIfAbsent(x, kx -> new HashMap<>()).computeIfAbsent(y, ky -> new HashMap<>()).computeIfAbsent(z, kz -> new Coord(x, y, z));
     }
 
     public Coord addDirection(Direction d) {
-        x += d.dx();
-        y += d.dy();
-        return this;
+        return of(x + d.dx(), y + d.dy());
     }
 
     @Override
     public String toString() {
         return x + "," + y + "," + z;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Coord coord = (Coord) o;
-        if (x != coord.x) return false;
-        if (y != coord.y) return false;
-        return z == coord.z;
-    }
-
-    @Override
-    public int hashCode() {
-        return toString().hashCode();
     }
 }

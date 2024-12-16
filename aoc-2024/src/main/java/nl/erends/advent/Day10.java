@@ -43,7 +43,7 @@ public class Day10 extends AbstractProblem<List<String>, Integer> {
         for (int y = 0; y < grid.length; y++) {
             for (int x = 0; x < grid[y].length; x++) {
                 if (grid[y][x] == 0) {
-                    List<Coord> trailEnds = getTrailEnds(new Coord(x, y), 0);
+                    List<Coord> trailEnds = getTrailEnds(Coord.of(x, y), 0);
                     trails.addAll(trailEnds);
                     trailScore += new HashSet<>(trailEnds).size();
                 }
@@ -60,7 +60,7 @@ public class Day10 extends AbstractProblem<List<String>, Integer> {
         List<Coord> trailsEnds = new ArrayList<>();
         for (Direction d : Direction.values()) {
             if (getGrid(currentCoord.x + d.dx(), currentCoord.y + d.dy()) == stepsTaken + 1) {
-                trailsEnds.addAll(getTrailEnds(new Coord(currentCoord).addDirection(d), stepsTaken + 1));
+                trailsEnds.addAll(getTrailEnds(currentCoord.addDirection(d), stepsTaken + 1));
             }
         }
         return trailsEnds;

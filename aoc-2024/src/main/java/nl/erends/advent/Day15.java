@@ -40,7 +40,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
             grid[y] = input.get(y).toCharArray();
             int robotX = input.get(y).indexOf('@');
             if (robotX != -1) {
-                robot = new Coord(robotX, y);
+                robot = Coord.of(robotX, y);
             }
         }
         String movements = input.stream()
@@ -89,7 +89,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
                     case '@' -> {
                         grid[y][2 * x] = '.';
                         grid[y][2 * x + 1] = '.';
-                        robot = new Coord(2 * x, y);
+                        robot = Coord.of(2 * x, y);
                     }
                     default -> {
                         grid[y][2 * x] = '#';
@@ -104,7 +104,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
 
         for (char move : movements.toCharArray()) {
             Direction d = Direction.getDirection(move);
-            Optional<Box> pushbox = boxes.stream().filter(b -> b.hasPosition(new Coord(robot).addDirection(d))).findAny();
+            Optional<Box> pushbox = boxes.stream().filter(b -> b.hasPosition(robot.addDirection(d))).findAny();
             if (pushbox.isPresent()) {
                 Box box = pushbox.get();
                 if (box.canMove(d)) {
@@ -137,9 +137,9 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
         List<Coord> position = new ArrayList<>();
 
         Box(int x, int y, boolean wide) {
-            position.add(new Coord(x, y));
+            position.add(Coord.of(x, y));
             if (wide) {
-                position.add(new Coord(x + 1, y));
+                position.add(Coord.of(x + 1, y));
             }
         }
 
@@ -164,9 +164,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
 
         void doMove(Direction d) {
             Set<Box> neighbors = getNeighbors(d);
-            for (Coord p : position) {
-                p.addDirection(d);
-            }
+            position.replaceAll(coord -> coord.addDirection(d));
             for (Box neighbor : neighbors) {
                 neighbor.doMove(d);
             }
@@ -174,8 +172,8 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
 
         Set<Box> getNeighbors(Direction d) {
             Set<Box> neighbors = new HashSet<>();
-            Coord leftTarget = new Coord(position.getFirst()).addDirection(d);
-            Coord rightTarget = new Coord(position.getLast()).addDirection(d);
+            Coord leftTarget = position.getFirst().addDirection(d);
+            Coord rightTarget = position.getLast().addDirection(d);
             for (Box box : boxes) {
                 if ((box.hasPosition(leftTarget) || box.hasPosition(rightTarget)) && box != this) {
                     neighbors.add(box);

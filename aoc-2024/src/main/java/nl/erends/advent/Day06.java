@@ -33,7 +33,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
     protected Integer solve1() {
         grid = readInput();
         start = getStart(grid);
-        Coord guard = new Coord(start);
+        Coord guard = start;
         Direction d = UP;
         boolean busy = true;
         while (busy) {
@@ -41,7 +41,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
             switch (getSafeGrid(grid, guard.x + d.dx(), guard.y + d.dy())) {
                 case '\0' -> busy = false;
                 case '#' -> d = d.turnRight();
-                default -> guard.addDirection(d);
+                default -> guard = guard.addDirection(d);
             }
         }
         int score = 0;
@@ -61,7 +61,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
         for (Coord wall : getPossibleWalls(grid)) {
             char[][] newGrid = readInput();
             grid[wall.y][wall.x] = '#';
-            Coord guard = new Coord(start);
+            Coord guard = start;
             Direction d = UP;
             int[][] passes = new int[newGrid.length][newGrid[0].length];
             boolean busy = true;
@@ -74,7 +74,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
                 switch (getSafeGrid(newGrid, guard.x + d.dx(), guard.y + d.dy())) {
                     case '\0' -> busy = false;
                     case '#' -> d = d.turnRight();
-                    default -> guard.addDirection(d);
+                    default -> guard = guard.addDirection(d);
                 }
             }
         }
@@ -100,7 +100,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
         for (int y = 0; y < grid.length; y++) {
             for (int x = 0; x < grid[y].length; x++) {
                 if (grid[y][x] == '^'){
-                    return new Coord(x, y);
+                    return Coord.of(x, y);
                 }
             }
         }
@@ -112,7 +112,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
         for (int y = 0; y < grid.length; y++) {
             for (int x = 0; x < grid[y].length; x++) {
                 if (grid[y][x] == 'X') {
-                    possibleWalls.add(new Coord(x, y));
+                    possibleWalls.add(Coord.of(x, y));
                 }
             }
         }

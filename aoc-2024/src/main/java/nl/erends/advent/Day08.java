@@ -34,7 +34,7 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
             for (int x = 0; x < input.get(y).length(); x++) {
                 char antenna = input.get(y).charAt(x);
                 if (antenna != '.') {
-                    antennaMap.computeIfAbsent(antenna, a -> new ArrayList<>()).add(new Coord(x, y));
+                    antennaMap.computeIfAbsent(antenna, a -> new ArrayList<>()).add(Coord.of(x, y));
                 }
             }
         }
@@ -56,7 +56,7 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
                     }
                     int dx = antennaB.x - antennaA.x;
                     int dy = antennaB.y - antennaA.y;
-                    Coord antinode = new Coord(antennaB.x + dx, antennaB.y + dy);
+                    Coord antinode = Coord.of(antennaB.x + dx, antennaB.y + dy);
                     antiNodes.add(antinode);
                 }
             }
@@ -76,12 +76,10 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
                     int dy = antennaB.y - antennaA.y;
                     int nodeX = antennaB.x;
                     int nodeY = antennaB.y;
-                    Coord antinode = new Coord(nodeX, nodeY);
+                    Coord antinode = Coord.of(nodeX, nodeY);
                     while (isNodeInRange(antinode)) {
                         antiNodes.add(antinode);
-                        antinode = new Coord(antinode);
-                        antinode.x += dx;
-                        antinode.y += dy;
+                        antinode = Coord.of(antinode.x + dx, antinode.y + dy);
                     }
                 }
             }
