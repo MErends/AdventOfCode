@@ -9,15 +9,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * <h1>--- Day 16: Reindeer Maze ---</h1>
- * <p>It's time again for the Reindeer Olympics! This year, the big event is the
- * Reindeer Maze, where the Reindeer compete for the lowest score. The Reindeer
- * start on the Start Tile (marked S) facing East and need to reach the End Tile
- * (marked E). They can move forward one tile at a time (increasing their score
- * by 1 point), but never into a wall (#). They can also rotate clockwise or
- * counterclockwise 90 degrees at a time (increasing their score by 1000
- * points). What is the lowest score a Reindeer could possibly get?</p>
- * <p><a href="https://adventofcode.com/2024/day/16">2024 Day 16</a></p>
+ * <h1>--- Day 17: Chronospatial Computer ---</h1>
+ * <p>The small handheld device suddenly unfolds into an entire computer! The
+ * Historians look around nervously before one of them tosses it to you.The
+ * computer knows eight instructions, each identified by a 3-bit number (called
+ * the instruction's opcode). Each instruction also reads the 3-bit number after
+ * it as an input; this is called its operand. Using the information provided by
+ * the debugger, initialize the registers to the given values, then run the
+ * program. Once it halts, what do you get if you use commas to join the values
+ * it output into a single string?</p>
+ * <p><a href="https://adventofcode.com/2024/day/17">2024 Day 17</a></p>
  */
 public class Day17 extends AbstractProblem<List<String>, String> {
 
