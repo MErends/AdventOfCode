@@ -48,6 +48,10 @@ public class Coord {
         return of(x + dx, y + dy, z + dz);
     }
 
+    public int distanceTo(Coord other) {
+        return Math.abs(x - other.x) + Math.abs(y - other.y) + Math.abs(z - other.z);
+    }
+
     @Override
     public String toString() {
         return x + "," + y + "," + z;
