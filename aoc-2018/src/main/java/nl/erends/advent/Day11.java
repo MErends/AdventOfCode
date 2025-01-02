@@ -14,48 +14,39 @@ public class Day11 extends AbstractProblem<Integer, String> {
     @Override
     public String solve1() {
         createGrid();
-        int maxPower = Integer.MIN_VALUE;
-        int maxX = 0;
-        int maxY = 0;
-        for (int y = 1; y < SIZE - 2; y++) {
-            for (int x = 1; x < SIZE - 2; x++) {
-                int power = subgridPower(x, y, 3);
-                if (power > maxPower) {
-                    maxPower = power;
-                    maxX = x;
-                    maxY = y;
-                }
-            }
-        }
-        return maxX + "," + maxY;
-    }
-    
-    @Override
-    public String solve2() {
-        int maxPower = Integer.MIN_VALUE;
-        int maxX = 0;
-        int maxY = 0;
-        int maxSubgridZise = 0;
-        for (int subgridSize = 1; subgridSize <= 300; subgridSize++) {
-            for (int y = 1; y < SIZE - subgridSize + 1; y++) {
-                for (int x = 1; x < SIZE - subgridSize + 1; x++) {
-                    int power = subgridPower(x, y, subgridSize);
+        String answer1 = null;
+        int globalMax = Integer.MIN_VALUE;
+        for (int subGridSize = 1; subGridSize < SIZE; subGridSize++) {
+            int maxPower = Integer.MIN_VALUE;
+            int maxX = 0;
+            int maxY = 0;
+            for (int y = 1; y < SIZE - subGridSize; y++) {
+                for (int x = 1; x < SIZE - subGridSize; x++) {
+                    int power = subgridPower(x, y, subGridSize);
                     if (power > maxPower) {
                         maxPower = power;
                         maxX = x;
                         maxY = y;
-                        maxSubgridZise = subgridSize;
                     }
                 }
             }
+            if (subGridSize == 3) {
+                answer1 = maxX + "," + maxY;
+            }
+            if (maxPower > globalMax) {
+                globalMax = maxPower;
+                answer2 = maxX + "," + maxY + "," + subGridSize;
+            } else if (maxPower < 0) {
+                break;
+            }
         }
-        return maxX + "," + maxY + "," + maxSubgridZise;
+        return answer1;
     }
 
     private void createGrid() {
         grid = new int[SIZE][SIZE];
-        for (int y = 0; y < SIZE; y++) {
-            for (int x = 0; x < SIZE; x++) {
+        for (int y = 1; y < SIZE; y++) {
+            for (int x = 1; x < SIZE; x++) {
                 int rackId = x + 10;
                 int power = rackId * y;
                 int serial = input;
