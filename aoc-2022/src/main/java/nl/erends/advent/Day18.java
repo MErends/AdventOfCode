@@ -48,7 +48,7 @@ public class Day18 extends AbstractProblem<List<String>, Number> {
         water.add(root);
         spreadFrom.add(root);
         while (!spreadFrom.isEmpty()) {
-            Cube spread = spreadFrom.remove(0);
+            Cube spread = spreadFrom.removeFirst();
             List<Cube> neighbors = spread.getNeighbors();
             neighbors.removeIf(neighbor -> neighbor.x < xMin - 1 || neighbor.x > xMax + 1 ||
                     neighbor.y < yMin - 1 || neighbor.y > yMax + 1 ||

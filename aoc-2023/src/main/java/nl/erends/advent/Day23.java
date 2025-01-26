@@ -45,7 +45,7 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
         paths.add(new Path());
         while (!paths.isEmpty()) {
             Timer.tick(paths.size());
-            Path path = paths.remove(0);
+            Path path = paths.removeFirst();
             paths.addAll(path.resolvePath());
         }
         return longestPath;
@@ -56,7 +56,7 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
         int steps = 0;
         int x = 1;
         int y = 0;
-        List<String> intersectionsSeen;
+        final List<String> intersectionsSeen;
         Direction d;
 
         Path() {
@@ -108,7 +108,7 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
                     }
                 }
                 if (possibleDirections.size() == 1) {
-                    Direction newD = possibleDirections.get(0);
+                    Direction newD = possibleDirections.getFirst();
                     x += newD.dx();
                     y += newD.dy();
                     steps++;

@@ -13,13 +13,13 @@ public class Day19 extends AbstractProblem<List<String>, Integer> {
     
     @Override
     public Integer solve1() {
-        String pointerString = input.remove(0);
+        String pointerString = input.removeFirst();
         int pointerReg = Integer.parseInt(pointerString.split(" ")[1]);
         ElfMachine elfMachine = new ElfMachine(input);
         elfMachine.setMemory("[0, 0, 0, 0, 0, 0]");
         elfMachine.setPointerBound(pointerReg);
         elfMachine.execute();
-        return elfMachine.getMemory().get(0);
+        return elfMachine.getMemory().getFirst();
     }
     
     @Override

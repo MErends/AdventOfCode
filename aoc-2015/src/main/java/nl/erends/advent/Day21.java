@@ -87,7 +87,7 @@ public class Day21 extends AbstractProblem<String, Integer> {
         List<RingSet> list = new ArrayList<>();
         List<Ring> rings1 = loadRings();
         List<Ring> rings2 = loadRings();
-        list.add(new RingSet(rings1.get(0), rings2.get(0)));
+        list.add(new RingSet(rings1.getFirst(), rings2.getFirst()));
         for (Ring ring1 : rings1) {
             rings2.remove(ring1);
             for (Ring ring2 : rings2) {
@@ -127,12 +127,8 @@ public class Day21 extends AbstractProblem<String, Integer> {
         final int cost;
         final int damage;
         final int armor;
-        final Ring ring1;
-        final Ring ring2;
 
         RingSet(Ring ring1, Ring ring2) {
-            this.ring1 = ring1;
-            this.ring2 = ring2;
             this.cost = ring1.cost + ring2.cost;
             this.damage = ring1.damage + ring2.damage;
             this.armor = ring1.armor + ring2.armor;

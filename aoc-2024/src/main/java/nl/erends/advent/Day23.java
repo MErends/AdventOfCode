@@ -89,7 +89,7 @@ public class Day23 extends AbstractProblem<List<String>, String> {
                 .toList();
         if (!nextNodes.isEmpty()) {
             Set<Node> nextSet = new HashSet<>(currentSet);
-            nextSet.add(nextNodes.get(0));
+            nextSet.add(nextNodes.getFirst());
             getNextNode(nextSet);
         }
         if (nextNodes.isEmpty() && currentSet.size() > biggestSize) {
@@ -102,8 +102,8 @@ public class Day23 extends AbstractProblem<List<String>, String> {
     }
 
     static class Connection {
-        String node1;
-        String node2;
+        final String node1;
+        final String node2;
 
         public Connection(String line) {
             String[] sA = line.split("-");
@@ -135,8 +135,8 @@ public class Day23 extends AbstractProblem<List<String>, String> {
     }
 
     static class Node {
-        String name;
-        Set<Node> connectors = new HashSet<>();
+        final String name;
+        final Set<Node> connectors = new HashSet<>();
 
         Node(String name) {
             this.name = name;

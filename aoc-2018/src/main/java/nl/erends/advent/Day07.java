@@ -65,7 +65,7 @@ public class Day07 extends AbstractProblem<List<String>, String> {
         }
         String freeStep = null;
         for (Map.Entry<String, String> entry : steps.entrySet()) {
-            if (entry.getValue() != null && entry.getValue().equals("")) {
+            if (entry.getValue() != null && entry.getValue().isEmpty()) {
                 freeStep = entry.getKey();
                 break;
             }

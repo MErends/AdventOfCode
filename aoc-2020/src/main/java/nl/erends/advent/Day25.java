@@ -16,7 +16,7 @@ public class Day25 extends AbstractProblem<List<Integer>, Number> {
         int cardLoop = 0;
         int subject = 7;
         long value = 1;
-        int cardPubKey = input.get(0);
+        int cardPubKey = input.getFirst();
         while (value != cardPubKey) {
             value *= subject;
             value = value % 20201227;

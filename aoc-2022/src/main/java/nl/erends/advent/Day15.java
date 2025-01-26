@@ -73,11 +73,11 @@ public class Day15 extends AbstractProblem<List<String>, Number> {
     }
 
     private static class Scanner {
-        int x;
-        int y;
-        int bX;
-        int bY;
-        int range;
+        final int x;
+        final int y;
+        final int bX;
+        final int bY;
+        final int range;
 
         Scanner(String line) {
             String[] words = line.split(" ");

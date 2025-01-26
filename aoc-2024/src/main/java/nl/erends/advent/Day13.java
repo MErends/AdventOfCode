@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  */
 public class Day13 extends AbstractProblem<List<String>, Long> {
 
-    Pattern p = Pattern.compile("\\D*(\\d+)\\D*(\\d+)");
+    final Pattern p = Pattern.compile("\\D*(\\d+)\\D*(\\d+)");
 
     public static void main(String[] args) {
         new Day13().setAndSolve(Util.readInput(2024, 13, 1));

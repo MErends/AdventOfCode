@@ -162,7 +162,7 @@ public class Day20 extends AbstractProblem<List<String>, Number> {
     private int findMonsters(char[][] picture) {
         int monsterCount = 0;
         for (int y = 0; y < picture.length - SEAMONSTER.size(); y++) {
-            for (int x = 0; x < picture[y].length - SEAMONSTER.get(0).length(); x++) {
+            for (int x = 0; x < picture[y].length - SEAMONSTER.getFirst().length(); x++) {
                 if (monsterAt(x, y, picture)) {
                     monsterCount++;
                 }
@@ -192,7 +192,7 @@ public class Day20 extends AbstractProblem<List<String>, Number> {
         final List<String> allEdges = new ArrayList<>();
 
         private Tile(List<String> lines) {
-            id = Integer.parseInt(lines.get(0).split(" ")[1].split(":")[0]);
+            id = Integer.parseInt(lines.getFirst().split(" ")[1].split(":")[0]);
             tileGrid = new char[lines.size() - 1][];
             for (int index = 1; index < lines.size(); index++) {
                 tileGrid[index - 1] = lines.get(index).toCharArray();

@@ -4,7 +4,6 @@ import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -32,9 +31,9 @@ public class Day22 extends AbstractProblem<List<String>, Number> {
 
         int winner = findWinner(player1, player2, part2);
         List<Integer> winList = new ArrayList<>(winner == 2 ? player2 : player1);
-        Collections.reverse(winList);
-        return IntStream.rangeClosed(1, winList.size())
-                .reduce(0, (i1, i2) -> i1 + (i2 * winList.get(i2 - 1)));
+        final List<Integer> reverseList = winList.reversed();
+        return IntStream.rangeClosed(1, reverseList.size())
+                .reduce(0, (i1, i2) -> i1 + (i2 * reverseList.get(i2 - 1)));
     }
 
     private int findWinner(List<Integer> player1, List<Integer> player2, boolean recursive) {
@@ -46,8 +45,8 @@ public class Day22 extends AbstractProblem<List<String>, Number> {
             } else {
                 seenStates.add(hashCode);
             }
-            int p1 = player1.remove(0);
-            int p2 = player2.remove(0);
+            int p1 = player1.removeFirst();
+            int p2 = player2.removeFirst();
             int subwinner = (p1 > p2) ? 1 : 2;
             if (recursive && p1 <= player1.size() && p2 <= player2.size()) {
                 subwinner = findWinner(new ArrayList<>(player1.subList(0, p1)),

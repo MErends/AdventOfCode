@@ -41,10 +41,10 @@ public class Day13 extends AbstractProblem<List<String>, Number> {
         int sum = 0;
         while (!lines.isEmpty()) {
             List<String> gridLines = new ArrayList<>();
-            while (!lines.get(0).isEmpty()) {
-                gridLines.add(lines.remove(0));
+            while (!lines.getFirst().isEmpty()) {
+                gridLines.add(lines.removeFirst());
             }
-            lines.remove(0);
+            lines.removeFirst();
             char[][] grid = new char[gridLines.size()][];
             for (int y = 0; y < gridLines.size(); y++) {
                 grid[y] = gridLines.get(y).toCharArray();

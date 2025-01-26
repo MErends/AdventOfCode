@@ -132,10 +132,10 @@ public class Day10 extends AbstractProblem<List<String>, Integer> {
         while (true) {
             long d = gcd(dx, dy);
             if (d != 1) {
-                dx /= d;
-                dy /= d;
+                dx /= (int) d;
+                dy /= (int) d;
             } else {
-                return "" + dx + "/" + dy;
+                return dx + "/" + dy;
             }
         }
     }

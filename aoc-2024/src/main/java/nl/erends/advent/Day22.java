@@ -63,8 +63,8 @@ public class Day22 extends AbstractProblem<List<Integer>, Long> {
 
     class Monkey {
 
-        Map<String, Integer> yieldMap = new HashMap<>();
-        Deque<Integer> sequence = new ArrayDeque<>();
+        final Map<String, Integer> yieldMap = new HashMap<>();
+        final Deque<Integer> sequence = new ArrayDeque<>();
         long value;
 
         Monkey(long value) {

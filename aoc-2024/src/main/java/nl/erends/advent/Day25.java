@@ -18,8 +18,8 @@ import java.util.List;
  */
 public class Day25 extends AbstractProblem<List<String>, Integer> {
 
-    List<Lock> locks = new ArrayList<>();
-    List<Key> keys = new ArrayList<>();
+    final List<Lock> locks = new ArrayList<>();
+    final List<Key> keys = new ArrayList<>();
 
     public static void main(String[] args) {
         new Day25().setAndSolve(Util.readInput(2024, 25));
@@ -45,7 +45,7 @@ public class Day25 extends AbstractProblem<List<String>, Integer> {
         for (Lock lock : locks) {
             for (Key key : keys) {
                 List<Integer> combo = new ArrayList<>();
-                for (int i = 0; i < locks.get(0).signature.size(); i++) {
+                for (int i = 0; i < locks.getFirst().signature.size(); i++) {
                     combo.add(lock.signature.get(i) + key.signature.get(i));
                 }
                 if (combo.stream().allMatch(c -> c <= dim)) {
@@ -63,7 +63,7 @@ public class Day25 extends AbstractProblem<List<String>, Integer> {
 
     static class Lock {
 
-        List<Integer> signature = new ArrayList<>();
+        final List<Integer> signature = new ArrayList<>();
 
         Lock(char[][] grid) {
             for (int x = 0; x < grid[0].length; x++) {
@@ -79,7 +79,7 @@ public class Day25 extends AbstractProblem<List<String>, Integer> {
 
     static class Key {
 
-        List<Integer> signature = new ArrayList<>();
+        final List<Integer> signature = new ArrayList<>();
 
         Key(char[][] grid) {
             for (int x = 0; x < grid[0].length; x++) {

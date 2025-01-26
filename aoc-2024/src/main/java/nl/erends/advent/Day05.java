@@ -61,7 +61,7 @@ public class Day05 extends AbstractProblem<List<String>, Integer> {
             return 0;
         };
 
-        private List<Integer> pages;
+        private final List<Integer> pages;
 
         Update(String line) {
             pages = Arrays.stream(line.split(","))

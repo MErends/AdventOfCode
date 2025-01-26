@@ -25,12 +25,12 @@ import java.util.Map;
  */
 public class Day21 extends AbstractProblem<List<String>, Long> {
 
-    char[][] numpadSrc = new char[][]{  {'7', '8', '9'},
+    final char[][] numpadSrc = new char[][]{  {'7', '8', '9'},
                                         {'4', '5', '6'},
                                         {'1', '2', '3'},
                                         {'\0', '0', 'A'}};
 
-    char[][] dpadSrc = new char[][]{    {'\0', '^', 'A'},
+    final char[][] dpadSrc = new char[][]{    {'\0', '^', 'A'},
                                         {'<', 'v', '>'}};
 
     Map<Character, Coord> numpad;

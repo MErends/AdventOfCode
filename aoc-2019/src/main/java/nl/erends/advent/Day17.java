@@ -199,7 +199,7 @@ public class Day17 extends AbstractProblem<String, Integer> {
                 break;
             }
         }
-        path.remove(0);
+        path.removeFirst();
         return String.join(",", path);
     }
 }

@@ -40,7 +40,7 @@ public class Day09 extends AbstractProblem<List<String>, Integer> {
         for (int i = 0; i < length; i++) {
             nodes.add(new Node());
         }
-        Node head = nodes.get(0);
+        Node head = nodes.getFirst();
         Node tail = nodes.get(length - 1);
         for (String line : input) {
             Direction d = Direction.getDirection(line.charAt(0));

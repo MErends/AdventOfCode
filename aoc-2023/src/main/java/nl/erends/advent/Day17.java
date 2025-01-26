@@ -1,6 +1,7 @@
 package nl.erends.advent;
 
 import nl.erends.advent.util.AbstractProblem;
+import nl.erends.advent.util.Coord;
 import nl.erends.advent.util.Direction;
 import nl.erends.advent.util.Util;
 
@@ -69,7 +70,7 @@ public class Day17 extends AbstractProblem<List<String>, Number> {
         paths.add(new Path());
         while (!paths.isEmpty()) {
             paths.sort(Comparator.comparingInt(Path::getExpectedLoss));
-            Path bestPath = paths.remove(0);
+            Path bestPath = paths.removeFirst();
             if (bestPath.location.y == cityGrid.length - 1
                     && bestPath.location.x == cityGrid[cityGrid.length - 1].length - 1
                     && bestPath.streak >= minStreak) {
@@ -89,11 +90,11 @@ public class Day17 extends AbstractProblem<List<String>, Number> {
             Arrays.fill(heuristicGrid[y], Integer.MAX_VALUE);
         }
         List<Coord> coords = new ArrayList<>();
-        coords.add(new Coord(cityGrid[0].length - 1, cityGrid.length - 1));
+        coords.add(Coord.of(cityGrid[0].length - 1, cityGrid.length - 1));
         heuristicGrid[cityGrid.length - 1][cityGrid[0].length - 1] = 0;
         while (!coords.isEmpty()) {
             coords.sort((c1, c2) -> heuristicGrid[c1.y][c1.x] - heuristicGrid[c2.y][c2.x]);
-            Coord c = coords.remove(0);
+            Coord c = coords.removeFirst();
             Coord n = c.addDirection(Direction.UP);
             if (validCoord(n) && heuristicGrid[n.y][n.x] == Integer.MAX_VALUE) {
                 heuristicGrid[n.y][n.x] = heuristicGrid[c.y][c.x] + cityGrid[c.y][c.x];
@@ -125,46 +126,13 @@ public class Day17 extends AbstractProblem<List<String>, Number> {
         return validPoint(coord.x, coord.y);
     }
 
-    private static class Coord {
-        int x;
-        int y;
-
-        public Coord(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public Coord addDirection(Direction d) {
-            return new Coord(x + d.dx(), y + d.dy());
-        }
-
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Coord coord = (Coord) o;
-            return x == coord.x && y == coord.y;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(x, y);
-        }
-
-        @Override
-        public String toString() {
-            return String.format("(%d,%d)", x, y);
-        }
-    }
-
     class Path {
-        Direction d;
-        List<Coord> history;
-        List<Direction> pathList;
-        Coord location;
-        int heatLoss;
-        int streak;
+        final Direction d;
+        final List<Coord> history;
+        final List<Direction> pathList;
+        final Coord location;
+        final int heatLoss;
+        final int streak;
         int expectedLoss = -1;
 
         Path() {
@@ -172,7 +140,7 @@ public class Day17 extends AbstractProblem<List<String>, Number> {
             history = new ArrayList<>();
             pathList = new ArrayList<>();
             streak = 0;
-            location = new Coord(0, 0);
+            location = Coord.ZERO;
             heatLoss = 0;
         }
 

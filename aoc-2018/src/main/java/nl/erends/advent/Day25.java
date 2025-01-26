@@ -20,7 +20,7 @@ public class Day25 extends AbstractProblem<List<String>, Integer> {
         List<Star> stars = input.stream().map(Star::new).collect(Collectors.toList());
         while (!stars.isEmpty()) {
             Collections.sort(stars);
-            Star currentStar = stars.remove(0);
+            Star currentStar = stars.removeFirst();
             if (currentStar.constellation == -1) {
                 currentStar.constellation = ++constellations;
             }

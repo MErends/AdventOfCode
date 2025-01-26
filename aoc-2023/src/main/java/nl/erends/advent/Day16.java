@@ -46,7 +46,7 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
             highLava = Math.max(highLava, solve(new Beam(-1, startY, Direction.RIGHT)));
             highLava = Math.max(highLava, solve(new Beam(input.get(startY).length(), startY, Direction.LEFT)));
         }
-        for (int startX = 0; startX < input.get(0).length(); startX++) {
+        for (int startX = 0; startX < input.getFirst().length(); startX++) {
             highLava = Math.max(highLava, solve(new Beam(startX, -1, Direction.DOWN)));
             highLava = Math.max(highLava, solve(new Beam(startX, input.size(), Direction.UP)));
         }
@@ -63,7 +63,7 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
         splittersDone = new HashSet<>();
         beams.add(startBeam);
         while (!beams.isEmpty()) {
-            beams.remove(0).resolve();
+            beams.removeFirst().resolve();
         }
         int sum = 0;
         for (char[] line : energizedTiles) {

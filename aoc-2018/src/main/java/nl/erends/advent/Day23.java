@@ -46,7 +46,7 @@ public class Day23 extends AbstractProblem<List<String>, Integer> {
         cubes.add(new Cube(min, min, min, size));
         while (true) {
             Collections.sort(cubes);
-            Cube smallest = cubes.remove(0);
+            Cube smallest = cubes.removeFirst();
             if (smallest.size == 1) {
                 return Math.abs(smallest.x) + Math.abs(smallest.y) + Math.abs(smallest.z);
             }

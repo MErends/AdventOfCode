@@ -42,7 +42,7 @@ public class Day12 extends AbstractProblem<List<String>, Integer> {
 
     @Override
     protected Integer solve1() {
-        areaGrid = new Area[input.size()][input.get(0).length()];
+        areaGrid = new Area[input.size()][input.getFirst().length()];
         for (int y = 0; y < input.size(); y++) {
             for (int x = 0; x < input.get(y).length(); x++) {
                 Area area = new Area(x, y, input.get(y).charAt(x));
@@ -134,9 +134,9 @@ public class Day12 extends AbstractProblem<List<String>, Integer> {
 
     class Area {
 
-        int x;
-        int y;
-        char plant;
+        final int x;
+        final int y;
+        final char plant;
         Region region;
 
         public Area(int x, int y, char plant) {
@@ -149,9 +149,9 @@ public class Day12 extends AbstractProblem<List<String>, Integer> {
     class Region {
 
         int borders = 0;
-        char plant;
-        List<Area> areas = new ArrayList<>();
-        Set<Integer> borderIds = new HashSet<>();
+        final char plant;
+        final List<Area> areas = new ArrayList<>();
+        final Set<Integer> borderIds = new HashSet<>();
 
         Region(Area seed) {
             areas.add(seed);

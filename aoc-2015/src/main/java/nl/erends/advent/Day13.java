@@ -30,7 +30,7 @@ public class Day13 extends AbstractProblem<List<String>, Number> {
         readInput();
         List<String> table = new ArrayList<>();
         List<String> persons = new ArrayList<>(personSet);
-        table.add(persons.remove(0));
+        table.add(persons.removeFirst());
         fillTable(table, persons);
         return maxHappiness;
     }

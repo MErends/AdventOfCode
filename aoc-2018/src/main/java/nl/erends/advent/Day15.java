@@ -186,10 +186,10 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
             List<Tile> targetsInRange = findTargetsInRange();
             if (!targetsInRange.isEmpty()) {
                 Map<Tile, Integer> targetsReachable = findTargetsReachable(targetsInRange);
-                if (targetsReachable.size() != 0) {
+                if (!targetsReachable.isEmpty()) {
                     List<Tile> targetsNearest = findTargetsNearest(targetsReachable);
                     Collections.sort(targetsNearest);
-                    Tile targetChosen = targetsNearest.get(0);
+                    Tile targetChosen = targetsNearest.getFirst();
                     Tile step = determineFirstStep(targetChosen);
                     moveTo(step);
                 }
@@ -249,7 +249,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
             int finalMinHP = minHP;
             enemies.removeIf(goblin -> goblin.hp != finalMinHP);
             Collections.sort(enemies);
-            Goblin target = enemies.get(0);
+            Goblin target = enemies.getFirst();
             target.hp -= attack;
             if (target.hp <= 0) {
                 goblins.remove(target);
@@ -314,7 +314,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
             int finalMinHP = minHP;
             enemies.removeIf(goblin -> goblin.hp != finalMinHP);
             Collections.sort(enemies);
-            Elf target = enemies.get(0);
+            Elf target = enemies.getFirst();
             target.hp -= ATTACK;
             if (target.hp <= 0) {
                 elfs.remove(target);
@@ -396,7 +396,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
             elfs = new ArrayList<>();
             goblins = new ArrayList<>();
             units = new ArrayList<>();
-            grid = new Tile[input.size()][input.get(0).length()];
+            grid = new Tile[input.size()][input.getFirst().length()];
             for (int y = 0; y < input.size(); y++) {
                 for (int x = 0; x < input.get(y).length(); x++) {
                     char c = input.get(y).charAt(x);

@@ -17,8 +17,8 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
     @Override
     public Integer solve1() {
         List<String> gridnodes = new ArrayList<>(input);
-        gridnodes.remove(0);
-        gridnodes.remove(0);
+        gridnodes.removeFirst();
+        gridnodes.removeFirst();
         createGrid(gridnodes);
         int validPairs = 0;
         for (Gridnode[] rowA : grid) {
@@ -33,8 +33,8 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
     public Integer solve2() {
         if (grid == null) {
             List<String> gridnodes = new ArrayList<>(input);
-            gridnodes.remove(0);
-            gridnodes.remove(0);
+            gridnodes.removeFirst();
+            gridnodes.removeFirst();
             createGrid(gridnodes);
         }
         int holeX = 0;
@@ -78,7 +78,7 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
     }
     
     private void createGrid(List<String> gridnodes) {
-        Gridnode maxGridnode = new Gridnode(gridnodes.get(gridnodes.size() - 1));
+        Gridnode maxGridnode = new Gridnode(gridnodes.getLast());
         grid = new Gridnode[maxGridnode.y + 1][maxGridnode.x + 1];
         for (String input : gridnodes) {
             Gridnode gridnode = new Gridnode(input);

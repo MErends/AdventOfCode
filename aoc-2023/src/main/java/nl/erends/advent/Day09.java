@@ -44,14 +44,14 @@ public class Day09 extends AbstractProblem<List<String>, Number> {
         if (numberlist.stream().allMatch(n -> n == 0)) {
             return 0;
         }
-        return numberlist.get(numberlist.size() - 1) + getNextNumber(getDerivative(numberlist));
+        return numberlist.getLast() + getNextNumber(getDerivative(numberlist));
     }
 
     private int getPreviousNumber(List<Integer> numberlist) {
         if (numberlist.stream().allMatch(n -> n == 0)) {
             return 0;
         }
-        return numberlist.get(0) - getPreviousNumber(getDerivative(numberlist));
+        return numberlist.getFirst() - getPreviousNumber(getDerivative(numberlist));
     }
 
     private List<Integer> getDerivative(List<Integer> numberlist) {

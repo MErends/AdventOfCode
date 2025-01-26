@@ -81,7 +81,7 @@ public class Day17 extends AbstractProblem<List<String>, String> {
         long regA;
         long regB;
         long regC;
-        List<Integer> instructions;
+        final List<Integer> instructions;
         int pointer;
         List<Integer> output;
 

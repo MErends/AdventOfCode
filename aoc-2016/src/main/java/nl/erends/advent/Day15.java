@@ -20,7 +20,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
     public Integer solve1() {
         List<String> lines = new ArrayList<>(input);
         if (part1) {
-            lines.remove(lines.size() - 1);
+            lines.removeLast();
         }
         sizeOfDisc = new int[lines.size()];
         holePositionOfDisc = new int[lines.size()];

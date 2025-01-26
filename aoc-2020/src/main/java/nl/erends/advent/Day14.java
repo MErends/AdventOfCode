@@ -80,7 +80,7 @@ public class Day14 extends AbstractProblem<List<String>, Long> {
         List<String> unresolved = new ArrayList<>();
         unresolved.add(result.toString());
         while (!unresolved.isEmpty()) {
-            String addressX = unresolved.get(0);
+            String addressX = unresolved.getFirst();
             int xLocation = addressX.indexOf('X');
             if (xLocation == -1) {
                 resolved.add(Long.parseLong(addressX, 2));
@@ -88,7 +88,7 @@ public class Day14 extends AbstractProblem<List<String>, Long> {
                 unresolved.add(addressX.replaceFirst("X", "0"));
                 unresolved.add(addressX.replaceFirst("X", "1"));
             }
-            unresolved.remove(0);
+            unresolved.removeFirst();
         }
         return resolved;
     }

@@ -98,7 +98,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
 
     class Box {
 
-        List<Coord> position = new ArrayList<>();
+        final List<Coord> position = new ArrayList<>();
 
         Box(int x, int y, boolean wide) {
             position.add(Coord.of(x, y));

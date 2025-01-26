@@ -65,7 +65,7 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
         hotels.add(root);
         while (!hotels.isEmpty()) {
             hotels.sort(Comparator.comparingInt(Hotel::getPotentialEnergy));
-            hotels.addAll(nextStates(hotels.remove(0)));
+            hotels.addAll(nextStates(hotels.removeFirst()));
         }
     }
 
@@ -93,7 +93,7 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
         if (fromRoom.isEmpty()) {
             return null;
         }
-        Character toRoomChar = fromRoom.get(0);
+        Character toRoomChar = fromRoom.getFirst();
         if (toRoomChar == fromRoomChar) {
             return null;
         }
@@ -114,7 +114,7 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
         toRoom = newHotel.getRoom(toRoomChar);
         int steps = roomSize - fromRoom.size() + 1 + Math.abs(fromIndex - toIndex) + roomSize - toRoom.size();
         int cost = steps * stepCost.get(toRoomChar);
-        toRoom.add(0, fromRoom.remove(0));
+        toRoom.addFirst(fromRoom.removeFirst());
         newHotel.energy += cost;
         return newHotel;
     }
@@ -147,7 +147,7 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
         toRoom = newHotel.getRoom(toRoomChar);
         int steps = Math.abs(hallwayIndex - toIndex) + roomSize - toRoom.size();
         int cost = steps * stepCost.get(toRoomChar);
-        toRoom.add(0, toRoomChar);
+        toRoom.addFirst(toRoomChar);
         newHotel.hallway = hotel.hallway.substring(0, hallwayIndex) + '.' + hotel.hallway.substring(hallwayIndex + 1);
         newHotel.energy += cost;
         if (newHotel.isSolved()) {
@@ -181,7 +181,7 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
         Hotel newHotel = new Hotel(hotel);
         fromRoom = newHotel.getRoom(fromRoomChar);
         int steps = roomSize - fromRoom.size() + 1 + Math.abs(fromIndex - hallwayIndex);
-        char subject = fromRoom.remove(0);
+        char subject = fromRoom.removeFirst();
         int cost = steps * stepCost.get(subject);
         newHotel.hallway = hotel.hallway.substring(0, hallwayIndex) + subject + hotel.hallway.substring(hallwayIndex + 1);
         newHotel.energy += cost;
@@ -199,14 +199,14 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
 
         private Hotel(List<String> input) {
             hallway = input.get(1).substring(1, 12);
-            roomA.add(0, input.get(3).toCharArray()[3]);
-            roomA.add(0, input.get(2).toCharArray()[3]);
-            roomB.add(0, input.get(3).toCharArray()[5]);
-            roomB.add(0, input.get(2).toCharArray()[5]);
-            roomC.add(0, input.get(3).toCharArray()[7]);
-            roomC.add(0, input.get(2).toCharArray()[7]);
-            roomD.add(0, input.get(3).toCharArray()[9]);
-            roomD.add(0, input.get(2).toCharArray()[9]);
+            roomA.addFirst(input.get(3).toCharArray()[3]);
+            roomA.addFirst(input.get(2).toCharArray()[3]);
+            roomB.addFirst(input.get(3).toCharArray()[5]);
+            roomB.addFirst(input.get(2).toCharArray()[5]);
+            roomC.addFirst(input.get(3).toCharArray()[7]);
+            roomC.addFirst(input.get(2).toCharArray()[7]);
+            roomD.addFirst(input.get(3).toCharArray()[9]);
+            roomD.addFirst(input.get(2).toCharArray()[9]);
         }
 
         private Hotel(Hotel other) {

@@ -70,7 +70,7 @@ public class Day05 extends AbstractProblem<List<String>, String> {
     }
 
     private void loadStacks() {
-        int lineLength = input.get(0).length();
+        int lineLength = input.getFirst().length();
         int stackCount = lineLength / 4 + 1;
         IntStream.range(0, stackCount)
                 .forEach(i -> stacks.add(new Stack<>()));
@@ -81,7 +81,7 @@ public class Day05 extends AbstractProblem<List<String>, String> {
             for (int pos = 0; pos < line.length(); pos++) {
                 char crate = line.charAt(pos);
                 if (Character.isAlphabetic(crate)) {
-                    stacks.get(pos / 4).add(0, crate);
+                    stacks.get(pos / 4).addFirst(crate);
                 }
             }
         }

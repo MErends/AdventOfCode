@@ -52,7 +52,7 @@ public class Day21 extends AbstractProblem<List<String>, Number> {
 
     private class Monkey {
 
-        String name;
+        final String name;
         String calculation;
 
         Monkey(String line) {

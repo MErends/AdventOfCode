@@ -27,8 +27,8 @@ public class Day20 extends AbstractProblem<List<String>,Integer> {
 
     @Override
     protected Integer solve1() {
-        lookup = input.remove(0);
-        input.remove(0);
+        lookup = input.removeFirst();
+        input.removeFirst();
         int iterations = 50;
         int length = input.size();
         grid = new char[length + 4 * iterations][length + 4 * iterations];

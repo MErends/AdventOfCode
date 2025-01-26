@@ -21,7 +21,7 @@ public class Day13 extends AbstractProblem<List<String>, String> {
     @Override
     public String solve1() {
         String answer1 = "";
-        map = new Track[input.size()][input.get(0).length()];
+        map = new Track[input.size()][input.getFirst().length()];
         carts = new ArrayList<>();
         readCartsAndTrack();
         boolean firstCollision = true;
@@ -51,7 +51,7 @@ public class Day13 extends AbstractProblem<List<String>, String> {
             carts.removeIf(cart -> !cart.alive);
         }
         if (!carts.isEmpty()) {
-            answer2 = carts.get(0).x + "," + carts.get(0).y;
+            answer2 = carts.getFirst().x + "," + carts.getFirst().y;
         }
         return answer1;
     }
@@ -103,7 +103,7 @@ public class Day13 extends AbstractProblem<List<String>, String> {
     }
 
     private void readCartsAndTrack() {
-        for (int x = 0; x < input.get(0).length(); x++) {
+        for (int x = 0; x < input.getFirst().length(); x++) {
             for (int y = 0; y < input.size(); y++) {
                 char c = input.get(y).charAt(x);
                 Cart cart;

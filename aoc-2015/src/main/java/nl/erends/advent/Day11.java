@@ -20,10 +20,9 @@ public class Day11 extends AbstractProblem<String, String> {
     @Override
     public String solve2() {
         input = solve1();
-        input = nextPassword(input);
-        while (isInvalidPassword(input)) {
+        do {
             input = nextPassword(input);
-        }
+        } while (isInvalidPassword(input));
         return input;
     }
 

@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  */
 public class Day24 extends AbstractProblem<List<String>, Long> {
 
-    Map<String, Integer> wiremap = new HashMap<>();
+    final Map<String, Integer> wiremap = new HashMap<>();
 
     public static void main(String[] args) {
         new Day24().setAndSolve(Util.readInput(2024, 24));
@@ -63,9 +63,9 @@ public class Day24 extends AbstractProblem<List<String>, Long> {
     abstract static class Gate {
 
         boolean fired = false;
-        String in1;
-        String in2;
-        String out;
+        final String in1;
+        final String in2;
+        final String out;
 
         Gate(String in1, String in2, String out) {
             this.in1 = in1;

@@ -89,7 +89,7 @@ public class Day14 extends AbstractProblem<List<String>, Integer> {
 
     class Robot {
 
-        static Pattern p = Pattern.compile("p=(\\d+),(\\d+) v=(-?\\d+),(-?\\d+)");
+        static final Pattern p = Pattern.compile("p=(\\d+),(\\d+) v=(-?\\d+),(-?\\d+)");
 
         int x;
         int y;

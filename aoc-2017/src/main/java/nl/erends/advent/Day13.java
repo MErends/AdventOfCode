@@ -17,9 +17,9 @@ public class Day13 extends AbstractProblem<List<String>, Integer> {
     
     @Override
     public Integer solve1() {
-        depthAtLevel = new int[Integer.parseInt(input.get(input.size() - 1).split(":")[0].trim()) + 1];
-        scannerposition = new int[Integer.parseInt(input.get(input.size() - 1).split(":")[0].trim()) + 1];
-        scannerMovingDown = new boolean[Integer.parseInt(input.get(input.size() - 1).split(":")[0].trim()) + 1];
+        depthAtLevel = new int[Integer.parseInt(input.getLast().split(":")[0].trim()) + 1];
+        scannerposition = new int[Integer.parseInt(input.getLast().split(":")[0].trim()) + 1];
+        scannerMovingDown = new boolean[Integer.parseInt(input.getLast().split(":")[0].trim()) + 1];
         for (String line : input) {
             String[] words = line.split(":");
             depthAtLevel[Integer.parseInt(words[0].trim())] = Integer.parseInt(words[1].trim());

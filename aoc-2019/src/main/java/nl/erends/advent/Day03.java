@@ -20,7 +20,7 @@ public class Day03 extends AbstractProblem<List<String>, Integer> {
     public Integer solve1() {
         Map<String, Integer> firstWire = new HashMap<>();
         int totalSteps = 0;
-        for (String pathElement : input.get(0).split(",")) {
+        for (String pathElement : input.getFirst().split(",")) {
             char direction = pathElement.charAt(0);
             int numSteps = Integer.parseInt(pathElement.substring(1));
             while (numSteps != 0) {

@@ -23,11 +23,11 @@ public class Day19 extends AbstractProblem<Integer, Integer> {
                 newCircle.add(elveCircle.get(pointer));
             }
             if (elveCircle.size() % 2 == 1) {
-                newCircle.add(0, newCircle.remove(newCircle.size() - 1));
+                newCircle.addFirst(newCircle.removeLast());
             }
             elveCircle = newCircle;
         }
-        return elveCircle.get(0);
+        return elveCircle.getFirst();
     }
     
     @Override
@@ -38,8 +38,8 @@ public class Day19 extends AbstractProblem<Integer, Integer> {
         }
         while (elveCircle.size() != 1) {
             elveCircle.remove(elveCircle.size() / 2);
-            elveCircle.add(elveCircle.remove(0));
+            elveCircle.add(elveCircle.removeFirst());
         }
-        return elveCircle.get(0);
+        return elveCircle.getFirst();
     }
 }

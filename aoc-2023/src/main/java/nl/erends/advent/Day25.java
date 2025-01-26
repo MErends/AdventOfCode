@@ -18,7 +18,7 @@ import java.util.Set;
  */
 public class Day25 extends AbstractProblem<List<String>, Number> {
 
-    Map<String, Node> nodeMap = new HashMap<>();
+    final Map<String, Node> nodeMap = new HashMap<>();
 
     public static void main(String[] args) {
         new Day25().setAndSolve(Util.readInput(2023, 25));
@@ -39,8 +39,7 @@ public class Day25 extends AbstractProblem<List<String>, Number> {
             String[] ls = line.split(": ");
             String a = ls[0];
             for (String otherName : ls[1].split(" ")) {
-                String b = otherName;
-                graph.addEdge(a + b, a, b);
+                graph.addEdge(a + otherName, a, otherName);
             }
         }
 
@@ -94,10 +93,10 @@ public class Day25 extends AbstractProblem<List<String>, Number> {
         return groupA.size() * (nodeMap.size() - groupA.size());
     }
 
-    private class Node {
+    private static class Node {
 
-        String name;
-        Set<Node> connections = new HashSet<>();
+        final String name;
+        final Set<Node> connections = new HashSet<>();
 
         Node(String name) {
             this.name = name;

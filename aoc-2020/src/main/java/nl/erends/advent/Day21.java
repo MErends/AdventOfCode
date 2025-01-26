@@ -29,12 +29,12 @@ public class Day21 extends AbstractProblem<List<String>, String> {
             while (it.hasNext()) {
                 String currentAllergy = it.next();
                 List<Food> possibleFood = foods.stream().filter(f -> f.allergies.contains(currentAllergy)).toList();
-                List<String> possibleIngredient = new ArrayList<>(possibleFood.get(0).ingredient);
+                List<String> possibleIngredient = new ArrayList<>(possibleFood.getFirst().ingredient);
                 possibleFood.forEach(pf -> possibleIngredient.removeIf(pi -> !pf.ingredient.contains(pi)));
                 possibleIngredient.removeIf(badIngredients::containsKey);
                 if (possibleIngredient.size() == 1) {
                     it.remove();
-                    badIngredients.put(possibleIngredient.get(0), currentAllergy);
+                    badIngredients.put(possibleIngredient.getFirst(), currentAllergy);
                 }
             }
         }

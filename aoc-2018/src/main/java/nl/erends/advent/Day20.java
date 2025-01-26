@@ -35,7 +35,7 @@ public class Day20 extends AbstractProblem<String, Integer> {
         }
 
         private void drawFromLocation(int x, int y, String path) {
-            while (path.length() != 0) {
+            while (!path.isEmpty()) {
                 char c = path.charAt(0);
                 switch (c) {
                     case 'N' -> {

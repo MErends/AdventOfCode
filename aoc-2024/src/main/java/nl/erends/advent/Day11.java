@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class Day11 extends AbstractProblem<String, Long> {
 
-    Map<Integer, Map<Long, Long>> blinksLeftStone = new HashMap<>();
+    final Map<Integer, Map<Long, Long>> blinksLeftStone = new HashMap<>();
 
     public static void main(String[] args) {
         new Day11().setAndSolve(Util.readLine(2024, 11));

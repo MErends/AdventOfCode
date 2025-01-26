@@ -33,7 +33,7 @@ public class Day07 extends AbstractProblem<List<String>, Long> {
             List<Long> operands = Arrays.stream(split[1].split(" "))
                     .map(Long::parseLong)
                     .collect(Collectors.toCollection(ArrayList::new));
-            long startValue = operands.remove(0);
+            long startValue = operands.removeFirst();
             if (isEquationpossible(operands, startValue, target)) {
                 result += target;
             }
@@ -49,7 +49,7 @@ public class Day07 extends AbstractProblem<List<String>, Long> {
             return false;
         }
         List<Long> newOperands = new ArrayList<>(operands);
-        long operand = newOperands.remove(0);
+        long operand = newOperands.removeFirst();
         long plusValue = value + operand;
         long timesValue = value * operand;
         boolean isConcatPossile = false;

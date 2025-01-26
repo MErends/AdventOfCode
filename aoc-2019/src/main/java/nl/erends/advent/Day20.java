@@ -29,8 +29,8 @@ public class Day20 extends AbstractProblem<List<String>, Integer> {
         readInnerPortals();
         fillMappings();
         distanceArray = createIntArray();
-        String[] start = portals.get("AA").get(0).split(",");
-        String[] end = portals.get("ZZ").get(0).split(",");
+        String[] start = portals.get("AA").getFirst().split(",");
+        String[] end = portals.get("ZZ").getFirst().split(",");
         int xEnd = Integer.parseInt(end[0]);
         int yEnd = Integer.parseInt(end[1]);
         distanceArray[Integer.parseInt(start[1])][Integer.parseInt(start[0])] = 0;
@@ -56,13 +56,13 @@ public class Day20 extends AbstractProblem<List<String>, Integer> {
         fillMappings();
         levelDistanceList = new ArrayList<>();
         levelDistanceList.add(createIntArray());
-        String[] start = portals.get("AA").get(0).split(",");
-        String[] end = portals.get("ZZ").get(0).split(",");
+        String[] start = portals.get("AA").getFirst().split(",");
+        String[] end = portals.get("ZZ").getFirst().split(",");
         int xEnd = Integer.parseInt(end[0]);
         int yEnd = Integer.parseInt(end[1]);
-        levelDistanceList.get(0)[Integer.parseInt(start[1])][Integer.parseInt(start[0])] = 0;
+        levelDistanceList.getFirst()[Integer.parseInt(start[1])][Integer.parseInt(start[0])] = 0;
         int steps = 0;
-        while (levelDistanceList.get(0)[yEnd][xEnd] == Integer.MAX_VALUE) {
+        while (levelDistanceList.getFirst()[yEnd][xEnd] == Integer.MAX_VALUE) {
             for (int level = 0; level < levelDistanceList.size(); level++) {
                 int[][] arr = levelDistanceList.get(level);
                 for (int y = 0; y < arr.length; y++) {
@@ -75,7 +75,7 @@ public class Day20 extends AbstractProblem<List<String>, Integer> {
             }
             steps++;
         }
-        return levelDistanceList.get(0)[yEnd][xEnd];
+        return levelDistanceList.getFirst()[yEnd][xEnd];
     }
 
     private int[][] createIntArray() {

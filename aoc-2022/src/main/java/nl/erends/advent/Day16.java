@@ -116,7 +116,7 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
         int timeLeft = 26 - s.time;
         int potential = s.released + s.rate * timeLeft;
         List<Room> remainingValves = new ArrayList<>(valves);
-        remainingValves.removeIf(v -> s.valvesOpen.contains(v));
+        remainingValves.removeIf(s.valvesOpen::contains);
         for (Room valve : remainingValves) {
             potential += (timeLeft - 1) * valve.rate;
         }
@@ -194,9 +194,9 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
 
     private static class Room {
 
-        String name;
-        int rate;
-        List<String> tunnels;
+        final String name;
+        final int rate;
+        final List<String> tunnels;
 
         private Room(String line) {
             String[] words = line.split(" ");
@@ -211,8 +211,8 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
 
     private static class State {
 
-        Set<Room> valvesClosed = new HashSet<>();
-        List<Room> valvesOpen = new ArrayList<>();
+        final Set<Room> valvesClosed = new HashSet<>();
+        final List<Room> valvesOpen = new ArrayList<>();
         Room position;
         int time;
         int released;
@@ -220,8 +220,8 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
 
     private static class State2 {
 
-        List<Room> valvesClosed = new ArrayList<>();
-        List<Room> valvesOpen = new ArrayList<>();
+        final List<Room> valvesClosed = new ArrayList<>();
+        final List<Room> valvesOpen = new ArrayList<>();
         Room mPosition;
         Room mTarget;
         Room ePosition;

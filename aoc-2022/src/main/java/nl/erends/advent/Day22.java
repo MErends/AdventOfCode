@@ -34,7 +34,7 @@ public class Day22 extends AbstractProblem<List<String>, Number> {
             startX++;
         }
         Position me = new Position(startX, 0, Direction.UP);
-        String instructions = 'R' + input.get(input.size() - 1);
+        String instructions = 'R' + input.getLast();
         int pointer = 0;
         while (pointer < instructions.length()) {
             if (instructions.charAt(pointer++) == 'R') {

@@ -20,7 +20,7 @@ public class Day18 extends AbstractProblem<List<String>,Integer> {
 
     @Override
     protected Integer solve1() {
-        SnailNumber number = new SnailNumber(input.get(0), 0, null);
+        SnailNumber number = new SnailNumber(input.getFirst(), 0, null);
         for (int index = 1; index < input.size(); index++) {
             number = new SnailNumber(number.toString(), input.get(index));
             number.reduce();

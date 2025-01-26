@@ -49,7 +49,7 @@ public class Day15 extends AbstractProblem<List<String>,Integer> {
         gridPoints.add(new GridPoint(0, 0, 0));
         while (!gridPoints.isEmpty()) {
             gridPoints.sort(Comparator.comparingInt(g -> g.risk));
-            GridPoint gridPoint = gridPoints.remove(0);
+            GridPoint gridPoint = gridPoints.removeFirst();
             if (gridPoint.x == size - 1 && gridPoint.y == size - 1) {
                 return gridPoint.risk;
             }

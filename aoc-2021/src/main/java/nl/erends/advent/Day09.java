@@ -28,8 +28,8 @@ public class Day09 extends AbstractProblem<List<String>, Integer> {
     protected Integer solve1() {
         
         List<Integer> basins = new ArrayList<>();
-        grid = new int[input.size()][input.get(0).length()];
-        basinGrid = new int[input.size()][input.get(0).length()];
+        grid = new int[input.size()][input.getFirst().length()];
+        basinGrid = new int[input.size()][input.getFirst().length()];
         for (int y = 0; y < input.size(); y++) {
             for (int x = 0; x < input.get(y).length(); x++) {
                 grid[y][x] = Integer.parseInt("" + input.get(y).charAt(x));

@@ -32,10 +32,10 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
         List<Depth> depths = new ArrayList<>();
         depths.add(new Depth(readInput()));
         for (int iteration = 0; iteration < iterations; iteration++) {
-            if (depths.get(0).getValue() != 0) {
-                depths.add(0, new Depth());
+            if (depths.getFirst().getValue() != 0) {
+                depths.addFirst(new Depth());
             }
-            if (depths.get(depths.size() - 1).getValue() != 0) {
+            if (depths.getLast().getValue() != 0) {
                 depths.add(new Depth());
             }
             int dSize = depths.size();
@@ -45,11 +45,11 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
                 newDepths.add(depths.get(d).iterate(depths.get(d - 1).grid, depths.get(d + 1).grid));
             }
             newDepths.add(depths.get(dSize - 1).iterate(depths.get(dSize - 2).grid, new int[5][5]));
-            if (newDepths.get(0).getValue() == 0) {
-                newDepths.remove(0);
+            if (newDepths.getFirst().getValue() == 0) {
+                newDepths.removeFirst();
             }
-            if (newDepths.get(newDepths.size() - 1).getValue() == 0) {
-                newDepths.remove(newDepths.size() - 1);
+            if (newDepths.getLast().getValue() == 0) {
+                newDepths.removeLast();
             }
             depths = newDepths;
         }
@@ -57,7 +57,7 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
     }
 
     private int[][] readInput() {
-        int[][] newGrid = new int[input.size()][input.get(0).length()];
+        int[][] newGrid = new int[input.size()][input.getFirst().length()];
         for (int y = 0; y < input.size(); y++) {
             for (int x = 0; x < input.get(y).length(); x++) {
                 newGrid[y][x] = input.get(y).charAt(x) == '#' ? 1 : 0;

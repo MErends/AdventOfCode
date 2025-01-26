@@ -70,7 +70,7 @@ public class Day16 extends AbstractProblem<List<String>, Integer> {
                     .filter(e -> e.getValue().size() == 1)
                     .map(Map.Entry::getKey)
                     .findFirst().orElseThrow(IllegalStateException::new);
-            String operator = opcodeMap.remove(opCode).get(0);
+            String operator = opcodeMap.remove(opCode).getFirst();
             mapping.put(opCode, operator);
             opcodeMap.remove(opCode);
             opcodeMap.values().forEach(l -> l.remove(operator));
@@ -84,6 +84,6 @@ public class Day16 extends AbstractProblem<List<String>, Integer> {
         ElfMachine elfMachine = new ElfMachine(instructions);
         elfMachine.setMemory("[0, 0, 0, 0]");
         elfMachine.execute();
-        return elfMachine.getMemory().get(0);
+        return elfMachine.getMemory().getFirst();
     }
 }

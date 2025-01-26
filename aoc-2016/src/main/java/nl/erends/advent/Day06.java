@@ -17,7 +17,7 @@ public class Day06 extends AbstractProblem<List<String>, String> {
     public String solve1() {
         StringBuilder mostOften = new StringBuilder();
         StringBuilder leastOften = new StringBuilder();
-        for (int index = 0; index < input.get(0).length(); index++) {
+        for (int index = 0; index < input.getFirst().length(); index++) {
             Map<Character, Integer> counts = new HashMap<>();
 
             for (String line : input) {

@@ -30,7 +30,7 @@ public class Day15 extends AbstractProblem<List<String>, Number> {
 
     @Override
     protected Number solve1() {
-        return Arrays.stream(input.get(0).split(",")).mapToInt(this::hash).sum();
+        return Arrays.stream(input.getFirst().split(",")).mapToInt(this::hash).sum();
     }
 
     private int hash(String input) {
@@ -47,7 +47,7 @@ public class Day15 extends AbstractProblem<List<String>, Number> {
     public Number solve2() {
         List<Box> boxes = IntStream.range(0, 256)
                 .mapToObj(i -> new Box()).toList();
-        String[] sequence = input.get(0).split(",");
+        String[] sequence = input.getFirst().split(",");
         for (String instruction : sequence) {
             int equals = instruction.indexOf('=');
             int minus = instruction.indexOf('-');
@@ -73,18 +73,11 @@ public class Day15 extends AbstractProblem<List<String>, Number> {
         return totalPower;
     }
 
-    private static class Lens {
-        String name;
-        int focal;
-
-        public Lens(String name, int focal) {
-            this.name = name;
-            this.focal = focal;
-        }
+    private record Lens(String name, int focal) {
     }
 
     private static class Box {
-        List<Lens> lenses = new ArrayList<>();
+        final List<Lens> lenses = new ArrayList<>();
 
         private void remove(String name) {
             lenses.removeIf(lens -> lens.name.equals(name));

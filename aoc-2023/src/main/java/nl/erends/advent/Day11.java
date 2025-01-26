@@ -49,7 +49,7 @@ public class Day11 extends AbstractProblem<List<String>, Number> {
                 galaxies.stream().filter(g -> g.y > yF).forEach(g -> g.y += factor - 1);
             }
         }
-        for (int x = input.get(0).length() - 1; x >= 0; x--) {
+        for (int x = input.getFirst().length() - 1; x >= 0; x--) {
             int xF = x;
             if (galaxies.stream().noneMatch(g -> g.x == xF)) {
                 galaxies.stream().filter(g -> g.x > xF).forEach(g -> g.x += factor - 1);
@@ -57,7 +57,7 @@ public class Day11 extends AbstractProblem<List<String>, Number> {
         }
         long distanceTotal = 0;
         while (!galaxies.isEmpty()) {
-            Galaxy one = galaxies.remove(0);
+            Galaxy one = galaxies.removeFirst();
             for (Galaxy other : galaxies) {
                 long distance = Math.abs(one.x - other.x) + Math.abs(one.y - other.y);
                 distanceTotal += distance;

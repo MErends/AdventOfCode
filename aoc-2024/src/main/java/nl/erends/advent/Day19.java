@@ -21,7 +21,7 @@ import java.util.Map;
 public class Day19 extends AbstractProblem<List<String>, Long> {
 
     List<String> towels;
-    Map<String, Long> towelMemo = new HashMap<>();
+    final Map<String, Long> towelMemo = new HashMap<>();
 
     public static void main(String[] args) {
         new Day19().setAndSolve(Util.readInput(2024, 19));
@@ -29,7 +29,7 @@ public class Day19 extends AbstractProblem<List<String>, Long> {
 
     @Override
     protected Long solve1() {
-        towels = List.of(input.get(0).split(", "));
+        towels = List.of(input.getFirst().split(", "));
         long answer1 = 0;
         answer2 = 0L;
         for (int i = 2; i < input.size(); i++) {

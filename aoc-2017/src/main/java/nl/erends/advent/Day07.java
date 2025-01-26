@@ -25,7 +25,7 @@ public class Day07 extends AbstractProblem<List<String>, String> {
         for(Node node : nodes.values()) {
             nodeList.removeAll(node.supports);
         }
-        return nodeList.get(0);
+        return nodeList.getFirst();
 	}
 	
 	@Override
@@ -94,9 +94,9 @@ public class Day07 extends AbstractProblem<List<String>, String> {
             int correctEffectiveWeight = 0;
             for (List<String> nodeList : effectiveWeightMap.values()) {
                 if (nodeList.size() == 1) {
-                    wrongNode = nodes.get(nodeList.get(0));
+                    wrongNode = nodes.get(nodeList.getFirst());
                 } else {
-                    correctEffectiveWeight = nodes.get(nodeList.get(0)).getEffectiveWeight();
+                    correctEffectiveWeight = nodes.get(nodeList.getFirst()).getEffectiveWeight();
                 }
             }
             int offset;

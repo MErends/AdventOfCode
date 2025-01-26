@@ -20,8 +20,8 @@ public class Day10 extends AbstractProblem<List<Integer>, Number> {
 
     @Override
     public Integer solve1() {
-        List<Integer> adapters = input.stream().sorted().collect(Collectors.toList());
-        adapters.add(0, 0);
+        List<Integer> adapters = input.stream().sorted().collect(Collectors.toCollection(ArrayList::new));
+        adapters.addFirst(0);
         int diffOf1 = 0;
         int diffOf3 = 0;
         for (int index = 0; index < adapters.size() - 1; index++) {
@@ -38,9 +38,9 @@ public class Day10 extends AbstractProblem<List<Integer>, Number> {
 
     @Override
     public Long solve2() {
-        List<Integer> adapters = input.stream().sorted().collect(Collectors.toList());
+        List<Integer> adapters = input.stream().sorted().collect(Collectors.toCollection(ArrayList::new));
         streakPermutationMap.put(1, 1);
-        adapters.add(0, 0);
+        adapters.addFirst(0);
         List<Long> permutations = new ArrayList<>();
         int streak = 1;
         for (int index = 0; index < adapters.size() - 1; index++) {

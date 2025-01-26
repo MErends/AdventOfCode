@@ -22,7 +22,7 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
 
     @Override
     public Integer solve1() {
-        maze = new char[input.size()][input.get(0).length()];
+        maze = new char[input.size()][input.getFirst().length()];
         nodes = new ArrayList<>();
         fillMazeAndNodes();
         for (char startNode : nodes) {

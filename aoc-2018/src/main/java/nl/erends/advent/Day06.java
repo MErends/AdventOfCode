@@ -67,7 +67,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
                 nearest.add(source);
             }
         }
-        return nearest.size() == 1 ? nearest.get(0) : null;
+        return nearest.size() == 1 ? nearest.getFirst() : null;
     }
     
     private int getTotalDistance(int x, int y, Set<Point> sources) {

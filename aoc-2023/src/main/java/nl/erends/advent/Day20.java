@@ -26,8 +26,8 @@ import static nl.erends.advent.Day20.PulseType.LOW;
  */
 public class Day20 extends AbstractProblem<List<String>, Long> {
 
-    Map<String, Module> modules = new HashMap<>();
-    List<Pulse> pulses = new ArrayList<>();
+    final Map<String, Module> modules = new HashMap<>();
+    final List<Pulse> pulses = new ArrayList<>();
     private int push;
     private long answer1;
     private int highPulseCount;
@@ -72,7 +72,7 @@ public class Day20 extends AbstractProblem<List<String>, Long> {
         push++;
         pulses.add(new Pulse("button", LOW, "broadcaster"));
         while (!pulses.isEmpty()) {
-            Pulse pulse = pulses.remove(0);
+            Pulse pulse = pulses.removeFirst();
             if (pulse.type == LOW) {
                 if (lowPulsesNeeded.contains(pulse.toModule)) {
                     answer2 = Util.lcm(answer2, push);
@@ -94,8 +94,8 @@ public class Day20 extends AbstractProblem<List<String>, Long> {
     }
 
     private abstract static class Module {
-        String name;
-        List<String> outputs;
+        final String name;
+        final List<String> outputs;
         abstract void processPulse(Pulse pulse);
 
         public Module(String name, String outputs) {
@@ -125,8 +125,8 @@ public class Day20 extends AbstractProblem<List<String>, Long> {
 
     private class Conjuction extends Module {
 
-        List<String> inputs = new ArrayList<>();
-        Set<String> highPulses = new HashSet<>();
+        final List<String> inputs = new ArrayList<>();
+        final Set<String> highPulses = new HashSet<>();
 
         public Conjuction(String name, String outputs) {
             super(name, outputs);
@@ -169,16 +169,7 @@ public class Day20 extends AbstractProblem<List<String>, Long> {
     }
 
 
-    private static class Pulse {
-        String fromModule;
-        PulseType type;
-        String toModule;
-
-        public Pulse(String fromModule, PulseType type, String toModule) {
-            this.fromModule = fromModule;
-            this.type = type;
-            this.toModule = toModule;
-        }
+    private record Pulse(String fromModule, PulseType type, String toModule) {
     }
 
     enum PulseType {

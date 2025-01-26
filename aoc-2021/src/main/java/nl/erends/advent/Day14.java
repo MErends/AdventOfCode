@@ -30,8 +30,8 @@ public class Day14 extends AbstractProblem<List<String>,Long> {
             pairMapping.put(rule[0], List.of("" + rule[0].charAt(0) + rule[1].charAt(0), "" + rule[1].charAt(0) + rule[0].charAt(1)));
         }
         Map<String, Long> pairCount = new HashMap<>();
-        for (int index = 0; index < input.get(0).length() - 1; index++) {
-            pairCount.compute(input.get(0).substring(index, index + 2), (k, v) -> v == null ? 1L : v + 1);
+        for (int index = 0; index < input.getFirst().length() - 1; index++) {
+            pairCount.compute(input.getFirst().substring(index, index + 2), (k, v) -> v == null ? 1L : v + 1);
         }
         for (int i = 0; i < 10; i++) {
             pairCount = iterate(pairCount);

@@ -66,11 +66,11 @@ public class Day11 extends AbstractProblem<List<String>, Long> {
 
     private class Monkey {
         int inspects = 0;
-        List<Long> items = new ArrayList<>();
-        LongUnaryOperator operation;
-        int modulo;
-        int trueMonkey;
-        int falseMonkey;
+        final List<Long> items = new ArrayList<>();
+        final LongUnaryOperator operation;
+        final int modulo;
+        final int trueMonkey;
+        final int falseMonkey;
 
         Monkey(List<String> list) {
             Arrays.stream(list.get(1).substring(18).split(", "))

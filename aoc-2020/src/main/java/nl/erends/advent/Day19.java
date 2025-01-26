@@ -23,7 +23,7 @@ public class Day19 extends AbstractProblem<List<String>, Long> {
         int inputSplit = input.indexOf("");
         for (int index = 0; index < inputSplit; index++) {
             String[] line = input.get(index).split(":");
-            rules.put(line[0], new Rule(line[1], line[0]));
+            rules.put(line[0], new Rule(line[1]));
         }
         Rule zero = rules.get("0");
         zero.resolve();
@@ -35,11 +35,9 @@ public class Day19 extends AbstractProblem<List<String>, Long> {
         final String ruleString;
         final Set<String> matches = new HashSet<>();
         boolean resolved = false;
-        final String number;
         
-        private Rule(String ruleString, String number) {
+        private Rule(String ruleString) {
             this.ruleString = ruleString;
-            this.number = number;
         }
         
         private void resolve() {

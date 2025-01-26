@@ -93,7 +93,7 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
                     .filter(p -> containsAllChars(mapping.get(6), p))
                     .findFirst().orElseThrow());
             patterns.remove(mapping.get(5));
-            mapping.set(2, patterns.get(0));
+            mapping.set(2, patterns.getFirst());
         }
         
         private int getValue() {

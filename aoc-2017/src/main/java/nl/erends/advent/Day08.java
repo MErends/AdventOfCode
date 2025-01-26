@@ -41,7 +41,6 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
         int pointerValue = memory.computeIfAbsent(pointer, k -> 0);
         int comparePointerValue = memory.computeIfAbsent(comparePointer, k -> 0);
         switch (comparator) {
-            default:
             case ">=":
                 if (comparePointerValue >= compareValue) {
                     pointerValue += multipy * alteration;
@@ -68,6 +67,7 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
                 }
                 break;
             case "<=":
+            default:
                 if (comparePointerValue <= compareValue) {
                     pointerValue += multipy * alteration;
                 }

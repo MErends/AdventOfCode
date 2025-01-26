@@ -37,7 +37,7 @@ public class Day10 extends AbstractProblem<String, Integer> {
     private String nextSequence(String inputString) {
         StringBuilder inputSb = new StringBuilder(inputString);
         StringBuilder output = new StringBuilder();
-        while (inputSb.length() != 0) {
+        while (!inputSb.isEmpty()) {
             for (int i = 0; i < inputSb.length(); i++) {
                 char c = inputSb.charAt(0);
                 if (inputSb.charAt(i) != c || i == inputSb.length() - 1) {

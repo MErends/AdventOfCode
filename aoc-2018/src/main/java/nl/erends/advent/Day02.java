@@ -36,7 +36,7 @@ public class Day02 extends AbstractProblem<List<String>, String> {
         for (int indexA = 0; indexA < input.size(); indexA++) {
             for (int indexB = indexA + 1; indexB < input.size(); indexB++) {
                 String difference = difference(input.get(indexA), input.get(indexB));
-                if (!difference.equals("")) {
+                if (!difference.isEmpty()) {
                     return difference;
                 }
             }

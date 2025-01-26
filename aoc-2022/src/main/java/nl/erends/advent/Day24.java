@@ -88,7 +88,7 @@ public class Day24 extends AbstractProblem<List<String>, Number> {
 
         int x;
         int y;
-        Direction d;
+        final Direction d;
 
         Blizzard(int x, int y, Direction d) {
             this.x = x;

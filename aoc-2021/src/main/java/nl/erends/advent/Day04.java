@@ -24,7 +24,7 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
 
     @Override
     protected Integer solve1() {
-        List<Integer> drawnNumbers = Arrays.stream(input.remove(0).split(","))
+        List<Integer> drawnNumbers = Arrays.stream(input.removeFirst().split(","))
                 .map(Integer::parseInt)
                 .toList();
         input.removeIf(String::isEmpty);

@@ -69,8 +69,8 @@ public class Day03 extends AbstractProblem<List<String>,  Integer> {
 
     private class Part {
 
-        int x;
-        int y;
+        final int x;
+        final int y;
         int value;
         int length = 1;
         boolean connected;

@@ -53,7 +53,7 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
                 int minY = elfs.stream().mapToInt(e -> e.position.y()).min().orElseThrow();
                 round10 = (maxX - minX + 1) * (maxY - minY + 1) - elfs.size();
             }
-            directions.add(directions.remove(0));
+            directions.add(directions.removeFirst());
             round++;
         }
     }

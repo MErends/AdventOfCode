@@ -38,11 +38,11 @@ public class Day16 extends AbstractProblem<List<String>, Integer> {
     @Override
     protected Integer solve1() {
         Coord start = Coord.ZERO;
-        grid = new char[input.size()][input.get(0).length()];
-        bestLeft = new int[input.size()][input.get(0).length()];
-        bestRight = new int[input.size()][input.get(0).length()];
-        bestUp = new int[input.size()][input.get(0).length()];
-        bestDown = new int[input.size()][input.get(0).length()];
+        grid = new char[input.size()][input.getFirst().length()];
+        bestLeft = new int[input.size()][input.getFirst().length()];
+        bestRight = new int[input.size()][input.getFirst().length()];
+        bestUp = new int[input.size()][input.getFirst().length()];
+        bestDown = new int[input.size()][input.getFirst().length()];
         for (int y = 0; y< bestLeft.length; y++) {
             Arrays.fill(bestLeft[y], Integer.MAX_VALUE);
             Arrays.fill(bestRight[y], Integer.MAX_VALUE);
@@ -79,7 +79,7 @@ public class Day16 extends AbstractProblem<List<String>, Integer> {
         answer2 = goodPaths.stream()
                 .flatMap(s -> s.path.stream())
                 .collect(Collectors.toSet()).size();
-        return goodPaths.get(0).points;
+        return goodPaths.getFirst().points;
     }
 
     private boolean isBest(State s) {
@@ -98,10 +98,10 @@ public class Day16 extends AbstractProblem<List<String>, Integer> {
 
     class State {
 
-        Coord position;
-        Direction d;
-        int points;
-        List<Coord> path = new ArrayList<>();
+        final Coord position;
+        final Direction d;
+        final int points;
+        final List<Coord> path = new ArrayList<>();
 
         public State(Coord position, Direction d, int points, List<Coord> pastPath) {
             this.position = position;

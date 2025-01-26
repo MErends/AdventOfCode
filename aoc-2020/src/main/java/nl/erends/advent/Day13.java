@@ -46,7 +46,7 @@ public class Day13 extends AbstractProblem<List<String>, Number> {
         busList.sort((b1, b2) -> b2.id - b1.id);
 
 
-        Bus slowestBus = busList.remove(0);
+        Bus slowestBus = busList.removeFirst();
         long timeStep = slowestBus.id;
         long time = (long) slowestBus.id - slowestBus.offset;
         for (Bus currentBus : busList) {

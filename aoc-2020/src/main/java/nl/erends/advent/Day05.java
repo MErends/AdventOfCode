@@ -3,6 +3,7 @@ package nl.erends.advent;
 import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,10 +15,11 @@ public class Day05 extends AbstractProblem<List<String>, Integer> {
     
     @Override
     public Integer solve1() {
-        List<Integer> seatIDs = input.stream().map(this::getSeatId).sorted().collect(Collectors.toList());
-        int answer1 = seatIDs.get(seatIDs.size() - 1);
-        int mySeat = seatIDs.remove(0) + 1;
-        while (mySeat == seatIDs.remove(0)) {
+        List<Integer> seatIDs = input.stream().map(this::getSeatId).sorted()
+                .collect(Collectors.toCollection(ArrayList::new));
+        int answer1 = seatIDs.getLast();
+        int mySeat = seatIDs.removeFirst() + 1;
+        while (mySeat == seatIDs.removeFirst()) {
             mySeat++;
         }
         answer2 = mySeat;

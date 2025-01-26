@@ -29,7 +29,7 @@ public class Day01 extends AbstractProblem<List<String>, Integer> {
         int mostCalories = Integer.MIN_VALUE;
         int currentElf = 0;
         for (String line : input) {
-            if (line.equals("")) {
+            if (line.isEmpty()) {
                 mostCalories = Math.max(mostCalories, currentElf);
                 currentElf = 0;
             } else {
@@ -44,7 +44,7 @@ public class Day01 extends AbstractProblem<List<String>, Integer> {
         List<Integer> elves = new ArrayList<>();
         int currentElf = 0;
         for (String line : input) {
-            if (line.equals("")) {
+            if (line.isEmpty()) {
                 elves.add(currentElf);
                 currentElf = 0;
             } else {

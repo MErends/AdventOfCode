@@ -45,7 +45,7 @@ public class Day05 extends AbstractProblem<List<String>, Number> {
         tempRanges = getRanges("temperature");
         humiRanges = getRanges("humidity");
         long bestLocation = Long.MAX_VALUE;
-        List<Long> seeds = Arrays.stream(input.get(0).substring(7).split(" "))
+        List<Long> seeds = Arrays.stream(input.getFirst().substring(7).split(" "))
                 .map(Long::parseLong).toList();
         for (long seed : seeds) {
             long value = seed;
@@ -66,11 +66,11 @@ public class Day05 extends AbstractProblem<List<String>, Number> {
     @Override
     public Number solve2() {
         long bestLocation = Long.MAX_VALUE;
-        List<Long> seeds = Arrays.stream(input.get(0).substring(7).split(" "))
-                .map(Long::parseLong).collect(Collectors.toList());
+        List<Long> seeds = Arrays.stream(input.getFirst().substring(7).split(" "))
+                .map(Long::parseLong).collect(Collectors.toCollection(ArrayList::new));
         while (!seeds.isEmpty()) {
-            long seedStart = seeds.remove(0);
-            long seedRange = seeds.remove(0);
+            long seedStart = seeds.removeFirst();
+            long seedRange = seeds.removeFirst();
             long seed = seedStart;
             while(seed < seedStart + seedRange) {
                 long value = seed;
@@ -129,9 +129,9 @@ public class Day05 extends AbstractProblem<List<String>, Number> {
 
     private static class Range {
 
-        long startSource;
-        long startDestination;
-        long length;
+        final long startSource;
+        final long startDestination;
+        final long length;
 
         public Range(String line) {
             String[] lineSplit = line.split(" ");

@@ -67,11 +67,11 @@ public class Util {
     }
     
     public static String readLine(int year, int day) {
-        return readInput(year, day).get(0);
+        return readInput(year, day).getFirst();
     }
 
     public static String readLine(int year, int day, int testcase) {
-        return readInput(year, day, testcase).get(0);
+        return readInput(year, day, testcase).getFirst();
     }
     
     private static void downloadInput(int year, int day, Path path) {

@@ -38,7 +38,7 @@ public class Day18 extends AbstractProblem<List<String>,Integer> {
 
     private void readInput() {
         size = input.size();
-        grid = new int[input.size()][input.get(0).length()];
+        grid = new int[input.size()][input.getFirst().length()];
         for (int y = 0; y < input.size(); y++) {
             for (int x = 0; x < input.get(y).length(); x++) {
                 grid[y][x] = input.get(y).charAt(x) == '#' ? 1 : 0;

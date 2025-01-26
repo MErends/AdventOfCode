@@ -30,7 +30,7 @@ public class Day10 extends AbstractProblem<List<String>, Number> {
     @Override
     protected Number solve1() {
         int height = input.size();
-        int width = input.get(0).length();
+        int width = input.getFirst().length();
         grid = new char[height][];
         for (int row = 0; row < height; row++) {
             grid[row] = input.get(row).toCharArray();

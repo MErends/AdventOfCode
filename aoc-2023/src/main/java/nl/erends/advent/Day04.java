@@ -43,15 +43,13 @@ public class Day04 extends AbstractProblem<List<String>,  Integer> {
 
     private static class Card {
 
-        int id;
-        List<Integer> winners;
-        List<Integer> myNumbers;
+        final List<Integer> winners;
+        final List<Integer> myNumbers;
         int wincount = 0;
         int score = 1;
 
         private Card(String line) {
             String[] lineSplit = line.split(": ");
-            this.id = Integer.parseInt(lineSplit[0].substring(5).trim());
             String[] scoreSplit = lineSplit[1].split("\\|");
             String[] winnersString = scoreSplit[0].split(" ");
             String[] myNumbersString = scoreSplit[1].split(" ");

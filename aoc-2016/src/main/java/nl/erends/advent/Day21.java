@@ -4,7 +4,6 @@ import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Day21 extends AbstractProblem<List<String>, String> {
@@ -71,7 +70,7 @@ public class Day21 extends AbstractProblem<List<String>, String> {
         String unscramble(String input) {
             password = new StringBuilder(input);
             List<String> reverseInstructions = new ArrayList<>(instructions);
-            Collections.reverse(reverseInstructions);
+            reverseInstructions = reverseInstructions.reversed();
             for (String instruction : reverseInstructions) {
                 String[] words = instruction.split(" ");
                 if (instruction.startsWith("swap position")) {

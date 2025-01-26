@@ -23,7 +23,7 @@ public class Day09 extends AbstractProblem<List<String>, Long> {
         List<Long> candidates = new ArrayList<>(longInput.subList(preambleSize, input.size()));
         for (long candidate : candidates) {
             if (sumExists(candidate, preamble)) {
-                preamble.remove(0);
+                preamble.removeFirst();
                 preamble.add(candidate);
             } else {
                 answer1 = candidate;

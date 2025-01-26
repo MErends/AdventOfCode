@@ -74,8 +74,8 @@ public class Day22 extends AbstractProblem<List<String>, Number> {
         int z1;
         int z2;
 
-        Set<Brick> bricksBelow = new HashSet<>();
-        Set<Brick> bricksAbove = new HashSet<>();
+        final Set<Brick> bricksBelow = new HashSet<>();
+        final Set<Brick> bricksAbove = new HashSet<>();
 
         private Brick(String line) {
             Matcher m = LINE_PAT.matcher(line);

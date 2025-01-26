@@ -28,8 +28,9 @@ public class Day10 extends AbstractProblem<String, String> {
         for (int input : inputs) {
             for (int offset = 0; offset < input / 2; offset++) {
                 int temp = chain.get((currentPosition + offset) % chainlength);
-                chain.set((currentPosition + offset) % chainlength, chain.get((currentPosition + input - offset - 1) % chainlength));
-                chain.set((currentPosition + input - offset - 1) % chainlength, temp);
+                int index = (currentPosition + input - offset - 1) % chainlength;
+                chain.set((currentPosition + offset) % chainlength, chain.get(index));
+                chain.set(index, temp);
             }
             currentPosition = (currentPosition + input + skipSize) % chainlength;
             skipSize++;

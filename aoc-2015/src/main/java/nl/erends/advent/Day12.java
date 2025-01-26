@@ -35,7 +35,7 @@ public class Day12 extends AbstractProblem<String, Integer> {
         String lineString = new String(line);
         String[] words = lineString.split(" ");
         for (String word : words) {
-            if (!word.equals("")) {
+            if (!word.isEmpty()) {
                 sum += Integer.parseInt(word);
             }
         }

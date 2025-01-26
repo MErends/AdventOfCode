@@ -40,11 +40,11 @@ public class Day23 extends AbstractProblem<String, Long> {
             } else {
                 computer.addInput(-1);
                 if (index == lastSender) {
-                    nicList.get(0).addInput(natX);
-                    nicList.get(0).addInput(natY);
-                    natList.add(0, natY);
+                    nicList.getFirst().addInput(natX);
+                    nicList.getFirst().addInput(natY);
+                    natList.addFirst(natY);
                     if (natList.size() > 1 && natList.get(0).equals(natList.get(1))) {
-                        answer2 = natList.get(0);
+                        answer2 = natList.getFirst();
                     }
                 }
             }

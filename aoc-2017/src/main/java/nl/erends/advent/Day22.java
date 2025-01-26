@@ -17,7 +17,7 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
     
     @Override
     protected Integer solve1() {
-        char[][] grid = new char[input.size()][input.get(0).length()];
+        char[][] grid = new char[input.size()][input.getFirst().length()];
         for (y = 0; y < input.size(); y++) {
             for (x = 0; x < input.get(y).length(); x++) {
                 grid[y][x] = input.get(y).charAt(x);
@@ -44,7 +44,7 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
 
     @Override
     public Integer solve2() {
-        char[][]grid = new char[input.size()][input.get(0).length()];
+        char[][]grid = new char[input.size()][input.getFirst().length()];
         for (y = 0; y < input.size(); y++) {
             for (x = 0; x < input.get(y).length(); x++) {
                 grid[y][x] = input.get(y).charAt(x) == '#' ? '#' : '\0';

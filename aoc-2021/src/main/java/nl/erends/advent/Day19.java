@@ -42,7 +42,7 @@ public class Day19 extends AbstractProblem<List<String>,Integer> {
                 scanner.addCoord(line);
             }
         }
-        Scanner root = scannersToDo.remove(0);
+        Scanner root = scannersToDo.removeFirst();
         root.pointToX();
         root.applyOffset("0,0,0");
         scannersDone.add(root);

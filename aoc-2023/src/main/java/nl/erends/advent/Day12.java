@@ -24,7 +24,7 @@ import java.util.stream.IntStream;
  */
 public class Day12 extends AbstractProblem<List<String>, Number> {
 
-    String target;
+    StringBuilder target;
     List<Integer> formula;
     Map<Integer, Map<Integer, Long>> cache;
 
@@ -47,12 +47,14 @@ public class Day12 extends AbstractProblem<List<String>, Number> {
         for (String line : input) {
             String[] sA = line.split(" ");
             cache = new HashMap<>();
-            target = sA[0];
+            target = new StringBuilder(sA[0]);
             formula = Arrays.stream(sA[1].split(","))
                     .map(Integer::parseInt)
                     .collect(Collectors.toCollection(ArrayList::new));
             List<Integer> formulaClone = new ArrayList<>(formula);
-            IntStream.range(1, multiplier).forEach(i -> {target += ',' + sA[0]; formula.addAll(formulaClone);});
+            IntStream.range(1, multiplier).forEach(i -> {
+                target.append(',').append(sA[0]);
+                formula.addAll(formulaClone);});
             long options = getOptions(0, 0);
             sum += options;
         }

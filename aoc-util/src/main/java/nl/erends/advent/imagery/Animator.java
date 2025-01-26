@@ -76,8 +76,8 @@ public class Animator {
         }
         LOG.info("Start making gif");
         frameCount = Integer.toString(colorList.size());
-        xFrame = colorList.get(0)[0].length;
-        yFrame = colorList.get(0).length;
+        xFrame = colorList.getFirst()[0].length;
+        yFrame = colorList.getFirst().length;
         scale = 1;
         while (scale < 10 && xFrame * (scale + 1) <= 1000 && yFrame * (scale + 1) <= 1000) {
             scale++;
@@ -104,7 +104,7 @@ public class Animator {
                 Timer.tick(count + "/" + colorList.size());
             }
             for (int i = 0; i < frameRate * 3; i++) {
-                addFrame(colorList.get(colorList.size() - 1), textList.get(textList.size() - 1), count);
+                addFrame(colorList.getLast(), textList.getLast(), count);
             }
             GifSequenceWriter.closeGif();
         } catch (IOException e) {

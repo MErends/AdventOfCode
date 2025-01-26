@@ -57,7 +57,7 @@ public class Day08 extends AbstractProblem<List<String>, Number> {
     private int stepsToExit(String node) {
         int steps = 0;
         while (node.charAt(2) != 'Z') {
-            node = input.get(0).charAt(steps % input.get(0).length()) == 'L' ? leftMap.get(node) : rightMap.get(node);
+            node = input.getFirst().charAt(steps % input.getFirst().length()) == 'L' ? leftMap.get(node) : rightMap.get(node);
             steps++;
         }
         return steps;

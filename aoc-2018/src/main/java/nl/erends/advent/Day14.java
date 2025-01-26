@@ -50,14 +50,14 @@ public class Day14 extends AbstractProblem<Integer, String> {
                 scoreboard.add(sum / 10);
                 lastSix.append(sum / 10);
                 if (lastSix.length() > targetSize) lastSix.deleteCharAt(0);
-                if (targetRecipe.equals(lastSix.toString())) {
+                if (targetRecipe.contentEquals(lastSix)) {
                     return Integer.toString(scoreboard.size() - targetSize);
                 }
             }
             scoreboard.add(sum % 10);
             lastSix.append(sum % 10);
             if (lastSix.length() > targetSize) lastSix.deleteCharAt(0);
-            if (targetRecipe.equals(lastSix.toString())) {
+            if (targetRecipe.contentEquals(lastSix)) {
                 return Integer.toString(scoreboard.size() - targetSize);
             }
             firstElfIndex = (firstElfIndex + 1 + firstElfRecipe) % scoreboard.size();

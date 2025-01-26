@@ -80,11 +80,11 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
             Criteria done = criteria.stream().filter(c -> c.indices.size() == 1).findFirst().orElseThrow(IllegalStateException::new);
             doneCriteria.add(done);
             criteria.remove(done);
-            criteria.forEach(c -> c.indices.remove(done.indices.get(0)));
+            criteria.forEach(c -> c.indices.remove(done.indices.getFirst()));
         }
         return doneCriteria.stream().
                 filter(c -> c.name.startsWith("departure"))
-                .map(c -> c.indices.get(0))
+                .map(c -> c.indices.getFirst())
                 .map(i -> Long.parseLong(myticket[i]))
                 .reduce(1L, (i1, i2) -> i1 * i2);
     }

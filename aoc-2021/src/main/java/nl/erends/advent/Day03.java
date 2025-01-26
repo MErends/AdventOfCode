@@ -23,7 +23,7 @@ public class Day03 extends AbstractProblem<List<String>, Integer> {
 
     @Override
     protected Integer solve1() {
-        String gammaString = IntStream.range(0, input.get(0).length())
+        String gammaString = IntStream.range(0, input.getFirst().length())
                 .mapToObj(index -> longString(input, index))
                 .map(s -> countOnes(s) > s.length() / 2 ? "1" : "0")
                 .collect(Collectors.joining());
@@ -39,12 +39,12 @@ public class Day03 extends AbstractProblem<List<String>, Integer> {
     public Integer solve2() {
         List<String> oxygenList = new ArrayList<>(input);
         List<String> co2List = new ArrayList<>(input);
-        IntStream.range(0, input.get(0).length())
+        IntStream.range(0, input.getFirst().length())
                 .forEach(index -> {
                     reduceList(oxygenList, index, '1');
                     reduceList(co2List, index, '0');
                 });
-        return Integer.parseInt(oxygenList.get(0), 2) * Integer.parseInt(co2List.get(0), 2);
+        return Integer.parseInt(oxygenList.getFirst(), 2) * Integer.parseInt(co2List.getFirst(), 2);
     }
     
     private String longString(List<String> input, int index) {

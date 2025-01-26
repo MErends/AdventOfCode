@@ -38,7 +38,7 @@ public class Day03 extends AbstractProblem<List<String>, Integer> {
             loadToCloth(id, x0, y0, dx, dy);
         }
         int answer1 = countOverlap();
-        answer2 = Integer.valueOf(ids.get(0));
+        answer2 = Integer.valueOf(ids.getFirst());
         return answer1;
     }
     

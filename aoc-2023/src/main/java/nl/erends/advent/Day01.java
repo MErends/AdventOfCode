@@ -40,7 +40,7 @@ public class Day01 extends AbstractProblem<List<String>,  Number> {
                     .filter(Character::isDigit)
                     .map(c -> c - ASCII_OFFSET)
                     .boxed().toList();
-            sum += numbers.get(0) * 10 + numbers.get(numbers.size() - 1);
+            sum += numbers.getFirst() * 10 + numbers.getLast();
         }
         return sum;
     }

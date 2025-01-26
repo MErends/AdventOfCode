@@ -61,7 +61,7 @@ public class Day19 extends AbstractProblem<List<String>, Number> {
     private static class Cog {
 
         private static final Pattern LINE_PAT = Pattern.compile("\\{x=(\\d+),m=(\\d+),a=(\\d+),s=(\\d+)}");
-        HashMap<Character, Integer> values = new HashMap<>();
+        final HashMap<Character, Integer> values = new HashMap<>();
 
         private Cog(String line) {
             Matcher m = LINE_PAT.matcher(line);
@@ -75,7 +75,7 @@ public class Day19 extends AbstractProblem<List<String>, Number> {
 
     private class Workflow implements Predicate<Cog> {
 
-        List<Rule> rules;
+        final List<Rule> rules;
 
         public boolean test(Cog cog) {
             for (Rule rule : rules) {
@@ -99,7 +99,7 @@ public class Day19 extends AbstractProblem<List<String>, Number> {
 
         char property;
         Predicate<Integer> test;
-        String result;
+        final String result;
         int testValue;
         char operator;
 

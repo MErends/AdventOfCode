@@ -26,7 +26,7 @@ public class Day20 extends AbstractProblem<List<String>, Number> {
             long freeOne = nextFree(pointer);
             if (freeOne > maxValue) break;
             long takenOne = nextBlocked(freeOne);
-            numFree += (takenOne - freeOne);
+            numFree += (int) (takenOne - freeOne);
             pointer = takenOne;
         }
         return numFree;

@@ -1,6 +1,7 @@
 package nl.erends.advent;
 
 import nl.erends.advent.util.AbstractProblem;
+import nl.erends.advent.util.Direction;
 import nl.erends.advent.util.Util;
 
 import java.util.ArrayList;
@@ -18,41 +19,38 @@ public class Day01 extends AbstractProblem<String, Integer> {
         visited.add("0_0");
         int x = 0;
         int y = 0;
-        Direction orientation = Direction.PLUSY;
+        Direction orientation = Direction.DOWN;
         String[] directions = input.split(", ");
         for (String direction : directions) {
-            orientation = updateDirection(orientation, direction.substring(0, 1));
+            if (direction.charAt(0) == 'L') {
+                orientation = orientation.turnLeft();
+            } else {
+                orientation = orientation.turnRight();
+            }
             int steps = Integer.parseInt(direction.substring(1));
-            switch (orientation) {
-                default:
-                case PLUSX:
-                    while (steps != 0) {
+            while (steps != 0) {
+                switch (orientation) {
+                    case RIGHT:
                         x++;
                         steps--;
                         checkVisited(visited, x, y);
-                    }
-                    break;
-                case PLUSY:
-                    while (steps != 0) {
+                        break;
+                    case DOWN:
                         y++;
                         steps--;
                         checkVisited(visited, x, y);
-                    }
-                    break;
-                case MINX:
-                    while (steps != 0) {
+                        break;
+                    case LEFT:
                         x--;
                         steps--;
                         checkVisited(visited, x, y);
-                    }
-                    break;
-                case MINY:
-                    while (steps != 0) {
+                        break;
+                    case UP:
                         y--;
                         steps--;
                         checkVisited(visited, x, y);
-                    }
-                    break;
+                        break;
+                }
             }
         }
         return Math.abs(x) + Math.abs(y);
@@ -65,31 +63,5 @@ public class Day01 extends AbstractProblem<String, Integer> {
         } else {
             visited.add(position);
         }
-    }
-
-    private Direction updateDirection(Direction direction, String command) {
-        if (command.equals("L")) {
-            return switch (direction) {
-                case PLUSX -> Direction.PLUSY;
-                case PLUSY -> Direction.MINX;
-                case MINX -> Direction.MINY;
-                case MINY -> Direction.PLUSX;
-            };
-        } else {
-            return switch (direction) {
-                case PLUSX -> Direction.MINY;
-                case PLUSY -> Direction.PLUSX;
-                case MINX -> Direction.PLUSY;
-                case MINY -> Direction.MINX;
-            };
-        }
-    }
-
-
-    private enum Direction {
-        PLUSX,
-        PLUSY,
-        MINX,
-        MINY
     }
 }

@@ -25,7 +25,7 @@ public class Day16 extends AbstractProblem<String, String> {
     public String solve2() {
         int offset = Integer.parseInt(input.substring(0, 7));
         StringBuilder signal = new StringBuilder();
-        signal.append(String.valueOf(input).repeat(10_000));
+        signal.append(input.repeat(10_000));
         if (offset < signal.length() / 2) {
             throw new IllegalArgumentException("Offset too low!");
         }
@@ -61,7 +61,7 @@ public class Day16 extends AbstractProblem<String, String> {
                     result -= input.get(pointer + step);
                 }
             }
-            input.remove(0);
+            input.removeFirst();
             output.append(Math.abs(result % 10));
             repeating++;
         }
