@@ -5,7 +5,8 @@ import nl.erends.advent.util.MD5;
 import nl.erends.advent.util.Util;
 
 public class Day04 extends AbstractProblem<String, Integer> {
-    private int nonce;
+
+    private int nonce = 0;
     
     public static void main(String[] args) {
         new Day04().setAndSolve(Util.readLine(2015, 4));
@@ -13,7 +14,6 @@ public class Day04 extends AbstractProblem<String, Integer> {
 
     @Override
     public Integer solve1() {
-        nonce = 0;
         while(true) {
             String hash = MD5.getHash(input + nonce);
             if (hash.startsWith("00000")) {
@@ -28,7 +28,6 @@ public class Day04 extends AbstractProblem<String, Integer> {
         if (nonce == 0) {
             solve1();
         }
-        nonce = 0;
         while(true) {
             String hash = MD5.getHash(input + nonce);
             if (hash.startsWith("000000")) {
@@ -36,5 +35,9 @@ public class Day04 extends AbstractProblem<String, Integer> {
             }
             nonce++;
         }
+    }
+
+    public void setStartNonce(int nonce) {
+        this.nonce = nonce;
     }
 }
