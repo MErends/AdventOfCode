@@ -24,7 +24,7 @@ public class Day17 extends AbstractProblem<List<String>, String> {
 
     Computer computer;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day17().setAndSolve(Util.readInput(2024, 17));
     }
 

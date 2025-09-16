@@ -22,7 +22,7 @@ public class Day05 extends AbstractProblem<List<String>, Integer> {
     
     private static final Pattern LINE_PAT = Pattern.compile("(\\d+),(\\d+) -> (\\d+),(\\d+)");
     
-    public static void main(String[] args) {
+    static void main() {
         new Day05().setAndSolve(Util.readInput(2021, 5));
     }
 
@@ -32,7 +32,7 @@ public class Day05 extends AbstractProblem<List<String>, Integer> {
         Map<String, Integer> diagonalMap = new HashMap<>();
         for (String line : input) {
             Matcher m = LINE_PAT.matcher(line);
-            m.find();
+            if (!m.find()) throw new IllegalArgumentException();
             int x0 = Integer.parseInt(m.group(1));
             int y0 = Integer.parseInt(m.group(2));
             int x1 = Integer.parseInt(m.group(3));
@@ -62,6 +62,6 @@ public class Day05 extends AbstractProblem<List<String>, Integer> {
     }
     
     private void addToMap(Map<String, Integer> map, int x, int y) {
-        map.compute(x + "," + y, (k, v) -> v == null ? 1 : v + 1);
+        map.compute(x + "," + y, (_, v) -> v == null ? 1 : v + 1);
     }
 }

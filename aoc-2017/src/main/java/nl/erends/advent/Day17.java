@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Day17 extends AbstractProblem<Integer, Integer> {
 
-    public static void main(String[] args) {
+    static void main() {
         new Day17().setAndSolve(343);
     }
     

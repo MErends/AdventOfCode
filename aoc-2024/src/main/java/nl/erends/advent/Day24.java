@@ -26,7 +26,7 @@ public class Day24 extends AbstractProblem<List<String>, Long> {
 
     final Map<String, Integer> wiremap = new HashMap<>();
 
-    public static void main(String[] args) {
+    static void main() {
         new Day24().setAndSolve(Util.readInput(2024, 24));
     }
 

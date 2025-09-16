@@ -18,7 +18,7 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
     private static final int CARD_SIZE = 5;
     private static final int MARKED = -1;
     
-    public static void main(String[] args) {
+    static void main() {
         new Day04().setAndSolve(Util.readInput(2021, 4));
     }
 

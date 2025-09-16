@@ -14,7 +14,7 @@ public class Day12 extends AbstractProblem<List<String>, Number> {
     private final List<Integer> sums = new ArrayList<>();
 
 
-    public static void main(String[] args) {
+    static void main() {
         new Day12().setAndSolve(Util.readInput(2018, 12));
     }
     

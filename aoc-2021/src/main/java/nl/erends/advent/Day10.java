@@ -21,7 +21,7 @@ public class Day10 extends AbstractProblem<List<String>, Number> {
     private final Map<Character, Integer> syntaxScore = Map.of(')', 3, ']', 57, '}', 1197, '>', 25137, '\0', 0);
     private final Map<Character, Long> autocompleteScore = Map.of('(', 1L, '[', 2L, '{', 3L, '<', 4L);
     
-    public static void main(String[] args) {
+    static void main() {
         new Day10().setAndSolve(Util.readInput(2021, 10));
     }
     

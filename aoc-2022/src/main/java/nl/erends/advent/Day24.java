@@ -19,13 +19,13 @@ import java.util.stream.IntStream;
  * pushing small blizzards of snow and sharp ice around the valley. To make it
  * across safely, you'll need to find a way to avoid them. What is the fewest
  * number of minutes required to avoid the blizzards and reach the goal?
- *<p><a href="https://adventofcode.com/2022/day/24">2022 Day 24</a>
+ * <p><a href="https://adventofcode.com/2022/day/24">2022 Day 24</a>
  */
 public class Day24 extends AbstractProblem<List<String>, Number> {
 
     private final List<Blizzard> blizzards = new ArrayList<>();
 
-    public static void main(String[] args) {
+    static void main() {
         new Day24().setAndSolve(Util.readInput(2022, 24));
     }
 

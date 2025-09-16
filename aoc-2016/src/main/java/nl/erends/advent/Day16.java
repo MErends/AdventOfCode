@@ -7,7 +7,7 @@ public class Day16 extends AbstractProblem<String, String> {
     private int targetLength = 272;
 
 
-    public static void main(String[] args) {
+    static void main() {
         new Day16().setAndSolve("11100010111110100");
     }
     

@@ -23,7 +23,7 @@ import java.util.Set;
  */
 public class Day08 extends AbstractProblem<List<String>, Integer> {
 
-    public static void main(String[] args) {
+    static void main() {
         new Day08().setAndSolve(Util.readInput(2024, 8));
     }
 
@@ -34,7 +34,7 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
             for (int x = 0; x < input.get(y).length(); x++) {
                 char antenna = input.get(y).charAt(x);
                 if (antenna != '.') {
-                    antennaMap.computeIfAbsent(antenna, a -> new ArrayList<>()).add(Coord.of(x, y));
+                    antennaMap.computeIfAbsent(antenna, _ -> new ArrayList<>()).add(Coord.of(x, y));
                 }
             }
         }
@@ -54,8 +54,8 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
                     if (antennaA == antennaB) {
                         continue;
                     }
-                    int dx = antennaB.x - antennaA.x;
-                    int dy = antennaB.y - antennaA.y;
+                    int dx = antennaB.x() - antennaA.x();
+                    int dy = antennaB.y() - antennaA.y();
                     Coord antinode = antennaB.addDirection(dx, + dy);
                     antiNodes.add(antinode);
                 }
@@ -72,10 +72,10 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
                     if (antennaA == antennaB) {
                         continue;
                     }
-                    int dx = antennaB.x - antennaA.x;
-                    int dy = antennaB.y - antennaA.y;
-                    int nodeX = antennaB.x;
-                    int nodeY = antennaB.y;
+                    int dx = antennaB.x() - antennaA.x();
+                    int dy = antennaB.y() - antennaA.y();
+                    int nodeX = antennaB.x();
+                    int nodeY = antennaB.y();
                     Coord antinode = Coord.of(nodeX, nodeY);
                     while (isNodeInRange(antinode)) {
                         antiNodes.add(antinode);
@@ -88,8 +88,8 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
     }
 
     private boolean isNodeInRange(Coord node) {
-        return node.y >= 0 && node.x >= 0
-                && node.y < input.size()
-                && node.x < input.get(node.y).length();
+        return node.y() >= 0 && node.x() >= 0
+                && node.y() < input.size()
+                && node.x() < input.get(node.y()).length();
     }
 }

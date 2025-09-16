@@ -10,7 +10,7 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
     
     private Gridnode[][] grid;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day22().setAndSolve(Util.readInput(2016, 22));
     }
     

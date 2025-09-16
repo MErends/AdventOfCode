@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Day04 extends AbstractProblem<List<String>,  Integer> {
 
-    public static void main(String[] args) {
+    static void main() {
         new Day04().setAndSolve(Util.readInput(2023, 4));
     }
 

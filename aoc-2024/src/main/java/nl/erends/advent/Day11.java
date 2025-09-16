@@ -23,7 +23,7 @@ public class Day11 extends AbstractProblem<String, Long> {
 
     final Map<Integer, Map<Long, Long>> blinksLeftStone = new HashMap<>();
 
-    public static void main(String[] args) {
+    static void main() {
         new Day11().setAndSolve(Util.readLine(2024, 11));
     }
 
@@ -59,7 +59,7 @@ public class Day11 extends AbstractProblem<String, Long> {
                 length = getLengthAfterBlinks(stone * 2024, blinksLeft - 1);
             }
         }
-        blinksLeftStone.computeIfAbsent(blinksLeft, i -> new HashMap<>()).put(stone, length);
+        blinksLeftStone.computeIfAbsent(blinksLeft, _ -> new HashMap<>()).put(stone, length);
         return length;
     }
 }

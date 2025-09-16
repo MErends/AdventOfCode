@@ -23,7 +23,7 @@ public class Day12 extends AbstractProblem<List<String>, Integer> {
     private final Map<String, Set<String>> segments = new HashMap<>();
     private static final String START = "start";
 
-    public static void main(String[] args) {
+    static void main() {
         new Day12().setAndSolve(Util.readInput(2021, 12));
     }
     
@@ -31,8 +31,8 @@ public class Day12 extends AbstractProblem<List<String>, Integer> {
     protected Integer solve1() {
         for (String path : input) {
             String[] pathSplit = path.split("-");
-            segments.computeIfAbsent(pathSplit[0], k -> new HashSet<>()).add(pathSplit[1]);
-            segments.computeIfAbsent(pathSplit[1], k -> new HashSet<>()).add(pathSplit[0]);
+            segments.computeIfAbsent(pathSplit[0], _ -> new HashSet<>()).add(pathSplit[1]);
+            segments.computeIfAbsent(pathSplit[1], _ -> new HashSet<>()).add(pathSplit[0]);
         }
         int numPaths = countPaths(new ArrayList<>(), START, true);
         answer2 = countPaths(new ArrayList<>(), START, false);

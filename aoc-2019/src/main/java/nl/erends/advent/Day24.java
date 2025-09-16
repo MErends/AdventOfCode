@@ -13,7 +13,7 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
     private int[][] grid;
     int iterations = 200;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day24().setAndSolve(Util.readInput(2019, 24));
     }
 
@@ -101,7 +101,7 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
             neighbors += grid[y - 1][x];
         }
         if (y < 4) {
-            neighbors += grid[y+1][x];
+            neighbors += grid[y + 1][x];
         }
         if (x > 0) {
             neighbors += grid[y][x - 1];
@@ -111,17 +111,11 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
         }
         return neighbors;
     }
-    
-    private static class Depth {
-        
-        final int[][] grid;
-        
+
+    private record Depth(int[][] grid) {
+
         Depth() {
             this(new int[5][5]);
-        }
-        
-        Depth(int[][] grid) {
-            this.grid = grid;
         }
 
         int getValue() {

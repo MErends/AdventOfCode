@@ -26,7 +26,7 @@ public class Day10 extends AbstractProblem<List<String>, Integer> {
 
     int[][] grid;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day10().setAndSolve(Util.readInput(2024, 10));
     }
 
@@ -59,7 +59,7 @@ public class Day10 extends AbstractProblem<List<String>, Integer> {
         }
         List<Coord> trailsEnds = new ArrayList<>();
         for (Direction d : Direction.values()) {
-            if (getGrid(currentCoord.x + d.dx(), currentCoord.y + d.dy()) == stepsTaken + 1) {
+            if (getGrid(currentCoord.x() + d.dx(), currentCoord.y() + d.dy()) == stepsTaken + 1) {
                 trailsEnds.addAll(getTrailEnds(currentCoord.addDirection(d), stepsTaken + 1));
             }
         }

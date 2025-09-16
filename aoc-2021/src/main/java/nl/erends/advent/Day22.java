@@ -22,7 +22,7 @@ public class Day22 extends AbstractProblem<List<String>, Number> {
     private final Pattern p = Pattern.compile("(\\w+) x=(-?\\d+)..(-?\\d+),y=(-?\\d+)..(-?\\d+),z=(-?\\d+)..(-?\\d+)");
     private List<Cube> cubes;
     
-    public static void main(String[] args) {
+    static void main() {
         new Day22().setAndSolve(Util.readInput(2021, 22));
     }
     
@@ -31,7 +31,7 @@ public class Day22 extends AbstractProblem<List<String>, Number> {
          cubes = new ArrayList<>();
         for (String line : input) {
             Matcher m = p.matcher(line);
-            m.find();
+            if (!m.find()) throw new IllegalArgumentException();
             boolean state = m.group(1).equals("on");
             int x0 = Integer.parseInt(m.group(2));
             int x1 = Integer.parseInt(m.group(3)) + 1;

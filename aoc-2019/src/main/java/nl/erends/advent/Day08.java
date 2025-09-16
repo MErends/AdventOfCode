@@ -9,7 +9,7 @@ public class Day08 extends AbstractProblem<String, String> {
     private static final int COLUMNS = 25;
     private static final int ROWS = 6;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day08().setAndSolve(Util.readLine(2019, 8));
     }
 

@@ -13,7 +13,7 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
     
     private static final List<String> VALID_ECL = Arrays.asList("amb", "blu", "brn", "gry", "grn", "hzl", "oth");
 
-    public static void main(String[] args) {
+    static void main() {
         new Day04().setAndSolve(Util.readInput(2020, 4));
     }
     

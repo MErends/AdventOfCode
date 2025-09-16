@@ -23,7 +23,7 @@ public class Day20 extends AbstractProblem<List<String>, Integer> {
     private int minimalCheat = 100;
     private List<Coord> trail;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day20().setAndSolve(Util.readInput(2024, 20));
     }
 
@@ -60,7 +60,7 @@ public class Day20 extends AbstractProblem<List<String>, Integer> {
         }
         Direction d = Direction.UP;
         for (Direction dd : Direction.values()) {
-            if (grid[head.y + dd.dy()][head.x + dd.dx()] != '#') {
+            if (grid[head.y() + dd.dy()][head.x() + dd.dx()] != '#') {
                 d = dd;
                 break;
             }
@@ -73,7 +73,7 @@ public class Day20 extends AbstractProblem<List<String>, Integer> {
             List<Direction> newDs = List.of(d.turnLeft(), d, d.turnRight());
             for (Direction newD : newDs) {
                 Coord newHead = head.addDirection(newD);
-                if (grid[newHead.y][newHead.x] != '#') {
+                if (grid[newHead.y()][newHead.x()] != '#') {
                     head = newHead;
                     d = newD;
                     busy = true;

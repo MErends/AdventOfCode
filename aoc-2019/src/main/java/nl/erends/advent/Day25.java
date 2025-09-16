@@ -18,7 +18,7 @@ public class Day25 extends AbstractProblem<String, Integer> {
     private static final String SOUTH = "south";
     private static final String NORTH = "north";
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         interactive = args.length > 0 && "-i".equals(args[0]);
         new Day25().setAndSolve(Util.readLine(2019, 25));
     }

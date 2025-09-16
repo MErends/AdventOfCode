@@ -40,7 +40,7 @@ public class Day21 extends AbstractProblem<List<String>, Long> {
 
     int robotCount = 2;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day21().setAndSolve(Util.readInput(2024, 21));
     }
 
@@ -89,8 +89,8 @@ public class Day21 extends AbstractProblem<List<String>, Long> {
     }
 
     long getPathLength(char from, char to, int depth) {
-        Map<Character, Map<Integer, Long>> fromMap = fromToDepthLengthMap.computeIfAbsent(from, c -> new HashMap<>());
-        Map<Integer, Long> toMap = fromMap.computeIfAbsent(to, c -> new HashMap<>());
+        Map<Character, Map<Integer, Long>> fromMap = fromToDepthLengthMap.computeIfAbsent(from, _ -> new HashMap<>());
+        Map<Integer, Long> toMap = fromMap.computeIfAbsent(to, _ -> new HashMap<>());
         if (toMap.containsKey(depth)) {
             return toMap.get(depth);
         }
@@ -115,7 +115,7 @@ public class Day21 extends AbstractProblem<List<String>, Long> {
                 Coord toCoord = dpad.get(to);
                 Coord empty = dpad.get('\0');
                 String path = getPath(fromCoord, toCoord, empty);
-                pathMap.computeIfAbsent(from, c -> new HashMap<>()).put(to, path);
+                pathMap.computeIfAbsent(from, _ -> new HashMap<>()).put(to, path);
             }
         }
     }
@@ -134,14 +134,14 @@ public class Day21 extends AbstractProblem<List<String>, Long> {
     }
 
     boolean goHorizontalFirst(Coord fromCoord, Coord toCoord, Coord empty) {
-        if (fromCoord.y == empty.y && toCoord.x == empty.x) {
+        if (fromCoord.y() == empty.y() && toCoord.x() == empty.x()) {
             return false;
         }
-        return fromCoord.x == empty.x && toCoord.y == empty.y || (toCoord.x < fromCoord.x);
+        return fromCoord.x() == empty.x() && toCoord.y() == empty.y() || (toCoord.x() < fromCoord.x());
     }
 
     String getVerticalPath(Coord from, Coord to) {
-        int dy = to.y - from.y;
+        int dy = to.y() - from.y();
         char step = 'v';
         if (dy < 0) {
             dy *= -1;
@@ -151,7 +151,7 @@ public class Day21 extends AbstractProblem<List<String>, Long> {
     }
 
     String getHorizontalPath(Coord from, Coord to) {
-        int dx = to.x - from.x;
+        int dx = to.x() - from.x();
         char step = '>';
         if (dx < 0) {
             dx *= -1;

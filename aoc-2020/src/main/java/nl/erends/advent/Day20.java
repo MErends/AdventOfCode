@@ -21,7 +21,7 @@ public class Day20 extends AbstractProblem<List<String>, Number> {
                                                                  " #  #  #  #  #  #   ");
     private char[][] picture;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day20().setAndSolve(Util.readInput(2020, 20));
     }
 

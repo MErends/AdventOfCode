@@ -31,7 +31,7 @@ public class Day16 extends AbstractProblem<List<String>, Integer> {
     char[][] grid;
     private Coord end = Coord.ZERO;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day16().setAndSolve(Util.readInput(2024, 16));
     }
 
@@ -89,10 +89,10 @@ public class Day16 extends AbstractProblem<List<String>, Integer> {
             case LEFT -> bestLeft;
             case RIGHT -> bestRight;
         };
-        if (best[s.position.y][s.position.x] < s.points) {
+        if (best[s.position.y()][s.position.x()] < s.points) {
             return false;
         }
-        best[s.position.y][s.position.x] = s.points;
+        best[s.position.y()][s.position.x()] = s.points;
         return true;
     }
 
@@ -114,15 +114,15 @@ public class Day16 extends AbstractProblem<List<String>, Integer> {
         private List<State> getNeigbors() {
             List<State> neighbors = new ArrayList<>();
             // straight
-            if (grid[position.y + d.dy()][position.x + d.dx()] != '#') {
+            if (grid[position.y() + d.dy()][position.x() + d.dx()] != '#') {
                 neighbors.add(new State(position.addDirection(d), d, points + 1, this.path));
             }
             Direction left = d.turnLeft();
-            if (grid[position.y + left.dy()][position.x + left.dx()] != '#') {
+            if (grid[position.y() + left.dy()][position.x() + left.dx()] != '#') {
                 neighbors.add(new State(position.addDirection(left), left, points + 1001, this.path));
             }
             Direction right = d.turnRight();
-            if (grid[position.y + right.dy()][position.x + right.dx()] != '#') {
+            if (grid[position.y() + right.dy()][position.x() + right.dx()] != '#') {
                 neighbors.add(new State(position.addDirection(right), right, points + 1001, this.path));
             }
             if (neighbors.size() == 1 && neighbors.getFirst().position != end) {

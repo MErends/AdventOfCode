@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  */
 public class Day05 extends AbstractProblem<List<String>, Integer> {
 
-    public static void main(String[] args) {
+    static void main() {
         new Day05().setAndSolve(Util.readInput(2024, 5));
     }
 
@@ -33,7 +33,7 @@ public class Day05 extends AbstractProblem<List<String>, Integer> {
         for (int index = 0; index < split; index++) {
             int before = Integer.parseInt(input.get(index).substring(0, 2));
             int after = Integer.parseInt(input.get(index).substring(3, 5));
-            Update.order.computeIfAbsent(before, b -> new ArrayList<>()).add(after);
+            Update.order.computeIfAbsent(before, _ -> new ArrayList<>()).add(after);
         }
         int answer1 = 0;
         answer2 = 0;

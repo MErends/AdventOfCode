@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  */
 public class Day17 extends AbstractProblem<String,Integer> {
     
-    public static void main(String[] args) {
+    static void main() {
         new Day17().setAndSolve(Util.readLine(2021, 17));
     }
 
@@ -26,7 +26,7 @@ public class Day17 extends AbstractProblem<String,Integer> {
     protected Integer solve1() {
         Matcher m = Pattern.compile("x=(-?\\d+)..(-?\\d+), y=(-?\\d+)..(-?\\d+)")
                 .matcher(input);
-        m.find();
+        if (!m.find()) throw new IllegalArgumentException();
         int tMinX = Integer.parseInt(m.group(1));
         int tMaxX = Integer.parseInt(m.group(2));
         int tMaxY = Integer.parseInt(m.group(3));

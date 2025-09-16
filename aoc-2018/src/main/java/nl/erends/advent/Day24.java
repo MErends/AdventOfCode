@@ -17,7 +17,7 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
     private List<Group> immunes;
     private List<Group> infections;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day24().setAndSolve(Util.readInput(2018, 24));
     }
     

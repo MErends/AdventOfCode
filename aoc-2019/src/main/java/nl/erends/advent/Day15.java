@@ -19,7 +19,7 @@ public class Day15 extends AbstractProblem<String, Integer> {
     private static final int EAST = 4;
     private State oxygenState;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day15().setAndSolve(Util.readLine(2019, 15));
     }
 

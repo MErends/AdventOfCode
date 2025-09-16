@@ -6,7 +6,7 @@ public class Day14 extends AbstractProblem<String, Integer> {
 
     private final Square[][] squares = new Square[128][128];
 
-    public static void main(String[] args) {
+    static void main() {
         new Day14().setAndSolve("hwlqcszp");
     }
 

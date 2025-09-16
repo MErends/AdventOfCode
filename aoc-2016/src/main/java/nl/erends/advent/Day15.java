@@ -12,7 +12,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
     private int[] holePositionOfDisc;
     private boolean part1 = true;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day15().setAndSolve(Util.readInput(2016, 15));
     }
 

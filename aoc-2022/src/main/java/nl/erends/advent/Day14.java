@@ -23,7 +23,7 @@ public class Day14 extends AbstractProblem<List<String>, Integer> {
     private List<Line> horizontals;
     private List<Line> verticals;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day14().setAndSolve(Util.readInput(2022, 14));
     }
 

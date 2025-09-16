@@ -25,7 +25,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
     char[][] grid;
     Coord start;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day06().setAndSolve(Util.readInput(2024, 6));
     }
 
@@ -37,8 +37,8 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
         Direction d = UP;
         boolean busy = true;
         while (busy) {
-            grid[guard.y][guard.x] = 'X';
-            switch (getSafeGrid(grid, guard.x + d.dx(), guard.y + d.dy())) {
+            grid[guard.y()][guard.x()] = 'X';
+            switch (getSafeGrid(grid, guard.x() + d.dx(), guard.y() + d.dy())) {
                 case '\0' -> busy = false;
                 case '#' -> d = d.turnRight();
                 default -> guard = guard.addDirection(d);
@@ -60,18 +60,18 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
         int obstructions = 0;
         for (Coord wall : getPossibleWalls(grid)) {
             char[][] newGrid = readInput();
-            grid[wall.y][wall.x] = '#';
+            grid[wall.y()][wall.x()] = '#';
             Coord guard = start;
             Direction d = UP;
             int[][] passes = new int[newGrid.length][newGrid[0].length];
             boolean busy = true;
             while (busy) {
-                if (passes[guard.y][guard.x] == 4) { // Went by in all directions?!
+                if (passes[guard.y()][guard.x()] == 4) { // Went by in all directions?!
                     obstructions++;
                     break;
                 }
-                passes[guard.y][guard.x]++;
-                switch (getSafeGrid(newGrid, guard.x + d.dx(), guard.y + d.dy())) {
+                passes[guard.y()][guard.x()]++;
+                switch (getSafeGrid(newGrid, guard.x() + d.dx(), guard.y() + d.dy())) {
                     case '\0' -> busy = false;
                     case '#' -> d = d.turnRight();
                     default -> guard = guard.addDirection(d);

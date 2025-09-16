@@ -8,7 +8,7 @@ public class Day25 extends AbstractProblem<String, Integer> {
     private int position = 0;
     private char state = 'A';
     
-    public static void main(String[] args) {
+    static void main() {
         new Day25().setAndSolve(null);
     }
     

@@ -24,7 +24,7 @@ import java.util.stream.IntStream;
 public class Day15 extends AbstractProblem<List<String>, Number> {
 
 
-    public static void main(String[] args) {
+    static void main() {
         new Day15().setAndSolve(Util.readInput(2023, 15));
     }
 
@@ -46,7 +46,7 @@ public class Day15 extends AbstractProblem<List<String>, Number> {
     @Override
     public Number solve2() {
         List<Box> boxes = IntStream.range(0, 256)
-                .mapToObj(i -> new Box()).toList();
+                .mapToObj(_ -> new Box()).toList();
         String[] sequence = input.getFirst().split(",");
         for (String instruction : sequence) {
             int equals = instruction.indexOf('=');

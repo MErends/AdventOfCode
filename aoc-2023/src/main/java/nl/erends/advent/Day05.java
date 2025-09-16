@@ -31,7 +31,7 @@ public class Day05 extends AbstractProblem<List<String>, Number> {
     private List<Range> tempRanges;
     private List<Range> humiRanges;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day05().setAndSolve(Util.readInput(2023, 5));
     }
 

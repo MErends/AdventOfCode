@@ -28,7 +28,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
     private Coord robot;
     private List<Box> boxes;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day15().setAndSolve(Util.readInput(2024, 15));
     }
 
@@ -55,12 +55,12 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
                     box.doMove(d);
                     robot = robot.addDirection(d);
                 }
-            } else if (grid[robot.y + d.dy()][robot.x + d.dx()] != '#') {
+            } else if (grid[robot.y() + d.dy()][robot.x() + d.dx()] != '#') {
                 robot = robot.addDirection(d);
             }
         }
         return boxes.stream()
-                .mapToInt(b -> b.position.getFirst().y * 100 + b.position.getFirst().x).sum();
+                .mapToInt(b -> b.position.getFirst().y() * 100 + b.position.getFirst().x()).sum();
     }
 
     private void readLine(int y, int width) {
@@ -113,7 +113,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
 
         boolean canMove(Direction d) {
             for (Coord p : position) {
-                if (grid[p.y + d.dy()][p.x + d.dx()] == '#') {
+                if (grid[p.y() + d.dy()][p.x() + d.dx()] == '#') {
                     return false;
                 }
             }

@@ -11,7 +11,7 @@ public class Day13 extends AbstractProblem<List<String>, Integer> {
     private int[] scannerposition;
     private boolean[] scannerMovingDown;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day13().setAndSolve(Util.readInput(2017, 13));
     }
     

@@ -30,7 +30,7 @@ public class Day19 extends AbstractProblem<List<String>, Number> {
     private final List<Cog> cogs = new ArrayList<>();
     private long cogsAccepted = 0;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day19().setAndSolve(Util.readInput(2023, 19));
     }
 

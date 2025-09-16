@@ -13,7 +13,7 @@ public class Day17 extends AbstractProblem<List<String>, Integer> {
     private int yMin = Integer.MAX_VALUE;
     private int yMax = Integer.MIN_VALUE;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day17().setAndSolve(Util.readInput(2018, 17));
     }
     

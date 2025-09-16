@@ -23,7 +23,7 @@ import java.util.Set;
  */
 public class Day19 extends AbstractProblem<List<String>,Integer> {
     
-    public static void main(String[] args) {
+    static void main() {
         new Day19().setAndSolve(Util.readInput(2021, 19));
     }
 
@@ -113,10 +113,10 @@ public class Day19 extends AbstractProblem<List<String>,Integer> {
             Map<String, Integer> offsetCount = new HashMap<>();
             for (Coord referCoord : reference.absolutes) {
                 for (Coord otherCoord : scanner.transformed) {
-                    String offsetString = (referCoord.x - otherCoord.x) + "," +
-                            (referCoord.y - otherCoord.y) + "," +
-                            (referCoord.z - otherCoord.z);
-                    offsetCount.compute(offsetString, (k, v) -> v == null ? 1 : v + 1);
+                    String offsetString = (referCoord.x() - otherCoord.x()) + "," +
+                            (referCoord.y() - otherCoord.y()) + "," +
+                            (referCoord.z() - otherCoord.z());
+                    offsetCount.compute(offsetString, (_, v) -> v == null ? 1 : v + 1);
                 }
             }
             String offset = offsetCount.entrySet().stream()
@@ -150,20 +150,20 @@ public class Day19 extends AbstractProblem<List<String>,Integer> {
 
         private void pointToY() {
             pointToX();
-            transformed.replaceAll(c -> Coord.of(c.y, -c.x, c.z));
+            transformed.replaceAll(c -> Coord.of(c.y(), -c.x(), c.z()));
         }
 
         private void pointToZ() {
             pointToX();
-            transformed.replaceAll(c -> Coord.of(c.z, c.y, -c.x));
+            transformed.replaceAll(c -> Coord.of(c.z(), c.y(), -c.x()));
         }
 
         private void rotate() {
-            transformed.replaceAll(c -> Coord.of(c.x, -c.z, c.y));
+            transformed.replaceAll(c -> Coord.of(c.x(), -c.z(), c.y()));
         }
 
         private void flip() {
-            transformed.replaceAll(c -> Coord.of(-c.x, c.y, -c.z));
+            transformed.replaceAll(c -> Coord.of(-c.x(), c.y(), -c.z()));
         }
 
         private void applyOffset(String offset) {

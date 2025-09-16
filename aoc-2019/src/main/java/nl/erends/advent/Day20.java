@@ -18,7 +18,7 @@ public class Day20 extends AbstractProblem<List<String>, Integer> {
     private int[][] distanceArray;
     private List<int[][]> levelDistanceList;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day20().setAndSolve(Util.readInput(2019, 20));
     }
 

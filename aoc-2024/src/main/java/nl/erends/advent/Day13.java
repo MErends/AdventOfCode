@@ -22,7 +22,7 @@ public class Day13 extends AbstractProblem<List<String>, Long> {
 
     final Pattern p = Pattern.compile("\\D*(\\d+)\\D*(\\d+)");
 
-    public static void main(String[] args) {
+    static void main() {
         new Day13().setAndSolve(Util.readInput(2024, 13, 1));
     }
 

@@ -21,7 +21,7 @@ import java.util.stream.IntStream;
 public class Day13 extends AbstractProblem<List<String>, Number> {
 
 
-    public static void main(String[] args) {
+    static void main() {
         new Day13().setAndSolve(Util.readInput(2023, 13));
     }
 

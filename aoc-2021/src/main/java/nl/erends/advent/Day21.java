@@ -27,7 +27,7 @@ public class Day21 extends AbstractProblem<List<String>, Number> {
     
     private final Map<Integer, Integer> diracDice = new HashMap<>();
     
-    public static void main(String[] args) {
+    static void main() {
         new Day21().setAndSolve(Util.readInput(2021, 21));
     }
 
@@ -74,7 +74,7 @@ public class Day21 extends AbstractProblem<List<String>, Number> {
         for (int die1 = 1; die1 <= 3; die1++) {
             for (int die2 = 1; die2 <= 3; die2++) {
                 for (int die3 = 1; die3 <= 3; die3++) {
-                    diracDice.compute(die1 + die2 + die3, (k, v) -> v == null ? 1 : v + 1);
+                    diracDice.compute(die1 + die2 + die3, (_, v) -> v == null ? 1 : v + 1);
                 }
             }    
         }

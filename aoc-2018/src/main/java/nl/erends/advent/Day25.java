@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class Day25 extends AbstractProblem<List<String>, Integer> {
    
-    public static void main(String[] args) {
+    static void main() {
         new Day25().setAndSolve(Util.readInput(2018, 25));
     }
     

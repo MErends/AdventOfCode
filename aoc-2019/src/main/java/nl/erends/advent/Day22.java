@@ -11,7 +11,7 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
     
     private static final int NUM_CARDS = 10007;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day22().setAndSolve(Util.readInput(2019, 22));
     }
 

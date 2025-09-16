@@ -28,7 +28,7 @@ public class Day01 extends AbstractProblem<List<String>,  Number> {
             "eight", 8,
             "nine", 9);
 
-    public static void main(String[] args) {
+    static void main() {
         new Day01().setAndSolve(Util.readInput(2023, 1));
     }
 

@@ -28,7 +28,7 @@ public class Day12 extends AbstractProblem<List<String>, Number> {
     List<Integer> formula;
     Map<Integer, Map<Integer, Long>> cache;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day12().setAndSolve(Util.readInput(2023, 12));
     }
 
@@ -52,7 +52,7 @@ public class Day12 extends AbstractProblem<List<String>, Number> {
                     .map(Integer::parseInt)
                     .collect(Collectors.toCollection(ArrayList::new));
             List<Integer> formulaClone = new ArrayList<>(formula);
-            IntStream.range(1, multiplier).forEach(i -> {
+            IntStream.range(1, multiplier).forEach(_ -> {
                 target.append(',').append(sA[0]);
                 formula.addAll(formulaClone);});
             long options = getOptions(0, 0);

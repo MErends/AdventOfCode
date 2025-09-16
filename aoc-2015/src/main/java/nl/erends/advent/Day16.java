@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Day16 extends AbstractProblem<List<String>, Integer> {
     
-    public static void main(String[] args) {
+    static void main() {
         new Day16().setAndSolve(Util.readInput(2015, 16));
     }
 

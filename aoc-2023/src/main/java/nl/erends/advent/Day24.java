@@ -29,7 +29,7 @@ public class Day24 extends AbstractProblem<List<String>, Number> {
     long highIntersect = 400000000000000L;
     private List<Hail> hails;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day24().setAndSolve(Util.readInput(2023, 24, 1));
     }
 

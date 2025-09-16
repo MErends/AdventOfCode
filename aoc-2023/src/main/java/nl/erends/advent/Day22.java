@@ -28,7 +28,7 @@ public class Day22 extends AbstractProblem<List<String>, Number> {
     private List<Brick> bricks;
 
 
-    public static void main(String[] args) {
+    static void main() {
         new Day22().setAndSolve(Util.readInput(2023, 22));
     }
 

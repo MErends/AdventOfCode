@@ -17,14 +17,14 @@ import java.util.List;
  * together. Simulate the Elves' process and find the smallest rectangle that
  * contains the Elves after 10 rounds. What is the number of the first round
  * where no Elf moves?
- *<p><a href="https://adventofcode.com/2022/day/23">2022 Day 23</a>
+ * <p><a href="https://adventofcode.com/2022/day/23">2022 Day 23</a>
  */
 public class Day23 extends AbstractProblem<List<String>, Number> {
 
     private final List<Elf> elfs = new ArrayList<>();
     private final List<Direction> directions = new ArrayList<>();
 
-    public static void main(String[] args) {
+    static void main() {
         new Day23().setAndSolve(Util.readInput(2022, 23));
     }
 

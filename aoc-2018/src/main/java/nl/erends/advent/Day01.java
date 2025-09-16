@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class Day01 extends AbstractProblem<List<Integer>, Integer> {
 
-    public static void main(String[] args) {
+    static void main() {
         new Day01().setAndSolve(Util.readIntegers(2018, 1));
     }
     

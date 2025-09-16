@@ -13,14 +13,14 @@ import java.util.Map;
  * processed ahead of time so it can correctly calibrate heat output and flow
  * rate. You just need to add together the Special Numeral-Analogue Fuel Units.
  * What SNAFU number do you supply to Bob's console?
- *<p><a href="https://adventofcode.com/2022/day/25">2022 Day 25</a>
+ * <p><a href="https://adventofcode.com/2022/day/25">2022 Day 25</a>
  */
 public class Day25 extends AbstractProblem<List<String>, String> {
 
     private final Map<Character, Integer> snafuMap = Map.of('2', 2, '1', 1, '0', 0, '-', -1, '=', -2);
     private final Map<Integer, Character> decMap = Map.of(2, '2', 1, '1', 0, '0', -1, '-', -2, '=');
 
-    public static void main(String[] args) {
+    static void main() {
         new Day25().setAndSolve(Util.readInput(2022, 25));
     }
 
@@ -59,8 +59,8 @@ public class Day25 extends AbstractProblem<List<String>, String> {
         StringBuilder snafuBuilder = new StringBuilder();
         for (position = 1; position <= digitMap.size(); position++) {
             if (digitMap.get(position) > 2) {
-                digitMap.computeIfPresent(position, (k, v) -> v - 5);
-                digitMap.computeIfPresent(position + 1, (k, v) -> v + 1);
+                digitMap.computeIfPresent(position, (_, v) -> v - 5);
+                digitMap.computeIfPresent(position + 1, (_, v) -> v + 1);
             }
         }
         for (position = digitMap.size(); position > 0; position--) {

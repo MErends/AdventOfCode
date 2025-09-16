@@ -15,7 +15,7 @@ public class Day10 extends AbstractProblem<List<String>, Integer> {
     private int highCheck = 61;
     private int lowCheck = 17;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day10().setAndSolve(Util.readInput(2016, 10));
     }
     

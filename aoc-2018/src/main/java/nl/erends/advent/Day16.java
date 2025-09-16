@@ -16,7 +16,7 @@ public class Day16 extends AbstractProblem<List<String>, Integer> {
     private final Map<Integer, List<String>> opcodeMap = new HashMap<>();
     private final List<String> operations = Arrays.asList("addr", "addi", "mulr", "muli", "banr", "bani", "borr", "bori", "setr", "seti", "gtir", "gtri", "gtrr", "eqir", "eqri", "eqrr");
 
-    public static void main(String[] args) {
+    static void main() {
         new Day16().setAndSolve(Util.readInput(2018, 16));
     }
 

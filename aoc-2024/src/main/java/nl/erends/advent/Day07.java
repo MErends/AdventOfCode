@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  */
 public class Day07 extends AbstractProblem<List<String>, Long> {
 
-    public static void main(String[] args) {
+    static void main() {
         new Day07().setAndSolve(Util.readInput(2024, 7));
     }
 

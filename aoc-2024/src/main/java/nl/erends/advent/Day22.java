@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class Day22 extends AbstractProblem<List<Integer>, Long> {
 
-    public static void main(String[] args) {
+    static void main() {
         new Day22().setAndSolve(Util.readIntegers(2024, 22));
     }
 
@@ -45,7 +45,7 @@ public class Day22 extends AbstractProblem<List<Integer>, Long> {
             Monkey monkey = new Monkey(seed);
             monkey.fillYieldMap();
             for (Map.Entry<String, Integer> entry : monkey.yieldMap.entrySet()) {
-                bananaMap.compute(entry.getKey(), (k, v) -> v == null ? entry.getValue() : v + entry.getValue());
+                bananaMap.compute(entry.getKey(), (_, v) -> v == null ? entry.getValue() : v + entry.getValue());
             }
         }
         return bananaMap.values().stream().mapToLong(i -> i).max().orElseThrow();

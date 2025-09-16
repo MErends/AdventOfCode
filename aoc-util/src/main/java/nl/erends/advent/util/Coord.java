@@ -3,20 +3,10 @@ package nl.erends.advent.util;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Coord {
+public record Coord(int x, int y, int z) {
 
     private static final Map<Integer, Map<Integer, Map<Integer, Coord>>> coordMap = new HashMap<>();
     public static final Coord ZERO = of(0, 0);
-
-    public final int x;
-    public final int y;
-    public final int z;
-
-    private Coord(int x, int y, int z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
 
     public static Coord of(String line) {
         String[] split = line.split(",");
@@ -31,9 +21,9 @@ public class Coord {
     }
 
     public static synchronized Coord of(int x, int y, int z) {
-        return coordMap.computeIfAbsent(x, kx -> new HashMap<>())
-                .computeIfAbsent(y, ky -> new HashMap<>())
-                .computeIfAbsent(z, kz -> new Coord(x, y, z));
+        return coordMap.computeIfAbsent(x, _ -> new HashMap<>())
+                .computeIfAbsent(y, _ -> new HashMap<>())
+                .computeIfAbsent(z, _ -> new Coord(x, y, z));
     }
 
     public Coord addDirection(Direction d) {

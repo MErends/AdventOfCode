@@ -13,7 +13,7 @@ public class Day12 extends AbstractProblem<List<String>, Integer> {
 
     private final Map<Integer, Program> programs = new HashMap<>();
 
-    public static void main(String[] args) {
+    static void main() {
         new Day12().setAndSolve(Util.readInput(2017, 12));
     }
 

@@ -14,7 +14,7 @@ public class Day10 extends AbstractProblem<List<Integer>, Number> {
 
     private final Map<Integer, Integer> streakPermutationMap = new HashMap<>();
 
-    public static void main(String[] args) {
+    static void main() {
         new Day10().setAndSolve(Util.readIntegers(2020, 10));
     }
 

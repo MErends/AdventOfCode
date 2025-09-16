@@ -23,7 +23,7 @@ public class Day19 extends AbstractProblem<List<String>, Long> {
     List<String> towels;
     final Map<String, Long> towelMemo = new HashMap<>();
 
-    public static void main(String[] args) {
+    static void main() {
         new Day19().setAndSolve(Util.readInput(2024, 19));
     }
 

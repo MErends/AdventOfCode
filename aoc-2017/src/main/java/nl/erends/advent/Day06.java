@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Day06 extends AbstractProblem<String, Integer> {
 
-	public static void main(String[] args) {
+	static void main() {
         new Day06().setAndSolve(Util.readLine(2017, 6));
 	}
 

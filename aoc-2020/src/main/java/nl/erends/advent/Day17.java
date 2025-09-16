@@ -11,7 +11,7 @@ public class Day17 extends AbstractProblem<List<String>, Integer> {
     private int[][][][] grid;
     private static final int[] DELTA = new int[]{-1, 0, 1};
 
-    public static void main(String[] args) {
+    static void main() {
         new Day17().setAndSolve(Util.readInput(2020, 17));
     }
 

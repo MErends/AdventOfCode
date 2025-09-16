@@ -26,7 +26,7 @@ public class Day24 extends AbstractProblem<List<Integer>, Number> {
     private int minPacks = Integer.MAX_VALUE;
     private long minTangle = Long.MAX_VALUE;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day24().setAndSolve(Util.readIntegers(2015, 24));
     }
 

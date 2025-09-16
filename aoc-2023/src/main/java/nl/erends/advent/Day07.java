@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  */
 public class Day07 extends AbstractProblem<List<String>, Number> {
 
-    public static void main(String[] args) {
+    static void main() {
         new Day07().setAndSolve(Util.readInput(2023, 7));
     }
 
@@ -93,7 +93,7 @@ public class Day07 extends AbstractProblem<List<String>, Number> {
                 if (card == 'J' && jokerEnabled) {
                     jokers++;
                 } else {
-                    cardCount.compute(card, (c, i) -> i == null ? 1 : i + 1);
+                    cardCount.compute(card, (_, i) -> i == null ? 1 : i + 1);
                 }
             }
             bid = Integer.parseInt(line.substring(6));

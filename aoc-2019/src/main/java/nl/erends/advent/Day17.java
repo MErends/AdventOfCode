@@ -12,7 +12,7 @@ public class Day17 extends AbstractProblem<String, Integer> {
 
     private char[][] grid;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day17().setAndSolve(Util.readLine(2019, 17));
     }
 

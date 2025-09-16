@@ -16,13 +16,13 @@ import java.util.Map;
  * specific number or to yell the result of a math operation. Your job is to
  * work out the number the monkey named root will yell before the monkeys figure
  * it out themselves.
- *<p><a href="https://adventofcode.com/2022/day/21">2022 Day 21</a>
+ * <p><a href="https://adventofcode.com/2022/day/21">2022 Day 21</a>
  */
 public class Day21 extends AbstractProblem<List<String>, Number> {
 
     private Map<String, Monkey> monkeyMap;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day21().setAndSolve(Util.readInput(2022, 21));
     }
 
@@ -96,21 +96,12 @@ public class Day21 extends AbstractProblem<List<String>, Number> {
             return factors;
         }
     }
-
-    private static class Fraction {
-
-        private final BigInteger numerator;
-        private final BigInteger denominator;
+    private record Fraction(BigInteger numerator, BigInteger denominator) {
 
         private Fraction(long numerator, long denominator) {
             this(BigInteger.valueOf(numerator), BigInteger.valueOf(denominator));
         }
 
-        private Fraction(BigInteger teller, BigInteger noemer) {
-            this.numerator = teller;
-            this.denominator = noemer;
-        }
-        
         private Fraction plus(Fraction o) {
             BigInteger newNumerator = numerator.multiply(o.denominator).add(denominator.multiply(o.numerator));
             BigInteger newDenominator = denominator.multiply(o.denominator);

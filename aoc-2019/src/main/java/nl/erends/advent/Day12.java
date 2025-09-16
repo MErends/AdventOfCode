@@ -14,7 +14,7 @@ public class Day12 extends AbstractProblem<List<String>, Number> {
 
     private int maxSteps = 1000;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day12().setAndSolve(Util.readInput(2019, 12));
     }
 

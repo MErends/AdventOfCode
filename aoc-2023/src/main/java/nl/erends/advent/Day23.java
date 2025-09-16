@@ -21,7 +21,7 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
     int longestPath = 0;
     boolean slippery = true;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day23().setAndSolve(Util.readInput(2023, 23));
     }
 

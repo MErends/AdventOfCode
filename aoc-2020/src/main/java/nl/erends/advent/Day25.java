@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Day25 extends AbstractProblem<List<Integer>, Number> {
 
-    public static void main(String[] args) {
+    static void main() {
         new Day25().setAndSolve(Arrays.asList(18499292 ,8790390));
     }
 

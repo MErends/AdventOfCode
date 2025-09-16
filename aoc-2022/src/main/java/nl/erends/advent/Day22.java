@@ -12,13 +12,13 @@ import java.util.List;
  * field. To pass through the force field, you have to enter a password; doing
  * so involves tracing a specific path on a strangely-shaped board. Follow the
  * path given in the monkeys' notes. What is the final password?
- *<p><a href="https://adventofcode.com/2022/day/22">2022 Day 22</a>
+ * <p><a href="https://adventofcode.com/2022/day/22">2022 Day 22</a>
  */
 public class Day22 extends AbstractProblem<List<String>, Number> {
 
     private char[][] board;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day22().setAndSolve(Util.readInput(2022, 22));
     }
 

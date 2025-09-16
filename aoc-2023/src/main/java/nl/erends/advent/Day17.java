@@ -39,7 +39,7 @@ public class Day17 extends AbstractProblem<List<String>, Number> {
     int minStreak = 0;
     int maxStreak = 3;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day17().setAndSolve(Util.readInput(2023, 17));
     }
 
@@ -71,8 +71,8 @@ public class Day17 extends AbstractProblem<List<String>, Number> {
         while (!paths.isEmpty()) {
             paths.sort(Comparator.comparingInt(Path::getExpectedLoss));
             Path bestPath = paths.removeFirst();
-            if (bestPath.location.y == cityGrid.length - 1
-                    && bestPath.location.x == cityGrid[cityGrid.length - 1].length - 1
+            if (bestPath.location.y() == cityGrid.length - 1
+                    && bestPath.location.x() == cityGrid[cityGrid.length - 1].length - 1
                     && bestPath.streak >= minStreak) {
                 answer = bestPath.heatLoss;
                 break;
@@ -93,26 +93,26 @@ public class Day17 extends AbstractProblem<List<String>, Number> {
         coords.add(Coord.of(cityGrid[0].length - 1, cityGrid.length - 1));
         heuristicGrid[cityGrid.length - 1][cityGrid[0].length - 1] = 0;
         while (!coords.isEmpty()) {
-            coords.sort((c1, c2) -> heuristicGrid[c1.y][c1.x] - heuristicGrid[c2.y][c2.x]);
+            coords.sort((c1, c2) -> heuristicGrid[c1.y()][c1.x()] - heuristicGrid[c2.y()][c2.x()]);
             Coord c = coords.removeFirst();
             Coord n = c.addDirection(Direction.UP);
-            if (validCoord(n) && heuristicGrid[n.y][n.x] == Integer.MAX_VALUE) {
-                heuristicGrid[n.y][n.x] = heuristicGrid[c.y][c.x] + cityGrid[c.y][c.x];
+            if (validCoord(n) && heuristicGrid[n.y()][n.x()] == Integer.MAX_VALUE) {
+                heuristicGrid[n.y()][n.x()] = heuristicGrid[c.y()][c.x()] + cityGrid[c.y()][c.x()];
                 coords.add(n);
             }
             n = c.addDirection(Direction.DOWN);
-            if (validCoord(n) && heuristicGrid[n.y][n.x] == Integer.MAX_VALUE) {
-                heuristicGrid[n.y][n.x] = heuristicGrid[c.y][c.x] + cityGrid[c.y][c.x];
+            if (validCoord(n) && heuristicGrid[n.y()][n.x()] == Integer.MAX_VALUE) {
+                heuristicGrid[n.y()][n.x()] = heuristicGrid[c.y()][c.x()] + cityGrid[c.y()][c.x()];
                 coords.add(n);
             }
             n = c.addDirection(Direction.LEFT);
-            if (validCoord(n) && heuristicGrid[n.y][n.x] == Integer.MAX_VALUE) {
-                heuristicGrid[n.y][n.x] = heuristicGrid[c.y][c.x] + cityGrid[c.y][c.x];
+            if (validCoord(n) && heuristicGrid[n.y()][n.x()] == Integer.MAX_VALUE) {
+                heuristicGrid[n.y()][n.x()] = heuristicGrid[c.y()][c.x()] + cityGrid[c.y()][c.x()];
                 coords.add(n);
             }
             n = c.addDirection(RIGHT);
-            if (validCoord(n) && heuristicGrid[n.y][n.x] == Integer.MAX_VALUE) {
-                heuristicGrid[n.y][n.x] = heuristicGrid[c.y][c.x] + cityGrid[c.y][c.x];
+            if (validCoord(n) && heuristicGrid[n.y()][n.x()] == Integer.MAX_VALUE) {
+                heuristicGrid[n.y()][n.x()] = heuristicGrid[c.y()][c.x()] + cityGrid[c.y()][c.x()];
                 coords.add(n);
             }
         }
@@ -123,7 +123,7 @@ public class Day17 extends AbstractProblem<List<String>, Number> {
     }
 
     boolean validCoord(Coord coord) {
-        return validPoint(coord.x, coord.y);
+        return validPoint(coord.x(), coord.y());
     }
 
     class Path {
@@ -151,7 +151,7 @@ public class Day17 extends AbstractProblem<List<String>, Number> {
             this.pathList = new ArrayList<>(parent.pathList);
             this.pathList.add(newD);
             location = newCoord;
-            this.heatLoss = parent.heatLoss + cityGrid[location.y][location.x];
+            this.heatLoss = parent.heatLoss + cityGrid[location.y()][location.x()];
             if (parent.d == this.d) {
                 this.streak = parent.streak + 1;
             } else {
@@ -161,7 +161,7 @@ public class Day17 extends AbstractProblem<List<String>, Number> {
 
         int getExpectedLoss() {
             if (expectedLoss == -1) {
-                expectedLoss = heatLoss + heuristicGrid[location.y][location.x];
+                expectedLoss = heatLoss + heuristicGrid[location.y()][location.x()];
             }
             return expectedLoss;
         }
@@ -235,7 +235,7 @@ public class Day17 extends AbstractProblem<List<String>, Number> {
 
     void addBestPath(Path path) {
         Map<Direction, Map<Integer, Path>> coordMap = bestPaths.computeIfAbsent(path.location, k -> new HashMap<>());
-        Map<Integer, Path> dMap = coordMap.computeIfAbsent(path.d, k -> new HashMap<>());
+        Map<Integer, Path> dMap = coordMap.computeIfAbsent(path.d, _ -> new HashMap<>());
         dMap.put(path.streak, path);
     }
 

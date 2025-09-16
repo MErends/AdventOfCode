@@ -21,7 +21,7 @@ public class Day25 extends AbstractProblem<List<String>, Integer> {
     final List<Lock> locks = new ArrayList<>();
     final List<Key> keys = new ArrayList<>();
 
-    public static void main(String[] args) {
+    static void main() {
         new Day25().setAndSolve(Util.readInput(2024, 25));
     }
 

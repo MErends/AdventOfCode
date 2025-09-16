@@ -14,7 +14,7 @@ public class Day09 extends AbstractProblem<List<String>, Integer> {
     private int maxDistance = Integer.MIN_VALUE;
     private int minDistance = Integer.MAX_VALUE;
     
-    public static void main(String[] args) {
+    static void main() {
         new Day09().setAndSolve(Util.readInput(2015, 9));
     }
 

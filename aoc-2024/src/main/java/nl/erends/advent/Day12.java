@@ -36,7 +36,7 @@ public class Day12 extends AbstractProblem<List<String>, Integer> {
     private char previousRight = '\0';
     private char previousLeft = '\0';
 
-    public static void main(String[] args) {
+    static void main() {
         new Day12().setAndSolve(Util.readInput(2024, 12));
     }
 

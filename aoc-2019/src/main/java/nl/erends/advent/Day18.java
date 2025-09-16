@@ -30,7 +30,7 @@ public class Day18 extends AbstractProblem<List<String>, Integer> {
     private final Queue<State> states = new LinkedList<>();
     private char[][] maze;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day18().setAndSolve(Util.readInput(2019, 18));
     }
 

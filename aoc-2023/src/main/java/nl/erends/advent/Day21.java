@@ -20,7 +20,7 @@ public class Day21 extends AbstractProblem<List<String>, Number> {
     private char[][] grid;
     private Coord start;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day21().setAndSolve(Util.readInput(2023, 21));
     }
 
@@ -115,7 +115,7 @@ public class Day21 extends AbstractProblem<List<String>, Number> {
             Arrays.fill(row, Integer.MAX_VALUE);
         }
         Set<Coord> coords = Set.of(start);
-        stepGrid[start.y][start.x] = startStep;
+        stepGrid[start.y()][start.x()] = startStep;
         int step = startStep;
         while (!coords.isEmpty()) {
             step++;
@@ -123,13 +123,13 @@ public class Day21 extends AbstractProblem<List<String>, Number> {
             for (Coord c : coords) {
                 nextCoords.addAll(Arrays.stream(Direction.values())
                         .map(c::addDirection)
-                        .filter(n -> n.x >= 0 && n.y >= 0 && n.y < grid.length && n.x < grid[n.y].length)
-                        .filter(n -> grid[n.y][n.x] != '#' && stepGrid[n.y][n.x] == Integer.MAX_VALUE)
+                        .filter(n -> n.x() >= 0 && n.y() >= 0 && n.y() < grid.length && n.x() < grid[n.y()].length)
+                        .filter(n -> grid[n.y()][n.x()] != '#' && stepGrid[n.y()][n.x()] == Integer.MAX_VALUE)
                         .toList());
 
             }
             for (Coord c : nextCoords) {
-                stepGrid[c.y][c.x] = step;
+                stepGrid[c.y()][c.x()] = step;
             }
             coords = nextCoords;
         }

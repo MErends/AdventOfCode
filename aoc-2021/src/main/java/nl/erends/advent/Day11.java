@@ -21,7 +21,7 @@ public class Day11 extends AbstractProblem<List<String>, Integer> {
 
     private int[][] grid;
     
-    public static void main(String[] args) {
+    static void main() {
         new Day11().setAndSolve(Util.readInput(2021, 11));
     }
     

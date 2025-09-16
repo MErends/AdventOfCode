@@ -10,7 +10,7 @@ public class Day14 extends AbstractProblem<List<String>, Integer> {
     
     private int maxSeconds = 2503;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day14().setAndSolve(Util.readInput(2015, 14));
 
     }

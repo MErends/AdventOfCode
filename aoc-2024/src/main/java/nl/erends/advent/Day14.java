@@ -21,7 +21,7 @@ public class Day14 extends AbstractProblem<List<String>, Integer> {
     int roomWidth = 101;
     int roomHeight = 103;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day14().setAndSolve(Util.readInput(2024, 14));
     }
 

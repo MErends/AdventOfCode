@@ -25,7 +25,7 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
     private Map<Integer, Long> guardSleepMap;
     private Map<Integer, Map<Integer, Integer>> guardAtMinuteAsleepMap;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day04().setAndSolve(Util.readInput(2018, 4));
     }
     

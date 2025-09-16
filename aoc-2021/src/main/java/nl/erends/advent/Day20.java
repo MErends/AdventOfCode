@@ -21,7 +21,7 @@ public class Day20 extends AbstractProblem<List<String>,Integer> {
     private int iteration = 0;
     private char infinityPixel = '.';
     
-    public static void main(String[] args) {
+    static void main() {
         new Day20().setAndSolve(Util.readInput(2021, 20));
     }
 

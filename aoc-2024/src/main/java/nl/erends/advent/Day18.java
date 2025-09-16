@@ -26,7 +26,7 @@ public class Day18 extends AbstractProblem<List<String>, String> {
     int dimension = 71;
     int byteLimit = 1024;
 
-    public static void main(String[] args) {
+    static void main() {
         new Day18().setAndSolve(Util.readInput(2024, 18));
     }
 
@@ -72,8 +72,8 @@ public class Day18 extends AbstractProblem<List<String>, String> {
             for (Coord head : heads) {
                     for (Direction d : Direction.values()) {
                         Coord neighbor = head.addDirection(d);
-                        if (getGrid(neighbor) != '#' && steps[neighbor.y][neighbor.x] > stepCount + 1) {
-                            steps[neighbor.y][neighbor.x] = stepCount + 1;
+                        if (getGrid(neighbor) != '#' && steps[neighbor.y()][neighbor.x()] > stepCount + 1) {
+                            steps[neighbor.y()][neighbor.x()] = stepCount + 1;
                             newHeads.add(neighbor);
                         }
                     }
@@ -86,7 +86,7 @@ public class Day18 extends AbstractProblem<List<String>, String> {
 
     char getGrid(Coord c) {
         try {
-            return grid[c.y][c.x];
+            return grid[c.y()][c.x()];
         } catch (IndexOutOfBoundsException e) {
             return '#';
         }

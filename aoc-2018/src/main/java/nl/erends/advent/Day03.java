@@ -11,7 +11,7 @@ public class Day03 extends AbstractProblem<List<String>, Integer> {
     private String[][] cloth;
     private final List<String> ids = new ArrayList<>();
 
-    public static void main(String[] args) {
+    static void main() {
         new Day03().setAndSolve(Util.readInput(2018, 3));
     }
     

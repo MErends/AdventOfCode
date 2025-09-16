@@ -18,7 +18,7 @@ public class Day14 extends AbstractProblem<List<String>,Long> {
     
     private Map<String, List<String>> pairMapping;
     
-    public static void main(String[] args) {
+    static void main() {
         new Day14().setAndSolve(Util.readInput(2021, 14));
     }
 
@@ -31,7 +31,7 @@ public class Day14 extends AbstractProblem<List<String>,Long> {
         }
         Map<String, Long> pairCount = new HashMap<>();
         for (int index = 0; index < input.getFirst().length() - 1; index++) {
-            pairCount.compute(input.getFirst().substring(index, index + 2), (k, v) -> v == null ? 1L : v + 1);
+            pairCount.compute(input.getFirst().substring(index, index + 2), (_, v) -> v == null ? 1L : v + 1);
         }
         for (int i = 0; i < 10; i++) {
             pairCount = iterate(pairCount);
@@ -46,15 +46,15 @@ public class Day14 extends AbstractProblem<List<String>,Long> {
 
     private Map<String, Long> iterate(Map<String, Long> inMap) {
         Map<String, Long> outMap = new HashMap<>();
-        inMap.forEach((key, value) -> pairMapping.get(key).forEach(pairMap -> outMap.compute(pairMap, (k, v) -> v == null ? value : v + value)));
+        inMap.forEach((key, value) -> pairMapping.get(key).forEach(pairMap -> outMap.compute(pairMap, (_, v) -> v == null ? value : v + value)));
         return outMap;
     }
     
     private long commonLeastCommonDifference(Map<String, Long> pairCount) {
         Map<Character, Long> charCount = new HashMap<>();
         pairCount.forEach((k, v) -> {
-            charCount.compute(k.charAt(0), (k1, v1) -> v1 == null ? v : v1 + v);
-            charCount.compute(k.charAt(1), (k1, v1) -> v1 == null ? v : v1 + v);
+            charCount.compute(k.charAt(0), (_, v1) -> v1 == null ? v : v1 + v);
+            charCount.compute(k.charAt(1), (_, v1) -> v1 == null ? v : v1 + v);
         });
         charCount.entrySet().forEach(e -> e.setValue((e.getValue() + 1) / 2));
         long mostCommonChar = charCount.entrySet().stream().max(Map.Entry.comparingByValue()).orElseThrow().getValue();
