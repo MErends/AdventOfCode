@@ -12,7 +12,7 @@ public class Day07 extends AbstractProblem<List<String>, Integer> {
     private Map<String, Integer> wires = new HashMap<>();
     private int valueA;
     
-    static void main() {
+    void main() {
         new Day07().setAndSolve(Util.readInput(2015, 7));
     }
 

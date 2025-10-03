@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class Day21 extends AbstractProblem<String, Long> {
     
-    static void main() {
+    void main() {
         new Day21().setAndSolve(null);
     }
     

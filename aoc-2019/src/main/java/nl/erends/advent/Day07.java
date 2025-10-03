@@ -12,7 +12,7 @@ public class Day07 extends AbstractProblem<String, Long> {
     private long signal = Long.MIN_VALUE;
     private long feedback = Long.MIN_VALUE;
 
-    static void main() {
+    void main() {
         new Day07().setAndSolve(Util.readLine(2019, 7));
     }
 

@@ -14,7 +14,7 @@ public class Day13 extends AbstractProblem<List<String>, String> {
     private List<Cart> carts;
     private Track[][] map;
 
-    static void main() {
+    void main() {
         new Day13().setAndSolve(Util.readInput(2018, 13));
     }
 

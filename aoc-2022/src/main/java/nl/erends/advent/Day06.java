@@ -20,7 +20,7 @@ import java.util.Set;
  */
 public class Day06 extends AbstractProblem<String, Integer> {
 
-    static void main() {
+    void main() {
         new Day06().setAndSolve(Util.readLine(2022, 6));
     }
 

@@ -40,7 +40,7 @@ public class Day21 extends AbstractProblem<List<String>, Long> {
 
     int robotCount = 2;
 
-    static void main() {
+    void main() {
         new Day21().setAndSolve(Util.readInput(2024, 21));
     }
 

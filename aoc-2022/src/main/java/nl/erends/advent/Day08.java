@@ -22,7 +22,7 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
     private int[][] tree;
     private int size;
 
-    static void main() {
+    void main() {
         new Day08().setAndSolve(Util.readInput(2022, 8));
     }
 

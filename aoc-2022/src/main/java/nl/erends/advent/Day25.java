@@ -20,7 +20,7 @@ public class Day25 extends AbstractProblem<List<String>, String> {
     private final Map<Character, Integer> snafuMap = Map.of('2', 2, '1', 1, '0', 0, '-', -1, '=', -2);
     private final Map<Integer, Character> decMap = Map.of(2, '2', 1, '1', 0, '0', -1, '-', -2, '=');
 
-    static void main() {
+    void main() {
         new Day25().setAndSolve(Util.readInput(2022, 25));
     }
 

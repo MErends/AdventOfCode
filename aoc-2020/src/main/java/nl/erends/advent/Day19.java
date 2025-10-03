@@ -14,7 +14,7 @@ public class Day19 extends AbstractProblem<List<String>, Long> {
    
     private final Map<String, Rule> rules = new HashMap<>();
 
-    static void main() {
+    void main() {
         new Day19().setAndSolve(Util.readInput(2020, 19));
     }
 

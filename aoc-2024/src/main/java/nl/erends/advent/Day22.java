@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class Day22 extends AbstractProblem<List<Integer>, Long> {
 
-    static void main() {
+    void main() {
         new Day22().setAndSolve(Util.readIntegers(2024, 22));
     }
 

@@ -15,7 +15,7 @@ import java.util.Arrays;
  */
 public class Day07 extends AbstractProblem<String, Integer> {
     
-    static void main() {
+    void main() {
         new Day07().setAndSolve(Util.readLine(2021, 7));
     }
 

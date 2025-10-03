@@ -10,7 +10,7 @@ public class Day17 extends AbstractProblem<String, String> {
     private int longestLength = Integer.MIN_VALUE;
 
 
-    static void main() {
+    void main() {
         new Day17().setAndSolve("rrrbmfta");
     }
     @Override

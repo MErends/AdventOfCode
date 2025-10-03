@@ -15,7 +15,7 @@ public class Day11 extends AbstractProblem<List<String>, Integer> {
     private static final char FLOOR = '.';
 
 
-    static void main() {
+    void main() {
         new Day11().setAndSolve(Util.readInput(2020, 11));
     }
 

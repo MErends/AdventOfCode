@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Day12 extends AbstractProblem<String, Integer> {
-    static void main() {
+    void main() {
         new Day12().setAndSolve(Util.readLine(2015, 12));
     }
 

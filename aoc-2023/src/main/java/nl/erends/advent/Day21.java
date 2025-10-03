@@ -20,7 +20,7 @@ public class Day21 extends AbstractProblem<List<String>, Number> {
     private char[][] grid;
     private Coord start;
 
-    static void main() {
+    void main() {
         new Day21().setAndSolve(Util.readInput(2023, 21));
     }
 

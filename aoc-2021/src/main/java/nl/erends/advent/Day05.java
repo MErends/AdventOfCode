@@ -21,8 +21,8 @@ import java.util.regex.Pattern;
 public class Day05 extends AbstractProblem<List<String>, Integer> {
     
     private static final Pattern LINE_PAT = Pattern.compile("(\\d+),(\\d+) -> (\\d+),(\\d+)");
-    
-    static void main() {
+
+    void main() {
         new Day05().setAndSolve(Util.readInput(2021, 5));
     }
 

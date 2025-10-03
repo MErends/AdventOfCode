@@ -22,7 +22,7 @@ public class Day21 extends AbstractProblem<List<String>, Number> {
 
     private Map<String, Monkey> monkeyMap;
 
-    static void main() {
+    void main() {
         new Day21().setAndSolve(Util.readInput(2022, 21));
     }
 

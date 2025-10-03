@@ -10,7 +10,7 @@ public class Day16 extends AbstractProblem<String, String> {
     
     private String[] commands;
 
-    static void main() {
+    void main() {
         new Day16().setAndSolve(Util.readLine(2017, 16));
     }
     

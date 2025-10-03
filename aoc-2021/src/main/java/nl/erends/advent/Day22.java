@@ -22,7 +22,7 @@ public class Day22 extends AbstractProblem<List<String>, Number> {
     private final Pattern p = Pattern.compile("(\\w+) x=(-?\\d+)..(-?\\d+),y=(-?\\d+)..(-?\\d+),z=(-?\\d+)..(-?\\d+)");
     private List<Cube> cubes;
     
-    static void main() {
+    void main() {
         new Day22().setAndSolve(Util.readInput(2021, 22));
     }
     

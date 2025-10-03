@@ -11,7 +11,7 @@ public class Day23 extends AbstractProblem<List<String>, Integer> {
 
     private static final Map<String, Long> memoryMap = new HashMap<>();
 
-    static void main() {
+    void main() {
         new Day23().setAndSolve(Util.readInput(2017, 23));
     }
     

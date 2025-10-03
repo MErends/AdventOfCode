@@ -22,7 +22,7 @@ public class Day08 extends AbstractProblem<List<String>, Number> {
     private Map<String, String> leftMap;
     private Map<String, String> rightMap;
 
-    static void main() {
+    void main() {
         new Day08().setAndSolve(Util.readInput(2023, 8));
     }
 

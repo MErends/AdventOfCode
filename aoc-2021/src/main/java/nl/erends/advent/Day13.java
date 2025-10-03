@@ -22,7 +22,7 @@ public class Day13 extends AbstractProblem<List<String>,String> {
     private int maxX = Integer.MAX_VALUE;
     private int maxY = Integer.MAX_VALUE;
 
-    static void main() {
+    void main() {
         new Day13().setAndSolve(Util.readInput(2021, 13));
     }
     

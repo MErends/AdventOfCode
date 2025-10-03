@@ -11,7 +11,7 @@ import static nl.erends.advent.util.Util.lcm;
 
 public class Day13 extends AbstractProblem<List<String>, Number> {
 
-    static void main() {
+    void main() {
         new Day13().setAndSolve(Util.readInput(2020, 13));
     }
 

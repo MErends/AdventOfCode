@@ -12,7 +12,7 @@ public class Day18 extends AbstractProblem<List<String>, Integer> {
 
     private char[][] field;
 
-    static void main() {
+    void main() {
         new Day18().setAndSolve(Util.readInput(2018, 18));
     }
     

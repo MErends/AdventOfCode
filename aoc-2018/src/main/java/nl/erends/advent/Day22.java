@@ -20,7 +20,7 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
     private int lowestGoal = Integer.MAX_VALUE;
     private final TreeSet<GridState> states = new TreeSet<>();
     
-    static void main() {
+    void main() {
         new Day22().setAndSolve(Util.readInput(2018, 22));
     }
     

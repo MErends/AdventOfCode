@@ -5,7 +5,7 @@ import nl.erends.advent.util.Util;
 
 public class Day13 extends AbstractProblem<String, Integer> {
 
-    static void main() {
+    void main() {
         new Day13().setAndSolve(Util.readLine(2019, 13));
     }
 

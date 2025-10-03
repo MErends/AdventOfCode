@@ -20,7 +20,7 @@ import static nl.erends.advent.util.Util.ASCII_OFFSET;
  */
 public class Day09 extends AbstractProblem<String, Long> {
 
-    static void main() {
+    void main() {
         new Day09().setAndSolve(Util.readLine(2024, 9));
     }
 

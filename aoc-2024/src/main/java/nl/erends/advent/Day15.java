@@ -28,7 +28,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
     private Coord robot;
     private List<Box> boxes;
 
-    static void main() {
+    void main() {
         new Day15().setAndSolve(Util.readInput(2024, 15));
     }
 

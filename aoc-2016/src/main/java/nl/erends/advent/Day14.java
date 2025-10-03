@@ -11,7 +11,7 @@ public class Day14 extends AbstractProblem<String, Integer> {
     private List<String> hashList = new ArrayList<>();
     private int hashLoops = 1;
 
-    static void main() {
+    void main() {
         new Day14().setAndSolve("jlmsuwbz");
     }
     

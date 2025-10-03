@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  */
 public class Day04 extends AbstractProblem<List<String>, Integer> {
 
-    static void main() {
+    void main() {
         new Day04().setAndSolve(Util.readInput(2024, 4));
     }
 

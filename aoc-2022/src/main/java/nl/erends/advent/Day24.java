@@ -25,7 +25,7 @@ public class Day24 extends AbstractProblem<List<String>, Number> {
 
     private final List<Blizzard> blizzards = new ArrayList<>();
 
-    static void main() {
+    void main() {
         new Day24().setAndSolve(Util.readInput(2022, 24));
     }
 

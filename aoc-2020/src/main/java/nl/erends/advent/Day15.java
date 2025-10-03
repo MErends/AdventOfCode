@@ -10,7 +10,7 @@ public class Day15 extends AbstractProblem<String, Integer> {
 
     private int targetTurn = 2020;
 
-    static void main() {
+    void main() {
         new Day15().setAndSolve("6,19,0,5,7,13,1");
     }
 

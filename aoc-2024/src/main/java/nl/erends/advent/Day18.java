@@ -26,7 +26,7 @@ public class Day18 extends AbstractProblem<List<String>, String> {
     int dimension = 71;
     int byteLimit = 1024;
 
-    static void main() {
+    void main() {
         new Day18().setAndSolve(Util.readInput(2024, 18));
     }
 

@@ -28,7 +28,7 @@ public class Day12 extends AbstractProblem<List<String>, Number> {
     List<Integer> formula;
     Map<Integer, Map<Integer, Long>> cache;
 
-    static void main() {
+    void main() {
         new Day12().setAndSolve(Util.readInput(2023, 12));
     }
 

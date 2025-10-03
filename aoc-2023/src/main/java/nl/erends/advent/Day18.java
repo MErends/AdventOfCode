@@ -22,7 +22,7 @@ public class Day18 extends AbstractProblem<List<String>, Number> {
 
     char[][] grid;
 
-    static void main() {
+    void main() {
         new Day18().setAndSolve(Util.readInput(2023, 18));
     }
     @Override

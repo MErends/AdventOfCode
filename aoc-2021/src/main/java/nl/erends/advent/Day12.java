@@ -23,7 +23,7 @@ public class Day12 extends AbstractProblem<List<String>, Integer> {
     private final Map<String, Set<String>> segments = new HashMap<>();
     private static final String START = "start";
 
-    static void main() {
+    void main() {
         new Day12().setAndSolve(Util.readInput(2021, 12));
     }
     

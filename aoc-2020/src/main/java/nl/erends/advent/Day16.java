@@ -15,7 +15,7 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
     private int ticketStart;
     private final Set<Integer> invalidIndex = new HashSet<>();
 
-    static void main() {
+    void main() {
         new Day16().setAndSolve(Util.readInput(2020, 16));
     }
     

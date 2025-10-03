@@ -16,7 +16,7 @@ public class Day14 extends AbstractProblem<List<String>, Long> {
     private String mask;
     private boolean part1 = true;
 
-    static void main() {
+    void main() {
         new Day14().setAndSolve(Util.readInput(2020, 14));
     }
 

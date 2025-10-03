@@ -23,7 +23,7 @@ public class Day24 extends AbstractProblem<List<String>, String> {
     private List<Integer> digitList = new ArrayList<>();
        
     
-    static void main() {
+    void main() {
         new Day24().setAndSolve(Util.readInput(2021, 24));
     }
 

@@ -25,7 +25,7 @@ public class Day17 extends AbstractProblem<String, Number> {
     private long offset;
     private long movementId;
 
-    static void main() {
+    void main() {
         new Day17().setAndSolve(Util.readLine(2022, 17));
     }
 

@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Day20 extends AbstractProblem<Integer, Integer> {
 
-    static void main() {
+    void main() {
         new Day20().setAndSolve(Integer.parseInt(Util.readLine(2015, 20)));
     }
 

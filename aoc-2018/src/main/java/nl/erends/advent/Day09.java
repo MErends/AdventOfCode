@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 
 public class Day09 extends AbstractProblem<String, Long> {
 
-    static void main() {
+    void main() {
         new Day09().setAndSolve("446 players; last marble is worth 71522 points");
     }
     

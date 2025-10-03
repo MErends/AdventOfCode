@@ -9,7 +9,7 @@ public class Day25 extends AbstractProblem<List<String>, Integer> {
 
     private int a = 1;
     
-    static void main() {
+    void main() {
         new Day25().setAndSolve(Util.readInput(2016, 25));
     }
 

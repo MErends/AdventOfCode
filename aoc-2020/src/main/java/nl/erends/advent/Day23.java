@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Day23 extends AbstractProblem<String, Number> {
 
-    static void main() {
+    void main() {
         new Day23().setAndSolve("562893147");
     }
     

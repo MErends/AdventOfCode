@@ -10,7 +10,7 @@ public class Day13 extends AbstractProblem<Integer, Integer> {
     private char[][] maze;
     private int[][] distances;
 
-    static void main() {
+    void main() {
         new Day13().setAndSolve(1362);
     }
     

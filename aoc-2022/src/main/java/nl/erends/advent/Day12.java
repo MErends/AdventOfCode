@@ -27,7 +27,7 @@ public class Day12 extends AbstractProblem<List<String>, Integer> {
 
     private char[][] maze;
     private final Point[] end = new Point[1];
-    static void main() {
+    void main() {
         new Day12().setAndSolve(Util.readInput(2022, 12));
     }
 

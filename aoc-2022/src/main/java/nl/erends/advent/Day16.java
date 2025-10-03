@@ -27,7 +27,7 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
     private Map<String, Integer> distanceMap;
     private List<Room> valves;
 
-    static void main() {
+    void main() {
         new Day16().setAndSolve(Util.readInput(2022, 16));
     }
 

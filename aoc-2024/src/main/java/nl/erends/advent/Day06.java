@@ -25,7 +25,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
     char[][] grid;
     Coord start;
 
-    static void main() {
+    void main() {
         new Day06().setAndSolve(Util.readInput(2024, 6));
     }
 

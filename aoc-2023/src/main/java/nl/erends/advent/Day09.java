@@ -18,7 +18,7 @@ import java.util.function.ToIntFunction;
  */
 public class Day09 extends AbstractProblem<List<String>, Number> {
 
-    static void main() {
+    void main() {
         new Day09().setAndSolve(Util.readInput(2023, 9));
     }
 

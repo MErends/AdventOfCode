@@ -10,7 +10,7 @@ public class Day10 extends AbstractProblem<List<String>, String> {
     
     private int fontSize = 9;
 
-    static void main() {
+    void main() {
         new Day10().setAndSolve(Util.readInput(2018, 10));
     }
     

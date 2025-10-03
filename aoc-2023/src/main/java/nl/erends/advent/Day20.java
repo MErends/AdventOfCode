@@ -34,7 +34,7 @@ public class Day20 extends AbstractProblem<List<String>, Long> {
     private int lowPulseCount;
     private final List<String> lowPulsesNeeded = new ArrayList<>();
 
-    static void main() {
+    void main() {
         new Day20().setAndSolve(Util.readInput(2023, 20));
     }
 

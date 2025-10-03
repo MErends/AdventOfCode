@@ -23,7 +23,7 @@ public class Day11 extends AbstractProblem<String, Long> {
 
     final Map<Integer, Map<Long, Long>> blinksLeftStone = new HashMap<>();
 
-    static void main() {
+    void main() {
         new Day11().setAndSolve(Util.readLine(2024, 11));
     }
 

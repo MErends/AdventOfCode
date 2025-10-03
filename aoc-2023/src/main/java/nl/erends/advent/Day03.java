@@ -24,7 +24,7 @@ public class Day03 extends AbstractProblem<List<String>,  Integer> {
     char[][] grid;
     private List<Part> parts;
 
-    static void main() {
+    void main() {
         new Day03().setAndSolve(Util.readInput(2023, 3));
     }
 

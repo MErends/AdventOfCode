@@ -11,7 +11,7 @@ public class Day02 extends AbstractProblem<List<String>, String> {
     private int x;
     private int y;
 
-    static void main() {
+    void main() {
         new Day02().setAndSolve(Util.readInput(2016, 2));
     }
 

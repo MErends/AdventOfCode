@@ -18,7 +18,7 @@ public class Day14 extends AbstractProblem<List<String>,Long> {
     
     private Map<String, List<String>> pairMapping;
     
-    static void main() {
+    void main() {
         new Day14().setAndSolve(Util.readInput(2021, 14));
     }
 

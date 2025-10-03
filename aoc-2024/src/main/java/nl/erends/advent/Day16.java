@@ -31,7 +31,7 @@ public class Day16 extends AbstractProblem<List<String>, Integer> {
     char[][] grid;
     private Coord end = Coord.ZERO;
 
-    static void main() {
+    void main() {
         new Day16().setAndSolve(Util.readInput(2024, 16));
     }
 

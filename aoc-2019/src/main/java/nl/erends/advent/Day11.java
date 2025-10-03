@@ -18,7 +18,7 @@ public class Day11 extends AbstractProblem<String, String> {
     private int xMax = Integer.MIN_VALUE;
     private int yMax = Integer.MIN_VALUE;
 
-    static void main() {
+    void main() {
         new Day11().setAndSolve(Util.readLine(2019, 11));
     }
 

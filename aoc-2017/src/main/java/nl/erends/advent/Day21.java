@@ -16,7 +16,7 @@ public class Day21 extends AbstractProblem<List<String>, Integer> {
     
     private final Map<String, String> mapping = new HashMap<>();
     
-    static void main() {
+    void main() {
         new Day21().setAndSolve(Util.readInput(2017, 21));
     }
     

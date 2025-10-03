@@ -20,7 +20,7 @@ public class Day10 extends AbstractProblem<List<String>, Integer> {
     private int asteroidsDestroyed = 0;
     private Asteroid asteroid200;
 
-    static void main() {
+    void main() {
         new Day10().setAndSolve(Util.readInput(2019, 10));
     }
 

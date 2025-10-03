@@ -4,7 +4,7 @@ import nl.erends.advent.util.AbstractProblem;
 
 public class Day15 extends AbstractProblem<String, Integer> {
 
-    static void main() {
+    void main() {
         new Day15().setAndSolve("699,124");
     }
 

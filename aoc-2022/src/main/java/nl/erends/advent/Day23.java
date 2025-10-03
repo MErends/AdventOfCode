@@ -24,7 +24,7 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
     private final List<Elf> elfs = new ArrayList<>();
     private final List<Direction> directions = new ArrayList<>();
 
-    static void main() {
+    void main() {
         new Day23().setAndSolve(Util.readInput(2022, 23));
     }
 

@@ -20,7 +20,7 @@ public class Day25 extends AbstractProblem<List<String>, Number> {
 
     final Map<String, Node> nodeMap = new HashMap<>();
 
-    static void main() {
+    void main() {
         new Day25().setAndSolve(Util.readInput(2023, 25));
     }
 

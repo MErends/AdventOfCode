@@ -27,7 +27,7 @@ public class Day23 extends AbstractProblem<List<String>, String> {
     private int biggestSize;
     private Map<String, Node> nodeMap;
 
-    static void main() {
+    void main() {
         new Day23().setAndSolve(Util.readInput(2024, 23));
     }
 

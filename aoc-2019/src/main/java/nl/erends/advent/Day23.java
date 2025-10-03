@@ -14,7 +14,7 @@ public class Day23 extends AbstractProblem<String, Long> {
     private long answer1;
     private List<Intcode> nicList;
 
-    static void main() {
+    void main() {
         new Day23().setAndSolve(Util.readLine(2019, 23));
     }
 

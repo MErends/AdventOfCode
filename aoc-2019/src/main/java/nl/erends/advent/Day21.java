@@ -17,7 +17,7 @@ public class Day21 extends AbstractProblem<String, Long> {
             "NOT A T",  // Is A a hole?
             "OR T J");  // If A is a hole, then jump
 
-    static void main() {
+    void main() {
         new Day21().setAndSolve(Util.readLine(2019, 21));
     }
 

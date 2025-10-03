@@ -21,7 +21,7 @@ public class Day17 extends AbstractProblem<List<Integer>, Integer> {
     private int fillCount;
     private int minCups = Integer.MAX_VALUE;
 
-    static void main() {
+    void main() {
         new Day17().setAndSolve(Util.readIntegers(2015, 17));
     }
 

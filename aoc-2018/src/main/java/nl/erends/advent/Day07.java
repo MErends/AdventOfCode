@@ -15,7 +15,7 @@ public class Day07 extends AbstractProblem<List<String>, String> {
     private int workerCount = 5;
     private int jobTime = 60;
 
-    static void main() {
+    void main() {
         new Day07().setAndSolve(Util.readInput(2018, 7));
     }
     

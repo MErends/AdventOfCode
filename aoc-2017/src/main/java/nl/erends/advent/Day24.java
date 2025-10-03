@@ -12,7 +12,7 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
     private int longestBridge = Integer.MIN_VALUE;
     private int strengthOfLongest;
 
-    static void main() {
+    void main() {
         new Day24().setAndSolve(Util.readInput(2017, 24));
     }
 

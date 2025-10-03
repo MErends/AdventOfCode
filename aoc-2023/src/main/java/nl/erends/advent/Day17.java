@@ -39,7 +39,7 @@ public class Day17 extends AbstractProblem<List<String>, Number> {
     int minStreak = 0;
     int maxStreak = 3;
 
-    static void main() {
+    void main() {
         new Day17().setAndSolve(Util.readInput(2023, 17));
     }
 

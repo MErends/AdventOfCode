@@ -23,7 +23,7 @@ public class Day20 extends AbstractProblem<List<String>, Integer> {
     private int minimalCheat = 100;
     private List<Coord> trail;
 
-    static void main() {
+    void main() {
         new Day20().setAndSolve(Util.readInput(2024, 20));
     }
 

@@ -20,7 +20,7 @@ public class Day18 extends AbstractProblem<List<String>,Integer> {
     private int[][] grid;
     private int iterations = 100;
 
-    static void main() {
+    void main() {
         new Day18().setAndSolve(Util.readInput(2015, 18));
     }
 

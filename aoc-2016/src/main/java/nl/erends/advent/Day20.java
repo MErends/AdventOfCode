@@ -9,7 +9,7 @@ public class Day20 extends AbstractProblem<List<String>, Number> {
     
     private long maxValue = 4294967295L;
 
-    static void main() {
+    void main() {
         new Day20().setAndSolve(Util.readInput(2016, 20));
     }
 

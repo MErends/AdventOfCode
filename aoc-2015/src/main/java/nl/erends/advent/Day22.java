@@ -22,7 +22,7 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
     private final List<Gamestate> gamestates = new ArrayList<>();
     private boolean hardMode = false;
 
-    static void main() {
+    void main() {
         new Day22().setAndSolve(Util.readInput(2015, 22));
     }
 

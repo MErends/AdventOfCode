@@ -11,7 +11,7 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
     
     private Set<String> blackTiles = new HashSet<>();
 
-    static void main() {
+    void main() {
         new Day24().setAndSolve(Util.readInput(2020, 24));
     }
 

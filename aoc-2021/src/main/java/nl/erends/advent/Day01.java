@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
  */
 public class Day01 extends AbstractProblem<List<Integer>, Integer> {
 
-    static void main() {
+    void main() {
         new Day01().setAndSolve(Util.readIntegers(2021, 1));
     }
 

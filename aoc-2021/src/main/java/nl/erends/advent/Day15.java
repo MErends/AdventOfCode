@@ -28,7 +28,7 @@ public class Day15 extends AbstractProblem<List<String>,Integer> {
     private List<GridPoint> gridPoints;
     private Map<String, Integer> riskMap;
 
-    static void main() {
+    void main() {
         new Day15().setAndSolve(Util.readInput(2021, 15));
     }
 

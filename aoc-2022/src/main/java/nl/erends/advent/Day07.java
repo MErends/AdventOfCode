@@ -24,7 +24,7 @@ public class Day07 extends AbstractProblem<List<String>, Integer> {
     private final Directory root = new Directory("", new HashMap<>(), new ArrayList<>(), null);
     private Directory pwd;
 
-    static void main() {
+    void main() {
         new Day07().setAndSolve(Util.readInput(2022, 7));
     }
 

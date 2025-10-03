@@ -21,7 +21,7 @@ public class Day13 extends AbstractProblem<List<String>, Number> {
     private Set<String> personSet;
     private int maxHappiness;
 
-    static void main() {
+    void main() {
         new Day13().setAndSolve(Util.readInput(2015, 13));
     }
 

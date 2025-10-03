@@ -30,7 +30,7 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
     Set<String> splittersDone;
 
 
-    static void main() {
+    void main() {
         new Day16().setAndSolve(Util.readInput(2023, 16));
     }
 

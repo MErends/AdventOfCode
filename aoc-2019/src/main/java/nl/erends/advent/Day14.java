@@ -17,7 +17,7 @@ public class Day14 extends AbstractProblem<List<String>, Integer> {
     private Map<String, Integer> resourcesRequired;
     private Map<String, Long> inventory;
 
-    static void main() {
+    void main() {
         new Day14().setAndSolve(Util.readInput(2019, 14));
     }
 

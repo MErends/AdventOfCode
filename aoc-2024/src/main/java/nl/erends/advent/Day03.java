@@ -23,7 +23,7 @@ public class Day03 extends AbstractProblem<List<String>, Integer> {
 
     public static final Pattern p = Pattern.compile("mul\\((\\d+),(\\d+)\\)");
 
-    static void main() {
+    void main() {
         new Day03().setAndSolve(Util.readInput(2024, 3));
     }
 

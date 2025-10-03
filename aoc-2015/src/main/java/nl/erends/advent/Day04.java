@@ -8,7 +8,7 @@ public class Day04 extends AbstractProblem<String, Integer> {
 
     private int nonce = 0;
     
-    static void main() {
+    void main() {
         new Day04().setAndSolve(Util.readLine(2015, 4));
     }
 

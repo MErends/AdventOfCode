@@ -12,7 +12,7 @@ public class Day03 extends AbstractProblem<List<String>, Integer> {
     private int x = 0;
     private int y = 0;
 
-    static void main() {
+    void main() {
         new Day03().setAndSolve(Util.readInput(2019, 3));
     }
 

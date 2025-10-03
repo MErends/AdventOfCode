@@ -10,7 +10,7 @@ public class Day10 extends AbstractProblem<String, Integer> {
     private int target1 = 40;
     private int target2 = 50;
 
-    static void main() {
+    void main() {
         new Day10().setAndSolve(Util.readLine(2015, 10));
     }
 

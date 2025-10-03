@@ -7,7 +7,7 @@ public class Day11 extends AbstractProblem<Integer, String> {
     private static final int SIZE = 300 + 1;
     private int[][] grid;
 
-    static void main() {
+    void main() {
         new Day11().setAndSolve(8141);
     }
     

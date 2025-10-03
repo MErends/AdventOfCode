@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class Day21 extends AbstractProblem<String, Integer> {
     
-    static void main() {
+    void main() {
         new Day21().solve();
     }
     

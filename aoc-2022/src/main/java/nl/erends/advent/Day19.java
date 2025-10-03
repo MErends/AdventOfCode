@@ -25,7 +25,7 @@ public class Day19 extends AbstractProblem<List<String>, Number> {
     private static final int GEODE = 3;
     private int maxGeodes;
 
-    static void main() {
+    void main() {
         new Day19().setAndSolve(Util.readInput(2022, 19));
     }
 

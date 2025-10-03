@@ -31,7 +31,7 @@ public class Day23 extends AbstractProblem<List<String>, Number> {
     private Hotel bestHotel;
     private Set<String> seenStates;
 
-    static void main() {
+    void main() {
         new Day23().setAndSolve(Util.readInput(2021, 23));
     }
 

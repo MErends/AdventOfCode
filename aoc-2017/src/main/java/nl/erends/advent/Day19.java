@@ -13,7 +13,7 @@ public class Day19 extends AbstractProblem<List<String>, String> {
     private char[][] maze;
     private Direction direction;
 
-    static void main() {
+    void main() {
         new Day19().setAndSolve(Util.readInput(2017, 19));
     }
     

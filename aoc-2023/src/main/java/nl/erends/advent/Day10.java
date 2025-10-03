@@ -23,7 +23,7 @@ public class Day10 extends AbstractProblem<List<String>, Number> {
     private boolean[][] isPipe;
     private char[][] grid;
 
-    static void main() {
+    void main() {
         new Day10().setAndSolve(Util.readInput(2023, 10));
     }
 
