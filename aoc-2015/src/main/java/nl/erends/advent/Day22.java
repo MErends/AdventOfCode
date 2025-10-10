@@ -28,7 +28,7 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
 
     @Override
     protected Integer solve1() {
-        int bossHP = Integer.parseInt(input.get(0).split(" ")[2]);
+        int bossHP = Integer.parseInt(input.getFirst().split(" ")[2]);
         bossDamage = Integer.parseInt(input.get(1).split(" ")[1]);
         gamestates.add(new Gamestate(500, 50, bossHP));
         while (!gamestates.isEmpty()) {

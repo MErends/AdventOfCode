@@ -84,7 +84,7 @@ public class Day20 extends AbstractProblem<List<String>, Long> {
             }
             try {
                 modules.get(pulse.toModule).processPulse(pulse);
-            } catch (NullPointerException npe) {
+            } catch (NullPointerException _) {
                 // Must be rx or debug
             }
         }

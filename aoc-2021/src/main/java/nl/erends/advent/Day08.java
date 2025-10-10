@@ -84,7 +84,7 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
             mapping.set(0, patterns.stream()
                     .filter(p -> p.length() == 6 && containsAllChars(p, mapping.get(1)))
                     .findFirst().orElseThrow());
-            patterns.remove(mapping.get(0));
+            patterns.remove(mapping.getFirst());
             mapping.set(6, patterns.stream()
                     .filter(p -> p.length() == 6)
                     .findFirst().orElseThrow());
@@ -97,7 +97,7 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
         }
         
         private int getValue() {
-            return 1000 * mapping.indexOf(values.get(0))
+            return 1000 * mapping.indexOf(values.getFirst())
                     + 100 * mapping.indexOf(values.get(1))
                     + 10 * mapping.indexOf(values.get(2))
                     + mapping.indexOf(values.get(3));

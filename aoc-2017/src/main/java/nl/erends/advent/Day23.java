@@ -89,7 +89,7 @@ public class Day23 extends AbstractProblem<List<String>, Integer> {
     private Long getMemory(String memory) {
         try {
             return Long.parseLong(memory);
-        } catch (Exception e){
+        } catch (Exception _){
             if (memoryMap.containsKey(memory)) {
                 return memoryMap.get(memory);
             } else {

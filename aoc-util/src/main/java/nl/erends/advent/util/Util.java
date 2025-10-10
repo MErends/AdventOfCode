@@ -10,7 +10,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +39,7 @@ public class Util {
             extension = "_"+ testcase + extension;
         }
         location += "/year" + year + "/day" + day + extension;
-        Path path = Paths.get(location);
+        Path path = Path.of(location);
         if (testcase == 0 && Files.notExists(path)) {
             downloadInput(year, day, path);
         }
@@ -77,7 +76,7 @@ public class Util {
     private static void downloadInput(int year, int day, Path path) {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(String.format("https://adventofcode.com/%d/day/%d/input", year, day)))
+                .uri(URI.create("https://adventofcode.com/%d/day/%d/input".formatted(year, day)))
                 .setHeader("Cookie", "session=" + System.getenv("session"))
                 .setHeader("User-Agent", "https://github.com/MErends/AdventOfCode/blob/main/src/main/java/nl/erends/advent/util/Util.java:44")
                 .build();
@@ -88,7 +87,7 @@ public class Util {
             Files.writeString(path, response.body());
         } catch (IOException e) {
             LOG.error("Could not download input", e);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException _) {
             Thread.currentThread().interrupt();
         }
     }
@@ -110,7 +109,7 @@ public class Util {
 
     public static String leftPadWithZero(String input, int length) {
         String zeroes = IntStream.range(0, length - input.length())
-                .mapToObj(i -> "0")
+                .mapToObj(_ -> "0")
                 .collect(Collectors.joining());
         return zeroes + input;
     }

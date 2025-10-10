@@ -56,9 +56,9 @@ public class BITSPacket {
             case 2 -> subPackets.stream().mapToLong(sb -> sb.value).min().orElseThrow();
             case 3 -> subPackets.stream().mapToLong(sb -> sb.value).max().orElseThrow();
             case 4 -> Long.parseLong(literalValue.toString(), 2);
-            case 5 -> subPackets.get(0).value > subPackets.get(1).value ? 1 : 0;
-            case 6 -> subPackets.get(0).value < subPackets.get(1).value ? 1 : 0;
-            case 7 -> subPackets.get(0).value == subPackets.get(1).value ? 1 : 0;
+            case 5 -> subPackets.getFirst().value > subPackets.get(1).value ? 1 : 0;
+            case 6 -> subPackets.getFirst().value < subPackets.get(1).value ? 1 : 0;
+            case 7 -> subPackets.getFirst().value == subPackets.get(1).value ? 1 : 0;
             default -> throw new IllegalArgumentException();
         };
     }

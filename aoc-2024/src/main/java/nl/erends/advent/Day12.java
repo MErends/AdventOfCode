@@ -179,7 +179,7 @@ public class Day12 extends AbstractProblem<List<String>, Integer> {
     private Area getAreaGrid(int x, int y) {
         try {
             return areaGrid[y][x];
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException _) {
             return outside;
         }
     }

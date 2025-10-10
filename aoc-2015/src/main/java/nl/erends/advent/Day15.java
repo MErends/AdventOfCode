@@ -13,7 +13,7 @@ public class Day15 extends AbstractProblem<List<String>, Integer> {
 
     @Override
     public Integer solve1() {
-        String[] words = input.get(0).split(" ");
+        String[] words = input.getFirst().split(" ");
         Ingredient frosting = new Ingredient(readValue(words[2]), readValue(words[4]), readValue(words[6]), readValue(words[8]), readValue(words[10]));
         words = input.get(1).split(" ");
         Ingredient candy = new Ingredient(readValue(words[2]), readValue(words[4]), readValue(words[6]), readValue(words[8]), readValue(words[10]));

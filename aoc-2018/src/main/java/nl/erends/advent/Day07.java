@@ -44,7 +44,7 @@ public class Day07 extends AbstractProblem<List<String>, String> {
         loadRequirements();
         int time = -1;
         List<Worker> workerList = new ArrayList<>();
-        IntStream.rangeClosed(1, workerCount).forEach(i -> workerList.add(new Worker()));
+        IntStream.rangeClosed(1, workerCount).forEach(_ -> workerList.add(new Worker()));
         while (true) {
             time++;
             workerList.stream()

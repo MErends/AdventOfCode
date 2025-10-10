@@ -35,7 +35,7 @@ public class Day10 extends AbstractProblem<String, String> {
             currentPosition = (currentPosition + input + skipSize) % chainlength;
             skipSize++;
         }
-        return Integer.toString(chain.get(0) * chain.get(1));
+        return Integer.toString(chain.getFirst() * chain.get(1));
     }
     
     @Override

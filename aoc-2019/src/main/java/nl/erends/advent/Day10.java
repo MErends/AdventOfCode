@@ -80,9 +80,9 @@ public class Day10 extends AbstractProblem<List<String>, Integer> {
         }
         Asteroid asteroid = new Asteroid(xAsteroid, yAsteroid);
         if (toTheRight) {
-            rightSideMap.computeIfAbsent(gradient, k -> new ArrayList<>()).add(asteroid);
+            rightSideMap.computeIfAbsent(gradient, _ -> new ArrayList<>()).add(asteroid);
         } else {
-            leftSideMap.computeIfAbsent(gradient, k -> new ArrayList<>()).add(asteroid);
+            leftSideMap.computeIfAbsent(gradient, _ -> new ArrayList<>()).add(asteroid);
         }
     }
 

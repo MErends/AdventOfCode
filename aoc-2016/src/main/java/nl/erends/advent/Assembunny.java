@@ -56,8 +56,8 @@ class Assembunny {
     private int getMemory(String key) {
         try {
             return Integer.parseInt(key);
-        } catch (NumberFormatException e) {
-            return memoryBank.computeIfAbsent(key, k -> 0);
+        } catch (NumberFormatException _) {
+            return memoryBank.computeIfAbsent(key, _ -> 0);
         }
     }
     

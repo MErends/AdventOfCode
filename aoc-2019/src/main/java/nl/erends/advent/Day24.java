@@ -40,7 +40,7 @@ public class Day24 extends AbstractProblem<List<String>, Integer> {
             }
             int dSize = depths.size();
             List<Depth> newDepths = new ArrayList<>();
-            newDepths.add(depths.get(0).iterate(new int[5][5], depths.get(1).grid));
+            newDepths.add(depths.getFirst().iterate(new int[5][5], depths.get(1).grid));
             for (int d = 1; d < depths.size() - 1; d++) {
                 newDepths.add(depths.get(d).iterate(depths.get(d - 1).grid, depths.get(d + 1).grid));
             }

@@ -19,7 +19,7 @@ public class MD5 {
         byte[] digest = messageDigest.digest(input.getBytes(StandardCharsets.UTF_8));
         StringBuilder sb = new StringBuilder();
         for (byte b : digest) {
-            sb.append(String.format("%02x", b & 0xff));
+            sb.append("%02x".formatted(b & 0xff));
         }
         return sb.toString();
     }

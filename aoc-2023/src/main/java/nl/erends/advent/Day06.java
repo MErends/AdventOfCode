@@ -24,7 +24,7 @@ public class Day06 extends AbstractProblem<List<String>, Number> {
 
     @Override
     protected Number solve1() {
-        List<Integer> times = Arrays.stream(input.get(0).substring(5).split(" "))
+        List<Integer> times = Arrays.stream(input.getFirst().substring(5).split(" "))
                 .filter(s -> !s.isBlank())
                 .map(Integer::parseInt)
                 .toList();
@@ -58,7 +58,7 @@ public class Day06 extends AbstractProblem<List<String>, Number> {
 
     @Override
     public Number solve2() {
-        long time = Long.parseLong(input.get(0).substring(5).replace(" ", ""));
+        long time = Long.parseLong(input.getFirst().substring(5).replace(" ", ""));
         long distance = Long.parseLong(input.get(1).substring(9).replace(" ", ""));
         return getWinCount(time, distance);
     }

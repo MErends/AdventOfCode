@@ -59,7 +59,7 @@ public class Day03 extends AbstractProblem<List<String>,  Integer> {
                     int[] c = new int[]{y, x};
                     List<Part> gears = parts.stream().filter(p -> p.sX == c[1] && p.sY == c[0]).toList();
                     if (gears.size() == 2) {
-                        ratios += gears.get(0).value * gears.get(1).value;
+                        ratios += gears.getFirst().value * gears.get(1).value;
                     }
                 }
             }
@@ -121,7 +121,7 @@ public class Day03 extends AbstractProblem<List<String>,  Integer> {
         private char getGrid(int y, int x) {
             try {
                 return grid[y][x];
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (ArrayIndexOutOfBoundsException _) {
                 return '.';
             }
         }

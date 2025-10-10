@@ -99,7 +99,7 @@ public class Day07 extends AbstractProblem<List<String>, Integer> {
         }
         try {
             return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException _) {
             return -1;
         }
     }

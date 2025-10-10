@@ -86,7 +86,7 @@ public class Day17 extends AbstractProblem<List<String>, String> {
         List<Integer> output;
 
         Computer(List<String> input) {
-            regA = Integer.parseInt(input.get(0).split(": ")[1]);
+            regA = Integer.parseInt(input.getFirst().split(": ")[1]);
             regB = Integer.parseInt(input.get(1).split(": ")[1]);
             regC = Integer.parseInt(input.get(2).split(": ")[1]);
             instructions = Arrays.stream(input.get(4).split(": ")[1].split(","))

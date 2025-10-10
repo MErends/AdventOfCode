@@ -132,7 +132,7 @@ public class Animator {
     }
     
     public static void setFilename(int year, int day) {
-        filename = String.format("%dday%02d.gif", year, day);
+        filename = "%dday%02d.gif".formatted(year, day);
     }
 
     public static void setColorMap(Map<Object, Color> colorMap) {

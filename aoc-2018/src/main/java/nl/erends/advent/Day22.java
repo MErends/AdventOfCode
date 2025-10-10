@@ -26,7 +26,7 @@ public class Day22 extends AbstractProblem<List<String>, Integer> {
     
     @Override
     public Integer solve1() {
-        depth = Integer.parseInt(input.get(0).split(" ")[1]);
+        depth = Integer.parseInt(input.getFirst().split(" ")[1]);
         targetX = Integer.parseInt(input.get(1).split(" ")[1].split(",")[0]);
         targetY = Integer.parseInt(input.get(1).split(" ")[1].split(",")[1]);
         erosionGrid = new int[targetY + targetX][targetX + targetY];

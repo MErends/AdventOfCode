@@ -99,14 +99,14 @@ public class Day20 extends AbstractProblem<List<String>, Integer> {
             if (maze[0][x] != ' ') {
                 String portal = "" + maze[0][x] + maze[1][x];
                 String coords = x + "," + 2;
-                portals.computeIfAbsent(portal, p -> new ArrayList<>()).add(coords);
+                portals.computeIfAbsent(portal, _ -> new ArrayList<>()).add(coords);
             }
         }
         for (int y = 0; y < maze.length; y++) {
             if (maze[y][0] != ' ') {
                 String portal = "" + maze[y][0] + maze[y][1];
                 String coords = 2 + "," + y;
-                portals.computeIfAbsent(portal, p -> new ArrayList<>()).add(coords);
+                portals.computeIfAbsent(portal, _ -> new ArrayList<>()).add(coords);
             }
         }
         int yMax = maze.length - 1;
@@ -114,7 +114,7 @@ public class Day20 extends AbstractProblem<List<String>, Integer> {
             if (maze[yMax][x] != ' ') {
                 String portal = "" + maze[yMax - 1][x] + maze[yMax][x];
                 String coords = x + "," + (yMax - 2);
-                portals.computeIfAbsent(portal, p -> new ArrayList<>()).add(coords);
+                portals.computeIfAbsent(portal, _ -> new ArrayList<>()).add(coords);
             }
         }
         int xMax = maze[yMax].length - 1;
@@ -122,7 +122,7 @@ public class Day20 extends AbstractProblem<List<String>, Integer> {
             if (maze[y][xMax] != ' ') {
                 String portal = "" + maze[y][xMax - 1] + maze[y][xMax];
                 String coords = (xMax - 2) + "," + y;
-                portals.computeIfAbsent(portal, p -> new ArrayList<>()).add(coords);
+                portals.computeIfAbsent(portal, _ -> new ArrayList<>()).add(coords);
             }
         }
     }
@@ -142,7 +142,7 @@ public class Day20 extends AbstractProblem<List<String>, Integer> {
             if (maze[yMin][xMax] != ' ') {
                 String portal = "" + maze[yMin][xMax] + maze[yMin + 1][xMax];
                 String coords = xMax + "," + (yMin - 1);
-                portals.computeIfAbsent(portal, p -> new ArrayList<>()).add(coords);
+                portals.computeIfAbsent(portal, _ -> new ArrayList<>()).add(coords);
             }
             xMax++;
         }
@@ -152,7 +152,7 @@ public class Day20 extends AbstractProblem<List<String>, Integer> {
             if (maze[yMax][xMin] != ' ') {
                 String portal = "" + maze[yMax][xMin] + maze[yMax][xMin + 1];
                 String coords = (xMin - 1) + "," + yMax;
-                portals.computeIfAbsent(portal, p -> new ArrayList<>()).add(coords);
+                portals.computeIfAbsent(portal, _ -> new ArrayList<>()).add(coords);
             }
             yMax++;
         }
@@ -161,14 +161,14 @@ public class Day20 extends AbstractProblem<List<String>, Integer> {
             if (maze[yMax][x] != ' ') {
                 String portal = "" + maze[yMax - 1][x] + maze[yMax][x];
                 String coords = x + "," + (yMax + 1);
-                portals.computeIfAbsent(portal, p -> new ArrayList<>()).add(coords);
+                portals.computeIfAbsent(portal, _ -> new ArrayList<>()).add(coords);
             }
         }
         for (int y = yMin; y < yMax; y++) {
             if (maze[y][xMax] != ' ') {
                 String portal = "" + maze[y][xMax - 1] + maze[y][xMax];
                 String coords = (xMax + 1) + "," + y;
-                portals.computeIfAbsent(portal, p -> new ArrayList<>()).add(coords);
+                portals.computeIfAbsent(portal, _ -> new ArrayList<>()).add(coords);
             }
         }
     }
@@ -178,8 +178,8 @@ public class Day20 extends AbstractProblem<List<String>, Integer> {
         inwardPortals = new HashMap<>();
         for (List<String> coords : portals.values()) {
             if (coords.size() == 2) {
-                outwardPortals.put(coords.get(0), coords.get(1));
-                inwardPortals.put(coords.get(1), coords.get(0));
+                outwardPortals.put(coords.getFirst(), coords.get(1));
+                inwardPortals.put(coords.get(1), coords.getFirst());
             }
         }
     }

@@ -51,7 +51,7 @@ public class Day03 extends AbstractProblem<List<String>, Integer> {
     }
 
     private char getCommonChar(List<String> elfs) {
-        for (char c : elfs.get(0).toCharArray()) {
+        for (char c : elfs.getFirst().toCharArray()) {
             if (elfs.get(1).indexOf(c) != -1 && elfs.get(2).indexOf(c) != -1) {
                 return c;
             }

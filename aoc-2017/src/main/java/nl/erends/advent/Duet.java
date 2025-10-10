@@ -25,7 +25,7 @@ class Duet {
     }
     
     public void execute() {
-        while (alive.get(0) || alive.get(1)) {
+        while (alive.getFirst() || alive.get(1)) {
             String instruction = instructions.get((int) getPointer());
             String[] words = instruction.split(" ");
             switch (words[0]) {
@@ -66,8 +66,8 @@ class Duet {
     private long getMemory(String key) {
         try {
             return Long.parseLong(key);
-        } catch (NumberFormatException e) {
-            return memoryBank.get(activeID).computeIfAbsent(key, k -> 0L);
+        } catch (NumberFormatException _) {
+            return memoryBank.get(activeID).computeIfAbsent(key, _ -> 0L);
         }
     }
     

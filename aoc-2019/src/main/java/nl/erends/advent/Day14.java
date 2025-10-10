@@ -55,7 +55,7 @@ public class Day14 extends AbstractProblem<List<String>, Integer> {
         int finalMultiplier = multiplier;
         for (String required : recipe.getValue()) {
             String[] words = required.split(" ");
-            resourcesRequired.compute(words[1], (k, v) -> finalMultiplier * Integer.parseInt(words[0]) + (v != null ? v : 0));
+            resourcesRequired.compute(words[1], (_, v) -> finalMultiplier * Integer.parseInt(words[0]) + (v != null ? v : 0));
         }
         resourcesRequired.remove(resource);
         recipies.remove(recipe.getKey());
@@ -111,14 +111,14 @@ public class Day14 extends AbstractProblem<List<String>, Integer> {
         for (String requirement : recipe.getValue()) {
             String ingredient = requirement.split(" ")[1];
             long ingredientNeeded = Integer.parseInt(requirement.split(" ")[0]) * multiplier;
-            long ingredientAvailable = inventory.computeIfAbsent(ingredient, k -> 0L); 
+            long ingredientAvailable = inventory.computeIfAbsent(ingredient, _ -> 0L); 
             if (ingredientNeeded > ingredientAvailable) {
                 boolean create = create(ingredient, ingredientNeeded - ingredientAvailable);
                 if (!create) return false;
             }
-            inventory.compute(ingredient, (k,v) -> (v != null ? v : 0) - ingredientNeeded);
+            inventory.compute(ingredient, (_,v) -> (v != null ? v : 0) - ingredientNeeded);
         }
-        inventory.compute(resource, (k, v) -> (v != null ? v : 0) + finalRecipeAmount);
+        inventory.compute(resource, (_, v) -> (v != null ? v : 0) + finalRecipeAmount);
         return true;
     }
 }

@@ -25,7 +25,7 @@ public class Day09 extends AbstractProblem<String, Long> {
         circle.add(0);
         int currentMarbleIndex = 0;
         List<Player> playerList = IntStream.rangeClosed(1, playerCount)
-                .mapToObj(i -> new Player()).toList();
+                .mapToObj(_ -> new Player()).toList();
         int currentPlayerIndex = 0;
         for (int marble = 1; marble <= maxMarble; marble++) {
             if (marble % 23 == 0) {

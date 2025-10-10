@@ -17,7 +17,7 @@ public class Day13 extends AbstractProblem<List<String>, Number> {
 
     @Override
     public Integer solve1() {
-        int time = Integer.parseInt(input.get(0));
+        int time = Integer.parseInt(input.getFirst());
         List<Integer> busIDs = Arrays.stream(input.get(1).split(","))
                 .filter(s -> !s.equals("x"))
                 .map(Integer::parseInt)

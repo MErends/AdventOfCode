@@ -33,7 +33,7 @@ public class Day08 extends AbstractProblem<String, Integer> {
             trueSource = new ArrayList<>();
             metadata = new ArrayList<>();
             List<Integer> rawSource = new ArrayList<>(source);
-            childrenCount = rawSource.get(0);
+            childrenCount = rawSource.getFirst();
             int metadataCount = rawSource.get(1);
             children = new ArrayList<>();
             if (childrenCount == 0) {

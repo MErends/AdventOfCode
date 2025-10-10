@@ -73,7 +73,7 @@ public class Day05 extends AbstractProblem<List<String>, String> {
         int lineLength = input.getFirst().length();
         int stackCount = lineLength / 4 + 1;
         IntStream.range(0, stackCount)
-                .forEach(i -> stacks.add(new Stack<>()));
+                .forEach(_ -> stacks.add(new Stack<>()));
         for (String line : input) {
             if (line.isBlank()) {
                 return;

@@ -43,7 +43,7 @@ public class Day23 extends AbstractProblem<String, Long> {
                     nicList.getFirst().addInput(natX);
                     nicList.getFirst().addInput(natY);
                     natList.addFirst(natY);
-                    if (natList.size() > 1 && natList.get(0).equals(natList.get(1))) {
+                    if (natList.size() > 1 && natList.getFirst().equals(natList.get(1))) {
                         answer2 = natList.getFirst();
                     }
                 }

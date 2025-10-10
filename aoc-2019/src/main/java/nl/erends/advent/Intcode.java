@@ -62,7 +62,7 @@ class Intcode {
     }
 
     private void doThreeParameters(int opcodeInt) {
-        String opcode = String.format("%05d", getCode(pointer));
+        String opcode = "%05d".formatted(getCode(pointer));
         long input1 = getParameter(1, opcode);
         long input2 = getParameter(2, opcode);
         long target = getCode(pointer + 3);
@@ -96,7 +96,7 @@ class Intcode {
     }
 
     private boolean doReadInput() {
-        String opcode = String.format("%05d", getCode(pointer));
+        String opcode = "%05d".formatted(getCode(pointer));
         long target = getCode(pointer + 1);
         if (opcode.charAt(2) == '2') {
             target = relativeBase + target;
@@ -110,13 +110,13 @@ class Intcode {
     }
 
     private void doOutput() {
-        String opcode = String.format("%05d", getCode(pointer));
+        String opcode = "%05d".formatted(getCode(pointer));
         output = getParameter(1, opcode);
         pointer += 2;
     }
 
     private void doJumpIf(long opcodeInt) {
-        String opcode = String.format("%05d", getCode(pointer));
+        String opcode = "%05d".formatted(getCode(pointer));
         long check = getParameter(1, opcode);
         long newPointer = getParameter(2, opcode);
         if ((opcodeInt == 5 && check != 0)
@@ -128,7 +128,7 @@ class Intcode {
     }
 
     private void doAlterBase() {
-        String opcode = String.format("%05d", getCode(pointer));
+        String opcode = "%05d".formatted(getCode(pointer));
         long adjustment = getParameter(1, opcode);
         relativeBase += adjustment;
         pointer += 2;
@@ -153,7 +153,7 @@ class Intcode {
     }
     
     long getCode(long index) {
-        return code.computeIfAbsent(index, k -> 0L);
+        return code.computeIfAbsent(index, _ -> 0L);
     }
 
     void addInput(long value) {

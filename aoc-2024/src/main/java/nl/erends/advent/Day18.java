@@ -87,7 +87,7 @@ public class Day18 extends AbstractProblem<List<String>, String> {
     char getGrid(Coord c) {
         try {
             return grid[c.y()][c.x()];
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException _) {
             return '#';
         }
     }

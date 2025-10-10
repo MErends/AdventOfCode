@@ -33,7 +33,7 @@ public class Day21 extends AbstractProblem<List<String>, Number> {
 
     @Override
     protected Integer solve1() {
-        int position1 = input.get(0).charAt(28) - ASCII_OFFSET;
+        int position1 = input.getFirst().charAt(28) - ASCII_OFFSET;
         int position2 = input.get(1).charAt(28) - ASCII_OFFSET;
         int score1 = 0;
         int score2 = 0;
@@ -78,7 +78,7 @@ public class Day21 extends AbstractProblem<List<String>, Number> {
                 }
             }    
         }
-        int position1 = input.get(0).charAt(28) - ASCII_OFFSET;
+        int position1 = input.getFirst().charAt(28) - ASCII_OFFSET;
         int position2 = input.get(1).charAt(28) - ASCII_OFFSET;
         playGame(0, 0, position1, position2, 1, true);
         return Math.max(player1Wins, player2Wins);

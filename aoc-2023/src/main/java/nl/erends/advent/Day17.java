@@ -228,13 +228,13 @@ public class Day17 extends AbstractProblem<List<String>, Number> {
     Optional<Path> getBestPath(Path path) {
         try {
             return Optional.of(bestPaths.get(path.location).get(path.d).get(path.streak));
-        } catch (NullPointerException e) {
+        } catch (NullPointerException _) {
             return Optional.empty();
         }
     }
 
     void addBestPath(Path path) {
-        Map<Direction, Map<Integer, Path>> coordMap = bestPaths.computeIfAbsent(path.location, k -> new HashMap<>());
+        Map<Direction, Map<Integer, Path>> coordMap = bestPaths.computeIfAbsent(path.location, _ -> new HashMap<>());
         Map<Integer, Path> dMap = coordMap.computeIfAbsent(path.d, _ -> new HashMap<>());
         dMap.put(path.streak, path);
     }

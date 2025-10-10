@@ -38,8 +38,8 @@ public class Day08 extends AbstractProblem<List<String>, Integer> {
         String comparePointer = words[4];
         String comparator = words[5];
         int compareValue = Integer.parseInt(words[6]);
-        int pointerValue = memory.computeIfAbsent(pointer, k -> 0);
-        int comparePointerValue = memory.computeIfAbsent(comparePointer, k -> 0);
+        int pointerValue = memory.computeIfAbsent(pointer, _ -> 0);
+        int comparePointerValue = memory.computeIfAbsent(comparePointer, _ -> 0);
         switch (comparator) {
             case ">=":
                 if (comparePointerValue >= compareValue) {

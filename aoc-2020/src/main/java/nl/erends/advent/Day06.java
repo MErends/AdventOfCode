@@ -21,7 +21,7 @@ public class Day06 extends AbstractProblem<List<String>, Integer> {
         for (String group : groups) {
             long groupSize = group.chars().filter(a -> a == '\n').count() + 1;
             answer1 += group.chars().filter(a -> a != '\n').boxed().collect(Collectors.toSet()).size();
-            answer2 += (int) group.chars().boxed().collect(Collectors.toMap(v -> v, v -> 1, (v1, v2) -> v1 + 1)).values().stream().filter(v -> v == groupSize).count();
+            answer2 += (int) group.chars().boxed().collect(Collectors.toMap(v -> v, _ -> 1, (v1, _) -> v1 + 1)).values().stream().filter(v -> v == groupSize).count();
         }
         return answer1;
     }

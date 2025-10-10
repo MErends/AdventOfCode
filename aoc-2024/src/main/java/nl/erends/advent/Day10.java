@@ -69,7 +69,7 @@ public class Day10 extends AbstractProblem<List<String>, Integer> {
     private int getGrid(int x, int y) {
         try {
             return grid[y][x];
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException _) {
             return -1;
         }
     }
