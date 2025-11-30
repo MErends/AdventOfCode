@@ -78,7 +78,7 @@ public class Util {
                 .GET()
                 .uri(URI.create("https://adventofcode.com/%d/day/%d/input".formatted(year, day)))
                 .setHeader("Cookie", "session=" + System.getenv("session"))
-                .setHeader("User-Agent", "https://github.com/MErends/AdventOfCode/blob/main/src/main/java/nl/erends/advent/util/Util.java:44")
+                .setHeader("User-Agent", "https://github.com/MErends/AdventOfCode/blob/main/src/main/java/nl/erends/advent/util/Util.java:81")
                 .build();
         try {
             LOG.info("Calling adventofcode.com!!");
