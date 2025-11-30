@@ -66,7 +66,7 @@ class IntcodeTest {
     
     @Test
     void easterEggTest() {
-        Intcode intcode = new Intcode(Util.readLine(2021, 7));
+        Intcode intcode = new Intcode(Util.readLine(2021, 7, 1));
         StringBuilder sb = new StringBuilder();
         while (true) {
             intcode.execute();

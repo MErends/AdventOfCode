@@ -11,7 +11,7 @@ class Day24Test {
     @Test
     void day24Test() {
         Day24 problem = new Day24();
-        problem.setInput(Util.readInput(2021, 24));
+        problem.setInput(Util.readInput(2021, 24, 1));
         assertThat(problem.solve1(), is("99196997985942"));
         assertThat(problem.solve2(), is("84191521311611"));
     }
