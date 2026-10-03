@@ -25,7 +25,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>6.1.3</junit.version>
         <maven.compiler.release>25</maven.compiler.release>
-        <maven.compiler.proc>full</maven.compiler.proc>
     </properties>
     <build>
         <plugins>
@@ -38,6 +37,7 @@
                         <configurationParameters>
                             junit.jupiter.execution.parallel.enabled = true
                             junit.jupiter.execution.parallel.mode.default = concurrent
+                            junit.jupiter.execution.parallel.config.executor-service = WORKER_THREAD_POOL
                         </configurationParameters>
                     </properties>
                 </configuration>
