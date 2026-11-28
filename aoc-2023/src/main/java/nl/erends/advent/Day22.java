@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
  */
 public class Day22 extends AbstractProblem<List<String>, Number> {
 
-    private static final Pattern LINE_PAT = Pattern.compile("(\\d+),(\\d+),(\\d+)~(\\d+),(\\d+),(\\d+)");
+    private static final Pattern LINE_PAT = Pattern.compile("^(\\d+),(\\d+),(\\d+)~(\\d+),(\\d+),(\\d+)");
     private List<Brick> bricks;
 
 

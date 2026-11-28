@@ -24,7 +24,7 @@ public class Day17 extends AbstractProblem<String,Integer> {
 
     @Override
     protected Integer solve1() {
-        Matcher m = Pattern.compile("x=(-?\\d+)..(-?\\d+), y=(-?\\d+)..(-?\\d+)")
+        Matcher m = Pattern.compile("x=(-?\\d++)..(-?\\d+), y=(-?\\d+)..(-?\\d+)")
                 .matcher(input);
         if (!m.find()) throw new IllegalArgumentException();
         int tMinX = Integer.parseInt(m.group(1));

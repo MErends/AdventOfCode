@@ -24,13 +24,13 @@ import java.util.regex.Pattern;
  */
 public class Day24 extends AbstractProblem<List<String>, Number> {
 
-    private static final Pattern LINE_PAT = Pattern.compile("(\\d+), (\\d+), (\\d+) @ +(-?\\d+), +(-?\\d+), +(-?\\d+)");
+    private static final Pattern LINE_PAT = Pattern.compile("^(\\d+), (\\d+), (\\d+) @ +(-?\\d+), +(-?\\d+), +(-?\\d+)");
     long lowIntersect = 200000000000000L;
     long highIntersect = 400000000000000L;
     private List<Hail> hails;
 
     void main() {
-        new Day24().setAndSolve(Util.readInput(2023, 24, 1));
+        new Day24().setAndSolve(Util.readInput(2023, 24));
     }
 
     public void setTestParameters() {

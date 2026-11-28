@@ -40,7 +40,7 @@ public class Day04 extends AbstractProblem<List<String>, Integer> {
             fillGuardSleepMap(event);
         }
         Optional<Map.Entry<Integer, Long>> optional = guardSleepMap.entrySet().stream()
-                .max((e1, e2) -> (int) (e1.getValue() - e2.getValue()));
+                .max(Comparator.comparingLong(Map.Entry::getValue));
         sleepyGuard = optional.isPresent() ? optional.get().getKey() : 0;
         minutesAsleepMap = new HashMap<>();
         for (Event event : eventList) {

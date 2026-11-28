@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  */
 public class Day22 extends AbstractProblem<List<String>, Number> {
     
-    private final Pattern p = Pattern.compile("(\\w+) x=(-?\\d+)..(-?\\d+),y=(-?\\d+)..(-?\\d+),z=(-?\\d+)..(-?\\d+)");
+    private final Pattern p = Pattern.compile("^(\\w+) x=(-?\\d++)..(-?\\d+),y=(-?\\d++)..(-?\\d+),z=(-?\\d+)..(-?\\d+)");
     private List<Cube> cubes;
     
     void main() {

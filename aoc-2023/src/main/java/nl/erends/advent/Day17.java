@@ -93,7 +93,7 @@ public class Day17 extends AbstractProblem<List<String>, Number> {
         coords.add(Coord.of(cityGrid[0].length - 1, cityGrid.length - 1));
         heuristicGrid[cityGrid.length - 1][cityGrid[0].length - 1] = 0;
         while (!coords.isEmpty()) {
-            coords.sort((c1, c2) -> heuristicGrid[c1.y()][c1.x()] - heuristicGrid[c2.y()][c2.x()]);
+            coords.sort((c1, c2) -> Integer.compare(heuristicGrid[c1.y()][c1.x()], heuristicGrid[c2.y()][c2.x()]));
             Coord c = coords.removeFirst();
             Coord n = c.addDirection(Direction.UP);
             if (validCoord(n) && heuristicGrid[n.y()][n.x()] == Integer.MAX_VALUE) {

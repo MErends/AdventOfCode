@@ -41,7 +41,7 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
         }
         valves = roomMap.values().stream()
                 .filter(r -> r.rate != 0)
-                .sorted((r1, r2) -> r2.rate - r1.rate)
+                .sorted((r1, r2) -> Integer.compare(r2.rate, r1.rate))
                 .toList();
         fillDistanceMap();
         State start = new State();

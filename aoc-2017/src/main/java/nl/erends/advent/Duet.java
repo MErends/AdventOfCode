@@ -127,7 +127,7 @@ class Duet {
             alive.set(activeID, false);
             activeID = activeID == 0 ? 1 : 0;
         } else {
-            long value = queues.get(activeID).poll();
+            long value = queues.get(activeID).remove();
             memoryBank.get(activeID).put(memory, value);
             addToPointer(1);
         }

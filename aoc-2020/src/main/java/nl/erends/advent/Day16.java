@@ -63,7 +63,7 @@ public class Day16 extends AbstractProblem<List<String>, Number> {
             index++;
         }
         String[] myticket = input.get(index + 1).split(",");
-        invalidIndex.stream().sorted((i1, i2) -> i2 - i1).mapToInt(i -> i).forEach(i -> input.remove(i));
+        invalidIndex.stream().sorted((i1, i2) -> Integer.compare(i2, i1)).mapToInt(i -> i).forEach(i -> input.remove(i));
         List<Integer> indices = IntStream.range(0, myticket.length).boxed().toList();
         criteria.forEach(c -> c.indices = new ArrayList<>(indices));
         for (index = ticketStart; index < input.size(); index++) {

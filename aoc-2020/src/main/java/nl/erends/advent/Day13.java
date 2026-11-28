@@ -43,7 +43,7 @@ public class Day13 extends AbstractProblem<List<String>, Number> {
                 busList.add(new Bus(Integer.parseInt(buses[offset]), offset));
             }
         }
-        busList.sort((b1, b2) -> b2.id - b1.id);
+        busList.sort((b1, b2) -> Integer.compare(b2.id, b1.id));
 
 
         Bus slowestBus = busList.removeFirst();

@@ -3,10 +3,7 @@ package nl.erends.advent;
 import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Day24 extends AbstractProblem<List<String>, Integer> {
     

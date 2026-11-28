@@ -60,7 +60,7 @@ public class Day08 extends AbstractProblem<List<String>, Long> {
             if (linkCount == targetLinks) {
                 answer1 = circuits.stream()
                         .map(Set::size)
-                        .sorted((i1, i2) -> i2 - i1)
+                        .sorted((i1, i2) -> Integer.compare(i2, i1))
                         .limit(3)
                         .reduce(1, (i1, i2) -> i1 * i2);
             }

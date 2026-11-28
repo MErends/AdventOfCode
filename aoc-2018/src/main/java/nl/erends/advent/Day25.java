@@ -3,7 +3,6 @@ package nl.erends.advent;
 import nl.erends.advent.util.AbstractProblem;
 import nl.erends.advent.util.Util;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -19,7 +18,7 @@ public class Day25 extends AbstractProblem<List<String>, Integer> {
         int constellations = 0;
         List<Star> stars = input.stream().map(Star::new).collect(Collectors.toList());
         while (!stars.isEmpty()) {
-            Collections.sort(stars);
+            stars.sort(null);
             Star currentStar = stars.removeFirst();
             if (currentStar.constellation == -1) {
                 currentStar.constellation = ++constellations;
@@ -59,7 +58,7 @@ public class Day25 extends AbstractProblem<List<String>, Integer> {
         
         @Override
         public int compareTo(Star other) {
-            return other.constellation - constellation;
+            return Integer.compare(other.constellation, constellation);
         }
 
         @Override
